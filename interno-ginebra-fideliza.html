@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interno · Ginebra Joyería · Equipo Fideliza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:       #2D52E8;
+  --blue-dark:  #1A3BC7;
+  --blue-card:  #1E40C9;
+  --blue-deep:  #0d2490;
+  --midnight:   #060e40;
+  --white:      #ffffff;
+  --lime:       #C4F062;
+  --coral:      #FF6B5A;
+  --sunset:     #FFB547;
+  --periwinkle: rgba(255,255,255,0.52);
+  --muted:      rgba(255,255,255,0.6);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--midnight);
+  color: var(--white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.bg-midnight { background: linear-gradient(160deg, #09104a 0%, #040828 100%); }
+.bg-dark     { background: linear-gradient(160deg, #1530a8 0%, #0b1e7a 100%); }
+.bg-deeper   { background: linear-gradient(160deg, #0d1f8e 0%, #070e52 100%); }
+.bg-coral    { background: linear-gradient(160deg, #c0382a 0%, #7a1508 100%); }
+
+.inner {
+  width: 100%;
+  max-width: 1100px;
+  padding: 5rem 0;
+}
+
+/* ── CONFIDENTIAL BANNER ── */
+.conf-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  background: var(--coral);
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 1rem;
+  color: #fff;
+}
+
+/* ── BADGE ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.08);
+  border-radius: 99px;
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--coral);
+  display: inline-block;
+}
+
+/* ── LOGO ── */
+.tn-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+.tn-logo-wordmark { height: 22px; width: auto; }
+
+/* ── HERO ── */
+.hero-title {
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.hero-title .lime { color: var(--lime); }
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+}
+.hero-stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.stat-card {
+  background: var(--blue-card);
+  border-radius: 14px;
+  padding: 1.1rem 1.4rem;
+  min-width: 160px;
+  flex: 1;
+}
+.stat-val {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--lime);
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.65);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── SECTION HEADER ── */
+.sec-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 0.6rem;
+}
+.sec-title {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.sec-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  max-width: 620px;
+}
+
+/* ── FEATURE TABLE ── */
+.feat-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+}
+.feat-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 1rem 0.5rem;
+  text-align: left;
+}
+.feat-table th:nth-child(1) { width: 30%; }
+.feat-table th:nth-child(2) { width: 35%; text-align: center; }
+.feat-table th:nth-child(3) { width: 35%; text-align: center; }
+
+.feat-table td {
+  background: rgba(255,255,255,0.06);
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  vertical-align: middle;
+}
+.feat-table tr td:first-child { border-radius: 10px 0 0 10px; font-weight: 600; }
+.feat-table tr td:last-child  { border-radius: 0 10px 10px 0; }
+.feat-table td:nth-child(2),
+.feat-table td:nth-child(3) { text-align: center; }
+
+.tag {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tag-yes    { background: rgba(196,240,98,0.18); color: var(--lime); }
+.tag-no     { background: rgba(255,107,90,0.18); color: var(--coral); }
+.tag-effort { background: rgba(255,181,71,0.18); color: var(--sunset); }
+.tag-native { background: rgba(196,240,98,0.28); color: #a5f029; border: 1px solid rgba(196,240,98,0.3); }
+
+/* ── ARGUMENT CARDS ── */
+.arg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.arg-card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.arg-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+.arg-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--lime);
+  margin-bottom: 0.4rem;
+}
+.arg-body {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.55;
+}
+.arg-body strong { color: var(--white); }
+
+/* ── OBJECTION CARDS ── */
+.obj-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.obj-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--coral);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 2rem;
+}
+.obj-q {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--coral);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+.obj-a-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--lime);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+.obj-text {
+  font-size: 0.87rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+/* ── NEXT STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.step-card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 1.3rem 1.4rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+}
+.step-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: rgba(196,240,98,0.25);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.step-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+.step-body {
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+/* ── DISCLAIMER CARD ── */
+.disclaimer {
+  background: rgba(255,107,90,0.12);
+  border: 1px solid rgba(255,107,90,0.35);
+  border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.disclaimer-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+/* ── NAV DOTS ── */
+.nav-dots {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.on { background: var(--lime); transform: scale(1.35); }
+
+/* ── REVEAL ── */
+.r { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.r.in { opacity: 1; transform: none; }
+.r.d1 { transition-delay: 0.1s; }
+.r.d2 { transition-delay: 0.2s; }
+.r.d3 { transition-delay: 0.3s; }
+.r.d4 { transition-delay: 0.4s; }
+.r.d5 { transition-delay: 0.5s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .obj-card { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; }
+  .feat-table { font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Confidential banner -->
+<div class="conf-banner">🔒 DOCUMENTO INTERNO · SOLO EQUIPO FIDELIZA · NO COMPARTIR CON EL CLIENTE</div>
+
+<!-- Nav dots -->
+<nav class="nav-dots">
+  <div class="dot on" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+  <div class="dot" data-i="2"></div>
+  <div class="dot" data-i="3"></div>
+  <div class="dot" data-i="4"></div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     SLIDE 1 · PORTADA
+══════════════════════════════════════ -->
+<section class="slide bg-midnight" style="padding-top:40px;">
+  <div class="inner">
+
+    <div class="r">
+      <!-- TN Wordmark -->
+      <div class="tn-logo">
+        <svg class="tn-logo-wordmark" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.4 8H2v5.8h5.7V32h5V13.8h5.7V8zM38.6 8v9.5c-1-1.6-2.8-2.5-5-2.5-4.3 0-7.4 3.3-7.4 8.8s3.1 8.7 7.4 8.7c2.3 0 4.1-1 5.1-2.7V32h4.6V8h-4.7zm-4 20.6c-2.3 0-3.8-1.8-3.8-4.8s1.5-4.9 3.8-4.9 3.8 1.8 3.8 4.9-1.5 4.8-3.8 4.8zM57 15c-5.2 0-8.9 3.5-8.9 8.8s3.7 8.7 9 8.7c3.3 0 5.9-1.2 7.4-3.4l-3.5-2.3c-.8 1.2-2.1 1.9-3.8 1.9-2.2 0-3.8-1.2-4.3-3.3h12.2c.1-.5.1-1 .1-1.5C65.2 18.4 61.9 15 57 15zm-4 7c.5-2 1.9-3.2 3.9-3.2 2.1 0 3.4 1.2 3.7 3.2H53zM79.5 15c-2.2 0-4 .9-5.1 2.6V15.3H70V32h4.6v-9c0-2.7 1.5-4.2 3.8-4.2 2.1 0 3.3 1.3 3.3 3.7V32h4.6V21.7c0-4.2-2.6-6.7-6.8-6.7zM97.2 8h-5v5.8h-2.7v4.4h2.7v8.3c0 4 2.2 5.8 6.5 5.8 1.2 0 2.3-.2 3.2-.5v-4.3c-.6.2-1.2.3-1.9.3-1.3 0-1.8-.6-1.8-1.9v-7.7h3.7v-4.4h-3.7V8zM115.9 15c-5.2 0-8.9 3.5-8.9 8.8s3.7 8.7 9 8.7c3.3 0 5.9-1.2 7.4-3.4l-3.5-2.3c-.8 1.2-2.1 1.9-3.8 1.9-2.2 0-3.8-1.2-4.3-3.3H124c.1-.5.1-1 .1-1.5-.1-5.5-3.4-8.9-8.2-8.9zm-4 7c.5-2 1.9-3.2 3.9-3.2 2.1 0 3.4 1.2 3.7 3.2H111.9zM140.9 15c-2.3 0-4.1 1-5.1 2.7V8h-4.6v24h4.6v-2.5c1 1.7 2.8 2.7 5.1 2.7 4.3 0 7.4-3.3 7.4-8.7 0-5.6-3.1-8.5-7.4-8.5zm-.9 13.6c-2.3 0-3.8-1.8-3.8-4.8s1.5-4.9 3.8-4.9 3.8 1.8 3.8 4.9-1.5 4.8-3.8 4.8z" fill="white"/>
+        </svg>
+        <span style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.04em;">PARTNERSHIPS MX</span>
+      </div>
+    </div>
+
+    <div class="r d1">
+      <div class="badge"><span class="badge-dot"></span> Uso interno · Equipo Fideliza</div>
+    </div>
+
+    <h1 class="hero-title r d2">
+      Análisis de stack<br>
+      <span class="lime">Ginebra Joyería</span>
+    </h1>
+    <p class="hero-sub r d3">
+      Lo que detectamos en ginebrajoyeria.mx, qué se puede migrar a Tiendanube, qué requiere esfuerzo y qué es exclusivo de Shopify. Armado para que el equipo llegue preparado a la conversación.
+    </p>
+
+    <div class="hero-stats r d4">
+      <div class="stat-card">
+        <div class="stat-val">~20K</div>
+        <div class="stat-label">Visitas orgánicas/mes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">~$400K</div>
+        <div class="stat-label">GMV estimado MXN [est.]</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">Shopify</div>
+        <div class="stat-label">Palo Alto Theme v8.0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0</div>
+        <div class="stat-label">MSI activos detectados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 2 · TABLA DE FEATURES
+══════════════════════════════════════ -->
+<section class="slide bg-dark" style="padding-top:40px;">
+  <div class="inner">
+    <div class="r"><div class="sec-label">Análisis técnico</div></div>
+    <h2 class="sec-title r d1">Feature por feature</h2>
+    <p class="sec-sub r d2">Qué tiene Ginebra hoy y cómo se mapea a Tiendanube.</p>
+
+    <div class="r d3" style="overflow-x:auto;">
+      <table class="feat-table">
+        <thead>
+          <tr>
+            <th>Feature detectada</th>
+            <th>En Tiendanube</th>
+            <th>En Shopify</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Video hero con autoplay</td>
+            <td><span class="tag tag-yes">✓ Sí</span></td>
+            <td><span class="tag tag-yes">✓ Sí</span></td>
+          </tr>
+          <tr>
+            <td>Grid de colecciones 2 col</td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+          </tr>
+          <tr>
+            <td>Hover image swap en producto</td>
+            <td><span class="tag tag-yes">✓ Temas TN</span></td>
+            <td><span class="tag tag-yes">✓ Palo Alto</span></td>
+          </tr>
+          <tr>
+            <td>Color swatches en catálogo</td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+          </tr>
+          <tr>
+            <td>Shop the Look (hotspots)</td>
+            <td><span class="tag tag-effort">⚡ Con agencia</span></td>
+            <td><span class="tag tag-yes">✓ Palo Alto</span></td>
+          </tr>
+          <tr>
+            <td>Cart drawer + upsells</td>
+            <td><span class="tag tag-effort">⚡ Con agencia</span></td>
+            <td><span class="tag tag-yes">✓ Palo Alto</span></td>
+          </tr>
+          <tr>
+            <td>Instagram feed (nfcube)</td>
+            <td><span class="tag tag-yes">✓ App equiv.</span></td>
+            <td><span class="tag tag-yes">✓ App</span></td>
+          </tr>
+          <tr>
+            <td>MSI 3/6/9/12/18/24 meses</td>
+            <td><span class="tag tag-native">★ Nativo TN</span></td>
+            <td><span class="tag tag-effort">⚡ App externa</span></td>
+          </tr>
+          <tr>
+            <td>Punto de venta (tienda física)</td>
+            <td><span class="tag tag-native">★ PDV incluido</span></td>
+            <td><span class="tag tag-effort">⚡ POS de pago</span></td>
+          </tr>
+          <tr>
+            <td>TikTok Pixel + GA4</td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+          </tr>
+          <tr>
+            <td>Facebook/IG Shopping</td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+          </tr>
+          <tr>
+            <td>Multi-currency (22 países)</td>
+            <td><span class="tag tag-no">✗ No nativo</span></td>
+            <td><span class="tag tag-yes">✓ Shopify Markets</span></td>
+          </tr>
+          <tr>
+            <td>Shop Pay button</td>
+            <td><span class="tag tag-no">✗ Exclusivo SP</span></td>
+            <td><span class="tag tag-yes">✓ Exclusivo</span></td>
+          </tr>
+          <tr>
+            <td>Apple Pay / Google Pay</td>
+            <td><span class="tag tag-yes">✓ Pago Nube</span></td>
+            <td><span class="tag tag-yes">✓ Nativo</span></td>
+          </tr>
+          <tr>
+            <td>Animaciones AOS / reveal</td>
+            <td><span class="tag tag-yes">✓ JS custom</span></td>
+            <td><span class="tag tag-yes">✓ Tema</span></td>
+          </tr>
+          <tr>
+            <td>Facturación en MXN</td>
+            <td><span class="tag tag-native">★ Siempre MXN</span></td>
+            <td><span class="tag tag-no">✗ USD → FX risk</span></td>
+          </tr>
+          <tr>
+            <td>Soporte local WhatsApp SLA</td>
+            <td><span class="tag tag-native">★ 15 min SLA</span></td>
+            <td><span class="tag tag-no">✗ Solo ticket</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 3 · ARGUMENTOS DE VENTA
+══════════════════════════════════════ -->
+<section class="slide bg-deeper" style="padding-top:40px;">
+  <div class="inner">
+    <div class="r"><div class="sec-label">Cómo venderlo</div></div>
+    <h2 class="sec-title r d1">Los argumentos que funcionan</h2>
+    <p class="sec-sub r d2">Úsalos en el orden que aparecen. Enseña primero, luego propone.</p>
+
+    <div class="arg-grid r d3">
+      <div class="arg-card">
+        <div class="arg-icon">💸</div>
+        <div class="arg-title">MSI = el leak invisible</div>
+        <div class="arg-body">Ginebra vende joyería. Ticket promedio estimado <strong>$2,000-$5,000 MXN</strong>. Sin MSI activo, están perdiendo entre <strong>8-15% de conversión</strong> en cada ticket alto. Sobre $400K GMV eso es <strong>$32K-$60K/mes</strong> que se queda en el carrito. Tiendanube tiene MSI nativo con Pago Nube y Kueski.</div>
+      </div>
+      <div class="arg-card">
+        <div class="arg-icon">💱</div>
+        <div class="arg-title">Facturación en USD</div>
+        <div class="arg-body">Shopify cobra en USD. Ginebra vende en MXN. Cada mes que el tipo de cambio sube, su costo de plataforma sube. <strong>Tiendanube factura en MXN, siempre</strong>. Para un CFO o fundador que cuida el margen, esto es argumento solo.</div>
+      </div>
+      <div class="arg-card">
+        <div class="arg-icon">🏪</div>
+        <div class="arg-title">PDV incluido, sin extra</div>
+        <div class="arg-body">Tienen tienda física en Av. Providencia 2411, Guadalajara. <strong>Shopify POS cuesta extra</strong>. El PDV Nube está incluido en el plan Avanzado/Evolución sin cargo adicional. Sincronización inventario online-offline nativa.</div>
+      </div>
+      <div class="arg-card">
+        <div class="arg-icon">🛠️</div>
+        <div class="arg-title">Stack de apps = overhead</div>
+        <div class="arg-body">Detectamos: Instagram feed app (~$15 USD/mes), herramientas de email, analytics externos. Varios de estos tienen <strong>equivalente nativo en TN</strong>. El stack de Shopify se infla con cada feature que agregan. TN consolida.</div>
+      </div>
+      <div class="arg-card">
+        <div class="arg-icon">🎧</div>
+        <div class="arg-title">Soporte que responde</div>
+        <div class="arg-body">Shopify soporte en inglés, por ticket, sin SLA garantizado en MX. Tiendanube plan Avanzado/Evolución: <strong>SLA 15 minutos via WhatsApp en español</strong>. Para una marca que vende joyería premium, el uptime y la atención importan.</div>
+      </div>
+      <div class="arg-card">
+        <div class="arg-icon">🌎</div>
+        <div class="arg-title">Sé honesto con lo internacional</div>
+        <div class="arg-body">Shopify Markets (multi-currency 22 países) es una ventaja real <strong>si Ginebra vende fuera de LATAM</strong>. Confirma el % de tráfico internacional antes de la reunión. Si es 80%+ MX → el encaje con TN es sólido y este punto no aplica.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 4 · OBJECIONES FRECUENTES
+══════════════════════════════════════ -->
+<section class="slide bg-midnight" style="padding-top:40px;">
+  <div class="inner">
+    <div class="r"><div class="sec-label">Preparación de objeciones</div></div>
+    <h2 class="sec-title r d1">Qué van a decir y cómo responder</h2>
+    <p class="sec-sub r d2">No defiendas. Reframea con datos.</p>
+
+    <div class="obj-list r d3">
+      <div class="obj-card">
+        <div>
+          <div class="obj-q">🚧 Objeción</div>
+          <div class="obj-text">"Shopify tiene más apps y más temas que Tiendanube"</div>
+        </div>
+        <div>
+          <div class="obj-a-label">✅ Reframe</div>
+          <div class="obj-text">"Más apps significa más costo y más puntos de fallo. Tiendanube tiene +1,700 integraciones y cubre el 90% del stack de joyería en MX de forma nativa. ¿Qué app específica te preocupa no tener?"</div>
+        </div>
+      </div>
+      <div class="obj-card">
+        <div>
+          <div class="obj-q">🚧 Objeción</div>
+          <div class="obj-text">"Ya invertimos mucho en el diseño del tema Palo Alto"</div>
+        </div>
+        <div>
+          <div class="obj-a-label">✅ Reframe</div>
+          <div class="obj-text">"Entendemos. Por eso el 'costo de migración' no es solo el diseño — es también el costo mensual de seguir donde están. Con $32K-$60K en conversión perdida por falta de MSI, ¿cuánto tiempo tardan en recuperar la inversión de migración?"</div>
+        </div>
+      </div>
+      <div class="obj-card">
+        <div>
+          <div class="obj-q">🚧 Objeción</div>
+          <div class="obj-text">"Tiendanube es para negocios pequeños, nosotros somos mid market"</div>
+        </div>
+        <div>
+          <div class="obj-a-label">✅ Reframe</div>
+          <div class="obj-text">"Billabong, Saucony, Citizen, Olaplex, Wrangler — todos están en Tiendanube. +160K marcas en LATAM. El plan Evolución está diseñado específicamente para operaciones como la tuya con AE dedicado y SLA premium."</div>
+        </div>
+      </div>
+      <div class="obj-card">
+        <div>
+          <div class="obj-q">🚧 Objeción</div>
+          <div class="obj-text">"¿Y el Shop Pay? Nosotros lo usamos y convierte bien"</div>
+        </div>
+        <div>
+          <div class="obj-a-label">✅ Reframe</div>
+          <div class="obj-text">"Shop Pay convierte bien globalmente. En México, la penetración es menor que en EU. Pago Nube + Kueski Pay + MSI nativo está diseñado específicamente para el comportamiento de compra del consumidor mexicano. ¿Sabes qué % de tus ventas cierran con Shop Pay vs Mercado Pago o tarjeta tradicional?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SLIDE 5 · PRÓXIMOS PASOS
+══════════════════════════════════════ -->
+<section class="slide bg-dark" style="padding-top:40px;">
+  <div class="inner">
+
+    <div class="disclaimer r">
+      <span class="disclaimer-icon">🔒</span>
+      <span>Este documento es <strong>exclusivo del equipo interno de Tiendanube</strong>. No debe compartirse con Ginebra ni con ningún contacto externo. Contiene hipótesis y estrategia de ventas confidencial.</span>
+    </div>
+
+    <div class="r d1"><div class="sec-label">Plan de acción</div></div>
+    <h2 class="sec-title r d2">Próximos pasos antes de la reunión</h2>
+    <p class="sec-sub r d3">Confirma estos datos y llegas con insight, no con features.</p>
+
+    <div class="steps-grid r d4">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Confirmar tráfico internacional</div>
+        <div class="step-body">Pide a la agencia que revise en GA4 el % de sesiones MX vs resto. Si es 80%+ MX → encaje fuerte con TN. Si hay mucho tráfico EU/US → hablar con honestidad sobre Shopify Markets.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Confirmar GMV real</div>
+        <div class="step-body">$400K es estimación basada en tráfico + CVR + ticket. Pide una orden de magnitud a la agencia antes de la reunión: "¿están arriba o abajo de $400K mensuales?" No necesitas el número exacto.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Preguntar por MSI activo</div>
+        <div class="step-body">En la reunión: "¿Hoy ofrecen meses sin intereses? ¿Cuántos de sus clientes les han pedido 6 o 12 MSI?" Si la respuesta es "no tenemos" o "usamos una app" → entra con el MSI nativo de TN.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Identificar quién hizo el tema</div>
+        <div class="step-body">¿La misma agencia que presenta la migración hizo el diseño actual? Si sí → tienen interés en re-hacer el trabajo. Si no → puede haber resistencia a migrar. Entender la dinámica antes de entrar.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Abrir con el insight del MSI</div>
+        <div class="step-body">"Antes de hablar de plataforma, quiero mostrarte algo que encontramos en tu checkout actual. ¿Podemos ver juntos cuánto puede estar costándote no tener MSI activo en tu ticket promedio?"</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div class="step-title">Plan recomendado: Evolución</div>
+        <div class="step-body">GMV ~$400K → Plan Evolución ($3,999/mes, solo invitación). Implementación se cotiza por separado. Mencionar que con el modelo de comisión de la agencia, el costo de migración puede amortizarse en los primeros 90 días.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.slide');
+  var dots   = document.querySelectorAll('.dot');
+  // CRÍTICO: forzar visible el primer slide inmediatamente
+  slides[0].querySelectorAll('.r').forEach(function(el){ el.classList.add('in'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting){ return; }
+      var i = Array.prototype.indexOf.call(slides, e.target);
+      dots.forEach(function(d,j){ d.classList.toggle('on', i===j); });
+      e.target.querySelectorAll('.r').forEach(function(el){ el.classList.add('in'); });
+    });
+  }, { threshold: 0.25 });
+  slides.forEach(function(s){ io.observe(s); });
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      slides[parseInt(d.getAttribute('data-i'),10)].scrollIntoView({behavior:'smooth'});
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
