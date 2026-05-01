@@ -7,154 +7,163 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --blue:#2D52E8; --blue-dark:#1A3BC7; --blue-card:#1E40C9;
-  --midnight:#060e40; --white:#ffffff; --lime:#C4F062;
-  --coral:#FF6B5A; --sunset:#FFB547; --periwinkle:rgba(255,255,255,0.52);
-  --muted:rgba(255,255,255,0.6); --ease:cubic-bezier(0.4,0,0.2,1);
-  --bounce:cubic-bezier(0.34,1.56,0.64,1);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#2D52E8;--blue-card:#1E40C9;--midnight:#060e40;
+  --white:#fff;--lime:#C4F062;--coral:#FF6B5A;--sunset:#FFB547;
+  --periwinkle:rgba(255,255,255,0.52);--muted:rgba(255,255,255,0.6);
+  --ease:cubic-bezier(0.4,0,0.2,1);--bounce:cubic-bezier(0.34,1.56,0.64,1);
 }
-html { scroll-snap-type:y mandatory; overflow-y:scroll; scroll-behavior:smooth; }
-body { font-family:'DM Sans',-apple-system,sans-serif; background:var(--blue); color:var(--white); -webkit-font-smoothing:antialiased; }
+html{scroll-snap-type:y mandatory;overflow-y:scroll;scroll-behavior:smooth;}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--blue);color:var(--white);-webkit-font-smoothing:antialiased;}
 
-.slide { min-height:100vh; scroll-snap-align:start; scroll-snap-stop:always; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:0 2rem; position:relative; }
-.bg-blue    { background:var(--blue); }
-.bg-dark    { background:linear-gradient(160deg,#1530a8 0%,#0b1e7a 100%); }
-.bg-deeper  { background:linear-gradient(160deg,#0d1f8e 0%,#070e52 100%); }
-.bg-midnight{ background:linear-gradient(160deg,#09104a 0%,#040828 100%); }
-.inner { width:100%; max-width:1060px; padding:4rem 0; }
+/* SLIDES */
+.slide{min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 1.5rem;position:relative;}
+.bg-blue   {background:var(--blue);}
+.bg-dark   {background:linear-gradient(160deg,#1530a8 0%,#0b1e7a 100%);}
+.bg-deeper {background:linear-gradient(160deg,#0d1f8e 0%,#070e52 100%);}
+.bg-midnight{background:linear-gradient(160deg,#09104a 0%,#040828 100%);}
+.inner{width:100%;max-width:1060px;padding:3.5rem 0;}
 
-/* LOGO */
-.tn-logo { display:flex; align-items:center; justify-content:center; margin-bottom:2rem; }
+/* TYPE */
+.eyebrow{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.38);margin-bottom:0.8rem;}
+.badge{display:inline-flex;align-items:center;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.13em;border:1px solid rgba(255,255,255,0.3);border-radius:999px;padding:0.4rem 1rem;margin-bottom:1.4rem;background:rgba(255,255,255,0.08);}
+.hero-title{font-size:clamp(2.4rem,5vw,4.8rem);font-weight:800;line-height:1.0;margin-bottom:1.1rem;letter-spacing:-0.02em;}
+.hero-title .it{font-weight:400;font-style:italic;color:var(--periwinkle);}
+.hero-sub{font-size:clamp(0.85rem,1.3vw,1rem);color:var(--muted);line-height:1.65;margin-bottom:2.25rem;max-width:580px;}
+h2{font-size:clamp(1.7rem,3.3vw,2.9rem);font-weight:800;line-height:1.08;letter-spacing:-0.02em;margin-bottom:0.7rem;}
+h2 .hl{color:var(--lime);}
+h2 .hi{font-style:italic;font-weight:400;color:rgba(255,255,255,0.5);}
+.section-sub{font-size:0.86rem;color:rgba(255,255,255,0.5);line-height:1.6;max-width:500px;margin-bottom:1.6rem;}
 
-/* BADGE */
-.badge { display:inline-flex; align-items:center; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.13em; color:var(--white); border:1px solid rgba(255,255,255,0.35); border-radius:999px; padding:0.45rem 1.1rem; margin-bottom:1.5rem; background:rgba(255,255,255,0.08); }
+/* STATS */
+.stats-row{display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;}
+.stat{background:var(--blue-card);border-radius:14px;padding:1rem 1.3rem;min-width:145px;flex:1;max-width:200px;transition:transform .3s var(--bounce);}
+.stat:hover{transform:translateY(-4px);}
+.stat-val{font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:800;color:var(--lime);line-height:1;margin-bottom:.25rem;letter-spacing:-0.02em;}
+.stat-lbl{font-size:0.7rem;color:rgba(255,255,255,0.62);font-weight:500;}
 
-/* TIPO */
-.hero-title { font-size:clamp(2.6rem,5.5vw,5rem); font-weight:800; line-height:1.0; margin-bottom:1.2rem; letter-spacing:-0.02em; }
-.hero-title .italic { font-weight:400; font-style:italic; color:var(--periwinkle); }
-.hero-sub { font-size:clamp(0.88rem,1.3vw,1rem); color:var(--muted); line-height:1.65; margin-bottom:2.5rem; max-width:580px; }
-h2 { font-size:clamp(1.8rem,3.5vw,3rem); font-weight:800; line-height:1.08; letter-spacing:-0.02em; margin-bottom:0.75rem; }
-h2 .hl { color:var(--lime); }
-h2 .hi { font-style:italic; font-weight:400; color:rgba(255,255,255,0.55); }
-.eyebrow { font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; color:rgba(255,255,255,0.4); margin-bottom:0.9rem; }
-.section-sub { font-size:0.88rem; color:rgba(255,255,255,0.52); line-height:1.6; max-width:520px; margin-bottom:1.75rem; }
-
-/* STAT CARDS */
-.stats-row { display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; }
-.stat { background:var(--blue-card); border-radius:14px; padding:1rem 1.4rem; min-width:150px; flex:1; max-width:200px; transition:transform 0.3s var(--bounce); }
-.stat:hover { transform:translateY(-4px); }
-.stat-val { font-size:clamp(1.4rem,2.8vw,2rem); font-weight:800; color:var(--lime); line-height:1; margin-bottom:0.3rem; letter-spacing:-0.02em; }
-.stat-lbl { font-size:0.72rem; color:rgba(255,255,255,0.65); font-weight:500; }
-
-/* STACK GRID */
-.stack-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.75rem; margin-top:1.25rem; }
-.stack-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:1rem 1.2rem; display:flex; align-items:flex-start; gap:0.7rem; }
-.stack-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; margin-top:5px; }
-.dot-red    { background:#FF6B5A; box-shadow:0 0 6px rgba(255,107,90,0.5); }
-.dot-orange { background:#FFB547; box-shadow:0 0 6px rgba(255,181,71,0.4); }
-.dot-green  { background:#C4F062; box-shadow:0 0 6px rgba(196,240,98,0.4); }
-.stack-name { font-size:0.86rem; font-weight:700; color:var(--white); margin-bottom:0.15rem; }
-.stack-tag  { font-size:0.7rem; color:rgba(255,255,255,0.45); line-height:1.4; }
+/* STACK */
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0.65rem;margin-top:1.2rem;}
+.stack-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.09);border-radius:13px;padding:.95rem 1.1rem;display:flex;align-items:flex-start;gap:.65rem;}
+.sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.dr{background:#FF6B5A;box-shadow:0 0 6px rgba(255,107,90,.5);}
+.do{background:#FFB547;box-shadow:0 0 6px rgba(255,181,71,.4);}
+.dg{background:#C4F062;box-shadow:0 0 6px rgba(196,240,98,.4);}
+.sname{font-size:0.84rem;font-weight:700;margin-bottom:.12rem;}
+.stag{font-size:0.68rem;color:rgba(255,255,255,.42);line-height:1.4;}
 
 /* BAR CHART */
-.bar-chart { display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; }
-.bar-row { display:flex; flex-direction:column; gap:0.4rem; }
-.bar-top { display:flex; justify-content:space-between; align-items:baseline; }
-.bar-name { font-size:0.82rem; color:rgba(255,255,255,0.8); font-weight:500; }
-.bar-amount { font-size:0.78rem; color:var(--lime); font-weight:700; }
-.bar-track { height:10px; background:rgba(255,255,255,0.1); border-radius:999px; overflow:hidden; }
-.bar-fill { height:100%; border-radius:999px; width:0; transition:width 1.3s var(--ease); }
-.bf-coral  { background:linear-gradient(90deg,#FF6B5A,#ff9183); }
-.bf-sunset { background:linear-gradient(90deg,#FFB547,#ffd080); }
-.bf-purple { background:linear-gradient(90deg,#7c6eff,#a89eff); }
-.bf-blue   { background:linear-gradient(90deg,#4a7eff,#7eaeff); }
-.bf-lime   { background:linear-gradient(90deg,#C4F062,#d9f593); }
-.bar-divider { border-top:1px solid rgba(255,255,255,0.12); padding-top:1rem; margin-top:0.25rem; }
-.bar-track.thick { height:14px; }
+.bar-chart{display:flex;flex-direction:column;gap:.9rem;margin-top:1.4rem;}
+.bar-row{display:flex;flex-direction:column;gap:.35rem;}
+.bar-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.25rem;}
+.bname{font-size:.8rem;color:rgba(255,255,255,.78);font-weight:500;}
+.bamount{font-size:.75rem;color:var(--lime);font-weight:700;white-space:nowrap;}
+.bar-track{height:10px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:999px;width:0;transition:width 1.3s var(--ease);}
+.bf-c{background:linear-gradient(90deg,#FF6B5A,#ff8f81);}
+.bf-s{background:linear-gradient(90deg,#FFB547,#ffc96e);}
+.bf-p{background:linear-gradient(90deg,#7c6eff,#a89eff);}
+.bf-b{background:linear-gradient(90deg,#4a7eff,#7eaeff);}
+.bf-l{background:linear-gradient(90deg,#C4F062,#d8f08a);}
+.bar-divider{border-top:1px solid rgba(255,255,255,.12);padding-top:.9rem;margin-top:.2rem;}
+.bar-track.thick{height:13px;}
 
-/* COMPARISON TABLE */
-.comp-wrap { overflow-x:auto; margin-top:1.5rem; }
-.comp-table { width:100%; border-collapse:separate; border-spacing:0 0.45rem; min-width:560px; }
-.comp-table th { font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:rgba(255,255,255,0.38); padding:0 1rem 0.5rem; text-align:left; }
-.comp-table th.tn-col { color:var(--lime); }
-.comp-table td { padding:0.7rem 1rem; font-size:0.86rem; vertical-align:middle; }
-.comp-table td:first-child  { color:rgba(255,255,255,0.55); font-size:0.78rem; background:rgba(255,255,255,0.04); border-radius:10px 0 0 10px; }
-.comp-table td:nth-child(2) { background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.65); }
-.comp-table td:last-child    { background:rgba(196,240,98,0.1); color:var(--lime); font-weight:700; border-radius:0 10px 10px 0; }
-.pct { display:inline-flex; align-items:center; background:var(--lime); color:#0a0e2a; font-size:0.6rem; font-weight:800; border-radius:999px; padding:0.18rem 0.55rem; margin-left:0.4rem; vertical-align:middle; letter-spacing:0.04em; }
-.pct-coral { background:var(--coral); color:#fff; }
+/* COMP TABLE */
+.comp-wrap{overflow-x:auto;margin-top:1.4rem;}
+.comp-table{width:100%;border-collapse:separate;border-spacing:0 .4rem;min-width:540px;}
+.comp-table th{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:rgba(255,255,255,.35);padding:0 .9rem .45rem;text-align:left;}
+.comp-table th.tn{color:var(--lime);}
+.comp-table td{padding:.65rem .9rem;font-size:.83rem;vertical-align:middle;}
+.comp-table td:first-child{color:rgba(255,255,255,.52);font-size:.76rem;background:rgba(255,255,255,.04);border-radius:9px 0 0 9px;}
+.comp-table td:nth-child(2){background:rgba(255,255,255,.04);color:rgba(255,255,255,.62);}
+.comp-table td:last-child{background:rgba(196,240,98,.1);color:var(--lime);font-weight:700;border-radius:0 9px 9px 0;}
+.pct{display:inline-flex;align-items:center;background:var(--lime);color:#0a0e2a;font-size:.58rem;font-weight:800;border-radius:999px;padding:.15rem .5rem;margin-left:.35rem;vertical-align:middle;}
+
+/* CALCULADORA */
+.calc-wrap{margin-top:1.5rem;}
+.calc-gmv-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;}
+.calc-gmv-text{font-size:.78rem;color:rgba(255,255,255,.5);font-weight:500;}
+.calc-gmv-value{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--lime);letter-spacing:-0.02em;}
+.calc-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:rgba(255,255,255,.12);outline:none;cursor:pointer;--prog:60%;}
+.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--lime);cursor:pointer;box-shadow:0 2px 10px rgba(196,240,98,.45);transition:transform .15s;}
+.calc-slider::-webkit-slider-thumb:hover{transform:scale(1.15);}
+.calc-slider::-moz-range-thumb{width:24px;height:24px;border:none;border-radius:50%;background:var(--lime);cursor:pointer;}
+.calc-range-labels{display:flex;justify-content:space-between;font-size:.66rem;color:rgba(255,255,255,.28);margin-top:.4rem;margin-bottom:1.5rem;}
+.calc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.7rem;}
+.calc-card{border-radius:14px;padding:1.1rem 1.2rem;}
+.cc-shopify{background:rgba(255,107,90,.12);border:1px solid rgba(255,107,90,.25);}
+.cc-apps{background:rgba(255,181,71,.1);border:1px solid rgba(255,181,71,.2);}
+.cc-save{background:rgba(196,240,98,.12);border:1px solid rgba(196,240,98,.35);}
+.cc-year{background:rgba(196,240,98,.18);border:1px solid rgba(196,240,98,.5);}
+.cc-label{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem;}
+.cc-shopify .cc-label{color:rgba(255,107,90,.85);}
+.cc-apps .cc-label{color:rgba(255,181,71,.85);}
+.cc-save .cc-label,.cc-year .cc-label{color:rgba(196,240,98,.85);}
+.cc-val{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;line-height:1;letter-spacing:-0.02em;}
+.cc-shopify .cc-val,.cc-apps .cc-val{color:rgba(255,255,255,.82);}
+.cc-save .cc-val{color:var(--lime);}
+.cc-year .cc-val{color:var(--lime);font-size:clamp(1.5rem,3vw,2.1rem);}
+.cc-sub{font-size:.68rem;margin-top:.25rem;}
+.cc-shopify .cc-sub,.cc-apps .cc-sub{color:rgba(255,255,255,.38);}
+.cc-save .cc-sub,.cc-year .cc-sub{color:rgba(196,240,98,.6);}
+.calc-note{font-size:.68rem;color:rgba(255,255,255,.28);margin-top:1rem;line-height:1.5;}
 
 /* DONUTS */
-.donut-section { display:flex; gap:2.5rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; align-items:flex-start; }
-.donut-block { display:flex; flex-direction:column; align-items:center; gap:1rem; }
-.donut-svg-wrap { position:relative; width:176px; height:176px; }
-.donut-center { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none; }
-.donut-big   { font-size:2.1rem; font-weight:800; line-height:1; }
-.donut-micro { font-size:0.65rem; color:rgba(255,255,255,0.55); margin-top:0.2rem; font-weight:500; }
-.donut-label { font-size:0.88rem; font-weight:700; text-align:center; }
-.donut-legend { display:flex; flex-direction:column; gap:0.35rem; }
-.leg-item { display:flex; align-items:center; gap:0.45rem; font-size:0.72rem; color:rgba(255,255,255,0.65); }
-.leg-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-.donut-ring { transform-origin:88px 88px; transform:rotate(-90deg); transition:stroke-dashoffset 1.4s var(--ease); }
+.donut-row{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;align-items:flex-start;}
+.donut-block{display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+.donut-wrap{position:relative;}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.donut-big{font-size:2rem;font-weight:800;line-height:1;}
+.donut-micro{font-size:.62rem;color:rgba(255,255,255,.5);margin-top:.15rem;}
+.donut-lbl{font-size:.85rem;font-weight:700;text-align:center;}
+.donut-legend{display:flex;flex-direction:column;gap:.3rem;}
+.leg{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:rgba(255,255,255,.6);}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.donut-ring{transform-origin:88px 88px;transform:rotate(-90deg);}
 
 /* PLAN CARDS */
-.plan-row { display:flex; gap:1.25rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; }
-.plan-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:1.75rem; flex:1; max-width:360px; min-width:270px; }
-.plan-card.hero { background:rgba(196,240,98,0.1); border-color:rgba(196,240,98,0.45); }
-.plan-tag { font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.13em; color:rgba(255,255,255,0.4); margin-bottom:0.4rem; }
-.plan-tag.lime { color:var(--lime); }
-.plan-price { font-size:clamp(2rem,4vw,2.8rem); font-weight:800; line-height:1; }
-.plan-price.lime { color:var(--lime); }
-.plan-curr { font-size:0.82rem; color:rgba(255,255,255,0.5); margin-bottom:1.25rem; margin-top:0.2rem; }
-.plan-name { font-size:1rem; font-weight:800; margin-bottom:1.1rem; }
-.plan-items { display:flex; flex-direction:column; gap:0.5rem; }
-.plan-item { display:flex; align-items:flex-start; gap:0.5rem; font-size:0.82rem; color:rgba(255,255,255,0.75); }
-.check { color:var(--lime); font-weight:800; flex-shrink:0; margin-top:1px; }
-.cross { color:var(--coral); flex-shrink:0; margin-top:1px; }
-.plan-cta { background:var(--lime); color:#0a0e2a; border-radius:10px; padding:0.75rem 1rem; font-size:0.85rem; font-weight:800; text-align:center; margin-top:1.5rem; letter-spacing:-0.01em; }
-
-/* SAVINGS TICKER */
-.savings-ticker { text-align:center; margin-top:1.75rem; background:rgba(196,240,98,0.08); border:1px solid rgba(196,240,98,0.25); border-radius:14px; padding:1rem 1.5rem; }
-.savings-big { font-size:clamp(1.6rem,3vw,2.2rem); font-weight:800; color:var(--lime); }
-.savings-sub { font-size:0.8rem; color:rgba(255,255,255,0.55); margin-top:0.2rem; }
-
-/* REVEALS */
-.r { opacity:0; transform:translateY(22px); transition:opacity 0.65s var(--ease), transform 0.65s var(--ease); }
-.r.d1 { transition-delay:0.08s; }
-.r.d2 { transition-delay:0.16s; }
-.r.d3 { transition-delay:0.24s; }
-.r.d4 { transition-delay:0.32s; }
-.r.d5 { transition-delay:0.40s; }
-.r.in { opacity:1; transform:translateY(0); }
-
-/* NAV DOTS */
-.nav-dots { position:fixed; right:1.5rem; top:50%; transform:translateY(-50%); z-index:100; display:flex; flex-direction:column; gap:0.55rem; }
-.dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.28); cursor:pointer; transition:all 0.3s; }
-.dot.on { background:var(--white); transform:scale(1.5); }
+.plan-row{display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap;margin-top:1.4rem;}
+.plan-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);border-radius:17px;padding:1.6rem;flex:1;max-width:355px;min-width:265px;}
+.plan-card.hero{background:rgba(196,240,98,.1);border-color:rgba(196,240,98,.4);}
+.plan-tag{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-bottom:.35rem;}
+.plan-tag.lime{color:var(--lime);}
+.plan-price{font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:800;line-height:1;}
+.plan-price.lime{color:var(--lime);}
+.plan-curr{font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:1.1rem;margin-top:.18rem;}
+.plan-name{font-size:.95rem;font-weight:800;margin-bottom:1rem;}
+.plan-items{display:flex;flex-direction:column;gap:.45rem;}
+.pi{display:flex;align-items:flex-start;gap:.45rem;font-size:.8rem;color:rgba(255,255,255,.72);}
+.ck{color:var(--lime);font-weight:800;flex-shrink:0;}
+.cx{color:var(--coral);flex-shrink:0;}
+.plan-cta{background:var(--lime);color:#0a0e2a;border-radius:9px;padding:.7rem 1rem;font-size:.82rem;font-weight:800;text-align:center;margin-top:1.4rem;letter-spacing:-0.01em;}
 
 /* LEGEND ROW */
-.legend-row { display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:1rem; font-size:0.75rem; color:rgba(255,255,255,0.45); }
-.legend-row span { display:flex; align-items:center; gap:0.4rem; }
+.leg-row{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:.9rem;font-size:.72rem;color:rgba(255,255,255,.4);}
 
-/* MOBILE */
-@media (max-width:640px) {
-  .inner { padding:3rem 0; }
-  .stats-row { gap:0.5rem; }
-  .stat { min-width:130px; padding:0.85rem 1rem; }
-  .donut-section { gap:1.5rem; }
-  .donut-svg-wrap { width:140px; height:140px; }
-  .donut-ring { transform-origin:70px 70px; }
-  .donut-big { font-size:1.65rem; }
-  .comp-table td, .comp-table th { padding:0.55rem 0.75rem; font-size:0.78rem; }
-  .plan-card { min-width:260px; }
+/* REVEALS */
+.r{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.r.d1{transition-delay:.08s;}.r.d2{transition-delay:.16s;}.r.d3{transition-delay:.24s;}
+.r.d4{transition-delay:.32s;}.r.d5{transition-delay:.40s;}
+.r.in{opacity:1;transform:translateY(0);}
+
+/* NAV */
+.nav-dots{position:fixed;right:1.25rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:.5rem;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .3s;}
+.dot.on{background:var(--white);transform:scale(1.5);}
+
+@media(max-width:600px){
+  .inner{padding:2.5rem 0;}
+  .stats-row{gap:.45rem;}
+  .stat{min-width:125px;padding:.8rem .9rem;}
+  .donut-row{gap:1rem;}
+  .plan-card{min-width:250px;}
+  .calc-cards{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV DOTS -->
 <nav class="nav-dots">
   <div class="dot on" data-i="0"></div>
   <div class="dot" data-i="1"></div>
@@ -162,402 +171,294 @@ h2 .hi { font-style:italic; font-weight:400; color:rgba(255,255,255,0.55); }
   <div class="dot" data-i="3"></div>
   <div class="dot" data-i="4"></div>
   <div class="dot" data-i="5"></div>
+  <div class="dot" data-i="6"></div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SLIDE 1 · HERO                                  -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════ -->
+<!-- 1 · HERO                          -->
+<!-- ══════════════════════════════════ -->
 <section class="slide bg-blue">
-  <div class="inner" style="text-align:center;">
-
-    <div class="tn-logo r">
-      <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:148px;height:37px;" role="img" aria-label="Tiendanube">
-        <path d="M51.4723 19.5098V7.49283H54.3653V19.5098H51.4723ZM67.3608 10.8394C67.0958 10.1395 66.7119 9.51774 66.2124 8.97244C65.7113 8.42714 65.1048 8.00076 64.3897 7.69158C63.6745 7.38241 62.8472 7.22782 61.9044 7.22782C60.7849 7.22782 59.7725 7.49962 58.867 8.04492C57.9616 8.59022 57.2464 9.32918 56.7249 10.2652C56.2017 11.2012 55.9401 12.2714 55.9401 13.4792C55.9401 14.6871 56.1983 15.7029 56.713 16.6593C57.2277 17.6174 57.9497 18.375 58.8772 18.9339C59.8047 19.4945 60.8868 19.7731 62.1235 19.7731C62.9474 19.7731 63.7034 19.6474 64.388 19.3977C65.0726 19.148 65.6654 18.8014 66.1666 18.3598C66.6677 17.9181 67.0346 17.4102 67.2708 16.836L64.9299 15.6876C64.6649 16.1599 64.2996 16.5353 63.8359 16.8139C63.3721 17.0942 62.8081 17.2335 62.1456 17.2335C61.4831 17.2335 60.897 17.0789 60.3891 16.7697C59.8812 16.4606 59.4973 16.0223 59.2407 15.4549C59.0828 15.1083 58.9842 14.7278 58.9452 14.3167H67.6003C67.6598 14.1553 67.6988 13.9634 67.7209 13.7425C67.743 13.5217 67.7549 13.3077 67.7549 13.1021C67.7549 12.2918 67.6224 11.5376 67.3574 10.8377L67.3608 10.8394ZM60.2923 10.0664C60.7628 9.76406 61.3013 9.61287 61.9044 9.61287C62.5075 9.61287 63.0782 9.76746 63.5284 10.0766C63.9769 10.3858 64.3013 10.8054 64.5001 11.3354C64.5901 11.5766 64.6445 11.8348 64.6666 12.1083H59.008C59.0573 11.8518 59.1269 11.6123 59.2204 11.3898C59.4633 10.8088 59.82 10.3671 60.2923 10.0647V10.0664ZM79.3744 9.40393C78.9922 8.71933 78.4571 8.18592 77.7725 7.802C77.0879 7.41978 76.303 7.22782 75.4197 7.22782C74.5363 7.22782 73.8178 7.41639 73.1773 7.79181C72.683 8.0823 72.2974 8.47641 72.0171 8.97244V7.49453H69.3008V19.5115H72.1937V12.4651C72.1937 11.9351 72.2974 11.4781 72.5029 11.0959C72.7085 10.7137 72.9956 10.4147 73.3642 10.2006C73.7328 9.9866 74.1524 9.87958 74.623 9.87958C75.0935 9.87958 75.5318 9.9866 75.8936 10.2006C76.2538 10.4147 76.5375 10.712 76.7447 11.0959C76.9503 11.4798 77.0539 11.9351 77.0539 12.4651V19.5115H79.9469V11.7805C79.9469 10.8818 79.7549 10.0902 79.3727 9.40563L79.3744 9.40393ZM91.1824 2.98434V8.70914C90.8359 8.33031 90.4214 8.01605 89.9338 7.76973C89.2187 7.40959 88.4067 7.22782 87.4927 7.22782C86.358 7.22782 85.3319 7.50812 84.4112 8.06701C83.4905 8.6276 82.7651 9.37845 82.2351 10.3196C81.7051 11.2624 81.4401 12.3224 81.4401 13.4996C81.4401 14.6769 81.7051 15.7233 82.2351 16.6797C82.7651 17.6378 83.4871 18.392 84.3993 18.9441C85.3115 19.4962 86.3512 19.7731 87.5131 19.7731C88.3812 19.7731 89.1847 19.5999 89.9202 19.2533C90.4876 18.9866 90.9582 18.6282 91.3336 18.1814V19.5064H94.072V2.98434H91.179H91.1824ZM90.7526 15.3784C90.4655 15.9237 90.0714 16.3501 89.5703 16.6593C89.0692 16.9685 88.4882 17.1231 87.8257 17.1231C87.1632 17.1231 86.5958 16.9685 86.0811 16.6593C85.5646 16.3501 85.1637 15.9237 84.8766 15.3784C84.5896 14.8331 84.4452 14.208 84.4452 13.5013C84.4452 12.7946 84.5896 12.1729 84.8766 11.6344C85.1637 11.0976 85.5646 10.6695 86.0811 10.3535C86.5958 10.0376 87.1785 9.87788 87.8257 9.87788C88.4729 9.87788 89.0692 10.0325 89.5703 10.3416C90.0714 10.6508 90.4655 11.0823 90.7526 11.6344C91.0397 12.1865 91.1841 12.8082 91.1841 13.5013C91.1841 14.1944 91.0397 14.8348 90.7526 15.3784ZM105.737 9.27142C105.318 8.63099 104.732 8.12986 103.981 7.76973C103.23 7.40959 102.36 7.22782 101.375 7.22782C100.565 7.22782 99.8138 7.36033 99.1224 7.62533C98.4293 7.89034 97.8296 8.25557 97.3217 8.71933C96.8138 9.18309 96.4418 9.73179 96.2056 10.3654L98.5686 11.5138C98.7894 10.9685 99.1394 10.5302 99.6184 10.1989C100.097 9.86769 100.646 9.70121 101.265 9.70121C101.927 9.70121 102.46 9.87448 102.866 10.221C103.271 10.5676 103.475 10.9974 103.475 11.5138V11.9028L99.897 12.4855C98.9542 12.6333 98.1745 12.883 97.5562 13.2363C96.9378 13.5897 96.4808 14.0279 96.1869 14.5512C95.8914 15.0744 95.7453 15.6672 95.7453 16.3297C95.7453 16.9923 95.9151 17.6293 96.2532 18.1525C96.5913 18.6757 97.0703 19.0766 97.6886 19.3569C98.307 19.6372 99.0358 19.7765 99.8749 19.7765C100.537 19.7765 101.141 19.6848 101.686 19.4996C102.231 19.3162 102.717 19.0512 103.143 18.7046C103.317 18.5653 103.476 18.4073 103.629 18.2408V19.5115H106.368V11.5155C106.368 10.661 106.157 9.91355 105.737 9.27312V9.27142ZM103.086 16.1072C102.827 16.5642 102.467 16.9209 102.003 17.1791C101.54 17.4373 101.006 17.5664 100.402 17.5664C99.9293 17.5664 99.5369 17.4458 99.2192 17.2012C98.9016 16.9583 98.7436 16.6304 98.7436 16.2176C98.7436 15.8048 98.8829 15.4447 99.1632 15.1797C99.4435 14.9147 99.8699 14.7312 100.444 14.6276L103.47 14.1129V14.6055C103.47 15.1508 103.34 15.6519 103.082 16.1072H103.086ZM118.716 9.40393C118.334 8.71933 117.798 8.18592 117.114 7.802C116.429 7.41978 115.644 7.22782 114.761 7.22782C113.878 7.22782 113.159 7.41639 112.519 7.79181C112.024 8.0823 111.639 8.47641 111.359 8.97244V7.49453H108.642V19.5115H111.535V12.4651C111.535 11.9351 111.639 11.4781 111.844 11.0959C112.05 10.7137 112.337 10.4147 112.706 10.2006C113.074 9.9866 113.494 9.87958 113.964 9.87958C114.435 9.87958 114.873 9.9866 115.235 10.2006C115.595 10.4147 115.879 10.712 116.086 11.0959C116.292 11.4798 116.395 11.9351 116.395 12.4651V19.5115H119.288V11.7805C119.288 10.8818 119.096 10.0902 118.714 9.40563L118.716 9.40393ZM126.661 19.7748C125.614 19.7748 124.69 19.5642 123.889 19.1446C123.085 18.725 122.463 18.1389 122.022 17.3881C121.58 16.6372 121.359 15.7675 121.359 14.7822V7.49283H124.252V14.6938C124.252 15.1797 124.356 15.6078 124.561 15.9747C124.767 16.3433 125.054 16.627 125.423 16.8258C125.791 17.0245 126.211 17.1248 126.681 17.1248C127.152 17.1248 127.59 17.0262 127.952 16.8258C128.312 16.627 128.596 16.3433 128.803 15.9747C129.009 15.6061 129.112 15.1797 129.112 14.6938V7.49283H132.005V14.7822C132.005 15.7692 131.781 16.6372 131.331 17.3881C130.881 18.1389 130.259 18.725 129.464 19.1446C128.669 19.5642 127.733 19.7748 126.659 19.7748H126.661ZM146.11 10.3196C145.571 9.37675 144.848 8.6259 143.934 8.06701C143.02 7.50812 141.997 7.22782 140.864 7.22782C139.937 7.22782 139.12 7.40789 138.413 7.76973C137.932 8.01605 137.521 8.32862 137.176 8.70744V2.98434H134.283V19.5098H137V18.1474C137.387 18.6112 137.869 18.9815 138.447 19.255C139.176 19.6015 139.974 19.7748 140.844 19.7748C142.007 19.7748 143.045 19.4979 143.958 18.9458C144.87 18.3937 145.592 17.6395 146.122 16.6814C146.652 15.725 146.917 14.6633 146.917 13.5013C146.917 12.3394 146.648 11.2624 146.11 10.3213V10.3196ZM143.482 15.3784C143.195 15.9237 142.794 16.3501 142.278 16.6593C141.761 16.9685 141.173 17.1231 140.511 17.1231C139.848 17.1231 139.306 16.9685 138.799 16.6593C138.291 16.3501 137.893 15.9237 137.606 15.3784C137.319 14.8331 137.174 14.208 137.174 13.5013C137.174 12.7946 137.319 12.1865 137.606 11.6344C137.893 11.0823 138.291 10.6508 138.799 10.3416C139.306 10.0325 139.877 9.87788 140.511 9.87788C141.144 9.87788 141.763 10.0359 142.278 10.3535C142.792 10.6712 143.195 11.0976 143.482 11.6344C143.769 12.1729 143.913 12.7946 143.913 13.5013C143.913 14.208 143.769 14.8348 143.482 15.3784ZM159.291 10.8394C159.026 10.1395 158.642 9.51774 158.142 8.97244C157.641 8.42714 157.035 8.00076 156.319 7.69158C155.604 7.38241 154.777 7.22782 153.834 7.22782C152.715 7.22782 151.702 7.49962 150.797 8.04492C149.891 8.59022 149.176 9.32918 148.655 10.2652C148.131 11.2012 147.87 12.2714 147.87 13.4792C147.87 14.6871 148.128 15.7029 148.643 16.6593C149.158 17.6174 149.879 18.375 150.807 18.9339C151.735 19.4945 152.817 19.7731 154.053 19.7731C154.877 19.7731 155.633 19.6474 156.318 19.3977C157.002 19.148 157.595 18.8014 158.096 18.3598C158.597 17.9181 158.964 17.4102 159.201 16.836L156.86 15.6876C156.595 16.1599 156.229 16.5353 155.766 16.8139C155.302 17.0942 154.738 17.2335 154.075 17.2335C153.413 17.2335 152.827 17.0789 152.319 16.7697C151.811 16.4606 151.427 16.0223 151.171 15.4549C151.013 15.1083 150.914 14.7278 150.875 14.3167H159.53C159.59 14.1553 159.629 13.9634 159.651 13.7425C159.673 13.5217 159.685 13.3077 159.685 13.1021C159.685 12.2918 159.552 11.5376 159.287 10.8377L159.291 10.8394ZM152.392 10.0664C152.862 9.76406 153.401 9.61287 154.004 9.61287C154.607 9.61287 155.178 9.76746 155.628 10.0766C156.077 10.3858 156.401 10.8054 156.6 11.3354C156.69 11.5766 156.746 11.8348 156.766 12.1083H151.108C151.157 11.8518 151.227 11.6123 151.32 11.3898C151.563 10.8088 151.92 10.3671 152.392 10.0647V10.0664ZM48.0035 7.50302V4.11061H45.1241V7.50302H43.1094V10.0766H45.1241V19.5081H48.0035V10.0766H50.0182V7.50302H48.0035ZM52.9316 2.41016C51.9922 2.41016 51.2311 3.1712 51.2311 4.11061C51.2311 5.05002 51.9922 5.81106 52.9316 5.81106C53.871 5.81106 54.632 5.05002 54.632 4.11061C54.632 3.1712 53.871 2.41016 52.9316 2.41016Z" fill="white"/>
-        <path d="M24.0068 0H23.9915C23.9915 0 23.983 0 23.9779 0C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z" fill="white"/>
-      </svg>
-    </div>
-
-    <div class="badge r d1">Diagnóstico · ginebrajoyeria.mx</div>
-
-    <h1 class="hero-title r d2">
-      Tu tienda crece.<br>
-      <span class="italic">Tu plataforma, no.</span>
-    </h1>
-
-    <p class="hero-sub r d3" style="margin:0 auto 2.5rem;">
-      Detectamos 3 puntos de fuga activos que suman entre <strong style="color:#fff;">$3,000 y $6,400 MXN/mes</strong>.
-      Sin que lo estés midiendo.
-    </p>
-
-    <div class="stats-row r d4">
-      <div class="stat">
-        <div class="stat-val">20K</div>
-        <div class="stat-lbl">visitas / mes</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">~$100K</div>
-        <div class="stat-lbl">GMV mensual [est.]</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">1–2%</div>
-        <div class="stat-lbl">fee por transacción</div>
-      </div>
-      <div class="stat">
-        <div class="stat-val">0</div>
-        <div class="stat-lbl">MSI nativos activos</div>
-      </div>
-    </div>
-
+<div class="inner" style="text-align:center;">
+  <div class="r" style="display:flex;justify-content:center;margin-bottom:1.8rem;">
+    <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:144px;height:36px;">
+      <path d="M51.4723 19.5098V7.49283H54.3653V19.5098H51.4723ZM67.3608 10.8394C67.0958 10.1395 66.7119 9.51774 66.2124 8.97244C65.7113 8.42714 65.1048 8.00076 64.3897 7.69158C63.6745 7.38241 62.8472 7.22782 61.9044 7.22782C60.7849 7.22782 59.7725 7.49962 58.867 8.04492C57.9616 8.59022 57.2464 9.32918 56.7249 10.2652C56.2017 11.2012 55.9401 12.2714 55.9401 13.4792C55.9401 14.6871 56.1983 15.7029 56.713 16.6593C57.2277 17.6174 57.9497 18.375 58.8772 18.9339C59.8047 19.4945 60.8868 19.7731 62.1235 19.7731C62.9474 19.7731 63.7034 19.6474 64.388 19.3977C65.0726 19.148 65.6654 18.8014 66.1666 18.3598C66.6677 17.9181 67.0346 17.4102 67.2708 16.836L64.9299 15.6876C64.6649 16.1599 64.2996 16.5353 63.8359 16.8139C63.3721 17.0942 62.8081 17.2335 62.1456 17.2335C61.4831 17.2335 60.897 17.0789 60.3891 16.7697C59.8812 16.4606 59.4973 16.0223 59.2407 15.4549C59.0828 15.1083 58.9842 14.7278 58.9452 14.3167H67.6003C67.6598 14.1553 67.6988 13.9634 67.7209 13.7425C67.743 13.5217 67.7549 13.3077 67.7549 13.1021C67.7549 12.2918 67.6224 11.5376 67.3574 10.8377L67.3608 10.8394ZM79.3744 9.40393C78.9922 8.71933 78.4571 8.18592 77.7725 7.802C77.0879 7.41978 76.303 7.22782 75.4197 7.22782C74.5363 7.22782 73.8178 7.41639 73.1773 7.79181C72.683 8.0823 72.2974 8.47641 72.0171 8.97244V7.49453H69.3008V19.5115H72.1937V12.4651C72.1937 11.9351 72.2974 11.4781 72.5029 11.0959C72.7085 10.7137 72.9956 10.4147 73.3642 10.2006C73.7328 9.9866 74.1524 9.87958 74.623 9.87958C75.0935 9.87958 75.5318 9.9866 75.8936 10.2006C76.2538 10.4147 76.5375 10.712 76.7447 11.0959C76.9503 11.4798 77.0539 11.9351 77.0539 12.4651V19.5115H79.9469V11.7805C79.9469 10.8818 79.7549 10.0902 79.3727 9.40563L79.3744 9.40393ZM91.1824 2.98434V8.70914C90.8359 8.33031 90.4214 8.01605 89.9338 7.76973C89.2187 7.40959 88.4067 7.22782 87.4927 7.22782C86.358 7.22782 85.3319 7.50812 84.4112 8.06701C83.4905 8.6276 82.7651 9.37845 82.2351 10.3196C81.7051 11.2624 81.4401 12.3224 81.4401 13.4996C81.4401 14.6769 81.7051 15.7233 82.2351 16.6797C82.7651 17.6378 83.4871 18.392 84.3993 18.9441C85.3115 19.4962 86.3512 19.7731 87.5131 19.7731C88.3812 19.7731 89.1847 19.5999 89.9202 19.2533C90.4876 18.9866 90.9582 18.6282 91.3336 18.1814V19.5064H94.072V2.98434H91.179H91.1824ZM90.7526 15.3784C90.4655 15.9237 90.0714 16.3501 89.5703 16.6593C89.0692 16.9685 88.4882 17.1231 87.8257 17.1231C87.1632 17.1231 86.5958 16.9685 86.0811 16.6593C85.5646 16.3501 85.1637 15.9237 84.8766 15.3784C84.5896 14.8331 84.4452 14.208 84.4452 13.5013C84.4452 12.7946 84.5896 12.1729 84.8766 11.6344C85.1637 11.0976 85.5646 10.6695 86.0811 10.3535C86.5958 10.0376 87.1785 9.87788 87.8257 9.87788C88.4729 9.87788 89.0692 10.0325 89.5703 10.3416C90.0714 10.6508 90.4655 11.0823 90.7526 11.6344C91.0397 12.1865 91.1841 12.8082 91.1841 13.5013C91.1841 14.1944 91.0397 14.8348 90.7526 15.3784ZM105.737 9.27142C105.318 8.63099 104.732 8.12986 103.981 7.76973C103.23 7.40959 102.36 7.22782 101.375 7.22782C100.565 7.22782 99.8138 7.36033 99.1224 7.62533C98.4293 7.89034 97.8296 8.25557 97.3217 8.71933C96.8138 9.18309 96.4418 9.73179 96.2056 10.3654L98.5686 11.5138C98.7894 10.9685 99.1394 10.5302 99.6184 10.1989C100.097 9.86769 100.646 9.70121 101.265 9.70121C101.927 9.70121 102.46 9.87448 102.866 10.221C103.271 10.5676 103.475 10.9974 103.475 11.5138V11.9028L99.897 12.4855C98.9542 12.6333 98.1745 12.883 97.5562 13.2363C96.9378 13.5897 96.4808 14.0279 96.1869 14.5512C95.8914 15.0744 95.7453 15.6672 95.7453 16.3297C95.7453 16.9923 95.9151 17.6293 96.2532 18.1525C96.5913 18.6757 97.0703 19.0766 97.6886 19.3569C98.307 19.6372 99.0358 19.7765 99.8749 19.7765C100.537 19.7765 101.141 19.6848 101.686 19.4996C102.231 19.3162 102.717 19.0512 103.143 18.7046C103.317 18.5653 103.476 18.4073 103.629 18.2408V19.5115H106.368V11.5155C106.368 10.661 106.157 9.91355 105.737 9.27312V9.27142ZM118.716 9.40393C118.334 8.71933 117.798 8.18592 117.114 7.802C116.429 7.41978 115.644 7.22782 114.761 7.22782C113.878 7.22782 113.159 7.41639 112.519 7.79181C112.024 8.0823 111.639 8.47641 111.359 8.97244V7.49453H108.642V19.5115H111.535V12.4651C111.535 11.9351 111.639 11.4781 111.844 11.0959C112.05 10.7137 112.337 10.4147 112.706 10.2006C113.074 9.9866 113.494 9.87958 113.964 9.87958C114.435 9.87958 114.873 9.9866 115.235 10.2006C115.595 10.4147 115.879 10.712 116.086 11.0959C116.292 11.4798 116.395 11.9351 116.395 12.4651V19.5115H119.288V11.7805C119.288 10.8818 119.096 10.0902 118.714 9.40563L118.716 9.40393ZM126.661 19.7748C125.614 19.7748 124.69 19.5642 123.889 19.1446C123.085 18.725 122.463 18.1389 122.022 17.3881C121.58 16.6372 121.359 15.7675 121.359 14.7822V7.49283H124.252V14.6938C124.252 15.1797 124.356 15.6078 124.561 15.9747C124.767 16.3433 125.054 16.627 125.423 16.8258C125.791 17.0245 126.211 17.1248 126.681 17.1248C127.152 17.1248 127.59 17.0262 127.952 16.8258C128.312 16.627 128.596 16.3433 128.803 15.9747C129.009 15.6061 129.112 15.1797 129.112 14.6938V7.49283H132.005V14.7822C132.005 15.7692 131.781 16.6372 131.331 17.3881C130.881 18.1389 130.259 18.725 129.464 19.1446C128.669 19.5642 127.733 19.7748 126.659 19.7748H126.661ZM146.11 10.3196C145.571 9.37675 144.848 8.6259 143.934 8.06701C143.02 7.50812 141.997 7.22782 140.864 7.22782C139.937 7.22782 139.12 7.40789 138.413 7.76973C137.932 8.01605 137.521 8.32862 137.176 8.70744V2.98434H134.283V19.5098H137V18.1474C137.387 18.6112 137.869 18.9815 138.447 19.255C139.176 19.6015 139.974 19.7748 140.844 19.7748C142.007 19.7748 143.045 19.4979 143.958 18.9458C144.87 18.3937 145.592 17.6395 146.122 16.6814C146.652 15.725 146.917 14.6633 146.917 13.5013C146.917 12.3394 146.648 11.2624 146.11 10.3213V10.3196ZM143.482 15.3784C143.195 15.9237 142.794 16.3501 142.278 16.6593C141.761 16.9685 141.173 17.1231 140.511 17.1231C139.848 17.1231 139.306 16.9685 138.799 16.6593C138.291 16.3501 137.893 15.9237 137.606 15.3784C137.319 14.8331 137.174 14.208 137.174 13.5013C137.174 12.7946 137.319 12.1865 137.606 11.6344C137.893 11.0823 138.291 10.6508 138.799 10.3416C139.306 10.0325 139.877 9.87788 140.511 9.87788C141.144 9.87788 141.763 10.0359 142.278 10.3535C142.792 10.6712 143.195 11.0976 143.482 11.6344C143.769 12.1729 143.913 12.7946 143.913 13.5013C143.913 14.208 143.769 14.8348 143.482 15.3784ZM159.291 10.8394C159.026 10.1395 158.642 9.51774 158.142 8.97244C157.641 8.42714 157.035 8.00076 156.319 7.69158C155.604 7.38241 154.777 7.22782 153.834 7.22782C152.715 7.22782 151.702 7.49962 150.797 8.04492C149.891 8.59022 149.176 9.32918 148.655 10.2652C148.131 11.2012 147.87 12.2714 147.87 13.4792C147.87 14.6871 148.128 15.7029 148.643 16.6593C149.158 17.6174 149.879 18.375 150.807 18.9339C151.735 19.4945 152.817 19.7731 154.053 19.7731C154.877 19.7731 155.633 19.6474 156.318 19.3977C157.002 19.148 157.595 18.8014 158.096 18.3598C158.597 17.9181 158.964 17.4102 159.201 16.836L156.86 15.6876C156.595 16.1599 156.229 16.5353 155.766 16.8139C155.302 17.0942 154.738 17.2335 154.075 17.2335C153.413 17.2335 152.827 17.0789 152.319 16.7697C151.811 16.4606 151.427 16.0223 151.171 15.4549C151.013 15.1083 150.914 14.7278 150.875 14.3167H159.53C159.59 14.1553 159.629 13.9634 159.651 13.7425C159.673 13.5217 159.685 13.3077 159.685 13.1021C159.685 12.2918 159.552 11.5376 159.287 10.8377L159.291 10.8394ZM48.0035 7.50302V4.11061H45.1241V7.50302H43.1094V10.0766H45.1241V19.5081H48.0035V10.0766H50.0182V7.50302H48.0035ZM52.9316 2.41016C51.9922 2.41016 51.2311 3.1712 51.2311 4.11061C51.2311 5.05002 51.9922 5.81106 52.9316 5.81106C53.871 5.81106 54.632 5.05002 54.632 4.11061C54.632 3.1712 53.871 2.41016 52.9316 2.41016Z" fill="white"/>
+      <path d="M24.0068 0H23.9915C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z" fill="white"/>
+    </svg>
   </div>
+  <div class="badge r d1">Diagnóstico · ginebrajoyeria.mx</div>
+  <h1 class="hero-title r d2">Tu tienda crece.<br><span class="it">Tu plataforma, no.</span></h1>
+  <p class="hero-sub r d3" style="margin:0 auto 2.2rem;">Encontramos 3 fugas activas que suman entre <strong style="color:#fff;">$5,500 y $8,400 MXN/mes</strong>. Sin que lo estés midiendo.</p>
+  <div class="stats-row r d4">
+    <div class="stat"><div class="stat-val">20K</div><div class="stat-lbl">visitas / mes</div></div>
+    <div class="stat"><div class="stat-val">~$400K</div><div class="stat-lbl">GMV mensual [est.]</div></div>
+    <div class="stat"><div class="stat-val">$4,000</div><div class="stat-lbl">fee mensual Shopify [est.]</div></div>
+    <div class="stat"><div class="stat-val">0</div><div class="stat-lbl">MSI nativos activos</div></div>
+  </div>
+</div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SLIDE 2 · STACK DETECTADO                       -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════ -->
+<!-- 2 · STACK                         -->
+<!-- ══════════════════════════════════ -->
 <section class="slide bg-dark">
-  <div class="inner">
-
-    <div class="eyebrow r">Stack tecnológico detectado · BuiltWith</div>
-    <h2 class="r d1">Lo que usa <span class="hi">hoy</span></h2>
-    <p class="section-sub r d2">Cada herramienta en rojo es un costo mensual que desaparece con Tiendanube Evolución.</p>
-
-    <div class="stack-grid r d3">
-      <div class="stack-card">
-        <div class="stack-dot dot-orange"></div>
-        <div><div class="stack-name">Shopify</div><div class="stack-tag">Plataforma · cobra 1–2% por venta en MX</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-red"></div>
-        <div><div class="stack-name">Shogun</div><div class="stack-tag">Page builder · $700–2,700 MXN/mes extra</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-red"></div>
-        <div><div class="stack-name">Sin MSI nativo</div><div class="stack-tag">Sin Kueski · Aplazo · Conekta → −15–25% CVR en ticket alto</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-orange"></div>
-        <div><div class="stack-name">Stripe / PayPal</div><div class="stack-tag">Gateway externo · activa fee Shopify</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-red"></div>
-        <div><div class="stack-name">Shopify POS</div><div class="stack-tag">PDV · costo separado de la plataforma</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-orange"></div>
-        <div><div class="stack-name">Palo Alto Theme</div><div class="stack-tag">Tema premium · $350 USD pagado</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-orange"></div>
-        <div><div class="stack-name">Servidor en Canadá 🇨🇦</div><div class="stack-tag">+80–200 ms latencia · usuarios MX</div></div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-dot dot-green"></div>
-        <div><div class="stack-name">Cloudflare CDN</div><div class="stack-tag">Rendimiento · se mantiene en la migración</div></div>
-      </div>
-    </div>
-
-    <div class="legend-row r d4">
-      <span><span style="color:#FF6B5A;font-size:1rem;">●</span> Reemplazable nativamente</span>
-      <span><span style="color:#FFB547;font-size:1rem;">●</span> Costo oculto o riesgo</span>
-      <span><span style="color:#C4F062;font-size:1rem;">●</span> Se mantiene / neutral</span>
-    </div>
-
+<div class="inner">
+  <div class="eyebrow r">Stack tecnológico · BuiltWith</div>
+  <h2 class="r d1">Lo que usa <span class="hi">hoy</span></h2>
+  <p class="section-sub r d2">Cada herramienta en rojo es un costo que desaparece con Tiendanube Evolución.</p>
+  <div class="stack-grid r d3">
+    <div class="stack-card"><div class="sdot do"></div><div><div class="sname">Shopify</div><div class="stag">Plataforma · cobra 1% por venta en MX (sin Shopify Payments)</div></div></div>
+    <div class="stack-card"><div class="sdot dr"></div><div><div class="sname">Shogun</div><div class="stag">Page builder · $700–2,700 MXN/mes extra</div></div></div>
+    <div class="stack-card"><div class="sdot dr"></div><div><div class="sname">Sin MSI nativo</div><div class="stag">Sin Kueski · Aplazo · Conekta → −15–25% CVR en ticket alto</div></div></div>
+    <div class="stack-card"><div class="sdot do"></div><div><div class="sname">Stripe / PayPal</div><div class="stag">Gateway externo · activa fee de transacción Shopify</div></div></div>
+    <div class="stack-card"><div class="sdot dr"></div><div><div class="sname">Shopify POS</div><div class="stag">PDV · costo separado de la plataforma</div></div></div>
+    <div class="stack-card"><div class="sdot do"></div><div><div class="sname">Palo Alto Theme</div><div class="stag">Tema premium · $350 USD ya pagado</div></div></div>
+    <div class="stack-card"><div class="sdot do"></div><div><div class="sname">Servidor en Canadá 🇨🇦</div><div class="stag">+80–200 ms latencia extra para usuarios MX</div></div></div>
+    <div class="stack-card"><div class="sdot dg"></div><div><div class="sname">Cloudflare CDN</div><div class="stag">Rendimiento · se mantiene en la migración</div></div></div>
   </div>
+  <div class="leg-row r d4">
+    <span><span style="color:#FF6B5A;font-size:.9rem;">●</span> Reemplazable nativamente</span>
+    <span><span style="color:#FFB547;font-size:.9rem;">●</span> Costo oculto</span>
+    <span><span style="color:#C4F062;font-size:.9rem;">●</span> Neutral / se mantiene</span>
+  </div>
+</div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SLIDE 3 · BAR CHART DE FUGAS                    -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════ -->
+<!-- 3 · BAR CHART                     -->
+<!-- ══════════════════════════════════ -->
 <section class="slide bg-deeper">
-  <div class="inner">
-
-    <div class="eyebrow r">Cuantificación de costos ocultos</div>
-    <h2 class="r d1">$2,500–$6,400 <span class="hi">MXN/mes</span><br>que no deberías pagar</h2>
-    <p class="section-sub r d2">Estimado con GMV ~$100K MXN/mes. Cada barra = dinero saliendo sin generar valor para tu tienda.</p>
-
-    <div class="bar-chart r d3">
-
-      <div class="bar-row">
-        <div class="bar-top">
-          <span class="bar-name">🔴 Comisión por transacción Shopify <strong style="color:rgba(255,255,255,0.4);font-weight:400;">(1–2% por venta)</strong></span>
-          <span class="bar-amount">$1,000–2,000 MXN/mes [est.]</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill bf-coral" data-w="68%"></div></div>
-      </div>
-
-      <div class="bar-row">
-        <div class="bar-top">
-          <span class="bar-name">🔴 Shogun — page builder externo</span>
-          <span class="bar-amount">$700–2,700 MXN/mes</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill bf-sunset" data-w="55%"></div></div>
-      </div>
-
-      <div class="bar-row">
-        <div class="bar-top">
-          <span class="bar-name">🟡 Shopify POS — punto de venta</span>
-          <span class="bar-amount">$600–1,200 MXN/mes [est.]</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill bf-purple" data-w="35%"></div></div>
-      </div>
-
-      <div class="bar-row">
-        <div class="bar-top">
-          <span class="bar-name">🟡 Apps complementarias / nfcube / extras</span>
-          <span class="bar-amount">$200–500 MXN/mes</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill bf-blue" data-w="16%"></div></div>
-      </div>
-
-      <div class="bar-row bar-divider">
-        <div class="bar-top">
-          <span class="bar-name" style="color:#fff;font-weight:700;font-size:0.88rem;">OVERHEAD TOTAL MENSUAL</span>
-          <span class="bar-amount" style="font-size:0.9rem;">$2,500 – $6,400 MXN</span>
-        </div>
-        <div class="bar-track thick"><div class="bar-fill bf-lime" data-w="100%"></div></div>
-      </div>
-
+<div class="inner">
+  <div class="eyebrow r">Costos ocultos mensuales · GMV ~$400K</div>
+  <h2 class="r d1">$5,500–$8,400 <span class="hi">MXN/mes</span><br>que no deberías pagar</h2>
+  <p class="section-sub r d2">Cada barra es dinero saliendo sin generar valor. Estimado basado en tu stack detectado.</p>
+  <div class="bar-chart r d3">
+    <div class="bar-row">
+      <div class="bar-top"><span class="bname">🔴 Comisión por transacción Shopify <span style="color:rgba(255,255,255,.35);font-weight:400;">(1% × $400K)</span></span><span class="bamount">$4,000 MXN/mes [est.]</span></div>
+      <div class="bar-track"><div class="bar-fill bf-c" data-w="75%"></div></div>
     </div>
-
-    <p class="r d4" style="margin-top:1rem;font-size:0.72rem;color:rgba(255,255,255,0.35);">
-      * Rangos estimados. Costo exacto depende del plan Shopify activo y volumen real confirmado.
-    </p>
-
+    <div class="bar-row">
+      <div class="bar-top"><span class="bname">🔴 Shogun — page builder externo</span><span class="bamount">$700–2,700 MXN/mes</span></div>
+      <div class="bar-track"><div class="bar-fill bf-s" data-w="50%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-top"><span class="bname">🟡 Shopify POS — punto de venta</span><span class="bamount">$600–1,200 MXN/mes [est.]</span></div>
+      <div class="bar-track"><div class="bar-fill bf-p" data-w="28%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-top"><span class="bname">🟡 Apps complementarias / extras</span><span class="bamount">$200–500 MXN/mes</span></div>
+      <div class="bar-track"><div class="bar-fill bf-b" data-w="12%"></div></div>
+    </div>
+    <div class="bar-row bar-divider">
+      <div class="bar-top"><span class="bname" style="color:#fff;font-weight:700;font-size:.86rem;">OVERHEAD TOTAL MENSUAL</span><span class="bamount" style="font-size:.88rem;">$5,500–$8,400 MXN</span></div>
+      <div class="bar-track thick"><div class="bar-fill bf-l" data-w="100%"></div></div>
+    </div>
   </div>
+  <p class="r d4" style="margin-top:.9rem;font-size:.68rem;color:rgba(255,255,255,.28);">* Rangos estimados. Confirmar con plan Shopify exacto y volumen real.</p>
+</div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SLIDE 4 · COMPARATIVO CON % BADGES             -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════ -->
+<!-- 4 · COMPARATIVO %                 -->
+<!-- ══════════════════════════════════ -->
 <section class="slide bg-midnight">
-  <div class="inner">
-
-    <div class="eyebrow r">Comparativo directo · feature por feature</div>
-    <h2 class="r d1">Shopify vs <span class="hl">Tiendanube Evolución</span></h2>
-    <p class="section-sub r d2">Cada porcentaje es dinero, conversión o tiempo. No features abstractas.</p>
-
-    <div class="comp-wrap r d3">
-      <table class="comp-table">
-        <thead>
-          <tr>
-            <th>Variable</th>
-            <th>Shopify · hoy</th>
-            <th class="tn-col">Tiendanube Evolución</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Comisión por transacción</td>
-            <td>1–2% por cada venta</td>
-            <td>0% <span class="pct">−100%</span></td>
-          </tr>
-          <tr>
-            <td>Page builder</td>
-            <td>Shogun · $700–2,700/mes</td>
-            <td>Nativo incluido <span class="pct">$0 extra</span></td>
-          </tr>
-          <tr>
-            <td>Punto de venta (PDV)</td>
-            <td>Shopify POS · costo separado</td>
-            <td>PDV Plus incluido <span class="pct">$0 extra</span></td>
-          </tr>
-          <tr>
-            <td>MSI (Kueski · Aplazo)</td>
-            <td>Sin integración nativa</td>
-            <td>Nativo <span class="pct">+15–25% CVR</span></td>
-          </tr>
-          <tr>
-            <td>Facturación</td>
-            <td>USD · exposición cambiaria</td>
-            <td>MXN fijo <span class="pct">Estable</span></td>
-          </tr>
-          <tr>
-            <td>Soporte</td>
-            <td>Chat genérico · sin SLA</td>
-            <td>AE dedicado · SLA 15 min <span class="pct">×3 más rápido</span></td>
-          </tr>
-          <tr>
-            <td>Servidor / latencia</td>
-            <td>Canadá 🇨🇦 · +80–200ms en MX</td>
-            <td>LATAM · optimizado MX <span class="pct">Checkout más rápido</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+<div class="inner">
+  <div class="eyebrow r">Comparativo directo</div>
+  <h2 class="r d1">Shopify vs <span class="hl">Tiendanube Evolución</span></h2>
+  <p class="section-sub r d2">Cada % es dinero, conversión o tiempo. No features abstractas.</p>
+  <div class="comp-wrap r d3">
+    <table class="comp-table">
+      <thead><tr><th>Variable</th><th>Shopify · hoy</th><th class="tn">TN Evolución</th></tr></thead>
+      <tbody>
+        <tr><td>Comisión transacción</td><td>1% por cada venta</td><td>0% <span class="pct">−100%</span></td></tr>
+        <tr><td>Page builder</td><td>Shogun $700–2,700/mes</td><td>Nativo incluido <span class="pct">$0 extra</span></td></tr>
+        <tr><td>PDV / Punto de Venta</td><td>Shopify POS · extra</td><td>PDV Plus incluido <span class="pct">$0 extra</span></td></tr>
+        <tr><td>MSI (Kueski · Aplazo)</td><td>Sin integración nativa</td><td>Nativo <span class="pct">+15–25% CVR</span></td></tr>
+        <tr><td>Facturación</td><td>USD · riesgo cambiario</td><td>MXN fijo <span class="pct">Estable</span></td></tr>
+        <tr><td>Soporte</td><td>Genérico · sin SLA</td><td>AE dedicado · 15 min <span class="pct">×3 más rápido</span></td></tr>
+        <tr><td>Servidor</td><td>Canadá 🇨🇦 · +80–200ms</td><td>LATAM · optimizado MX <span class="pct">Checkout rápido</span></td></tr>
+      </tbody>
+    </table>
   </div>
+</div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SLIDE 5 · DONUT "DE $100 QUE VENDES..."        -->
-<!-- ═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════ -->
+<!-- 5 · CALCULADORA DINÁMICA          -->
+<!-- ══════════════════════════════════ -->
 <section class="slide bg-dark">
-  <div class="inner" style="text-align:center;">
+<div class="inner">
+  <div class="eyebrow r">Calculadora de ahorro · interactiva</div>
+  <h2 class="r d1">¿Cuánto estás dejando<br><span class="hi">sobre la mesa cada mes?</span></h2>
+  <p class="section-sub r d2">Mueve el slider a tu GMV real y ve el ahorro al instante.</p>
 
-    <div class="eyebrow r">El impacto real en tu margen</div>
-    <h2 class="r d1">De cada <span class="hl">$100</span> que vendes,<br><span class="hi">¿cuánto te queda?</span></h2>
+  <div class="calc-wrap r d3">
+    <div class="calc-gmv-label">
+      <span class="calc-gmv-text">Tu GMV mensual estimado</span>
+      <span class="calc-gmv-value" id="calcGMVDisplay">$400,000</span>
+    </div>
+    <input type="range" class="calc-slider" id="calcSlider"
+      min="50000" max="1000000" step="10000" value="400000">
+    <div class="calc-range-labels"><span>$50K MXN</span><span>$1M MXN</span></div>
 
-    <div class="donut-section r d2">
-
-      <!-- SHOPIFY -->
-      <div class="donut-block">
-        <div class="donut-svg-wrap">
-          <svg viewBox="0 0 176 176" width="176" height="176">
-            <!-- track -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16"/>
-            <!-- Net 85% (lime dim) = 359.82 of 427.08 total -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="rgba(196,240,98,0.3)" stroke-width="16"
-              stroke-dasharray="362.72 64.35" stroke-dashoffset="0"
-              class="donut-ring sd-shopify-net"/>
-            <!-- Gateway ~5% = 21.35 -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="#FF6B5A" stroke-width="16"
-              stroke-dasharray="21.35 405.72" stroke-dashoffset="-362.72"
-              class="donut-ring sd-shopify-gw"/>
-            <!-- Shopify fee ~2% = 8.54 -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="#FFB547" stroke-width="16"
-              stroke-dasharray="8.54 418.54" stroke-dashoffset="-384.07"
-              class="donut-ring sd-shopify-fee"/>
-            <!-- Apps ~8% = 34.17 -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="#7c6eff" stroke-width="16"
-              stroke-dasharray="34.17 392.91" stroke-dashoffset="-392.61"
-              class="donut-ring sd-shopify-apps"/>
-          </svg>
-          <div class="donut-center">
-            <div class="donut-big" style="color:rgba(196,240,98,0.7);">$85</div>
-            <div class="donut-micro">te quedan</div>
-          </div>
-        </div>
-        <div class="donut-label">Shopify hoy</div>
-        <div class="donut-legend" style="align-items:flex-start;">
-          <div class="leg-item"><div class="leg-dot" style="background:rgba(196,240,98,0.4);"></div>Neto: ~85%</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#FF6B5A;"></div>Gateway/Stripe: ~5%</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#FFB547;"></div>Fee Shopify: ~2%</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#7c6eff;"></div>Apps overhead: ~8%</div>
-        </div>
+    <div class="calc-cards">
+      <div class="calc-card cc-shopify">
+        <div class="cc-label">Fee Shopify/mes</div>
+        <div class="cc-val" id="calcFee">$4,000</div>
+        <div class="cc-sub">1% de tu GMV (plan mid)</div>
       </div>
-
-      <!-- VS separador -->
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;padding:1rem 0;">
-        <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;">vs</div>
-        <div style="width:1px;height:80px;background:rgba(255,255,255,0.1);"></div>
-        <div style="background:var(--lime);color:#0a0e2a;font-size:0.68rem;font-weight:800;border-radius:999px;padding:0.3rem 0.7rem;letter-spacing:0.05em;">+$8K/mes</div>
+      <div class="calc-card cc-apps">
+        <div class="cc-label">Overhead apps</div>
+        <div class="cc-val" id="calcApps">$3,500</div>
+        <div class="cc-sub">Shogun + POS + extras</div>
       </div>
-
-      <!-- TIENDANUBE -->
-      <div class="donut-block">
-        <div class="donut-svg-wrap">
-          <svg viewBox="0 0 176 176" width="176" height="176">
-            <!-- track -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16"/>
-            <!-- Net 96.7% = 412.82 of 427.08 -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="#C4F062" stroke-width="16"
-              stroke-dasharray="412.82 14.25" stroke-dashoffset="0"
-              class="donut-ring sd-tn-net"/>
-            <!-- Pago Nube 3.3% = 14.09 -->
-            <circle cx="88" cy="88" r="68" fill="none" stroke="#4a7eff" stroke-width="16"
-              stroke-dasharray="14.09 412.99" stroke-dashoffset="-412.82"
-              class="donut-ring sd-tn-gw"/>
-          </svg>
-          <div class="donut-center">
-            <div class="donut-big" style="color:var(--lime);">$93</div>
-            <div class="donut-micro">te quedan</div>
-          </div>
-        </div>
-        <div class="donut-label" style="color:var(--lime);">Tiendanube Evolución</div>
-        <div class="donut-legend" style="align-items:flex-start;">
-          <div class="leg-item"><div class="leg-dot" style="background:#C4F062;"></div>Neto: ~96.7%</div>
-          <div class="leg-item"><div class="leg-dot" style="background:#4a7eff;"></div>Pago Nube: ~3.3%</div>
-          <div class="leg-item"><div class="leg-dot" style="background:rgba(255,255,255,0.15);"></div>Fee extra: $0</div>
-          <div class="leg-item"><div class="leg-dot" style="background:rgba(255,255,255,0.15);"></div>Apps: $0</div>
-        </div>
+      <div class="calc-card cc-save">
+        <div class="cc-label">Tu ahorro mensual</div>
+        <div class="cc-val" id="calcSaveMo">$4,900</div>
+        <div class="cc-sub">vs Tiendanube Evolución</div>
       </div>
-
+      <div class="calc-card cc-year">
+        <div class="cc-label">Tu ahorro anual</div>
+        <div class="cc-val" id="calcSaveYr">$58,800</div>
+        <div class="cc-sub">12 meses proyectados</div>
+      </div>
     </div>
 
-    <p class="r d3" style="margin-top:1.5rem;font-size:0.88rem;color:rgba(255,255,255,0.55);">
-      A ~$100K GMV/mes: <strong style="color:var(--lime);">hasta $8,000 MXN más en tu bolsillo cada mes</strong> con Tiendanube.
+    <p class="calc-note r d4">
+      Supuestos: Plan Shopify mid (~$79 USD/mes ≈ $1,400 MXN) · comisión transacción 1% · Shogun + POS + extras fijo $3,500 MXN · TN Evolución $3,999 MXN/mes.
+      Cálculo orientativo. Confirmar con datos reales.
     </p>
-
   </div>
+</div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ -->
-<!-- SLIDE 6 · PLAN EVOLUCIÓN                       -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="slide bg-blue">
-  <div class="inner">
+<!-- ══════════════════════════════════ -->
+<!-- 6 · DONUT "DE $100"               -->
+<!-- ══════════════════════════════════ -->
+<section class="slide bg-deeper">
+<div class="inner" style="text-align:center;">
+  <div class="eyebrow r">El impacto real en tu margen</div>
+  <h2 class="r d1">De cada <span class="hl">$100</span> que vendes,<br><span class="hi">¿cuánto te queda?</span></h2>
+  <div class="donut-row r d2">
 
-    <div class="tn-logo r" style="margin-bottom:1.5rem;">
-      <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:120px;height:30px;">
-        <path d="M51.4723 19.5098V7.49283H54.3653V19.5098H51.4723ZM67.3608 10.8394C67.0958 10.1395 66.7119 9.51774 66.2124 8.97244C65.7113 8.42714 65.1048 8.00076 64.3897 7.69158C63.6745 7.38241 62.8472 7.22782 61.9044 7.22782C60.7849 7.22782 59.7725 7.49962 58.867 8.04492C57.9616 8.59022 57.2464 9.32918 56.7249 10.2652C56.2017 11.2012 55.9401 12.2714 55.9401 13.4792C55.9401 14.6871 56.1983 15.7029 56.713 16.6593C57.2277 17.6174 57.9497 18.375 58.8772 18.9339C59.8047 19.4945 60.8868 19.7731 62.1235 19.7731C62.9474 19.7731 63.7034 19.6474 64.388 19.3977C65.0726 19.148 65.6654 18.8014 66.1666 18.3598C66.6677 17.9181 67.0346 17.4102 67.2708 16.836L64.9299 15.6876C64.6649 16.1599 64.2996 16.5353 63.8359 16.8139C63.3721 17.0942 62.8081 17.2335 62.1456 17.2335C61.4831 17.2335 60.897 17.0789 60.3891 16.7697C59.8812 16.4606 59.4973 16.0223 59.2407 15.4549C59.0828 15.1083 58.9842 14.7278 58.9452 14.3167H67.6003C67.6598 14.1553 67.6988 13.9634 67.7209 13.7425C67.743 13.5217 67.7549 13.3077 67.7549 13.1021C67.7549 12.2918 67.6224 11.5376 67.3574 10.8377L67.3608 10.8394ZM79.3744 9.40393C78.9922 8.71933 78.4571 8.18592 77.7725 7.802C77.0879 7.41978 76.303 7.22782 75.4197 7.22782C74.5363 7.22782 73.8178 7.41639 73.1773 7.79181C72.683 8.0823 72.2974 8.47641 72.0171 8.97244V7.49453H69.3008V19.5115H72.1937V12.4651C72.1937 11.9351 72.2974 11.4781 72.5029 11.0959C72.7085 10.7137 72.9956 10.4147 73.3642 10.2006C73.7328 9.9866 74.1524 9.87958 74.623 9.87958C75.0935 9.87958 75.5318 9.9866 75.8936 10.2006C76.2538 10.4147 76.5375 10.712 76.7447 11.0959C76.9503 11.4798 77.0539 11.9351 77.0539 12.4651V19.5115H79.9469V11.7805C79.9469 10.8818 79.7549 10.0902 79.3727 9.40563L79.3744 9.40393ZM91.1824 2.98434V8.70914C90.8359 8.33031 90.4214 8.01605 89.9338 7.76973C89.2187 7.40959 88.4067 7.22782 87.4927 7.22782C86.358 7.22782 85.3319 7.50812 84.4112 8.06701C83.4905 8.6276 82.7651 9.37845 82.2351 10.3196C81.7051 11.2624 81.4401 12.3224 81.4401 13.4996C81.4401 14.6769 81.7051 15.7233 82.2351 16.6797C82.7651 17.6378 83.4871 18.392 84.3993 18.9441C85.3115 19.4962 86.3512 19.7731 87.5131 19.7731C88.3812 19.7731 89.1847 19.5999 89.9202 19.2533C90.4876 18.9866 90.9582 18.6282 91.3336 18.1814V19.5064H94.072V2.98434H91.179H91.1824ZM90.7526 15.3784C90.4655 15.9237 90.0714 16.3501 89.5703 16.6593C89.0692 16.9685 88.4882 17.1231 87.8257 17.1231C87.1632 17.1231 86.5958 16.9685 86.0811 16.6593C85.5646 16.3501 85.1637 15.9237 84.8766 15.3784C84.5896 14.8331 84.4452 14.208 84.4452 13.5013C84.4452 12.7946 84.5896 12.1729 84.8766 11.6344C85.1637 11.0976 85.5646 10.6695 86.0811 10.3535C86.5958 10.0376 87.1785 9.87788 87.8257 9.87788C88.4729 9.87788 89.0692 10.0325 89.5703 10.3416C90.0714 10.6508 90.4655 11.0823 90.7526 11.6344C91.0397 12.1865 91.1841 12.8082 91.1841 13.5013C91.1841 14.1944 91.0397 14.8348 90.7526 15.3784ZM105.737 9.27142C105.318 8.63099 104.732 8.12986 103.981 7.76973C103.23 7.40959 102.36 7.22782 101.375 7.22782C100.565 7.22782 99.8138 7.36033 99.1224 7.62533C98.4293 7.89034 97.8296 8.25557 97.3217 8.71933C96.8138 9.18309 96.4418 9.73179 96.2056 10.3654L98.5686 11.5138C98.7894 10.9685 99.1394 10.5302 99.6184 10.1989C100.097 9.86769 100.646 9.70121 101.265 9.70121C101.927 9.70121 102.46 9.87448 102.866 10.221C103.271 10.5676 103.475 10.9974 103.475 11.5138V11.9028L99.897 12.4855C98.9542 12.6333 98.1745 12.883 97.5562 13.2363C96.9378 13.5897 96.4808 14.0279 96.1869 14.5512C95.8914 15.0744 95.7453 15.6672 95.7453 16.3297C95.7453 16.9923 95.9151 17.6293 96.2532 18.1525C96.5913 18.6757 97.0703 19.0766 97.6886 19.3569C98.307 19.6372 99.0358 19.7765 99.8749 19.7765C100.537 19.7765 101.141 19.6848 101.686 19.4996C102.231 19.3162 102.717 19.0512 103.143 18.7046C103.317 18.5653 103.476 18.4073 103.629 18.2408V19.5115H106.368V11.5155C106.368 10.661 106.157 9.91355 105.737 9.27312V9.27142ZM118.716 9.40393C118.334 8.71933 117.798 8.18592 117.114 7.802C116.429 7.41978 115.644 7.22782 114.761 7.22782C113.878 7.22782 113.159 7.41639 112.519 7.79181C112.024 8.0823 111.639 8.47641 111.359 8.97244V7.49453H108.642V19.5115H111.535V12.4651C111.535 11.9351 111.639 11.4781 111.844 11.0959C112.05 10.7137 112.337 10.4147 112.706 10.2006C113.074 9.9866 113.494 9.87958 113.964 9.87958C114.435 9.87958 114.873 9.9866 115.235 10.2006C115.595 10.4147 115.879 10.712 116.086 11.0959C116.292 11.4798 116.395 11.9351 116.395 12.4651V19.5115H119.288V11.7805C119.288 10.8818 119.096 10.0902 118.714 9.40563L118.716 9.40393ZM126.661 19.7748C125.614 19.7748 124.69 19.5642 123.889 19.1446C123.085 18.725 122.463 18.1389 122.022 17.3881C121.58 16.6372 121.359 15.7675 121.359 14.7822V7.49283H124.252V14.6938C124.252 15.1797 124.356 15.6078 124.561 15.9747C124.767 16.3433 125.054 16.627 125.423 16.8258C125.791 17.0245 126.211 17.1248 126.681 17.1248C127.152 17.1248 127.59 17.0262 127.952 16.8258C128.312 16.627 128.596 16.3433 128.803 15.9747C129.009 15.6061 129.112 15.1797 129.112 14.6938V7.49283H132.005V14.7822C132.005 15.7692 131.781 16.6372 131.331 17.3881C130.881 18.1389 130.259 18.725 129.464 19.1446C128.669 19.5642 127.733 19.7748 126.659 19.7748H126.661ZM146.11 10.3196C145.571 9.37675 144.848 8.6259 143.934 8.06701C143.02 7.50812 141.997 7.22782 140.864 7.22782C139.937 7.22782 139.12 7.40789 138.413 7.76973C137.932 8.01605 137.521 8.32862 137.176 8.70744V2.98434H134.283V19.5098H137V18.1474C137.387 18.6112 137.869 18.9815 138.447 19.255C139.176 19.6015 139.974 19.7748 140.844 19.7748C142.007 19.7748 143.045 19.4979 143.958 18.9458C144.87 18.3937 145.592 17.6395 146.122 16.6814C146.652 15.725 146.917 14.6633 146.917 13.5013C146.917 12.3394 146.648 11.2624 146.11 10.3213V10.3196ZM143.482 15.3784C143.195 15.9237 142.794 16.3501 142.278 16.6593C141.761 16.9685 141.173 17.1231 140.511 17.1231C139.848 17.1231 139.306 16.9685 138.799 16.6593C138.291 16.3501 137.893 15.9237 137.606 15.3784C137.319 14.8331 137.174 14.208 137.174 13.5013C137.174 12.7946 137.319 12.1865 137.606 11.6344C137.893 11.0823 138.291 10.6508 138.799 10.3416C139.306 10.0325 139.877 9.87788 140.511 9.87788C141.144 9.87788 141.763 10.0359 142.278 10.3535C142.792 10.6712 143.195 11.0976 143.482 11.6344C143.769 12.1729 143.913 12.7946 143.913 13.5013C143.913 14.208 143.769 14.8348 143.482 15.3784ZM159.291 10.8394C159.026 10.1395 158.642 9.51774 158.142 8.97244C157.641 8.42714 157.035 8.00076 156.319 7.69158C155.604 7.38241 154.777 7.22782 153.834 7.22782C152.715 7.22782 151.702 7.49962 150.797 8.04492C149.891 8.59022 149.176 9.32918 148.655 10.2652C148.131 11.2012 147.87 12.2714 147.87 13.4792C147.87 14.6871 148.128 15.7029 148.643 16.6593C149.158 17.6174 149.879 18.375 150.807 18.9339C151.735 19.4945 152.817 19.7731 154.053 19.7731C154.877 19.7731 155.633 19.6474 156.318 19.3977C157.002 19.148 157.595 18.8014 158.096 18.3598C158.597 17.9181 158.964 17.4102 159.201 16.836L156.86 15.6876C156.595 16.1599 156.229 16.5353 155.766 16.8139C155.302 17.0942 154.738 17.2335 154.075 17.2335C153.413 17.2335 152.827 17.0789 152.319 16.7697C151.811 16.4606 151.427 16.0223 151.171 15.4549C151.013 15.1083 150.914 14.7278 150.875 14.3167H159.53C159.59 14.1553 159.629 13.9634 159.651 13.7425C159.673 13.5217 159.685 13.3077 159.685 13.1021C159.685 12.2918 159.552 11.5376 159.287 10.8377L159.291 10.8394ZM48.0035 7.50302V4.11061H45.1241V7.50302H43.1094V10.0766H45.1241V19.5081H48.0035V10.0766H50.0182V7.50302H48.0035ZM52.9316 2.41016C51.9922 2.41016 51.2311 3.1712 51.2311 4.11061C51.2311 5.05002 51.9922 5.81106 52.9316 5.81106C53.871 5.81106 54.632 5.05002 54.632 4.11061C54.632 3.1712 53.871 2.41016 52.9316 2.41016Z" fill="white"/>
-        <path d="M24.0068 0H23.9915C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z" fill="white"/>
-      </svg>
-    </div>
-
-    <div class="eyebrow r d1">El siguiente paso</div>
-    <h2 class="r d2">Plan <span class="hl">Evolución</span> · <span class="hi">Solo por invitación</span></h2>
-
-    <div class="plan-row r d3">
-
-      <!-- SHOPIFY HOY -->
-      <div class="plan-card">
-        <div class="plan-tag">Costo total estimado · Shopify</div>
-        <div class="plan-price">~$4,800</div>
-        <div class="plan-curr">MXN / mes (plan + fee + Shogun + POS) [est.]</div>
-        <div class="plan-name">Shopify · hoy</div>
-        <div class="plan-items">
-          <div class="plan-item"><span class="cross">✕</span> Comisión 1–2% por cada venta</div>
-          <div class="plan-item"><span class="cross">✕</span> Shogun pagado por separado</div>
-          <div class="plan-item"><span class="cross">✕</span> PDV extra, sin integración nativa</div>
-          <div class="plan-item"><span class="cross">✕</span> Sin MSI → conversión más baja en joyería</div>
-          <div class="plan-item"><span class="cross">✕</span> Facturación en USD</div>
-          <div class="plan-item"><span class="cross">✕</span> Soporte sin SLA ni AE dedicado</div>
+    <div class="donut-block">
+      <div class="donut-wrap">
+        <svg viewBox="0 0 176 176" width="172" height="172">
+          <circle cx="88" cy="88" r="68" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="16"/>
+          <circle cx="88" cy="88" r="68" fill="none" stroke="rgba(196,240,98,.28)" stroke-width="16" stroke-dasharray="362.72 64.35" stroke-dashoffset="0" class="donut-ring"/>
+          <circle cx="88" cy="88" r="68" fill="none" stroke="#FF6B5A" stroke-width="16" stroke-dasharray="21.35 405.72" stroke-dashoffset="-362.72" class="donut-ring"/>
+          <circle cx="88" cy="88" r="68" fill="none" stroke="#FFB547" stroke-width="16" stroke-dasharray="8.54 418.54" stroke-dashoffset="-384.07" class="donut-ring"/>
+          <circle cx="88" cy="88" r="68" fill="none" stroke="#7c6eff" stroke-width="16" stroke-dasharray="34.17 392.91" stroke-dashoffset="-392.61" class="donut-ring"/>
+        </svg>
+        <div class="donut-center">
+          <div class="donut-big" style="color:rgba(196,240,98,.65);">$85</div>
+          <div class="donut-micro">te quedan</div>
         </div>
       </div>
-
-      <!-- TN EVOLUCIÓN -->
-      <div class="plan-card hero">
-        <div class="plan-tag lime">Precio base · Tiendanube · por invitación</div>
-        <div class="plan-price lime">$3,999</div>
-        <div class="plan-curr">MXN / mes · implementación a cotizar</div>
-        <div class="plan-name" style="color:var(--lime);">Evolución</div>
-        <div class="plan-items">
-          <div class="plan-item"><span class="check">✓</span> 0% comisión por transacción</div>
-          <div class="plan-item"><span class="check">✓</span> Editor de páginas nativo (sin Shogun)</div>
-          <div class="plan-item"><span class="check">✓</span> PDV Plus incluido</div>
-          <div class="plan-item"><span class="check">✓</span> Kueski + Aplazo (MSI nativo)</div>
-          <div class="plan-item"><span class="check">✓</span> AE dedicado · SLA 15 min</div>
-          <div class="plan-item"><span class="check">✓</span> Facturación 100% en MXN</div>
-        </div>
-        <div class="plan-cta">Hasta $8,000 MXN/mes más en tu margen [est.]</div>
+      <div class="donut-lbl">Shopify hoy</div>
+      <div class="donut-legend">
+        <div class="leg"><div class="leg-dot" style="background:rgba(196,240,98,.35);"></div>Neto: ~85%</div>
+        <div class="leg"><div class="leg-dot" style="background:#FF6B5A;"></div>Gateway: ~5%</div>
+        <div class="leg"><div class="leg-dot" style="background:#FFB547;"></div>Fee Shopify: ~2%</div>
+        <div class="leg"><div class="leg-dot" style="background:#7c6eff;"></div>Apps: ~8%</div>
       </div>
-
     </div>
 
-    <p class="r d4" style="margin-top:1.25rem;text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.3);">
-      Estimaciones basadas en GMV ~$100K MXN/mes. Costos reales sujetos a confirmación del plan Shopify activo.
-    </p>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:1rem 0;">
+      <div style="font-size:.65rem;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;">vs</div>
+      <div style="width:1px;height:70px;background:rgba(255,255,255,.1);"></div>
+      <div style="background:var(--lime);color:#0a0e2a;font-size:.65rem;font-weight:800;border-radius:999px;padding:.28rem .65rem;letter-spacing:.04em;">+$5K/mes</div>
+    </div>
+
+    <div class="donut-block">
+      <div class="donut-wrap">
+        <svg viewBox="0 0 176 176" width="172" height="172">
+          <circle cx="88" cy="88" r="68" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="16"/>
+          <circle cx="88" cy="88" r="68" fill="none" stroke="#C4F062" stroke-width="16" stroke-dasharray="412.82 14.25" stroke-dashoffset="0" class="donut-ring"/>
+          <circle cx="88" cy="88" r="68" fill="none" stroke="#4a7eff" stroke-width="16" stroke-dasharray="14.09 412.99" stroke-dashoffset="-412.82" class="donut-ring"/>
+        </svg>
+        <div class="donut-center">
+          <div class="donut-big" style="color:var(--lime);">$93</div>
+          <div class="donut-micro">te quedan</div>
+        </div>
+      </div>
+      <div class="donut-lbl" style="color:var(--lime);">Tiendanube Evolución</div>
+      <div class="donut-legend">
+        <div class="leg"><div class="leg-dot" style="background:#C4F062;"></div>Neto: ~96.7%</div>
+        <div class="leg"><div class="leg-dot" style="background:#4a7eff;"></div>Pago Nube: ~3.3%</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,.15);"></div>Fee extra: $0</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,.15);"></div>Apps: $0</div>
+      </div>
+    </div>
 
   </div>
+  <p class="r d3" style="margin-top:1.25rem;font-size:.85rem;color:rgba(255,255,255,.5);">
+    A $400K GMV/mes: <strong style="color:var(--lime);">~$4,900 MXN más en tu margen cada mes</strong> con Tiendanube Evolución.
+  </p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════ -->
+<!-- 7 · PLAN EVOLUCIÓN                -->
+<!-- ══════════════════════════════════ -->
+<section class="slide bg-blue">
+<div class="inner">
+  <div class="eyebrow r d1">El siguiente paso</div>
+  <h2 class="r d2">Plan <span class="hl">Evolución</span> · <span class="hi">Solo por invitación</span></h2>
+  <div class="plan-row r d3">
+
+    <div class="plan-card">
+      <div class="plan-tag">Costo total estimado · Shopify</div>
+      <div class="plan-price">~$8,900</div>
+      <div class="plan-curr">MXN / mes (plan + fee + Shogun + POS) [est.]</div>
+      <div class="plan-name">Shopify · hoy</div>
+      <div class="plan-items">
+        <div class="pi"><span class="cx">✕</span>$4,000 MXN/mes en comisión de transacción</div>
+        <div class="pi"><span class="cx">✕</span>Shogun pagado por separado</div>
+        <div class="pi"><span class="cx">✕</span>PDV extra, sin integración nativa</div>
+        <div class="pi"><span class="cx">✕</span>Sin MSI → carritos perdidos en joyería</div>
+        <div class="pi"><span class="cx">✕</span>Facturación en USD</div>
+        <div class="pi"><span class="cx">✕</span>Sin AE dedicado ni SLA</div>
+      </div>
+    </div>
+
+    <div class="plan-card hero">
+      <div class="plan-tag lime">Precio base · por invitación</div>
+      <div class="plan-price lime">$3,999</div>
+      <div class="plan-curr">MXN / mes · implementación a cotizar por separado</div>
+      <div class="plan-name" style="color:var(--lime);">Tiendanube Evolución</div>
+      <div class="plan-items">
+        <div class="pi"><span class="ck">✓</span>0% comisión por transacción</div>
+        <div class="pi"><span class="ck">✓</span>Editor nativo (sin Shogun)</div>
+        <div class="pi"><span class="ck">✓</span>PDV Plus incluido</div>
+        <div class="pi"><span class="ck">✓</span>Kueski + Aplazo (MSI nativo)</div>
+        <div class="pi"><span class="ck">✓</span>AE dedicado · SLA 15 minutos</div>
+        <div class="pi"><span class="ck">✓</span>Facturación 100% en MXN</div>
+      </div>
+      <div class="plan-cta">~$4,900 MXN/mes más en tu margen [est.]</div>
+    </div>
+
+  </div>
+  <p class="r d4" style="margin-top:1.1rem;text-align:center;font-size:.67rem;color:rgba(255,255,255,.25);">
+    Estimaciones basadas en GMV ~$400K MXN/mes. Costos sujetos a confirmación del plan Shopify activo.
+  </p>
+</div>
 </section>
 
 <script>
 (function(){
+  /* ── NAV + REVEALS ── */
   var slides = document.querySelectorAll('.slide');
   var dots   = document.querySelectorAll('.dot');
 
-  /* ── CRITICAL FIX: forzar slide 0 visible al cargar ── */
+  /* CRITICAL FIX: forzar slide 0 visible al cargar */
   slides[0].querySelectorAll('.r').forEach(function(el){ el.classList.add('in'); });
 
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(!e.isIntersecting){ return; }
       var i = Array.prototype.indexOf.call(slides, e.target);
-      /* dots */
       dots.forEach(function(d,j){ d.classList.toggle('on', i===j); });
-      /* reveals */
       e.target.querySelectorAll('.r').forEach(function(el){ el.classList.add('in'); });
-      /* bar fills */
       e.target.querySelectorAll('.bar-fill').forEach(function(b){
         var w = b.getAttribute('data-w');
         if(w){ b.style.width = w; }
@@ -566,13 +467,55 @@ h2 .hi { font-style:italic; font-weight:400; color:rgba(255,255,255,0.55); }
   }, { threshold: 0.25 });
 
   slides.forEach(function(s){ io.observe(s); });
-
   dots.forEach(function(d){
     d.addEventListener('click', function(){
-      var idx = parseInt(d.getAttribute('data-i'), 10);
-      slides[idx].scrollIntoView({ behavior:'smooth' });
+      slides[parseInt(d.getAttribute('data-i'),10)].scrollIntoView({behavior:'smooth'});
     });
   });
+
+  /* ── CALCULADORA ── */
+  var slider  = document.getElementById('calcSlider');
+  var display = document.getElementById('calcGMVDisplay');
+  var feeEl   = document.getElementById('calcFee');
+  var appsEl  = document.getElementById('calcApps');
+  var saveMoEl= document.getElementById('calcSaveMo');
+  var saveYrEl= document.getElementById('calcSaveYr');
+
+  var SHOPIFY_PLAN  = 1400;   /* ~$79 USD mid plan */
+  var APPS_FIXED    = 3500;   /* Shogun + POS + extras */
+  var TN_EVOLUCION  = 3999;
+  var TX_RATE       = 0.01;   /* 1% transaction fee */
+
+  function fmt(n){
+    if(n >= 1000000){ return '$' + (n/1000000).toFixed(1).replace('.0','') + 'M'; }
+    if(n >= 1000)   { return '$' + Math.round(n/1000) + 'K'; }
+    return '$' + Math.round(n);
+  }
+
+  function fmtFull(n){
+    return '$' + Math.round(n).toLocaleString('es-MX');
+  }
+
+  function update(){
+    var gmv   = parseInt(slider.value, 10);
+    var fee   = gmv * TX_RATE;
+    var total = fee + APPS_FIXED + SHOPIFY_PLAN;
+    var save  = Math.max(0, total - TN_EVOLUCION);
+    var yr    = save * 12;
+
+    /* Slider gradient */
+    var pct = ((gmv - 50000) / (1000000 - 50000)) * 100;
+    slider.style.background = 'linear-gradient(90deg,#C4F062 ' + pct + '%,rgba(255,255,255,0.12) ' + pct + '%)';
+
+    display.textContent  = fmtFull(gmv);
+    feeEl.textContent    = fmt(fee);
+    appsEl.textContent   = '$3,500';
+    saveMoEl.textContent = fmt(save);
+    saveYrEl.textContent = fmt(yr);
+  }
+
+  slider.addEventListener('input', update);
+  update();
 })();
 </script>
 </body>
