@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diagnóstico · tiendaskey.com</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300;1,400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #2D3CED;
+      --navy:    #0D0E2B;
+      --navy2:   #080d28;
+      --lime:    #C4F062;
+      --coral:   #FF6B5A;
+      --sunset:  #FFB547;
+      --purple:  #9B8BFF;
+      --white:   #FFFFFF;
+      --muted:   rgba(255,255,255,0.55);
+      --faint:   rgba(255,255,255,0.10);
+    }
+
+    html { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100%; }
+    body {
+      font-family: 'DM Sans', Arial, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SLIDE BASE ── */
+    .slide {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      position: relative;
+    }
+    .inner { width: 100%; max-width: 1000px; }
+
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* ── HEADLINES ── */
+    .h-huge {
+      font-size: clamp(3rem, 6.5vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .h-huge em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+    }
+    .h-huge .lime { color: var(--lime); font-style: normal; }
+
+    .h-large {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .h-large em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.55); }
+    .h-large .lime { color: var(--lime); font-style: normal; font-weight: 800; }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+    .sub strong { color: var(--white); }
+
+    /* ─────────────────────────────────
+       SLIDE 1 — HERO
+    ───────────────────────────────── */
+    .slide-hero {
+      background: var(--blue);
+      flex-direction: column;
+      text-align: center;
+    }
+    .hero-logo { margin-bottom: 32px; }
+    .hero-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 100px;
+      padding: 6px 18px;
+      margin-bottom: 28px;
+      color: rgba(255,255,255,0.85);
+    }
+    .hero-h1 {
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      margin-bottom: 24px;
+    }
+    .hero-h1 em {
+      display: block;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.92em;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+    .hero-sub strong { color: var(--white); }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) { .stat-grid { grid-template-columns: repeat(2,1fr); } }
+    .stat-card {
+      background: rgba(0,0,0,0.2);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-card .val {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--lime);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-card .lbl {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+    .stat-card.warn .val { color: var(--coral); }
+
+    /* ─────────────────────────────────
+       SLIDE 2 — STACK
+    ───────────────────────────────── */
+    .slide-stack { background: var(--navy); }
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    @media (max-width: 700px) { .stack-grid { grid-template-columns: repeat(2,1fr); } }
+    .stack-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .stack-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-red    { background: var(--coral); }
+    .dot-orange { background: var(--sunset); }
+    .dot-lime   { background: var(--lime); }
+    .stack-name { font-size: 0.9rem; font-weight: 600; }
+    .stack-note { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+    .legend {
+      display: flex; gap: 20px; margin-top: 24px; flex-wrap: wrap;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+
+    /* ─────────────────────────────────
+       SLIDE 3 — COSTOS / FUGAS
+    ───────────────────────────────── */
+    .slide-costs { background: var(--navy2); }
+    .cost-list { display: grid; gap: 20px; margin-top: 8px; }
+    .cost-row {}
+    .cost-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .cost-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .cost-label .dot { display: inline-block; margin-right: 8px; vertical-align: middle; }
+    .cost-amount {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--lime);
+      white-space: nowrap;
+    }
+    .bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    .bar-coral  { background: linear-gradient(90deg, #FF6B5A, #ff9a8b); }
+    .bar-orange { background: linear-gradient(90deg, #FFB547, #ffd97a); }
+    .bar-purple { background: linear-gradient(90deg, #9B8BFF, #c4b8ff); }
+    .bar-blue   { background: linear-gradient(90deg, #5b6fff, #8b98ff); }
+    .bar-lime   { background: linear-gradient(90deg, #C4F062, #dfffa0); }
+
+    .cost-total {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cost-total .label { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .cost-total .total-val { font-size: 1.2rem; font-weight: 800; color: var(--lime); }
+    .cost-note { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 16px; }
+
+    /* ─────────────────────────────────
+       SLIDE 4 — COMPARATIVO
+    ───────────────────────────────── */
+    .slide-table { background: var(--navy); }
+    .comp-wrap {
+      margin-top: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .comp-head {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 2fr;
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .comp-head span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .comp-head span.tn { color: var(--lime); }
+    .comp-row {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 2fr;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      align-items: center;
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-row .var { font-size: 0.82rem; color: var(--muted); }
+    .comp-row .cur { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+    .comp-row .tn-val {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--lime);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--lime);
+      color: #0a0f2e;
+      border-radius: 100px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+    .badge-red {
+      background: rgba(255,107,90,0.15);
+      color: var(--coral);
+      border: 1px solid rgba(255,107,90,0.3);
+    }
+
+    /* ─────────────────────────────────
+       SLIDE 5 — MARGEN / DONUTS
+    ───────────────────────────────── */
+    .slide-margin { background: var(--blue); text-align: center; }
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .donut-block { text-align: center; }
+    .donut-svg { width: 180px; height: 180px; }
+    .donut-label { font-size: 1rem; font-weight: 700; margin-top: 16px; margin-bottom: 10px; }
+    .donut-label.lime { color: var(--lime); }
+    .donut-legend { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-align: left; line-height: 1.8; }
+    .donut-legend span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+    .vs-badge {
+      background: var(--lime);
+      color: #0a0f2e;
+      border-radius: 100px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .margin-note {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .margin-note strong { color: var(--lime); }
+
+    /* ─────────────────────────────────
+       SLIDE 6 — SUBSIDIO / CIERRE
+    ───────────────────────────────── */
+    .slide-subsidy { background: var(--blue); text-align: center; }
+    .subsidy-amount {
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 800;
+      color: var(--lime);
+      line-height: 1;
+      margin: 8px 0;
+    }
+    .subsidy-label { font-size: 0.9rem; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+    .subsidy-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+    .subsidy-sub { font-size: 0.95rem; color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto 40px; line-height: 1.6; }
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .roi-card {
+      background: rgba(0,0,0,0.2);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: left;
+    }
+    .roi-card .r-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .roi-card .r-val { font-size: 1.4rem; font-weight: 800; color: var(--lime); }
+
+    /* ─────────────────────────────────
+       SLIDE 7 — PLAN
+    ───────────────────────────────── */
+    .slide-plan { background: var(--blue); }
+    .plan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    @media (max-width: 640px) { .plan-grid { grid-template-columns: 1fr; } }
+    .plan-card {
+      border-radius: 18px;
+      padding: 28px;
+    }
+    .plan-card.cur {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .plan-card.evo {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(196,240,98,0.35);
+    }
+    .plan-tag {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+      display: inline-block; margin-bottom: 14px;
+    }
+    .plan-tag.cur-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .plan-tag.evo-tag { background: rgba(196,240,98,0.15); color: var(--lime); border: 1px solid rgba(196,240,98,0.3); }
+    .plan-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .plan-price { font-size: 2.2rem; font-weight: 800; margin-bottom: 20px; }
+    .plan-price span { font-size: 0.85rem; font-weight: 400; color: rgba(255,255,255,0.45); }
+    .plan-features { list-style: none; display: grid; gap: 10px; }
+    .plan-features li { display: flex; gap: 10px; font-size: 0.85rem; line-height: 1.45; align-items: flex-start; }
+    .plan-features li .ic { flex-shrink: 0; font-size: 0.9rem; margin-top: 1px; }
+    .plan-features li.bad { color: rgba(255,107,90,0.7); }
+    .plan-features li.good { color: rgba(255,255,255,0.85); }
+
+    /* ─────────────────────────────────
+       SLIDE 8 — PRÓXIMOS PASOS
+    ───────────────────────────────── */
+    .slide-steps { background: var(--navy); }
+    .steps-list { display: grid; gap: 14px; margin-top: 8px; }
+    .step {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 18px;
+    }
+    .step.done { opacity: 0.45; }
+    .step-num {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.82rem;
+      background: rgba(45,60,237,0.3); border: 1px solid rgba(45,60,237,0.5);
+      color: rgba(196,220,255,0.9);
+    }
+    .step.done .step-num {
+      background: rgba(196,240,98,0.1); border-color: rgba(196,240,98,0.3); color: var(--lime);
+    }
+    .step h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .step p { font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+    .owner {
+      display: inline-block; margin-top: 6px;
+      font-size: 0.7rem; font-weight: 600;
+      background: rgba(45,60,237,0.2); color: rgba(180,200,255,0.9);
+      border: 1px solid rgba(45,60,237,0.35); border-radius: 100px; padding: 2px 9px;
+    }
+
+    /* ── NAV DOTS ── */
+    .nav-dots {
+      position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 8px; z-index: 100;
+    }
+    .nav-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .nav-dot.active { background: var(--lime); transform: scale(1.5); }
+  </style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<div class="nav-dots" id="navDots"></div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 1 · HERO
+══════════════════════════════════════ -->
+<div class="slide slide-hero" data-slide="0">
+  <div class="inner">
+    <div class="hero-logo">
+      <svg style="width:150px;height:37px;color:#fff" viewBox="0 0 160 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TiendaNube">
+        <path d="M51.4723 19.5098V7.49283H54.3653V19.5098H51.4723ZM67.3608 10.8394C67.0958 10.1395 66.7119 9.51774 66.2124 8.97244C65.7113 8.42714 65.1048 8.00076 64.3897 7.69158C63.6745 7.38241 62.8472 7.22782 61.9044 7.22782C60.7849 7.22782 59.7725 7.49962 58.867 8.04492C57.9616 8.59022 57.2464 9.32918 56.7249 10.2652C56.2017 11.2012 55.9401 12.2714 55.9401 13.4792C55.9401 14.6871 56.1983 15.7029 56.713 16.6593C57.2277 17.6174 57.9497 18.375 58.8772 18.9339C59.8047 19.4945 60.8868 19.7731 62.1235 19.7731C62.9474 19.7731 63.7034 19.6474 64.388 19.3977C65.0726 19.148 65.6654 18.8014 66.1666 18.3598C66.6677 17.9181 67.0346 17.4102 67.2708 16.836L64.9299 15.6876C64.6649 16.1599 64.2996 16.5353 63.8359 16.8139C63.3721 17.0942 62.8081 17.2335 62.1456 17.2335C61.4831 17.2335 60.897 17.0789 60.3891 16.7697C59.8812 16.4606 59.4973 16.0223 59.2407 15.4549C59.0828 15.1083 58.9842 14.7278 58.9452 14.3167H67.6003C67.6598 14.1553 67.6988 13.9634 67.7209 13.7425C67.743 13.5217 67.7549 13.3077 67.7549 13.1021C67.7549 12.2918 67.6224 11.5376 67.3574 10.8377L67.3608 10.8394ZM60.2923 10.0664C60.7628 9.76406 61.3013 9.61287 61.9044 9.61287C62.5075 9.61287 63.0782 9.76746 63.5284 10.0766C63.9769 10.3858 64.3013 10.8054 64.5001 11.3354C64.5901 11.5766 64.6445 11.8348 64.6666 12.1083H59.008C59.0573 11.8518 59.1269 11.6123 59.2204 11.3898C59.4633 10.8088 59.82 10.3671 60.2923 10.0647V10.0664ZM79.3744 9.40393C78.9922 8.71933 78.4571 8.18592 77.7725 7.802C77.0879 7.41978 76.303 7.22782 75.4197 7.22782C74.5363 7.22782 73.8178 7.41639 73.1773 7.79181C72.683 8.0823 72.2974 8.47641 72.0171 8.97244V7.49453H69.3008V19.5115H72.1937V12.4651C72.1937 11.9351 72.2974 11.4781 72.5029 11.0959C72.7085 10.7137 72.9956 10.4147 73.3642 10.2006C73.7328 9.9866 74.1524 9.87958 74.623 9.87958C75.0935 9.87958 75.5318 9.9866 75.8936 10.2006C76.2538 10.4147 76.5375 10.712 76.7447 11.0959C76.9503 11.4798 77.0539 11.9351 77.0539 12.4651V19.5115H79.9469V11.7805C79.9469 10.8818 79.7549 10.0902 79.3727 9.40563L79.3744 9.40393ZM91.1824 2.98434V8.70914C90.8359 8.33031 90.4214 8.01605 89.9338 7.76973C89.2187 7.40959 88.4067 7.22782 87.4927 7.22782C86.358 7.22782 85.3319 7.50812 84.4112 8.06701C83.4905 8.6276 82.7651 9.37845 82.2351 10.3196C81.7051 11.2624 81.4401 12.3224 81.4401 13.4996C81.4401 14.6769 81.7051 15.7233 82.2351 16.6797C82.7651 17.6378 83.4871 18.392 84.3993 18.9441C85.3115 19.4962 86.3512 19.7731 87.5131 19.7731C88.3812 19.7731 89.1847 19.5999 89.9202 19.2533C90.4876 18.9866 90.9582 18.6282 91.3336 18.1814V19.5064H94.072V2.98434H91.179H91.1824ZM90.7526 15.3784C90.4655 15.9237 90.0714 16.3501 89.5703 16.6593C89.0692 16.9685 88.4882 17.1231 87.8257 17.1231C87.1632 17.1231 86.5958 16.9685 86.0811 16.6593C85.5646 16.3501 85.1637 15.9237 84.8766 15.3784C84.5896 14.8331 84.4452 14.208 84.4452 13.5013C84.4452 12.7946 84.5896 12.1729 84.8766 11.6344C85.1637 11.0976 85.5646 10.6695 86.0811 10.3535C86.5958 10.0376 87.1785 9.87788 87.8257 9.87788C88.4729 9.87788 89.0692 10.0325 89.5703 10.3416C90.0714 10.6508 90.4655 11.0823 90.7526 11.6344C91.0397 12.1865 91.1841 12.8082 91.1841 13.5013C91.1841 14.1944 91.0397 14.8348 90.7526 15.3784ZM105.737 9.27142C105.318 8.63099 104.732 8.12986 103.981 7.76973C103.23 7.40959 102.36 7.22782 101.375 7.22782C100.565 7.22782 99.8138 7.36033 99.1224 7.62533C98.4293 7.89034 97.8296 8.25557 97.3217 8.71933C96.8138 9.18309 96.4418 9.73179 96.2056 10.3654L98.5686 11.5138C98.7894 10.9685 99.1394 10.5302 99.6184 10.1989C100.097 9.86769 100.646 9.70121 101.265 9.70121C101.927 9.70121 102.46 9.87448 102.866 10.221C103.271 10.5676 103.475 10.9974 103.475 11.5138V11.9028L99.897 12.4855C98.9542 12.6333 98.1745 12.883 97.5562 13.2363C96.9378 13.5897 96.4808 14.0279 96.1869 14.5512C95.8914 15.0744 95.7453 15.6672 95.7453 16.3297C95.7453 16.9923 95.9151 17.6293 96.2532 18.1525C96.5913 18.6757 97.0703 19.0766 97.6886 19.3569C98.307 19.6372 99.0358 19.7765 99.8749 19.7765C100.537 19.7765 101.141 19.6848 101.686 19.4996C102.231 19.3162 102.717 19.0512 103.143 18.7046C103.317 18.5653 103.476 18.4073 103.629 18.2408V19.5115H106.368V11.5155C106.368 10.661 106.157 9.91355 105.737 9.27312V9.27142ZM103.086 16.1072C102.827 16.5642 102.467 16.9209 102.003 17.1791C101.54 17.4373 101.006 17.5664 100.402 17.5664C99.9293 17.5664 99.5369 17.4458 99.2192 17.2012C98.9016 16.9583 98.7436 16.6304 98.7436 16.2176C98.7436 15.8048 98.8829 15.4447 99.1632 15.1797C99.4435 14.9147 99.8699 14.7312 100.444 14.6276L103.47 14.1129V14.6055C103.47 15.1508 103.34 15.6519 103.082 16.1072H103.086ZM118.716 9.40393C118.334 8.71933 117.798 8.18592 117.114 7.802C116.429 7.41978 115.644 7.22782 114.761 7.22782C113.878 7.22782 113.159 7.41639 112.519 7.79181C112.024 8.0823 111.639 8.47641 111.359 8.97244V7.49453H108.642V19.5115H111.535V12.4651C111.535 11.9351 111.639 11.4781 111.844 11.0959C112.05 10.7137 112.337 10.4147 112.706 10.2006C113.074 9.9866 113.494 9.87958 113.964 9.87958C114.435 9.87958 114.873 9.9866 115.235 10.2006C115.595 10.4147 115.879 10.712 116.086 11.0959C116.292 11.4798 116.395 11.9351 116.395 12.4651V19.5115H119.288V11.7805C119.288 10.8818 119.096 10.0902 118.714 9.40563L118.716 9.40393ZM126.661 19.7748C125.614 19.7748 124.69 19.5642 123.889 19.1446C123.085 18.725 122.463 18.1389 122.022 17.3881C121.58 16.6372 121.359 15.7675 121.359 14.7822V7.49283H124.252V14.6938C124.252 15.1797 124.356 15.6078 124.561 15.9747C124.767 16.3433 125.054 16.627 125.423 16.8258C125.791 17.0245 126.211 17.1248 126.681 17.1248C127.152 17.1248 127.59 17.0262 127.952 16.8258C128.312 16.627 128.596 16.3433 128.803 15.9747C129.009 15.6061 129.112 15.1797 129.112 14.6938V7.49283H132.005V14.7822C132.005 15.7692 131.781 16.6372 131.331 17.3881C130.881 18.1389 130.259 18.725 129.464 19.1446C128.669 19.5642 127.733 19.7748 126.659 19.7748H126.661ZM146.11 10.3196C145.571 9.37675 144.848 8.6259 143.934 8.06701C143.02 7.50812 141.997 7.22782 140.864 7.22782C139.937 7.22782 139.12 7.40789 138.413 7.76973C137.932 8.01605 137.521 8.32862 137.176 8.70744V2.98434H134.283V19.5098H137V18.1474C137.387 18.6112 137.869 18.9815 138.447 19.255C139.176 19.6015 139.974 19.7748 140.844 19.7748C142.007 19.7748 143.045 19.4979 143.958 18.9458C144.87 18.3937 145.592 17.6395 146.122 16.6814C146.652 15.725 146.917 14.6633 146.917 13.5013C146.917 12.3394 146.648 11.2624 146.11 10.3213V10.3196ZM143.482 15.3784C143.195 15.9237 142.794 16.3501 142.278 16.6593C141.761 16.9685 141.173 17.1231 140.511 17.1231C139.848 17.1231 139.306 16.9685 138.799 16.6593C138.291 16.3501 137.893 15.9237 137.606 15.3784C137.319 14.8331 137.174 14.208 137.174 13.5013C137.174 12.7946 137.319 12.1865 137.606 11.6344C137.893 11.0823 138.291 10.6508 138.799 10.3416C139.306 10.0325 139.877 9.87788 140.511 9.87788C141.144 9.87788 141.763 10.0359 142.278 10.3535C142.792 10.6712 143.195 11.0976 143.482 11.6344C143.769 12.1729 143.913 12.7946 143.913 13.5013C143.913 14.208 143.769 14.8348 143.482 15.3784ZM159.291 10.8394C159.026 10.1395 158.642 9.51774 158.142 8.97244C157.641 8.42714 157.035 8.00076 156.319 7.69158C155.604 7.38241 154.777 7.22782 153.834 7.22782C152.715 7.22782 151.702 7.49962 150.797 8.04492C149.891 8.59022 149.176 9.32918 148.655 10.2652C148.131 11.2012 147.87 12.2714 147.87 13.4792C147.87 14.6871 148.128 15.7029 148.643 16.6593C149.158 17.6174 149.879 18.375 150.807 18.9339C151.735 19.4945 152.817 19.7731 154.053 19.7731C154.877 19.7731 155.633 19.6474 156.318 19.3977C157.002 19.148 157.595 18.8014 158.096 18.3598C158.597 17.9181 158.964 17.4102 159.201 16.836L156.86 15.6876C156.595 16.1599 156.229 16.5353 155.766 16.8139C155.302 17.0942 154.738 17.2335 154.075 17.2335C153.413 17.2335 152.827 17.0789 152.319 16.7697C151.811 16.4606 151.427 16.0223 151.171 15.4549C151.013 15.1083 150.914 14.7278 150.875 14.3167H159.53C159.59 14.1553 159.629 13.9634 159.651 13.7425C159.673 13.5217 159.685 13.3077 159.685 13.1021C159.685 12.2918 159.552 11.5376 159.287 10.8377L159.291 10.8394ZM152.392 10.0664C152.862 9.76406 153.401 9.61287 154.004 9.61287C154.607 9.61287 155.178 9.76746 155.628 10.0766C156.077 10.3858 156.401 10.8054 156.6 11.3354C156.69 11.5766 156.746 11.8348 156.766 12.1083H151.108C151.157 11.8518 151.227 11.6123 151.32 11.3898C151.563 10.8088 151.92 10.3671 152.392 10.0647V10.0664ZM48.0035 7.50302V4.11061H45.1241V7.50302H43.1094V10.0766H45.1241V19.5081H48.0035V10.0766H50.0182V7.50302H48.0035ZM52.9316 2.41016C51.9922 2.41016 51.2311 3.1712 51.2311 4.11061C51.2311 5.05002 51.9922 5.81106 52.9316 5.81106C53.871 5.81106 54.632 5.05002 54.632 4.11061C54.632 3.1712 53.871 2.41016 52.9316 2.41016Z"></path>
+        <path d="M24.0068 0H23.9915C23.9915 0 23.983 0 23.9779 0C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z"></path>
+      </svg>
+    </div>
+    <div class="hero-pill">Diagnóstico · tiendaskey.com</div>
+    <h1 class="hero-h1">
+      Tu marca creció.
+      <em>Wix, no.</em>
+    </h1>
+    <p class="hero-sub">
+      Detectamos <strong>3 limitaciones activas</strong> que frenan el crecimiento de Iki Química.<br>
+      Sin que la plataforma te lo esté diciendo.
+    </p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="val">$300K</div>
+        <div class="lbl">GMV mensual · B2C<br>confirmado</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">17,355</div>
+        <div class="lbl">visitas orgánicas<br>por mes</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="val">100%</div>
+        <div class="lbl">tráfico orgánico<br>0% paid</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="val">DA 13</div>
+        <div class="lbl">Domain Authority<br>388 keywords</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 2 · STACK
+══════════════════════════════════════ -->
+<div class="slide slide-stack" data-slide="1">
+  <div class="inner">
+    <div class="eyebrow">Stack tecnológico · Wappalyzer</div>
+    <div class="h-large">Lo que usa <em>hoy</em></div>
+    <p class="sub">Cada elemento en rojo es una limitación que desaparece con Tiendanube Evolución.</p>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-red"></div><div class="stack-name">Wix — CMS</div></div>
+        <div class="stack-note">Plataforma general. Sin B2B nativo, sin filtros avanzados por atributo, sin ERP integrado. No escala para e-commerce complejo.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-red"></div><div class="stack-name">Sin ERP conectado</div></div>
+        <div class="stack-note">Compac no integrado. Reconciliación de inventarios y pedidos: manual. Riesgo de error crece con el volumen.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-orange"></div><div class="stack-name">Pasarelas sin negociar</div></div>
+        <div class="stack-note">Mercado Pago, PayPal y Kueski a tarifas estándar. Sin tasa preferencial ni seguro contra contracargos.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-red"></div><div class="stack-name">Sin canal B2B digital</div></div>
+        <div class="stack-note">Canal principal de la empresa sin portal de autoservicio. Pedidos por teléfono / email = sin escalabilidad.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-lime"></div><div class="stack-name">Amazon Web Services</div></div>
+        <div class="stack-note">Infraestructura cloud. Se mantiene en la migración — Tiendanube también corre en AWS.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-lime"></div><div class="stack-name">Google Cloud CDN + HTTP/3</div></div>
+        <div class="stack-note">Buena capa de distribución. Velocidad de página aceptable. Se mantiene.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-orange"></div><div class="stack-name">Sin omnicanal</div></div>
+        <div class="stack-note">Sin conectores para ML, Amazon o Walmart. Inventario sin sincronizar entre canales.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-header"><div class="dot dot-red"></div><div class="stack-name">Sin MSI nativos</div></div>
+        <div class="stack-note">Kueski sin integración nativa avanzada. Sin Aplazo. Ticket alto pierde conversión por falta de MSI.</div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="dot dot-red"></div>Limitación de plataforma</div>
+      <div class="legend-item"><div class="dot dot-orange"></div>Costo sin optimizar</div>
+      <div class="legend-item"><div class="dot dot-lime"></div>Neutral / se mantiene</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 3 · COSTOS OCULTOS
+══════════════════════════════════════ -->
+<div class="slide slide-costs" data-slide="2">
+  <div class="inner">
+    <div class="eyebrow">Costos activos · GMV $300K</div>
+    <div class="h-large">$16,100–$20,500 <em>MXN/mes</em><br>que no estás midiendo</div>
+    <p class="sub" style="margin-bottom:32px">Cada barra es dinero saliendo o revenue sin capturar. Estimado basado en stack detectado y GMV confirmado.</p>
+    <div class="cost-list" id="costList">
+      <div class="cost-row">
+        <div class="cost-meta">
+          <span class="cost-label"><div class="dot dot-red" style="display:inline-block;margin-right:8px;vertical-align:middle"></div>Pasarela sin negociar — Mercado Pago estándar (4.2% efectivo)</span>
+          <span class="cost-amount">$12,600 MXN/mes [est.]</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bar-coral" data-w="88"></div></div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-meta">
+          <span class="cost-label"><div class="dot dot-orange" style="display:inline-block;margin-right:8px;vertical-align:middle"></div>Operación manual ERP — reconciliación semanal Wix ↔ Compac</span>
+          <span class="cost-amount">$3,000–$5,000 MXN/mes [est.]</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bar-orange" data-w="40"></div></div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-meta">
+          <span class="cost-label"><div class="dot dot-purple" style="width:10px;height:10px;border-radius:50%;background:#9B8BFF;display:inline-block;margin-right:8px;vertical-align:middle"></div>Sin MSI nativos — conversión perdida en ticket alto (−15–25% CVR)</span>
+          <span class="cost-amount">Revenue sin capturar</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bar-purple" data-w="30"></div></div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-meta">
+          <span class="cost-label"><div class="dot" style="width:10px;height:10px;border-radius:50%;background:#5b6fff;display:inline-block;margin-right:8px;vertical-align:middle"></div>Plan Wix Business — plataforma base sin funcionalidades avanzadas</span>
+          <span class="cost-amount">~$500 MXN/mes</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bar-blue" data-w="4"></div></div>
+      </div>
+    </div>
+    <div class="cost-total">
+      <span class="label">Overhead mensual estimado</span>
+      <span class="total-val">$16,100–$20,500 MXN</span>
+    </div>
+    <div class="cost-note">* Rangos estimados. Confirmar pasarela activa, plan Wix y costo laboral real. Mercado Pago: 3.6% + IVA.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 4 · COMPARATIVO
+══════════════════════════════════════ -->
+<div class="slide slide-table" data-slide="3">
+  <div class="inner">
+    <div class="eyebrow">Comparativo directo</div>
+    <div class="h-large">Wix hoy vs <span class="lime">Tiendanube Evolución</span></div>
+    <p class="sub" style="margin-bottom:24px">Cada fila es una capacidad, un costo o un canal. No features abstractas.</p>
+    <div class="comp-wrap">
+      <div class="comp-head">
+        <span>Variable</span>
+        <span>Wix · hoy</span>
+        <span class="tn">TN Evolución</span>
+      </div>
+      <div class="comp-row"><span class="var">Portal B2B nativo</span><span class="cur">❌ No disponible</span><div class="tn-val">Incluido <span class="badge">nuevo</span></div></div>
+      <div class="comp-row"><span class="var">ERP Compac</span><span class="cur">❌ Manual</span><div class="tn-val">Microsync nativo <span class="badge">confirmado</span></div></div>
+      <div class="comp-row"><span class="var">Filtros por atributo</span><span class="cur">❌ Limitado</span><div class="tn-val">Config. avanzada nativa <span class="badge">incluido</span></div></div>
+      <div class="comp-row"><span class="var">MSI (Kueski · Aplazo)</span><span class="cur">⚠️ Básico</span><div class="tn-val">Nativo <span class="badge">+15–25% CVR</span></div></div>
+      <div class="comp-row"><span class="var">Omnicanal (ML · Amazon)</span><span class="cur">❌ Sin conectores</span><div class="tn-val">Ventup + nativos <span class="badge">nuevo</span></div></div>
+      <div class="comp-row"><span class="var">Tasa pasarela</span><span class="cur">~4.2% efectivo</span><div class="tn-val">3.09% + $3 + IVA <span class="badge">negociable</span></div></div>
+      <div class="comp-row"><span class="var">AE dedicado · SLA</span><span class="cur">❌ Sin ejecutivo</span><div class="tn-val">15 min WhatsApp <span class="badge">×3 más rápido</span></div></div>
+      <div class="comp-row"><span class="var">Subsidio migración</span><span class="cur">— no aplica</span><div class="tn-val">$50,000 MXN cubiertos <span class="badge">gratis</span></div></div>
+      <div class="comp-row"><span class="var">Facturación</span><span class="cur">✅ MXN</span><div class="tn-val">MXN fijo <span class="badge">estable</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 5 · MARGEN
+══════════════════════════════════════ -->
+<div class="slide slide-margin" data-slide="4">
+  <div class="inner">
+    <div class="eyebrow" style="text-align:center;color:rgba(255,255,255,0.6)">El impacto real en tu margen</div>
+    <div class="h-large" style="text-align:center;margin-bottom:8px">De cada <span class="lime">$100</span> que vendes,<br><em>¿cuánto te queda?</em></div>
+    <div class="donut-wrap">
+      <!-- Donut Wix -->
+      <div class="donut-block">
+        <svg class="donut-svg" viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="20"/>
+          <!-- Neto 95.8% → gray -->
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="20"
+            stroke-dasharray="414.7 25.3" stroke-dashoffset="109.6" stroke-linecap="round"/>
+          <!-- Pasarela 4.2% → coral -->
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#FF6B5A" stroke-width="20"
+            stroke-dasharray="18.2 421.8" stroke-dashoffset="0" stroke-linecap="round"
+            transform="rotate(-90 90 90)"/>
+          <text x="90" y="84" text-anchor="middle" font-size="32" font-weight="800" fill="#C4F062" font-family="DM Sans,Arial,sans-serif">$96</text>
+          <text x="90" y="104" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.55)" font-family="DM Sans,Arial,sans-serif">te quedan</text>
+        </svg>
+        <div class="donut-label">Wix hoy</div>
+        <div class="donut-legend">
+          <div><span style="background:rgba(255,255,255,0.25)"></span>Neto: ~95.8%</div>
+          <div><span style="background:#FF6B5A"></span>Pasarela: ~4.2%</div>
+          <div><span style="background:rgba(255,255,255,0.1)"></span>Operación manual: sin medir</div>
+          <div><span style="background:rgba(255,255,255,0.1)"></span>B2B sin digitalizar: canal perdido</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div class="vs-badge">+$4K/mes</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);text-align:center">en fees<br>a favor</div>
+      </div>
+
+      <!-- Donut TN Evolución -->
+      <div class="donut-block">
+        <svg class="donut-svg" viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="20"/>
+          <!-- Neto 96.7% → lime -->
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#C4F062" stroke-width="20"
+            stroke-dasharray="418.0 22.0" stroke-dashoffset="109.6" stroke-linecap="round"/>
+          <!-- Pago Nube 3.3% → blue -->
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(100,130,255,0.7)" stroke-width="20"
+            stroke-dasharray="14.3 425.7" stroke-dashoffset="0" stroke-linecap="round"
+            transform="rotate(-90 90 90)"/>
+          <text x="90" y="84" text-anchor="middle" font-size="32" font-weight="800" fill="#C4F062" font-family="DM Sans,Arial,sans-serif">$97</text>
+          <text x="90" y="104" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.55)" font-family="DM Sans,Arial,sans-serif">te quedan</text>
+        </svg>
+        <div class="donut-label lime">Tiendanube Evolución</div>
+        <div class="donut-legend">
+          <div><span style="background:#C4F062"></span>Neto: ~96.7%</div>
+          <div><span style="background:rgba(100,130,255,0.7)"></span>Pago Nube: ~3.3%</div>
+          <div><span style="background:rgba(255,255,255,0.1)"></span>Fee extra: $0</div>
+          <div><span style="background:rgba(255,255,255,0.1)"></span>B2B activo: +revenue</div>
+        </div>
+      </div>
+    </div>
+    <p class="margin-note">A $300K GMV/mes: <strong>~$4,000 MXN más en fees + B2B activo + ERP conectado</strong> con Tiendanube Evolución. Cálculo orientativo [est.]</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 6 · SUBSIDIO
+══════════════════════════════════════ -->
+<div class="slide slide-subsidy" data-slide="5">
+  <div class="inner">
+    <div class="eyebrow" style="text-align:center;color:rgba(255,255,255,0.6)">El argumento que cierra</div>
+    <div class="subsidy-amount">$50,000</div>
+    <div class="subsidy-label">MXN cubiertos por Tiendanube · cotización ENE Conceptos</div>
+    <h3 class="subsidy-title">La migración va por cuenta de la plataforma.</h3>
+    <p class="subsidy-sub">Iki Química solo paga la mensualidad del plan Evolución. Los $50,000 MXN de implementación los absorbe Tiendanube como parte del programa de partners certificados.</p>
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="r-lbl">Inversión en migración para KEY</div>
+        <div class="r-val">$0 MXN</div>
+      </div>
+      <div class="roi-card">
+        <div class="r-lbl">Valor del subsidio (cotización ENE)</div>
+        <div class="r-val">$50,000 MXN</div>
+      </div>
+      <div class="roi-card">
+        <div class="r-lbl">Equivale a meses de Evolución gratis</div>
+        <div class="r-val">12.5 meses</div>
+      </div>
+      <div class="roi-card">
+        <div class="r-lbl">ROI desde el primer mes</div>
+        <div class="r-val">Positivo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 7 · PLAN
+══════════════════════════════════════ -->
+<div class="slide slide-plan" data-slide="6">
+  <div class="inner">
+    <div class="eyebrow" style="color:rgba(255,255,255,0.6)">El siguiente paso · Solo por invitación</div>
+    <div class="h-large" style="margin-bottom:24px">Plan <span class="lime">Evolución</span></div>
+    <div class="plan-grid">
+      <div class="plan-card cur">
+        <div class="plan-tag cur-tag">Hoy · Wix</div>
+        <div class="plan-name">Wix Business</div>
+        <div class="plan-price">~$600 <span>MXN / mes</span></div>
+        <ul class="plan-features">
+          <li class="bad"><span class="ic">✕</span>Sin portal B2B nativo</li>
+          <li class="bad"><span class="ic">✕</span>Sin integración ERP Compac</li>
+          <li class="bad"><span class="ic">✕</span>Sin filtros avanzados por atributo</li>
+          <li class="bad"><span class="ic">✕</span>Sin ejecutivo de cuenta dedicado</li>
+          <li class="bad"><span class="ic">✕</span>Sin Envío Nube ni Pago Nube</li>
+          <li class="bad"><span class="ic">✕</span>Sin omnicanal (ML, Amazon, Walmart)</li>
+          <li class="bad"><span class="ic">✕</span>Sin pedidos recurrentes nativos</li>
+          <li class="bad"><span class="ic">✕</span>Migración: $50,000 MXN por cuenta propia</li>
+        </ul>
+      </div>
+      <div class="plan-card evo">
+        <div class="plan-tag evo-tag">✦ Evolución · Por invitación</div>
+        <div class="plan-name">Tiendanube Evolución</div>
+        <div class="plan-price">$3,999 <span>MXN / mes · migración $0</span></div>
+        <ul class="plan-features">
+          <li class="good"><span class="ic">✓</span>Portal B2B nativo · listas precio por cliente</li>
+          <li class="good"><span class="ic">✓</span>Microsync — ERP Compac conectado</li>
+          <li class="good"><span class="ic">✓</span>Filtros por atributo (config. avanzada)</li>
+          <li class="good"><span class="ic">✓</span>AE dedicado · SLA 15 min vía WhatsApp</li>
+          <li class="good"><span class="ic">✓</span>Envío Nube + Pago Nube incluidos</li>
+          <li class="good"><span class="ic">✓</span>Omnicanal: ML, Amazon, Walmart, TikTok</li>
+          <li class="good"><span class="ic">✓</span>Chat Nube · bot IA 24/7 + WhatsApp</li>
+          <li class="good"><span class="ic">✓</span>Migración subsidiada · $50,000 MXN cubiertos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 8 · PRÓXIMOS PASOS
+══════════════════════════════════════ -->
+<div class="slide slide-steps" data-slide="7">
+  <div class="inner">
+    <div class="eyebrow">Próximos pasos acordados · Reunión 23 abril 2026</div>
+    <div class="h-large" style="margin-bottom:24px">¿Qué sigue <em>esta semana?</em></div>
+    <div class="steps-list">
+      <div class="step done">
+        <div class="step-num">✓</div>
+        <div>
+          <h4>Sesión técnica inicial completada</h4>
+          <p>Demo plataforma, ERP Compac, B2B portal, Pago Nube y subsidio presentados. Alan Barrera confirmó interés en avanzar.</p>
+          <span class="owner">Alan Cervantes · Irvin Peña</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Enviar grabación + resumen + cotización de migración</h4>
+          <p>Correo con grabación, tarifas Pago Nube y carta comercial del subsidio. Copia del desglose de $50,000 MXN de ENE Conceptos.</p>
+          <span class="owner">Irvin Peña · Carlos Arenas</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Evaluación técnica ERP Compac ↔ Tiendanube</h4>
+          <p>Equipo Platform evalúa conexión: API, Microsync nativo o app de terceros.</p>
+          <span class="owner">Equipo Platform · Irvin Peña</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Segunda sesión: Gerente de Tiendas + Director de Mercadotecnia</h4>
+          <p>Alan Barrera agenda a los tomadores de decisión. Foco en B2B y omnicanal. Primera semana de mayo.</p>
+          <span class="owner">Carlos Arenas · Alan Barrera</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Cotización Envío Nube personalizada</h4>
+          <p>Sesión con equipo Envío Nube. Tabulador por peso y zona CDMX / Monterrey. Confirmar Rapigoy same-day.</p>
+          <span class="owner">Irvin Peña</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:0.75rem;color:rgba(255,255,255,0.25);margin-top:20px;text-align:center">
+      Alan Cervantes · Partner Manager MX · alan.cervantes@tiendanube.com · +52 56 2704 5594<br>
+      En colaboración con Carlos Arenas · ENE Conceptos (Partner Certificado)
+    </p>
+  </div>
+</div>
+
+<script>
+  // ── NAV DOTS
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('navDots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
+    dotsContainer.appendChild(d);
+  });
+
+  const dots = dotsContainer.querySelectorAll('.nav-dot');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = parseInt(e.target.dataset.slide);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        // Animate bars when cost slide is visible
+        if (idx === 2) animateBars();
+      }
+    });
+  }, { threshold: 0.5 });
+  slides.forEach(s => obs.observe(s));
+
+  // ── BAR ANIMATIONS
+  let barsAnimated = false;
+  function animateBars() {
+    if (barsAnimated) return;
+    barsAnimated = true;
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const w = bar.dataset.w;
+      setTimeout(() => bar.style.width = w + '%', 100);
+    });
+  }
+</script>
+</body>
+</html>
