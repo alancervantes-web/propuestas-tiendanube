@@ -22,7 +22,6 @@
   --ease:       cubic-bezier(0.4,0,0.2,1);
   --bounce:     cubic-bezier(0.34,1.56,0.64,1);
 }
-
 html { scroll-snap-type: y mandatory; overflow-y: scroll; scroll-behavior: smooth; }
 body { font-family: 'DM Sans', -apple-system, sans-serif; background: var(--blue); color: var(--white); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 
@@ -125,52 +124,45 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 .pb-fill { height: 100%; background: var(--lime); border-radius: 999px; width: 0; transition: width 0.8s var(--ease); }
 .pb-val { font-size: 0.95rem; color: var(--lime); font-weight: 800; margin-top: 0.5rem; }
 
-/* INVESTMENT — Evolución only layout */
-.inv-evo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  align-items: start;
-}
-.inv-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(196,240,98,0.25);
-  border-radius: 20px;
-  padding: 2rem;
-}
+/* INVESTMENT */
+.inv-evo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; align-items: start; }
+.inv-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(196,240,98,0.25); border-radius: 20px; padding: 2rem; }
 .inv-plan-lbl { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(196,240,98,0.7); margin-bottom: 0.75rem; }
 .inv-price { font-size: 3.2rem; font-weight: 800; color: var(--white); line-height: 1; letter-spacing: -0.03em; }
 .inv-per { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: 0.5rem; }
-.inv-invite {
-  display: inline-block; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--sunset); border: 1px solid rgba(255,181,71,0.35); background: rgba(255,181,71,0.08);
-  padding: 0.28rem 0.7rem; border-radius: 999px; margin-bottom: 1.25rem;
-}
+.inv-invite { display: inline-block; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sunset); border: 1px solid rgba(255,181,71,0.35); background: rgba(255,181,71,0.08); padding: 0.28rem 0.7rem; border-radius: 999px; margin-bottom: 1.25rem; }
 .inv-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
 .inv-features li { font-size: 0.82rem; color: rgba(255,255,255,0.65); padding-left: 1.3rem; position: relative; line-height: 1.5; }
 .inv-features li::before { content: '✓'; position: absolute; left: 0; color: var(--lime); font-size: 0.68rem; top: 0.1rem; }
 
-/* CUATES CARD */
-.cuates-card {
-  background: rgba(196,240,98,0.04);
-  border: 1px solid rgba(196,240,98,0.2);
+/* IMPLEMENTATION CARD */
+.impl-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
   border-top: 3px solid var(--lime);
   border-radius: 0 0 20px 20px;
   padding: 1.75rem 2rem;
 }
-.cuates-tag {
+.impl-tag {
   display: inline-flex; align-items: center; gap: 0.4rem;
   font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--lime); border: 1px solid rgba(196,240,98,0.3); background: rgba(196,240,98,0.08);
-  padding: 0.35rem 0.85rem; border-radius: 999px; margin-bottom: 1rem;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  padding: 0.32rem 0.8rem; border-radius: 999px; margin-bottom: 1rem;
 }
-.cuates-price { font-size: 2.6rem; font-weight: 800; color: var(--lime); line-height: 1; letter-spacing: -0.02em; }
-.cuates-currency { font-size: 1rem; color: rgba(196,240,98,0.7); margin-left: 0.3rem; }
-.cuates-market { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 0.3rem; }
-.cuates-includes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: 1.1rem; }
-.cuates-includes li { font-size: 0.78rem; color: rgba(255,255,255,0.6); padding-left: 1.2rem; position: relative; list-style: none; }
-.cuates-includes li::before { content: '✓'; position: absolute; left: 0; color: var(--lime); font-size: 0.65rem; }
+.impl-price { font-size: 2.6rem; font-weight: 800; color: var(--lime); line-height: 1; letter-spacing: -0.02em; }
+.impl-currency { font-size: 1rem; color: rgba(196,240,98,0.7); margin-left: 0.3rem; }
+.impl-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-top: 0.6rem; }
+.impl-includes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: 1.1rem; list-style: none; }
+.impl-includes li { font-size: 0.78rem; color: rgba(255,255,255,0.6); padding-left: 1.2rem; position: relative; }
+.impl-includes li::before { content: '✓'; position: absolute; left: 0; color: var(--lime); font-size: 0.65rem; }
+
+/* ROI BOX */
+.roi-box { margin-top: 1.1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.25rem 1.5rem; }
+.roi-lbl { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); margin-bottom: 0.5rem; }
+.roi-val { font-size: 1.8rem; font-weight: 800; color: var(--lime); line-height: 1; letter-spacing: -0.02em; }
+.roi-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
 
 /* LOGOS / MARCAS */
 .two-col { display:grid; grid-template-columns:1fr 1.5fr; gap:4rem; align-items:center; }
@@ -214,32 +206,29 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 .hint span { font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; }
 @keyframes bob { 0%,100%{ transform:translateX(-50%) translateY(0); } 50%{ transform:translateX(-50%) translateY(7px); } }
 
-/* PORTRAIT BLOCKER */
+/* PORTRAIT */
 .portrait { display:none; position:fixed; inset:0; background:var(--blue); z-index:999; align-items:center; justify-content:center; flex-direction:column; gap:1rem; text-align:center; padding:2rem; }
 @media(max-width:768px) and (orientation:portrait){ .portrait{ display:flex; } }
 
 /* RESPONSIVE */
-@media(max-width:900px){ .metrics,.eco { grid-template-columns:1fr 1fr; } .two-col { grid-template-columns:1fr; gap:2rem; } .tips2 { grid-template-columns:1fr; } .calc-layout { grid-template-columns:1fr; } .inv-evo { grid-template-columns:1fr; } .cuates-includes { grid-template-columns:1fr; } }
+@media(max-width:900px){ .metrics,.eco { grid-template-columns:1fr 1fr; } .two-col { grid-template-columns:1fr; gap:2rem; } .tips2 { grid-template-columns:1fr; } .calc-layout { grid-template-columns:1fr; } .inv-evo { grid-template-columns:1fr; } .impl-includes { grid-template-columns:1fr; } }
 @media(max-width:600px){ .stats-row { flex-direction:column; align-items:stretch; } .stat{ max-width:none; } .metrics,.eco,.comm-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 
-<!-- PORTRAIT BLOCKER -->
 <div class="portrait">
   <div style="font-size:2.5rem">↻</div>
   <p style="font-size:1.1rem;font-weight:600;opacity:.8" data-i18n="rotate">Girá tu dispositivo</p>
   <p style="font-size:.85rem;opacity:.45" data-i18n="rotate_sub">Esta presentación funciona mejor en modo horizontal</p>
 </div>
 
-<!-- LANG SWITCHER -->
 <div class="lang-sw">
   <button class="lbtn active" data-lang="es" onclick="setLang('es')">ES</button>
   <button class="lbtn"        data-lang="en" onclick="setLang('en')">EN</button>
   <button class="lbtn"        data-lang="pt" onclick="setLang('pt')">PT</button>
 </div>
 
-<!-- NAV DOTS (8 slides) -->
 <nav class="nav" id="nav">
   <button class="dot on" data-i="0"></button>
   <button class="dot"    data-i="1"></button>
@@ -252,9 +241,7 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 </nav>
 
 
-<!-- ══════════════════════════════════════
-     S1 · HERO
-══════════════════════════════════════ -->
+<!-- S1 · HERO -->
 <section class="slide bg-blue" id="s0">
   <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
 
@@ -266,23 +253,17 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
     </div>
 
     <div class="badge r d2" data-i18n="s1_badge">Diagnóstico · Reevolution × Tiendanube</div>
-
     <h1 class="hero-title r d3" style="max-width:900px">
       <span data-i18n="s1_h1a">Colchones América</span><br>
       <span class="italic" data-i18n="s1_h1b">tiene todo para crecer — falta la plataforma.</span>
     </h1>
-
-    <p class="hero-sub r d4" style="text-align:center;margin:0 auto 2.75rem;" data-i18n="s1_sub">
-      Tu marca genera tráfico, tiene producto y reputación. El checkout lento, los costos en USD y las comisiones ocultas son el freno. Esto es lo que encontramos.
-    </p>
-
+    <p class="hero-sub r d4" style="text-align:center;margin:0 auto 2.75rem" data-i18n="s1_sub">Tu marca genera tráfico, tiene producto y reputación. El checkout lento, los costos en USD y las comisiones ocultas son el freno. Esto es lo que encontramos.</p>
     <div class="stats-row r d5">
       <div class="stat"><div class="stat-val" data-i18n="s1_v1">63%</div><div class="stat-lbl" data-i18n="s1_l1">Crecimiento e-commerce MX 2025</div></div>
       <div class="stat"><div class="stat-val" data-i18n="s1_v2">$0</div><div class="stat-lbl" data-i18n="s1_l2">Comisión TN por transacción</div></div>
       <div class="stat"><div class="stat-val" data-i18n="s1_v3">12×</div><div class="stat-lbl" data-i18n="s1_l3">Más rápido que Shopify en LATAM</div></div>
     </div>
   </div>
-
   <div class="hint">
     <svg width="16" height="24" viewBox="0 0 16 24" fill="none"><rect x="1" y="1" width="14" height="22" rx="7" stroke="white" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="white"><animate attributeName="cy" values="8;14;8" dur="2s" repeatCount="indefinite"/></circle></svg>
     <span data-i18n="hint">Desliza</span>
@@ -290,31 +271,22 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S2 · COMPARATIVA SHOPIFY VS TN
-══════════════════════════════════════ -->
+<!-- S2 · COMPARATIVA -->
 <section class="slide bg-dark" id="s1">
   <div class="inner">
     <div class="eyebrow r" data-i18n="s2_eyebrow">Comparativa directa</div>
     <h2 class="r d1"><span data-i18n="s2_h2a">Lo que cuesta</span> <span class="hi" data-i18n="s2_h2b">quedarse en Shopify</span></h2>
     <p class="section-sub r d2" data-i18n="s2_sub">Shopify es una buena plataforma para vender en USD. Para crecer en México, el math no cierra.</p>
-
     <div class="r d3" style="overflow-x:auto">
       <table class="tbl">
-        <thead>
-          <tr>
-            <th data-i18n="s2_col0">Criterio</th>
-            <th data-i18n="s2_col1">Shopify · Hoy</th>
-            <th data-i18n="s2_col2">Tiendanube</th>
-          </tr>
-        </thead>
+        <thead><tr><th data-i18n="s2_c0">Criterio</th><th data-i18n="s2_c1">Shopify · Hoy</th><th data-i18n="s2_c2">Tiendanube</th></tr></thead>
         <tbody>
           <tr><td data-i18n="s2_r1c">Facturación mensual</td><td data-i18n="s2_r1a">USD → fluctuación cambiaria cada mes</td><td data-i18n="s2_r1b">100% MXN, precio fijo y predecible</td></tr>
-          <tr><td data-i18n="s2_r2c">Comisión por venta</td><td data-i18n="s2_r2a">0.5–2% encima de la pasarela que uses</td><td data-i18n="s2_r2b">$0 comisión adicional con Pago Nube</td></tr>
+          <tr><td data-i18n="s2_r2c">Comisión por venta</td><td data-i18n="s2_r2a">0.5–2% encima de la pasarela</td><td data-i18n="s2_r2b">$0 comisión adicional con Pago Nube</td></tr>
           <tr><td data-i18n="s2_r3c">Velocidad checkout</td><td data-i18n="s2_r3a">Media del mercado</td><td data-i18n="s2_r3b">50% más rápido · menor abandono</td></tr>
-          <tr><td data-i18n="s2_r4c">Soporte urgente</td><td data-i18n="s2_r4a">Email / ticket, sin SLA definido en MX</td><td data-i18n="s2_r4b">15 min · WhatsApp · persona real · MX</td></tr>
-          <tr><td data-i18n="s2_r5c">MSI nativos</td><td data-i18n="s2_r5a">Plugin externo + configuración técnica</td><td data-i18n="s2_r5b">Hasta 18 MSI integrados en Pago Nube</td></tr>
-          <tr><td data-i18n="s2_r6c">PDV integrado</td><td data-i18n="s2_r6a">Shopify POS: costo extra mensual</td><td data-i18n="s2_r6b">Incluido en plan Evolución, sin costo extra</td></tr>
+          <tr><td data-i18n="s2_r4c">Soporte urgente</td><td data-i18n="s2_r4a">Email / ticket, sin SLA en MX</td><td data-i18n="s2_r4b">15 min · WhatsApp · persona real · MX</td></tr>
+          <tr><td data-i18n="s2_r5c">MSI nativos</td><td data-i18n="s2_r5a">Plugin externo + config técnica</td><td data-i18n="s2_r5b">Hasta 18 MSI integrados en Pago Nube</td></tr>
+          <tr><td data-i18n="s2_r6c">PDV integrado</td><td data-i18n="s2_r6a">Shopify POS: costo extra mensual</td><td data-i18n="s2_r6b">Incluido en plan Evolución</td></tr>
         </tbody>
       </table>
     </div>
@@ -322,72 +294,61 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S3 · DIAGNÓSTICO / FUGAS
-══════════════════════════════════════ -->
+<!-- S3 · DIAGNÓSTICO -->
 <section class="slide bg-deeper" id="s2">
   <div class="inner">
     <div class="eyebrow r" data-i18n="s3_eyebrow">Diagnóstico técnico</div>
     <h2 class="r d1"><span data-i18n="s3_h2a">3 fugas que</span> <span class="hl" data-i18n="s3_h2b">cuestan dinero hoy</span></h2>
     <p class="section-sub r d2" data-i18n="s3_sub">Cuantificamos las pérdidas antes de hablar de plataforma. Así se toman decisiones.</p>
-
     <div class="metrics">
       <div class="mcard r d2">
-        <div class="mlabel" data-i18n="s3_m1_lbl">Comisión Shopify por transacción</div>
+        <div class="mlabel" data-i18n="s3_m1">Comisión Shopify por transacción</div>
         <div class="brow"><span class="bname" data-i18n="s3_basic">Plan Basic</span><div class="btrack"><div class="bfill lose" data-w="70"></div></div><span class="bval lose">2%</span></div>
         <div class="brow"><span class="bname">Tiendanube</span><div class="btrack"><div class="bfill win" data-w="0"></div></div><span class="bval win">$0</span></div>
-        <div class="mnote" data-i18n="s3_m1_note">2% sobre cada venta. A $500K MXN/mes = $10,000 MXN que van directo a Shopify. [est.]</div>
-        <div class="msrc" data-i18n="s3_m1_src">Fuente: Shopify Pricing MX, 2025</div>
+        <div class="mnote" data-i18n="s3_n1">2% sobre cada venta. A $500K MXN/mes = $10,000 MXN que van directo a Shopify. [est.]</div>
+        <div class="msrc" data-i18n="s3_s1">Fuente: Shopify Pricing MX, 2025</div>
       </div>
-
       <div class="mcard r d3">
-        <div class="mlabel" data-i18n="s3_m2_lbl">Velocidad del checkout</div>
+        <div class="mlabel" data-i18n="s3_m2">Velocidad del checkout</div>
         <div class="brow"><span class="bname" data-i18n="s3_market">Media mercado</span><div class="btrack"><div class="bfill ref" data-w="50"></div></div><span class="bval ref">ref.</span></div>
         <div class="brow"><span class="bname">Tiendanube</span><div class="btrack"><div class="bfill win" data-w="85"></div></div><span class="bval win">+50%</span></div>
-        <div class="mnote" data-i18n="s3_m2_note">Cada segundo extra = ~7% menos conversión. Colchones son ticket alto: cada abandono cuesta mucho más que en moda. [est.]</div>
-        <div class="msrc" data-i18n="s3_m2_src">Fuente: Tiendanube benchmark, 2024</div>
+        <div class="mnote" data-i18n="s3_n2">Cada segundo extra = ~7% menos conversión. Colchones son ticket alto — cada abandono cuesta más que en moda. [est.]</div>
+        <div class="msrc" data-i18n="s3_s2">Fuente: Tiendanube benchmark, 2024</div>
       </div>
-
       <div class="mcard r d4">
-        <div class="mlabel" data-i18n="s3_m3_lbl">Exposición cambiaria USD/MXN</div>
+        <div class="mlabel" data-i18n="s3_m3">Exposición cambiaria USD/MXN</div>
         <div class="mhero">~15%</div>
-        <div class="mnote" data-i18n="s3_m3_note">La depreciación MXN/USD del último año fue ~15%. Tu factura de Shopify en USD sube cada año sin que hagas nada. Con TN pagas MXN fijo. [est.]</div>
-        <div class="msrc" data-i18n="s3_m3_src">Fuente: Banxico tipo de cambio, 2024–2025</div>
+        <div class="mnote" data-i18n="s3_n3">La depreciación MXN/USD del último año fue ~15%. Tu factura de Shopify en USD sube cada año sin que hagas nada. Con TN pagas MXN fijo. [est.]</div>
+        <div class="msrc" data-i18n="s3_s3">Fuente: Banxico tipo de cambio, 2024–2025</div>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S4 · ECOSISTEMA NUBE
-══════════════════════════════════════ -->
+<!-- S4 · ECOSISTEMA -->
 <section class="slide bg-dark" id="s3">
   <div class="inner">
     <div class="eyebrow r" data-i18n="s4_eyebrow">Plataforma nativa MX</div>
     <h2 class="r d1"><span data-i18n="s4_h2a">Todo en un panel</span> <span class="hi" data-i18n="s4_h2b">sin plugins que se rompan</span></h2>
     <p class="section-sub r d2" data-i18n="s4_sub">+1,700 integraciones. Sin comisiones ocultas. Hecho para México.</p>
-
     <div class="eco">
-      <div class="ecard r d1"><div class="eicon">💳</div><div class="ename" data-i18n="s4_e1_n">Pago Nube</div><div class="edesc" data-i18n="s4_e1_d">Pasarela nativa MXN. MSI hasta 18 meses, OXXO, tarjeta. Aprobación 87%+.</div><span class="ebadge" data-i18n="s4_e1_b">$0 comisión TN</span></div>
-      <div class="ecard r d2"><div class="eicon">📦</div><div class="ename" data-i18n="s4_e2_n">Envío Nube</div><div class="edesc" data-i18n="s4_e2_d">Estafeta, DHL y FedEx integrados. Colchones = bulto grande — las tarifas negociadas importan.</div><span class="ebadge" data-i18n="s4_e2_b">Logística nativa</span></div>
-      <div class="ecard r d3"><div class="eicon">📧</div><div class="ename" data-i18n="s4_e3_n">Marketing Nube</div><div class="edesc" data-i18n="s4_e3_d">Email + abandono de carrito + automations. Asiste el +20% de ventas en promedio.</div><span class="ebadge" data-i18n="s4_e3_b">Sin Klaviyo extra</span></div>
-      <div class="ecard r d4"><div class="eicon">💬</div><div class="ename" data-i18n="s4_e4_n">Chat Nube</div><div class="edesc" data-i18n="s4_e4_d">WhatsApp + chat del sitio conectado al catálogo en tiempo real.</div><span class="ebadge" data-i18n="s4_e4_b">Atención 24/7</span></div>
-      <div class="ecard r d5"><div class="eicon">🏪</div><div class="ename" data-i18n="s4_e5_n">PDV Nube</div><div class="edesc" data-i18n="s4_e5_d">Punto de venta físico integrado. Stock unificado online + tienda física.</div><span class="ebadge" data-i18n="s4_e5_b">Online + físico</span></div>
-      <div class="ecard r d6"><div class="eicon">🎧</div><div class="ename" data-i18n="s4_e6_n">Soporte real</div><div class="edesc" data-i18n="s4_e6_d">15 minutos · WhatsApp · en español · desde México · persona real. No bot.</div><span class="ebadge" data-i18n="s4_e6_b">SLA 15 min</span></div>
+      <div class="ecard r d1"><div class="eicon">💳</div><div class="ename" data-i18n="s4_e1n">Pago Nube</div><div class="edesc" data-i18n="s4_e1d">Pasarela nativa MXN. MSI hasta 18 meses, OXXO, tarjeta. Aprobación 87%+.</div><span class="ebadge" data-i18n="s4_e1b">$0 comisión TN</span></div>
+      <div class="ecard r d2"><div class="eicon">📦</div><div class="ename" data-i18n="s4_e2n">Envío Nube</div><div class="edesc" data-i18n="s4_e2d">Estafeta, DHL y FedEx integrados. Colchones = bulto grande — las tarifas negociadas importan.</div><span class="ebadge" data-i18n="s4_e2b">Logística nativa</span></div>
+      <div class="ecard r d3"><div class="eicon">📧</div><div class="ename" data-i18n="s4_e3n">Marketing Nube</div><div class="edesc" data-i18n="s4_e3d">Email + abandono de carrito + automations. Asiste el +20% de ventas en promedio.</div><span class="ebadge" data-i18n="s4_e3b">Sin Klaviyo extra</span></div>
+      <div class="ecard r d4"><div class="eicon">💬</div><div class="ename" data-i18n="s4_e4n">Chat Nube</div><div class="edesc" data-i18n="s4_e4d">WhatsApp + chat del sitio conectado al catálogo en tiempo real.</div><span class="ebadge" data-i18n="s4_e4b">Atención 24/7</span></div>
+      <div class="ecard r d5"><div class="eicon">🏪</div><div class="ename" data-i18n="s4_e5n">PDV Nube</div><div class="edesc" data-i18n="s4_e5d">Punto de venta físico integrado. Stock unificado online + tienda.</div><span class="ebadge" data-i18n="s4_e5b">Online + físico</span></div>
+      <div class="ecard r d6"><div class="eicon">🎧</div><div class="ename" data-i18n="s4_e6n">Soporte real</div><div class="edesc" data-i18n="s4_e6d">15 minutos · WhatsApp · en español · desde México · persona real. No bot.</div><span class="ebadge" data-i18n="s4_e6b">SLA 15 min</span></div>
     </div>
   </div>
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S5 · CALCULADORA
-══════════════════════════════════════ -->
+<!-- S5 · CALCULADORA -->
 <section class="slide bg-blue" id="s4">
   <div class="inner">
     <div class="eyebrow r" data-i18n="s5_eyebrow">Calculadora de ahorro</div>
     <h2 class="r d1"><span data-i18n="s5_h2a">¿Cuánto te cuesta</span> <span class="hi" data-i18n="s5_h2b">Shopify cada mes?</span></h2>
-
     <div class="calc-layout r d2">
       <div>
         <div class="slider-group">
@@ -404,13 +365,12 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
         </div>
         <p style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.5rem" data-i18n="s5_disc">[est.] Estimación orientativa. Confirmar con análisis de cuenta real.</p>
       </div>
-
       <div class="results">
         <div class="res-card"><div class="res-lbl" data-i18n="s5_r1">Comisión mensual Shopify</div><div class="res-val" id="commCost">$10,000</div></div>
         <div class="res-card"><div class="res-lbl" data-i18n="s5_r2">Apps mensuales Shopify</div><div class="res-val" id="appsCost">$15,000</div></div>
         <div class="res-card win"><div class="res-lbl" data-i18n="s5_r3">Ahorro mensual estimado vs Evolución</div><div class="res-val" id="savings">$21,001</div></div>
         <div class="payback">
-          <div class="pb-lbl" data-i18n="s5_pb">Recuperas la implementación ($250K) en</div>
+          <div class="pb-lbl" data-i18n="s5_pb">Recuperas la inversión en implementación en</div>
           <div class="pb-track"><div class="pb-fill" id="pbFill"></div></div>
           <div class="pb-val" id="pbVal">~11.9 meses [est.]</div>
         </div>
@@ -420,23 +380,21 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S6 · INVERSIÓN — solo Evolución + cuates
-══════════════════════════════════════ -->
+<!-- S6 · INVERSIÓN — Evolución + Implementación -->
 <section class="slide bg-deeper" id="s5">
   <div class="inner">
     <div class="eyebrow r" data-i18n="s6_eyebrow">Inversión</div>
     <h2 class="r d1"><span data-i18n="s6_h2a">Lo que pagas</span> <span class="hi" data-i18n="s6_h2b">vs lo que recuperas</span></h2>
-    <p class="section-sub r d2" data-i18n="s6_sub">Plan Evolución es por invitación. Colchones América califica por GMV. La implementación se recupera sola.</p>
+    <p class="section-sub r d2" data-i18n="s6_sub">Plan Evolución es por invitación. Colchones América califica por GMV. La inversión en implementación se recupera en el primer año.</p>
 
     <div class="inv-evo r d3">
 
       <!-- Plan Evolución -->
       <div class="inv-card">
-        <div class="inv-plan-lbl" data-i18n="s6_p_lbl">Plan Evolución · Solo por invitación</div>
+        <div class="inv-plan-lbl" data-i18n="s6_plbl">Plan Evolución · Solo por invitación</div>
         <div class="inv-price">$3,999</div>
-        <div class="inv-per" data-i18n="s6_p_per">/mes con IVA</div>
-        <div class="inv-invite" data-i18n="s6_p_invite">Solo por invitación · GMV +$400K/mes</div>
+        <div class="inv-per" data-i18n="s6_pper">/mes con IVA</div>
+        <div class="inv-invite" data-i18n="s6_pinvite">Solo por invitación · GMV +$400K/mes</div>
         <ul class="inv-features">
           <li data-i18n="s6_f1">Account Executive dedicado</li>
           <li data-i18n="s6_f2">Soporte WhatsApp · SLA 15 min</li>
@@ -445,20 +403,20 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
           <li data-i18n="s6_f5">Usuarios ilimitados</li>
           <li data-i18n="s6_f6">Pago Nube: 0% comisión TN</li>
           <li data-i18n="s6_f7">Estadísticas avanzadas</li>
-          <li data-i18n="s6_f8">Implementación cotizada caso por caso</li>
+          <li data-i18n="s6_f8">Implementación cotizada con la agencia</li>
         </ul>
       </div>
 
-      <!-- Cuates card -->
+      <!-- Implementación + ROI -->
       <div>
-        <div class="cuates-card">
-          <div class="cuates-tag" data-i18n="s6_cuates_tag">✦ Implementación · Precio cuates Reevolution</div>
+        <div class="impl-card">
+          <div class="impl-tag" data-i18n="s6_impl_tag">Implementación · Reevolution</div>
           <div>
-            <span class="cuates-price">$250,000</span>
-            <span class="cuates-currency">MXN</span>
+            <span class="impl-price">$250,000</span>
+            <span class="impl-currency">MXN</span>
           </div>
-          <div class="cuates-market" data-i18n="s6_cuates_market">Precio de mercado estimado: $350K–$400K MXN [est.]</div>
-          <ul class="cuates-includes" style="margin-top:1.1rem">
+          <div class="impl-desc" data-i18n="s6_impl_desc">Proceso de migración completo, de principio a fin: catálogo, pasarela, envíos, diseño y capacitación del equipo.</div>
+          <ul class="impl-includes">
             <li data-i18n="s6_inc1">Migración de catálogo y pedidos</li>
             <li data-i18n="s6_inc2">Configuración pasarela y envíos</li>
             <li data-i18n="s6_inc3">Diseño y customización del tema</li>
@@ -466,11 +424,10 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
           </ul>
         </div>
 
-        <!-- ROI indicator -->
-        <div style="margin-top:1.1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.25rem 1.5rem">
-          <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.35);margin-bottom:0.5rem" data-i18n="s6_roi_lbl">Payback estimado basado en la calculadora</div>
-          <div style="font-size:1.8rem;font-weight:800;color:var(--lime);line-height:1;letter-spacing:-0.02em" id="roiMonths">~11.9 meses</div>
-          <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.3rem" data-i18n="s6_roi_note">Ajusta los sliders en la calculadora para ver tu número real. [est.]</div>
+        <div class="roi-box" style="margin-top:1.1rem">
+          <div class="roi-lbl" data-i18n="s6_roi_lbl">Payback estimado con base en la calculadora</div>
+          <div class="roi-val" id="roiMonths">~11.9 meses</div>
+          <div class="roi-note" data-i18n="s6_roi_note">Ajusta los sliders en la calculadora para ver tu número. [est.]</div>
         </div>
       </div>
 
@@ -479,16 +436,14 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S7 · MARCAS MX
-══════════════════════════════════════ -->
+<!-- S7 · MARCAS MX -->
 <section class="slide bg-blue" id="s6">
   <div class="inner two-col">
     <div>
       <div class="eyebrow r" data-i18n="s7_eyebrow">Social proof MX</div>
       <h2 class="r d1"><span data-i18n="s7_h2a">Marcas que ya crecen</span><br><span class="hi" data-i18n="s7_h2b">en Tiendanube México</span></h2>
       <p class="section-sub r d2" data-i18n="s7_sub">Desde deportes hasta electrónica y hogar — marcas que eligieron crecer en MXN, con soporte local y sin comisiones que se comen el margen.</p>
-      <div class="r d3" style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:0.5rem">
+      <div class="r d3" style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.5rem">
         <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.55rem 1rem;font-size:.73rem;font-weight:700" data-i18n="s7_t1">+160k marcas en LATAM</div>
         <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.55rem 1rem;font-size:.73rem;font-weight:700" data-i18n="s7_t2">63% YoY en México</div>
       </div>
@@ -506,9 +461,7 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 </section>
 
 
-<!-- ══════════════════════════════════════
-     S8 · CONFIDENCIAL REEVOLUTION (ES only)
-══════════════════════════════════════ -->
+<!-- S8 · CONFIDENCIAL REEVOLUTION (ES fijo) -->
 <section class="slide bg-midnight" id="s7">
   <div class="inner">
     <div class="conf-tag r">🔒 Solo Reevolution · No mostrar al cliente</div>
@@ -546,16 +499,16 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
         <div class="ttitle yes">✓ Sí di</div>
         <ul class="tlist yes">
           <li>"¿Cuánto pagas de comisión Shopify al mes?"</li>
-          <li>"Tu checkout está optimizado para ticket alto como colchones?"</li>
+          <li>"¿Tu checkout está optimizado para ticket alto?"</li>
           <li>"Shopify sirve para vender fuera de LATAM — si el foco es MX, el costo no cierra."</li>
-          <li>"La implementación se paga sola en menos de un año."</li>
+          <li>"La inversión en implementación se recupera en el primer año."</li>
         </ul>
       </div>
     </div>
 
     <div class="scard r d4">
       <div class="slabel">Script de apertura</div>
-      <div class="stext">"El mayor problema en colchones online no es el producto — es que el 75% de los abandonos pasan por fricción de pago y velocidad. ¿Te puedo mostrar cómo resolvieron eso marcas de ticket similar?"</div>
+      <div class="stext">"El mayor problema en colchones online no es el producto — es que el 75% de los abandonos pasan por fricción de pago y velocidad. ¿Te puedo mostrar cómo lo resolvieron marcas de ticket similar?"</div>
     </div>
 
     <div style="margin-top:1.25rem;font-size:0.7rem;color:rgba(255,255,255,0.35);display:flex;gap:2rem;flex-wrap:wrap" class="r d5">
@@ -568,220 +521,194 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
 
 <script>
-/* ─── TRANSLATIONS ─── */
 const T = {
   es: {
     rotate:"Girá tu dispositivo", rotate_sub:"Esta presentación funciona mejor en modo horizontal", hint:"Desliza",
     s1_badge:"Diagnóstico · Reevolution × Tiendanube",
     s1_h1a:"Colchones América", s1_h1b:"tiene todo para crecer — falta la plataforma.",
     s1_sub:"Tu marca genera tráfico, tiene producto y reputación. El checkout lento, los costos en USD y las comisiones ocultas son el freno. Esto es lo que encontramos.",
-    s1_v1:"63%", s1_l1:"Crecimiento e-commerce MX 2025",
-    s1_v2:"$0",  s1_l2:"Comisión TN por transacción",
-    s1_v3:"12×", s1_l3:"Más rápido que Shopify en LATAM",
+    s1_v1:"63%",s1_l1:"Crecimiento e-commerce MX 2025", s1_v2:"$0",s1_l2:"Comisión TN por transacción", s1_v3:"12×",s1_l3:"Más rápido que Shopify en LATAM",
     s2_eyebrow:"Comparativa directa", s2_h2a:"Lo que cuesta", s2_h2b:"quedarse en Shopify",
     s2_sub:"Shopify es una buena plataforma para vender en USD. Para crecer en México, el math no cierra.",
-    s2_col0:"Criterio", s2_col1:"Shopify · Hoy", s2_col2:"Tiendanube",
-    s2_r1c:"Facturación mensual",  s2_r1a:"USD → fluctuación cambiaria cada mes",       s2_r1b:"100% MXN, precio fijo y predecible",
-    s2_r2c:"Comisión por venta",   s2_r2a:"0.5–2% encima de la pasarela que uses",       s2_r2b:"$0 comisión adicional con Pago Nube",
-    s2_r3c:"Velocidad checkout",   s2_r3a:"Media del mercado",                           s2_r3b:"50% más rápido · menor abandono",
-    s2_r4c:"Soporte urgente",      s2_r4a:"Email / ticket, sin SLA definido en MX",      s2_r4b:"15 min · WhatsApp · persona real · MX",
-    s2_r5c:"MSI nativos",          s2_r5a:"Plugin externo + configuración técnica",       s2_r5b:"Hasta 18 MSI integrados en Pago Nube",
-    s2_r6c:"PDV integrado",        s2_r6a:"Shopify POS: costo extra mensual",             s2_r6b:"Incluido en plan Evolución, sin costo extra",
+    s2_c0:"Criterio",s2_c1:"Shopify · Hoy",s2_c2:"Tiendanube",
+    s2_r1c:"Facturación mensual",s2_r1a:"USD → fluctuación cambiaria cada mes",s2_r1b:"100% MXN, precio fijo y predecible",
+    s2_r2c:"Comisión por venta",s2_r2a:"0.5–2% encima de la pasarela",s2_r2b:"$0 comisión adicional con Pago Nube",
+    s2_r3c:"Velocidad checkout",s2_r3a:"Media del mercado",s2_r3b:"50% más rápido · menor abandono",
+    s2_r4c:"Soporte urgente",s2_r4a:"Email / ticket, sin SLA en MX",s2_r4b:"15 min · WhatsApp · persona real · MX",
+    s2_r5c:"MSI nativos",s2_r5a:"Plugin externo + config técnica",s2_r5b:"Hasta 18 MSI integrados en Pago Nube",
+    s2_r6c:"PDV integrado",s2_r6a:"Shopify POS: costo extra mensual",s2_r6b:"Incluido en plan Evolución",
     s3_eyebrow:"Diagnóstico técnico", s3_h2a:"3 fugas que", s3_h2b:"cuestan dinero hoy",
     s3_sub:"Cuantificamos las pérdidas antes de hablar de plataforma. Así se toman decisiones.",
-    s3_m1_lbl:"Comisión Shopify por transacción", s3_basic:"Plan Basic", s3_market:"Media mercado",
-    s3_m1_note:"2% sobre cada venta. A $500K MXN/mes = $10,000 MXN que van directo a Shopify. [est.]",
-    s3_m1_src:"Fuente: Shopify Pricing MX, 2025",
-    s3_m2_lbl:"Velocidad del checkout",
-    s3_m2_note:"Cada segundo extra = ~7% menos conversión. Colchones son ticket alto: cada abandono cuesta mucho más que en moda. [est.]",
-    s3_m2_src:"Fuente: Tiendanube benchmark, 2024",
-    s3_m3_lbl:"Exposición cambiaria USD/MXN",
-    s3_m3_note:"La depreciación MXN/USD del último año fue ~15%. Tu factura de Shopify en USD sube cada año sin que hagas nada. Con TN pagas MXN fijo. [est.]",
-    s3_m3_src:"Fuente: Banxico tipo de cambio, 2024–2025",
+    s3_m1:"Comisión Shopify por transacción",s3_basic:"Plan Basic",s3_market:"Media mercado",
+    s3_n1:"2% sobre cada venta. A $500K MXN/mes = $10,000 MXN que van directo a Shopify. [est.]",s3_s1:"Fuente: Shopify Pricing MX, 2025",
+    s3_m2:"Velocidad del checkout",
+    s3_n2:"Cada segundo extra = ~7% menos conversión. Colchones son ticket alto — cada abandono cuesta más que en moda. [est.]",s3_s2:"Fuente: Tiendanube benchmark, 2024",
+    s3_m3:"Exposición cambiaria USD/MXN",
+    s3_n3:"La depreciación MXN/USD del último año fue ~15%. Tu factura de Shopify en USD sube cada año sin que hagas nada. Con TN pagas MXN fijo. [est.]",s3_s3:"Fuente: Banxico tipo de cambio, 2024–2025",
     s4_eyebrow:"Plataforma nativa MX", s4_h2a:"Todo en un panel", s4_h2b:"sin plugins que se rompan",
     s4_sub:"+1,700 integraciones. Sin comisiones ocultas. Hecho para México.",
-    s4_e1_n:"Pago Nube",      s4_e1_d:"Pasarela nativa MXN. MSI hasta 18 meses, OXXO, tarjeta. Aprobación 87%+.",            s4_e1_b:"$0 comisión TN",
-    s4_e2_n:"Envío Nube",     s4_e2_d:"Estafeta, DHL y FedEx integrados. Colchones = bulto grande — las tarifas negociadas importan.", s4_e2_b:"Logística nativa",
-    s4_e3_n:"Marketing Nube", s4_e3_d:"Email + abandono de carrito + automations. Asiste el +20% de ventas en promedio.",      s4_e3_b:"Sin Klaviyo extra",
-    s4_e4_n:"Chat Nube",      s4_e4_d:"WhatsApp + chat del sitio conectado al catálogo en tiempo real.",                        s4_e4_b:"Atención 24/7",
-    s4_e5_n:"PDV Nube",       s4_e5_d:"Punto de venta físico integrado. Stock unificado online + tienda física.",               s4_e5_b:"Online + físico",
-    s4_e6_n:"Soporte real",   s4_e6_d:"15 minutos · WhatsApp · en español · desde México · persona real. No bot.",              s4_e6_b:"SLA 15 min",
+    s4_e1n:"Pago Nube",s4_e1d:"Pasarela nativa MXN. MSI hasta 18 meses, OXXO, tarjeta. Aprobación 87%+.",s4_e1b:"$0 comisión TN",
+    s4_e2n:"Envío Nube",s4_e2d:"Estafeta, DHL y FedEx integrados. Colchones = bulto grande — las tarifas negociadas importan.",s4_e2b:"Logística nativa",
+    s4_e3n:"Marketing Nube",s4_e3d:"Email + abandono de carrito + automations. Asiste el +20% de ventas en promedio.",s4_e3b:"Sin Klaviyo extra",
+    s4_e4n:"Chat Nube",s4_e4d:"WhatsApp + chat del sitio conectado al catálogo en tiempo real.",s4_e4b:"Atención 24/7",
+    s4_e5n:"PDV Nube",s4_e5d:"Punto de venta físico integrado. Stock unificado online + tienda.",s4_e5b:"Online + físico",
+    s4_e6n:"Soporte real",s4_e6d:"15 minutos · WhatsApp · en español · desde México · persona real. No bot.",s4_e6b:"SLA 15 min",
     s5_eyebrow:"Calculadora de ahorro", s5_h2a:"¿Cuánto te cuesta", s5_h2b:"Shopify cada mes?",
-    s5_sl1:"GMV mensual estimado", s5_sl2:"Comisión Shopify (%)", s5_sl3:"Apps Shopify (MXN/mes)",
-    s5_r1:"Comisión mensual Shopify", s5_r2:"Apps mensuales Shopify", s5_r3:"Ahorro mensual estimado vs Evolución",
-    s5_pb:"Recuperas la implementación ($250K) en",
+    s5_sl1:"GMV mensual estimado",s5_sl2:"Comisión Shopify (%)",s5_sl3:"Apps Shopify (MXN/mes)",
+    s5_r1:"Comisión mensual Shopify",s5_r2:"Apps mensuales Shopify",s5_r3:"Ahorro mensual estimado vs Evolución",
+    s5_pb:"Recuperas la inversión en implementación en",
     s5_disc:"[est.] Estimación orientativa. Confirmar con análisis de cuenta real.",
     s6_eyebrow:"Inversión", s6_h2a:"Lo que pagas", s6_h2b:"vs lo que recuperas",
-    s6_sub:"Plan Evolución es por invitación. Colchones América califica por GMV. La implementación se recupera sola.",
-    s6_p_lbl:"Plan Evolución · Solo por invitación", s6_p_per:"/mes con IVA",
-    s6_p_invite:"Solo por invitación · GMV +$400K/mes",
-    s6_f1:"Account Executive dedicado", s6_f2:"Soporte WhatsApp · SLA 15 min",
-    s6_f3:"Sesiones estratégicas de crecimiento", s6_f4:"PDV Nube incluido",
-    s6_f5:"Usuarios ilimitados", s6_f6:"Pago Nube: 0% comisión TN",
-    s6_f7:"Estadísticas avanzadas", s6_f8:"Implementación cotizada caso por caso",
-    s6_cuates_tag:"✦ Implementación · Precio cuates Reevolution",
-    s6_cuates_market:"Precio de mercado estimado: $350K–$400K MXN [est.]",
-    s6_inc1:"Migración de catálogo y pedidos", s6_inc2:"Configuración pasarela y envíos",
-    s6_inc3:"Diseño y customización del tema", s6_inc4:"Capacitación del equipo",
-    s6_roi_lbl:"Payback estimado basado en la calculadora",
-    s6_roi_note:"Ajusta los sliders en la calculadora para ver tu número real. [est.]",
+    s6_sub:"Plan Evolución es por invitación. Colchones América califica por GMV. La inversión en implementación se recupera en el primer año.",
+    s6_plbl:"Plan Evolución · Solo por invitación",s6_pper:"/mes con IVA",s6_pinvite:"Solo por invitación · GMV +$400K/mes",
+    s6_f1:"Account Executive dedicado",s6_f2:"Soporte WhatsApp · SLA 15 min",s6_f3:"Sesiones estratégicas de crecimiento",
+    s6_f4:"PDV Nube incluido",s6_f5:"Usuarios ilimitados",s6_f6:"Pago Nube: 0% comisión TN",
+    s6_f7:"Estadísticas avanzadas",s6_f8:"Implementación cotizada con la agencia",
+    s6_impl_tag:"Implementación · Reevolution",
+    s6_impl_desc:"Proceso de migración completo, de principio a fin: catálogo, pasarela, envíos, diseño y capacitación del equipo.",
+    s6_inc1:"Migración de catálogo y pedidos",s6_inc2:"Configuración pasarela y envíos",
+    s6_inc3:"Diseño y customización del tema",s6_inc4:"Capacitación del equipo",
+    s6_roi_lbl:"Payback estimado con base en la calculadora",
+    s6_roi_note:"Ajusta los sliders en la calculadora para ver tu número. [est.]",
     s7_eyebrow:"Social proof MX", s7_h2a:"Marcas que ya crecen", s7_h2b:"en Tiendanube México",
     s7_sub:"Desde deportes hasta electrónica y hogar — marcas que eligieron crecer en MXN, con soporte local y sin comisiones que se comen el margen.",
-    s7_t1:"+160k marcas en LATAM", s7_t2:"63% YoY en México"
+    s7_t1:"+160k marcas en LATAM",s7_t2:"63% YoY en México"
   },
   en: {
-    rotate:"Rotate your device", rotate_sub:"This presentation works best in landscape mode", hint:"Scroll",
+    rotate:"Rotate your device",rotate_sub:"Best viewed in landscape mode",hint:"Scroll",
     s1_badge:"Diagnostic · Reevolution × Tiendanube",
-    s1_h1a:"Colchones América", s1_h1b:"has everything to grow — it just needs the right platform.",
+    s1_h1a:"Colchones América",s1_h1b:"has everything to grow — it just needs the right platform.",
     s1_sub:"Your brand drives traffic, has product and reputation. Slow checkout, USD costs, and hidden fees are the brake. Here's what we found.",
-    s1_v1:"63%", s1_l1:"MX E-commerce Growth 2025",
-    s1_v2:"$0",  s1_l2:"Tiendanube Commission per Sale",
-    s1_v3:"12×", s1_l3:"Faster than Shopify in LATAM",
-    s2_eyebrow:"Head-to-Head Comparison", s2_h2a:"The real cost of", s2_h2b:"staying on Shopify",
+    s1_v1:"63%",s1_l1:"MX E-commerce Growth 2025",s1_v2:"$0",s1_l2:"Tiendanube Commission per Sale",s1_v3:"12×",s1_l3:"Faster than Shopify in LATAM",
+    s2_eyebrow:"Head-to-Head Comparison",s2_h2a:"The real cost of",s2_h2b:"staying on Shopify",
     s2_sub:"Shopify is solid for selling in USD. For growing in Mexico, the math doesn't add up.",
-    s2_col0:"Criteria", s2_col1:"Shopify · Today", s2_col2:"Tiendanube",
-    s2_r1c:"Monthly billing",     s2_r1a:"USD → FX fluctuation every month",           s2_r1b:"100% MXN, fixed and predictable",
-    s2_r2c:"Transaction fee",     s2_r2a:"0.5–2% on top of payment gateway",            s2_r2b:"$0 extra fee with Pago Nube",
-    s2_r3c:"Checkout speed",      s2_r3a:"Market average",                              s2_r3b:"50% faster · less abandonment",
-    s2_r4c:"Urgent support",      s2_r4a:"Email / ticket, no SLA defined in MX",        s2_r4b:"15 min · WhatsApp · real person · MX",
-    s2_r5c:"Native installments", s2_r5a:"Third-party plugin + technical setup",         s2_r5b:"Up to 18 installments built-in",
-    s2_r6c:"Integrated POS",      s2_r6a:"Shopify POS: extra monthly cost",              s2_r6b:"Included in Evolución plan, no extra cost",
-    s3_eyebrow:"Technical Diagnosis", s3_h2a:"3 leaks", s3_h2b:"costing you money today",
+    s2_c0:"Criteria",s2_c1:"Shopify · Today",s2_c2:"Tiendanube",
+    s2_r1c:"Monthly billing",s2_r1a:"USD → FX fluctuation every month",s2_r1b:"100% MXN, fixed and predictable",
+    s2_r2c:"Transaction fee",s2_r2a:"0.5–2% on top of gateway",s2_r2b:"$0 extra fee with Pago Nube",
+    s2_r3c:"Checkout speed",s2_r3a:"Market average",s2_r3b:"50% faster · less abandonment",
+    s2_r4c:"Urgent support",s2_r4a:"Email / ticket, no SLA in MX",s2_r4b:"15 min · WhatsApp · real person · MX",
+    s2_r5c:"Native installments",s2_r5a:"Third-party plugin + setup",s2_r5b:"Up to 18 installments built-in",
+    s2_r6c:"Integrated POS",s2_r6a:"Shopify POS: extra monthly cost",s2_r6b:"Included in Evolución plan",
+    s3_eyebrow:"Technical Diagnosis",s3_h2a:"3 leaks",s3_h2b:"costing you money today",
     s3_sub:"We quantify the losses before talking platforms. That's how decisions get made.",
-    s3_m1_lbl:"Shopify transaction fee", s3_basic:"Basic Plan", s3_market:"Market avg.",
-    s3_m1_note:"2% per sale. At $500K MXN/month = $10K MXN going straight to Shopify. [est.]",
-    s3_m1_src:"Source: Shopify Pricing MX, 2025",
-    s3_m2_lbl:"Checkout speed",
-    s3_m2_note:"Each extra second = ~7% less conversion. High-ticket items like mattresses — every abandonment hurts more. [est.]",
-    s3_m2_src:"Source: Tiendanube benchmark, 2024",
-    s3_m3_lbl:"USD/MXN Exchange Risk",
-    s3_m3_note:"MXN/USD depreciation last year was ~15%. Your Shopify USD bill goes up every year even if you do nothing. TN = fixed MXN. [est.]",
-    s3_m3_src:"Source: Banxico historical FX, 2024–2025",
-    s4_eyebrow:"Native MX Platform", s4_h2a:"Everything in one panel", s4_h2b:"no plugins breaking",
+    s3_m1:"Shopify transaction fee",s3_basic:"Basic Plan",s3_market:"Market avg.",
+    s3_n1:"2% per sale. At $500K MXN/month = $10K MXN going straight to Shopify. [est.]",s3_s1:"Source: Shopify Pricing MX, 2025",
+    s3_m2:"Checkout speed",
+    s3_n2:"Each extra second = ~7% less conversion. High-ticket items — every abandonment hurts more. [est.]",s3_s2:"Source: Tiendanube benchmark, 2024",
+    s3_m3:"USD/MXN Exchange Risk",
+    s3_n3:"MXN/USD depreciation last year was ~15%. Your Shopify USD bill goes up every year even if you do nothing. TN = fixed MXN. [est.]",s3_s3:"Source: Banxico historical FX, 2024–2025",
+    s4_eyebrow:"Native MX Platform",s4_h2a:"Everything in one panel",s4_h2b:"no plugins breaking",
     s4_sub:"+1,700 integrations. No hidden fees. Built for Mexico.",
-    s4_e1_n:"Pago Nube",      s4_e1_d:"Native MXN gateway. Up to 18 installments, OXXO, card. 87%+ approval.",          s4_e1_b:"$0 TN commission",
-    s4_e2_n:"Envío Nube",     s4_e2_d:"Estafeta, DHL & FedEx integrated. Mattresses are bulky — negotiated rates matter.", s4_e2_b:"Native logistics",
-    s4_e3_n:"Marketing Nube", s4_e3_d:"Email + cart abandonment + automations. Assists +20% of sales on average.",        s4_e3_b:"No Klaviyo needed",
-    s4_e4_n:"Chat Nube",      s4_e4_d:"WhatsApp + site chat connected to your catalog in real time.",                      s4_e4_b:"24/7 support",
-    s4_e5_n:"PDV Nube",       s4_e5_d:"In-store POS included. Unified stock online + physical store.",                     s4_e5_b:"Online + physical",
-    s4_e6_n:"Real support",   s4_e6_d:"15 minutes · WhatsApp · in Spanish · from Mexico · real human. Not a bot.",         s4_e6_b:"15 min SLA",
-    s5_eyebrow:"Savings Calculator", s5_h2a:"How much is", s5_h2b:"Shopify costing you each month?",
-    s5_sl1:"Estimated monthly GMV", s5_sl2:"Shopify Commission (%)", s5_sl3:"Shopify Apps (MXN/month)",
-    s5_r1:"Monthly Shopify commission", s5_r2:"Monthly Shopify apps", s5_r3:"Est. monthly savings vs Evolución",
-    s5_pb:"Recover the $250K implementation in",
+    s4_e1n:"Pago Nube",s4_e1d:"Native MXN gateway. Up to 18 installments, OXXO, card. 87%+ approval.",s4_e1b:"$0 TN commission",
+    s4_e2n:"Envío Nube",s4_e2d:"Estafeta, DHL & FedEx integrated. Mattresses are bulky — negotiated rates matter.",s4_e2b:"Native logistics",
+    s4_e3n:"Marketing Nube",s4_e3d:"Email + cart abandonment + automations. Assists +20% of sales on average.",s4_e3b:"No Klaviyo needed",
+    s4_e4n:"Chat Nube",s4_e4d:"WhatsApp + site chat connected to your catalog in real time.",s4_e4b:"24/7 support",
+    s4_e5n:"PDV Nube",s4_e5d:"In-store POS included. Unified stock online + physical store.",s4_e5b:"Online + physical",
+    s4_e6n:"Real support",s4_e6d:"15 minutes · WhatsApp · in Spanish · from Mexico · real human. Not a bot.",s4_e6b:"15 min SLA",
+    s5_eyebrow:"Savings Calculator",s5_h2a:"How much is",s5_h2b:"Shopify costing you each month?",
+    s5_sl1:"Estimated monthly GMV",s5_sl2:"Shopify Commission (%)",s5_sl3:"Shopify Apps (MXN/month)",
+    s5_r1:"Monthly Shopify commission",s5_r2:"Monthly Shopify apps",s5_r3:"Est. monthly savings vs Evolución",
+    s5_pb:"Recover the implementation investment in",
     s5_disc:"[est.] Estimated figures based on public data. Confirm with account analysis.",
-    s6_eyebrow:"Investment", s6_h2a:"What you pay", s6_h2b:"vs what you get back",
-    s6_sub:"Evolución plan is by invitation. Colchones América qualifies by GMV. The implementation pays for itself.",
-    s6_p_lbl:"Evolución Plan · By invitation only", s6_p_per:"/month incl. VAT",
-    s6_p_invite:"By invitation only · GMV +$400K/month",
-    s6_f1:"Dedicated Account Executive", s6_f2:"WhatsApp support · 15 min SLA",
-    s6_f3:"Strategic growth sessions", s6_f4:"PDV Nube included",
-    s6_f5:"Unlimited users", s6_f6:"Pago Nube: 0% TN commission",
-    s6_f7:"Advanced analytics", s6_f8:"Implementation quoted case by case",
-    s6_cuates_tag:"✦ Implementation · Friend price from Reevolution",
-    s6_cuates_market:"Estimated market price: $350K–$400K MXN [est.]",
-    s6_inc1:"Catalog & order migration", s6_inc2:"Gateway & shipping setup",
-    s6_inc3:"Theme design & customization", s6_inc4:"Team training",
+    s6_eyebrow:"Investment",s6_h2a:"What you pay",s6_h2b:"vs what you get back",
+    s6_sub:"Evolución plan is by invitation. Colchones América qualifies by GMV. The implementation investment pays for itself within the first year.",
+    s6_plbl:"Evolución Plan · By invitation only",s6_pper:"/month incl. VAT",s6_pinvite:"By invitation only · GMV +$400K/month",
+    s6_f1:"Dedicated Account Executive",s6_f2:"WhatsApp support · 15 min SLA",s6_f3:"Strategic growth sessions",
+    s6_f4:"PDV Nube included",s6_f5:"Unlimited users",s6_f6:"Pago Nube: 0% TN commission",
+    s6_f7:"Advanced analytics",s6_f8:"Implementation quoted with the agency",
+    s6_impl_tag:"Implementation · Reevolution",
+    s6_impl_desc:"Complete end-to-end migration: catalog, payment gateway, shipping, design, and team training.",
+    s6_inc1:"Catalog & order migration",s6_inc2:"Gateway & shipping setup",
+    s6_inc3:"Theme design & customization",s6_inc4:"Team training",
     s6_roi_lbl:"Estimated payback based on the calculator",
-    s6_roi_note:"Adjust the sliders in the calculator to see your real number. [est.]",
-    s7_eyebrow:"MX Social Proof", s7_h2a:"Brands already growing", s7_h2b:"on Tiendanube Mexico",
+    s6_roi_note:"Adjust the sliders in the calculator to see your number. [est.]",
+    s7_eyebrow:"MX Social Proof",s7_h2a:"Brands already growing",s7_h2b:"on Tiendanube Mexico",
     s7_sub:"From sports to electronics and home goods — brands that chose to grow in MXN, with local support and no fees eating margins.",
-    s7_t1:"+160k brands in LATAM", s7_t2:"63% YoY in Mexico"
+    s7_t1:"+160k brands in LATAM",s7_t2:"63% YoY in Mexico"
   },
   pt: {
-    rotate:"Gire seu dispositivo", rotate_sub:"Esta apresentação funciona melhor em modo paisagem", hint:"Role",
+    rotate:"Gire seu dispositivo",rotate_sub:"Melhor visualizado em modo paisagem",hint:"Role",
     s1_badge:"Diagnóstico · Reevolution × Tiendanube",
-    s1_h1a:"Colchones América", s1_h1b:"tem tudo para crescer — falta a plataforma certa.",
-    s1_sub:"Sua marca gera tráfego, tem produto e reputação. O checkout lento, custos em USD e taxas ocultas são o freio. Isso é o que encontramos.",
-    s1_v1:"63%", s1_l1:"Crescimento e-commerce MX 2025",
-    s1_v2:"$0",  s1_l2:"Comissão TN por transação",
-    s1_v3:"12×", s1_l3:"Mais rápido que Shopify no LATAM",
-    s2_eyebrow:"Comparação Direta", s2_h2a:"O que custa", s2_h2b:"ficar no Shopify",
+    s1_h1a:"Colchones América",s1_h1b:"tem tudo para crescer — falta a plataforma certa.",
+    s1_sub:"Sua marca gera tráfego, tem produto e reputação. Checkout lento, custos em USD e taxas ocultas são o freio. Isso é o que encontramos.",
+    s1_v1:"63%",s1_l1:"Crescimento e-commerce MX 2025",s1_v2:"$0",s1_l2:"Comissão TN por transação",s1_v3:"12×",s1_l3:"Mais rápido que Shopify no LATAM",
+    s2_eyebrow:"Comparação Direta",s2_h2a:"O que custa",s2_h2b:"ficar no Shopify",
     s2_sub:"Shopify é bom para vender em USD. Para crescer no México, as contas não fecham.",
-    s2_col0:"Critério", s2_col1:"Shopify · Hoje", s2_col2:"Tiendanube",
-    s2_r1c:"Faturamento mensal",    s2_r1a:"USD → flutuação cambial todo mês",             s2_r1b:"100% MXN, preço fixo e previsível",
-    s2_r2c:"Taxa por venda",        s2_r2a:"0,5–2% sobre o gateway que usar",               s2_r2b:"$0 taxa extra com Pago Nube",
-    s2_r3c:"Velocidade checkout",   s2_r3a:"Média do mercado",                              s2_r3b:"50% mais rápido · menos abandono",
-    s2_r4c:"Suporte urgente",       s2_r4a:"Email / ticket, sem SLA no MX",                 s2_r4b:"15 min · WhatsApp · pessoa real · MX",
-    s2_r5c:"Parcelamento nativo",   s2_r5a:"Plugin de terceiro + config técnica",            s2_r5b:"Até 18 parcelas integradas",
-    s2_r6c:"PDV integrado",         s2_r6a:"Shopify POS: custo extra mensal",                s2_r6b:"Incluído no plano Evolución, sem custo extra",
-    s3_eyebrow:"Diagnóstico Técnico", s3_h2a:"3 vazamentos que", s3_h2b:"custam dinheiro hoje",
+    s2_c0:"Critério",s2_c1:"Shopify · Hoje",s2_c2:"Tiendanube",
+    s2_r1c:"Faturamento mensal",s2_r1a:"USD → flutuação cambial todo mês",s2_r1b:"100% MXN, preço fixo e previsível",
+    s2_r2c:"Taxa por venda",s2_r2a:"0,5–2% sobre o gateway",s2_r2b:"$0 taxa extra com Pago Nube",
+    s2_r3c:"Velocidade checkout",s2_r3a:"Média do mercado",s2_r3b:"50% mais rápido · menos abandono",
+    s2_r4c:"Suporte urgente",s2_r4a:"Email / ticket, sem SLA no MX",s2_r4b:"15 min · WhatsApp · pessoa real · MX",
+    s2_r5c:"Parcelamento nativo",s2_r5a:"Plugin de terceiro + config",s2_r5b:"Até 18 parcelas integradas",
+    s2_r6c:"PDV integrado",s2_r6a:"Shopify POS: custo extra",s2_r6b:"Incluído no plano Evolución",
+    s3_eyebrow:"Diagnóstico Técnico",s3_h2a:"3 vazamentos que",s3_h2b:"custam dinheiro hoje",
     s3_sub:"Quantificamos as perdas antes de falar de plataforma. Assim se tomam decisões.",
-    s3_m1_lbl:"Taxa Shopify por transação", s3_basic:"Plano Basic", s3_market:"Média mercado",
-    s3_m1_note:"2% por venda. A $500K MXN/mês = $10K MXN indo pro Shopify. [est.]",
-    s3_m1_src:"Fonte: Shopify Pricing MX, 2025",
-    s3_m2_lbl:"Velocidade do checkout",
-    s3_m2_note:"Cada segundo a mais = ~7% menos conversão. Colchões são ticket alto — cada abandono dói mais. [est.]",
-    s3_m2_src:"Fonte: Tiendanube benchmark, 2024",
-    s3_m3_lbl:"Risco cambial USD/MXN",
-    s3_m3_note:"Depreciação MXN/USD no último ano foi ~15%. Sua fatura Shopify em USD sobe todo ano sem você fazer nada. TN = MXN fixo. [est.]",
-    s3_m3_src:"Fonte: Banxico câmbio histórico, 2024–2025",
-    s4_eyebrow:"Plataforma Nativa MX", s4_h2a:"Tudo em um painel", s4_h2b:"sem plugins quebrando",
+    s3_m1:"Taxa Shopify por transação",s3_basic:"Plano Basic",s3_market:"Média mercado",
+    s3_n1:"2% por venda. A $500K MXN/mês = $10K MXN indo pro Shopify. [est.]",s3_s1:"Fonte: Shopify Pricing MX, 2025",
+    s3_m2:"Velocidade do checkout",
+    s3_n2:"Cada segundo a mais = ~7% menos conversão. Colchões são ticket alto — cada abandono dói mais. [est.]",s3_s2:"Fonte: Tiendanube benchmark, 2024",
+    s3_m3:"Risco cambial USD/MXN",
+    s3_n3:"Depreciação MXN/USD no último ano foi ~15%. Sua fatura Shopify em USD sobe todo ano sem você fazer nada. TN = MXN fixo. [est.]",s3_s3:"Fonte: Banxico câmbio, 2024–2025",
+    s4_eyebrow:"Plataforma Nativa MX",s4_h2a:"Tudo em um painel",s4_h2b:"sem plugins quebrando",
     s4_sub:"+1.700 integrações. Sem taxas ocultas. Feito para o México.",
-    s4_e1_n:"Pago Nube",      s4_e1_d:"Gateway nativo MXN. Até 18 parcelas, OXXO, cartão. Aprovação 87%+.",              s4_e1_b:"$0 comissão TN",
-    s4_e2_n:"Envío Nube",     s4_e2_d:"Estafeta, DHL e FedEx integrados. Colchões = volume grande — tarifas importam.",   s4_e2_b:"Logística nativa",
-    s4_e3_n:"Marketing Nube", s4_e3_d:"Email + carrinho abandonado + automações. Auxilia +20% das vendas em média.",       s4_e3_b:"Sem Klaviyo extra",
-    s4_e4_n:"Chat Nube",      s4_e4_d:"WhatsApp + chat do site conectado ao catálogo em tempo real.",                      s4_e4_b:"Atendimento 24/7",
-    s4_e5_n:"PDV Nube",       s4_e5_d:"PDV físico integrado. Estoque unificado online + loja física.",                     s4_e5_b:"Online + físico",
-    s4_e6_n:"Suporte real",   s4_e6_d:"15 minutos · WhatsApp · em espanhol · do México · pessoa real. Não é bot.",         s4_e6_b:"SLA 15 min",
-    s5_eyebrow:"Calculadora de Economia", s5_h2a:"Quanto custa", s5_h2b:"o Shopify por mês?",
-    s5_sl1:"GMV mensal estimado", s5_sl2:"Comissão Shopify (%)", s5_sl3:"Apps Shopify (MXN/mês)",
-    s5_r1:"Comissão mensal Shopify", s5_r2:"Apps mensais Shopify", s5_r3:"Economia mensal est. vs Evolución",
-    s5_pb:"Recupera a implementação ($250K) em",
+    s4_e1n:"Pago Nube",s4_e1d:"Gateway nativo MXN. Até 18 parcelas, OXXO, cartão. Aprovação 87%+.",s4_e1b:"$0 comissão TN",
+    s4_e2n:"Envío Nube",s4_e2d:"Estafeta, DHL e FedEx integrados. Colchões = volume grande — tarifas importam.",s4_e2b:"Logística nativa",
+    s4_e3n:"Marketing Nube",s4_e3d:"Email + carrinho abandonado + automações. Auxilia +20% das vendas.",s4_e3b:"Sem Klaviyo extra",
+    s4_e4n:"Chat Nube",s4_e4d:"WhatsApp + chat do site conectado ao catálogo em tempo real.",s4_e4b:"Atendimento 24/7",
+    s4_e5n:"PDV Nube",s4_e5d:"PDV físico integrado. Estoque unificado online + loja.",s4_e5b:"Online + físico",
+    s4_e6n:"Suporte real",s4_e6d:"15 minutos · WhatsApp · em espanhol · do México · pessoa real. Não é bot.",s4_e6b:"SLA 15 min",
+    s5_eyebrow:"Calculadora de Economia",s5_h2a:"Quanto custa",s5_h2b:"o Shopify por mês?",
+    s5_sl1:"GMV mensal estimado",s5_sl2:"Comissão Shopify (%)",s5_sl3:"Apps Shopify (MXN/mês)",
+    s5_r1:"Comissão mensal Shopify",s5_r2:"Apps mensais Shopify",s5_r3:"Economia mensal est. vs Evolución",
+    s5_pb:"Recupera o investimento em implementação em",
     s5_disc:"[est.] Estimativa orientativa. Confirmar com análise de conta real.",
-    s6_eyebrow:"Investimento", s6_h2a:"O que você paga", s6_h2b:"vs o que recupera",
-    s6_sub:"Plano Evolución é por convite. Colchones América se qualifica pelo GMV. A implementação se paga sozinha.",
-    s6_p_lbl:"Plano Evolución · Apenas por convite", s6_p_per:"/mês c/ IVA",
-    s6_p_invite:"Apenas por convite · GMV +$400K/mês",
-    s6_f1:"Account Executive dedicado", s6_f2:"Suporte WhatsApp · SLA 15 min",
-    s6_f3:"Sessões estratégicas de crescimento", s6_f4:"PDV Nube incluído",
-    s6_f5:"Usuários ilimitados", s6_f6:"Pago Nube: 0% comissão TN",
-    s6_f7:"Analytics avançado", s6_f8:"Implementação cotizada por caso",
-    s6_cuates_tag:"✦ Implementação · Preço especial Reevolution",
-    s6_cuates_market:"Preço de mercado estimado: $350K–$400K MXN [est.]",
-    s6_inc1:"Migração de catálogo e pedidos", s6_inc2:"Config. gateway e envios",
-    s6_inc3:"Design e customização do tema", s6_inc4:"Treinamento da equipe",
+    s6_eyebrow:"Investimento",s6_h2a:"O que você paga",s6_h2b:"vs o que recupera",
+    s6_sub:"Plano Evolución é por convite. Colchones América se qualifica pelo GMV. O investimento em implementação se recupera no primeiro ano.",
+    s6_plbl:"Plano Evolución · Apenas por convite",s6_pper:"/mês c/ IVA",s6_pinvite:"Apenas por convite · GMV +$400K/mês",
+    s6_f1:"Account Executive dedicado",s6_f2:"Suporte WhatsApp · SLA 15 min",s6_f3:"Sessões estratégicas de crescimento",
+    s6_f4:"PDV Nube incluído",s6_f5:"Usuários ilimitados",s6_f6:"Pago Nube: 0% comissão TN",
+    s6_f7:"Analytics avançado",s6_f8:"Implementação cotizada com a agência",
+    s6_impl_tag:"Implementação · Reevolution",
+    s6_impl_desc:"Processo completo de migração, do início ao fim: catálogo, gateway, envios, design e capacitação da equipe.",
+    s6_inc1:"Migração de catálogo e pedidos",s6_inc2:"Config. gateway e envios",
+    s6_inc3:"Design e customização do tema",s6_inc4:"Capacitação da equipe",
     s6_roi_lbl:"Payback estimado com base na calculadora",
-    s6_roi_note:"Ajuste os sliders na calculadora para ver seu número real. [est.]",
-    s7_eyebrow:"Social Proof MX", s7_h2a:"Marcas que já crescem", s7_h2b:"na Tiendanube México",
+    s6_roi_note:"Ajuste os sliders na calculadora para ver seu número. [est.]",
+    s7_eyebrow:"Social Proof MX",s7_h2a:"Marcas que já crescem",s7_h2b:"na Tiendanube México",
     s7_sub:"De esportes a eletrônicos e casa — marcas que escolheram crescer em MXN, com suporte local e sem taxas comendo a margem.",
-    s7_t1:"+160k marcas no LATAM", s7_t2:"63% YoY no México"
+    s7_t1:"+160k marcas no LATAM",s7_t2:"63% YoY no México"
   }
 };
 
 let currentLang = 'es';
-
-function fmt(n){ return '$' + Math.round(n).toLocaleString('es-MX'); }
+function fmt(n){ return '$'+Math.round(n).toLocaleString('es-MX'); }
 
 function calcSavings(){
   const gmv  = parseInt(document.getElementById('gmv').value);
   const comm = parseFloat(document.getElementById('comm').value);
   const apps = parseInt(document.getElementById('apps').value);
-  const tnPlan = 3999; // Evolución
-  const impl = 250000;
+  const tnPlan = 3999;
+  const impl   = 250000;
 
   document.getElementById('gmvVal').textContent  = fmt(gmv);
-  document.getElementById('commVal').textContent = comm + '%';
+  document.getElementById('commVal').textContent = comm+'%';
   document.getElementById('appsVal').textContent = fmt(apps);
 
   const commCost = gmv * comm / 100;
-  const total    = commCost + apps;
-  const savings  = total - tnPlan;
+  const savings  = commCost + apps - tnPlan;
   const months   = savings > 0 ? (impl / savings).toFixed(1) : '—';
-  const pbPct    = savings > 0 ? Math.min(100, (1 / parseFloat(months)) * 100 * 5) : 0;
+  const pbPct    = savings > 0 ? Math.min(100, (parseFloat(months) <= 24 ? (1 - (parseFloat(months)-1)/23)*100 : 5)) : 0;
 
   document.getElementById('commCost').textContent = fmt(commCost);
   document.getElementById('appsCost').textContent = fmt(apps);
   document.getElementById('savings').textContent  = savings > 0 ? fmt(savings) : '$0';
-  document.getElementById('pbFill').style.width   = Math.min(pbPct, 100) + '%';
+  document.getElementById('pbFill').style.width   = pbPct + '%';
 
   const unit = currentLang === 'en' ? 'months [est.]' : 'meses [est.]';
-  const pbText = savings > 0 ? '~' + months + ' ' + unit : '—';
-  document.getElementById('pbVal').textContent   = pbText;
-
-  // sync ROI on investment slide
-  const roiEl = document.getElementById('roiMonths');
-  if (roiEl) roiEl.textContent = savings > 0 ? '~' + months + ' ' + unit : '—';
+  const txt  = savings > 0 ? '~' + months + ' ' + unit : '—';
+  document.getElementById('pbVal').textContent    = txt;
+  const roi = document.getElementById('roiMonths');
+  if (roi) roi.textContent = savings > 0 ? '~' + months + ' ' + unit : '—';
 }
 
 function setLang(lang){
@@ -797,7 +724,6 @@ function setLang(lang){
   calcSavings();
 }
 
-/* NAV DOTS */
 const slides = Array.from(document.querySelectorAll('.slide'));
 const dots   = Array.from(document.querySelectorAll('.dot'));
 dots.forEach(d => d.addEventListener('click', () =>
@@ -813,13 +739,11 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 slides.forEach(s => io.observe(s));
 
-/* REVEAL */
 const revIO = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: 0.15 });
 document.querySelectorAll('.r').forEach(el => revIO.observe(el));
 
-/* BAR FILL */
 const barIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting)
@@ -830,7 +754,6 @@ const barIO = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 document.querySelectorAll('.mcard').forEach(c => barIO.observe(c));
 
-/* init */
 calcSavings();
 </script>
 </body>
