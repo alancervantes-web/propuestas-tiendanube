@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battle Card · Tiendanube vs Shopify</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:       #2D52E8;
+  --blue-dark:  #1A3BC7;
+  --blue-card:  #1E40C9;
+  --blue-deep:  #0d2490;
+  --midnight:   #060e40;
+  --white:      #ffffff;
+  --lime:       #C4F062;
+  --coral:      #FF6B5A;
+  --sunset:     #FFB547;
+  --muted:      rgba(255,255,255,0.6);
+  --periwinkle: rgba(255,255,255,0.52);
+  --ease:       cubic-bezier(0.4,0,0.2,1);
+  --bounce:     cubic-bezier(0.34,1.56,0.64,1);
+}
+
+html { scroll-snap-type: y mandatory; overflow-y: scroll; scroll-behavior: smooth; }
+body { font-family: 'DM Sans', -apple-system, sans-serif; background: var(--blue); color: var(--white); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+.slide {
+  min-height: 100vh; scroll-snap-align: start; scroll-snap-stop: always;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; padding: 0 2rem; position: relative;
+}
+.bg-blue    { background: var(--blue); }
+.bg-dark    { background: linear-gradient(160deg, #1530a8 0%, #0b1e7a 100%); }
+.bg-deeper  { background: linear-gradient(160deg, #0d1f8e 0%, #070e52 100%); }
+.bg-midnight{ background: linear-gradient(160deg, #09104a 0%, #040828 100%); }
+.bg-mixed   { background: linear-gradient(160deg, #0f2290 0%, #060e45 60%, #030720 100%); }
+
+.inner { width: 100%; max-width: 1100px; padding: 5rem 0; }
+
+/* LOGO */
+.tn-logo { display:flex; align-items:center; gap:10px; margin-bottom:2rem; }
+.tn-logo svg { width:140px; height:35px; }
+
+/* BADGE */
+.badge {
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.13em;
+  color:var(--white); border:1px solid rgba(255,255,255,.3); border-radius:999px;
+  padding:.4rem 1rem; margin-bottom:1.5rem; background:rgba(255,255,255,.07);
+}
+.badge.lime { color:#0d2490; background:var(--lime); border-color:transparent; }
+.badge.coral { color:var(--white); background:rgba(255,107,90,.15); border-color:rgba(255,107,90,.4); }
+
+/* TYPE */
+.eyebrow { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:rgba(255,255,255,.4); margin-bottom:1rem; }
+h1.hero { font-size: clamp(3rem,6vw,5.5rem); font-weight:800; line-height:1.0; letter-spacing:-0.02em; margin-bottom:1.2rem; }
+h1.hero .lime { color:var(--lime); }
+h1.hero .dim  { font-weight:400; font-style:italic; color:var(--periwinkle); }
+h2 { font-size:clamp(2rem,4vw,3.2rem); font-weight:800; line-height:1.08; letter-spacing:-0.02em; margin-bottom:.9rem; }
+h2 .hl { color:var(--lime); }
+h2 .hi { font-style:italic; font-weight:400; color:rgba(255,255,255,.5); }
+.section-sub { font-size:.95rem; color:rgba(255,255,255,.5); line-height:1.65; max-width:520px; margin-bottom:2rem; }
+.hero-sub { font-size:clamp(.9rem,1.4vw,1.05rem); color:var(--muted); line-height:1.65; max-width:660px; margin-bottom:2.5rem; }
+
+/* HERO STATS */
+.stats-row { display:flex; gap:.875rem; flex-wrap:wrap; }
+.stat {
+  background:var(--blue-card); border-radius:14px; padding:1.1rem 1.6rem;
+  min-width:170px; flex:1; max-width:220px;
+  transition:transform .3s var(--bounce),background .2s;
+}
+.stat:hover { transform:translateY(-4px); background:#2244d8; }
+.stat-val { font-size:clamp(1.5rem,3vw,2.1rem); font-weight:800; color:var(--lime); line-height:1; margin-bottom:.3rem; letter-spacing:-0.02em; }
+.stat-lbl { font-size:.75rem; color:rgba(255,255,255,.65); font-weight:500; }
+
+/* REFRAME BOX */
+.reframe {
+  background:rgba(196,240,98,.08); border:1px solid rgba(196,240,98,.25);
+  border-radius:20px; padding:2rem 2.25rem; margin-bottom:1.5rem;
+}
+.reframe-label { font-size:.58rem; font-weight:700; text-transform:uppercase; letter-spacing:.13em; color:var(--lime); margin-bottom:.75rem; }
+.reframe-text { font-size:1.05rem; color:var(--white); font-weight:500; line-height:1.6; }
+.reframe-sub { font-size:.82rem; color:rgba(255,255,255,.5); margin-top:.75rem; line-height:1.6; }
+
+/* INSIGHT CARDS */
+.insight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:1.5rem; }
+.icard {
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+  border-radius:18px; padding:1.5rem;
+  transition:transform .3s var(--bounce),border-color .2s;
+}
+.icard:hover { transform:translateY(-5px); border-color:rgba(255,255,255,.22); }
+.icard-num { font-size:2rem; font-weight:800; color:var(--lime); line-height:1; margin-bottom:.5rem; }
+.icard-lbl { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.5rem; }
+.icard-text { font-size:.8rem; color:rgba(255,255,255,.55); line-height:1.55; }
+
+/* COST TABLE */
+.cost-tbl { width:100%; border-collapse:collapse; margin-top:1.5rem; font-size:.82rem; }
+.cost-tbl thead th {
+  padding:.75rem 1rem; font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em;
+  border-bottom:2px solid rgba(255,255,255,.12); text-align:left;
+}
+.cost-tbl thead th:first-child { color:rgba(255,255,255,.4); }
+.cost-tbl thead th:nth-child(2) { color:rgba(255,107,90,.8); }
+.cost-tbl thead th:nth-child(3) { color:rgba(255,107,90,.6); }
+.cost-tbl thead th:nth-child(4) { color:var(--lime); }
+.cost-tbl tbody tr { border-bottom:1px solid rgba(255,255,255,.06); transition:background .18s; }
+.cost-tbl tbody tr:hover { background:rgba(255,255,255,.04); }
+.cost-tbl tbody td { padding:.9rem 1rem; vertical-align:middle; }
+.cost-tbl tbody td:first-child { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.85); text-transform:uppercase; letter-spacing:.06em; width:22%; }
+.cost-tbl tbody td:nth-child(2) { color:rgba(255,107,90,.75); }
+.cost-tbl tbody td:nth-child(3) { color:rgba(255,107,90,.55); font-size:.78rem; }
+.cost-tbl tbody td:nth-child(4) { color:var(--lime); font-weight:600; }
+.cost-tbl .highlight-row { background:rgba(196,240,98,.06) !important; }
+
+/* MINI CALC */
+.calc-strip {
+  margin-top:1.5rem;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09);
+  border-radius:16px; padding:1.5rem 2rem;
+  display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center;
+}
+.calc-inputs { display:flex; flex-direction:column; gap:1rem; }
+.calc-row { display:flex; align-items:center; gap:1rem; }
+.calc-row label { font-size:.7rem; color:rgba(255,255,255,.5); width:160px; flex-shrink:0; }
+.calc-row input[type=range] { flex:1; accent-color:var(--lime); cursor:pointer; height:4px; }
+.calc-row .val { font-size:.8rem; font-weight:700; color:var(--lime); min-width:80px; text-align:right; }
+.calc-result-strip { display:flex; flex-direction:column; gap:.75rem; }
+.cr-row { display:flex; justify-content:space-between; align-items:baseline; padding:.5rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+.cr-row:last-child { border:none; }
+.cr-lbl { font-size:.72rem; color:rgba(255,255,255,.45); }
+.cr-val { font-size:.9rem; font-weight:700; }
+.cr-val.bad  { color:rgba(255,107,90,.9); }
+.cr-val.good { color:var(--lime); }
+.cr-val.neutral { color:rgba(255,255,255,.8); }
+.cr-hero { text-align:center; padding:1rem; background:rgba(196,240,98,.08); border:1px solid rgba(196,240,98,.2); border-radius:12px; margin-top:.5rem; }
+.cr-hero-val { font-size:2rem; font-weight:800; color:var(--lime); line-height:1; }
+.cr-hero-lbl { font-size:.65rem; color:rgba(255,255,255,.4); margin-top:.25rem; text-transform:uppercase; letter-spacing:.08em; }
+
+/* TWO-COLUMN HONEST */
+.honest-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:2rem; }
+.honest-col {
+  background:rgba(255,255,255,.04); border-radius:20px; padding:2rem; border:1px solid rgba(255,255,255,.09);
+}
+.honest-col.tn { border-color:rgba(196,240,98,.25); }
+.honest-col.sh { border-color:rgba(255,107,90,.2); }
+.col-header { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
+.col-icon { font-size:1.5rem; }
+.col-title { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; }
+.col-title.tn { color:var(--lime); }
+.col-title.sh { color:rgba(255,107,90,.85); }
+.win-list { list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+.win-list li { font-size:.82rem; color:rgba(255,255,255,.7); padding-left:1.3rem; position:relative; line-height:1.5; }
+.win-list.tn li::before { content:'✓'; position:absolute; left:0; color:var(--lime); font-size:.7rem; top:.15rem; }
+.win-list.sh li::before { content:'✓'; position:absolute; left:0; color:rgba(255,107,90,.7); font-size:.7rem; top:.15rem; }
+.honesty-note {
+  margin-top:1.5rem; padding:1.1rem 1.4rem;
+  background:rgba(255,181,71,.06); border:1px solid rgba(255,181,71,.2); border-radius:14px;
+}
+.honesty-note p { font-size:.78rem; color:rgba(255,255,255,.55); line-height:1.6; }
+.honesty-note strong { color:var(--sunset); }
+
+/* OBJECTION CARDS */
+.obj-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; margin-top:1.5rem; }
+.obj-card {
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+  border-radius:18px; padding:1.5rem; transition:border-color .2s;
+}
+.obj-card:hover { border-color:rgba(196,240,98,.25); }
+.obj-q {
+  font-size:.75rem; font-weight:700; color:rgba(255,107,90,.85);
+  margin-bottom:1rem; padding-bottom:.75rem; border-bottom:1px solid rgba(255,255,255,.07);
+  line-height:1.45;
+}
+.obj-q::before { content:'"'; margin-right:.15rem; }
+.obj-q::after  { content:'"'; margin-left:.15rem; }
+.obj-a { font-size:.8rem; color:rgba(255,255,255,.65); line-height:1.6; }
+.obj-a strong { color:var(--white); font-weight:600; }
+.obj-a .hook { color:var(--lime); font-weight:600; }
+
+/* ENCAJE GRID */
+.encaje-wrap { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem; }
+.encaje-col { border-radius:20px; padding:2rem; }
+.encaje-col.si { background:rgba(196,240,98,.07); border:1px solid rgba(196,240,98,.2); }
+.encaje-col.no { background:rgba(255,107,90,.06); border:1px solid rgba(255,107,90,.18); }
+.encaje-title { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; margin-bottom:1.25rem; }
+.encaje-title.si { color:var(--lime); }
+.encaje-title.no { color:rgba(255,107,90,.85); }
+.encaje-list { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
+.encaje-list li { font-size:.82rem; color:rgba(255,255,255,.68); padding-left:1.3rem; position:relative; line-height:1.5; }
+.encaje-list.si li::before { content:'→'; position:absolute; left:0; color:var(--lime); font-size:.7rem; }
+.encaje-list.no li::before { content:'→'; position:absolute; left:0; color:rgba(255,107,90,.6); font-size:.7rem; }
+.cta-box {
+  margin-top:2rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+  border-radius:18px; padding:1.5rem 2rem;
+  display:flex; align-items:center; justify-content:space-between; gap:2rem;
+}
+.cta-text p { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.55; }
+.cta-text strong { color:var(--white); font-size:.95rem; display:block; margin-bottom:.3rem; }
+.cta-contact { text-align:right; flex-shrink:0; }
+.cta-contact a { color:var(--lime); font-weight:700; font-size:.85rem; text-decoration:none; }
+.cta-contact p { font-size:.7rem; color:rgba(255,255,255,.35); margin-top:.2rem; }
+
+/* COMISION BOX */
+.comision-box {
+  margin-top:1.5rem;
+  background:rgba(196,240,98,.08); border:1px solid rgba(196,240,98,.22);
+  border-radius:18px; padding:1.5rem 2rem;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
+}
+.comision-item { text-align:center; }
+.comision-pct { font-size:2.5rem; font-weight:800; color:var(--lime); line-height:1; }
+.comision-lbl { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.45); margin-top:.3rem; }
+.comision-detail { font-size:.72rem; color:rgba(255,255,255,.4); margin-top:.3rem; line-height:1.4; }
+.comision-divider { border:none; border-left:1px solid rgba(255,255,255,.08); margin:0; }
+
+/* NAV DOTS */
+.nav { position:fixed; right:1.25rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:.6rem; z-index:100; }
+.dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.25); border:none; padding:0; cursor:pointer; transition:all .3s var(--bounce); }
+.dot.on { background:var(--lime); transform:scale(1.55); box-shadow:0 0 10px rgba(196,240,98,.55); }
+
+/* REVEAL */
+.r { opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
+.r.in { opacity:1; transform:none; }
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+
+/* SCROLL HINT */
+.hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.4rem; opacity:.28; animation:bob 2.2s ease-in-out infinite; }
+.hint span { font-size:.56rem; letter-spacing:.12em; text-transform:uppercase; }
+@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)} }
+
+/* PORTRAIT */
+.portrait { display:none; position:fixed; inset:0; background:var(--blue); z-index:999; align-items:center; justify-content:center; flex-direction:column; gap:1rem; text-align:center; padding:2rem; }
+@media(max-width:768px) and (orientation:portrait){ .portrait{ display:flex; } }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .insight-grid,.honest-grid,.obj-grid,.encaje-wrap,.comision-box { grid-template-columns:1fr; }
+  .calc-strip { grid-template-columns:1fr; }
+  .cta-box { flex-direction:column; gap:1rem; }
+  .cta-contact { text-align:left; }
+}
+@media(max-width:600px){ .stats-row { flex-direction:column; align-items:stretch; } .stat{ max-width:none; } }
+</style>
+</head>
+<body>
+
+<div class="portrait">
+  <div style="font-size:2.5rem">↻</div>
+  <p style="font-size:1.1rem;font-weight:600;opacity:.8">Rota tu dispositivo</p>
+  <p style="font-size:.85rem;opacity:.45">Este battle card funciona mejor en horizontal</p>
+</div>
+
+<nav class="nav" id="nav">
+  <button class="dot on" data-i="0" title="Intro"></button>
+  <button class="dot"    data-i="1" title="El reframe"></button>
+  <button class="dot"    data-i="2" title="Costos reales"></button>
+  <button class="dot"    data-i="3" title="Donde ganamos"></button>
+  <button class="dot"    data-i="4" title="Objeciones"></button>
+  <button class="dot"    data-i="5" title="Encaje + cierre"></button>
+</nav>
+
+
+<!-- ══════════════════════════════════
+     S1 · HERO
+══════════════════════════════════ -->
+<section class="slide bg-blue" id="s0">
+  <div class="inner">
+
+    <div class="tn-logo r d1">
+      <svg viewBox="0 0 160 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color:#fff;" aria-label="Tiendanube">
+        <path d="M51.4723 19.5098V7.49283H54.3653V19.5098H51.4723ZM67.3608 10.8394C67.0958 10.1395 66.7119 9.51774 66.2124 8.97244C65.7113 8.42714 65.1048 8.00076 64.3897 7.69158C63.6745 7.38241 62.8472 7.22782 61.9044 7.22782C60.7849 7.22782 59.7725 7.49962 58.867 8.04492C57.9616 8.59022 57.2464 9.32918 56.7249 10.2652C56.2017 11.2012 55.9401 12.2714 55.9401 13.4792C55.9401 14.6871 56.1983 15.7029 56.713 16.6593C57.2277 17.6174 57.9497 18.375 58.8772 18.9339C59.8047 19.4945 60.8868 19.7731 62.1235 19.7731C62.9474 19.7731 63.7034 19.6474 64.388 19.3977C65.0726 19.148 65.6654 18.8014 66.1666 18.3598C66.6677 17.9181 67.0346 17.4102 67.2708 16.836L64.9299 15.6876C64.6649 16.1599 64.2996 16.5353 63.8359 16.8139C63.3721 17.0942 62.8081 17.2335 62.1456 17.2335C61.4831 17.2335 60.897 17.0789 60.3891 16.7697C59.8812 16.4606 59.4973 16.0223 59.2407 15.4549C59.0828 15.1083 58.9842 14.7278 58.9452 14.3167H67.6003C67.6598 14.1553 67.6988 13.9634 67.7209 13.7425C67.743 13.5217 67.7549 13.3077 67.7549 13.1021C67.7549 12.2918 67.6224 11.5376 67.3574 10.8377L67.3608 10.8394ZM60.2923 10.0664C60.7628 9.76406 61.3013 9.61287 61.9044 9.61287C62.5075 9.61287 63.0782 9.76746 63.5284 10.0766C63.9769 10.3858 64.3013 10.8054 64.5001 11.3354C64.5901 11.5766 64.6445 11.8348 64.6666 12.1083H59.008C59.0573 11.8518 59.1269 11.6123 59.2204 11.3898C59.4633 10.8088 59.82 10.3671 60.2923 10.0647V10.0664ZM79.3744 9.40393C78.9922 8.71933 78.4571 8.18592 77.7725 7.802C77.0879 7.41978 76.303 7.22782 75.4197 7.22782C74.5363 7.22782 73.8178 7.41639 73.1773 7.79181C72.683 8.0823 72.2974 8.47641 72.0171 8.97244V7.49453H69.3008V19.5115H72.1937V12.4651C72.1937 11.9351 72.2974 11.4781 72.5029 11.0959C72.7085 10.7137 72.9956 10.4147 73.3642 10.2006C73.7328 9.9866 74.1524 9.87958 74.623 9.87958C75.0935 9.87958 75.5318 9.9866 75.8936 10.2006C76.2538 10.4147 76.5375 10.712 76.7447 11.0959C76.9503 11.4798 77.0539 11.9351 77.0539 12.4651V19.5115H79.9469V11.7805C79.9469 10.8818 79.7549 10.0902 79.3727 9.40563L79.3744 9.40393ZM91.1824 2.98434V8.70914C90.8359 8.33031 90.4214 8.01605 89.9338 7.76973C89.2187 7.40959 88.4067 7.22782 87.4927 7.22782C86.358 7.22782 85.3319 7.50812 84.4112 8.06701C83.4905 8.6276 82.7651 9.37845 82.2351 10.3196C81.7051 11.2624 81.4401 12.3224 81.4401 13.4996C81.4401 14.6769 81.7051 15.7233 82.2351 16.6797C82.7651 17.6378 83.4871 18.392 84.3993 18.9441C85.3115 19.4962 86.3512 19.7731 87.5131 19.7731C88.3812 19.7731 89.1847 19.5999 89.9202 19.2533C90.4876 18.9866 90.9582 18.6282 91.3336 18.1814V19.5064H94.072V2.98434H91.179H91.1824ZM90.7526 15.3784C90.4655 15.9237 90.0714 16.3501 89.5703 16.6593C89.0692 16.9685 88.4882 17.1231 87.8257 17.1231C87.1632 17.1231 86.5958 16.9685 86.0811 16.6593C85.5646 16.3501 85.1637 15.9237 84.8766 15.3784C84.5896 14.8331 84.4452 14.208 84.4452 13.5013C84.4452 12.7946 84.5896 12.1729 84.8766 11.6344C85.1137 11.0976 85.5646 10.6695 86.0811 10.3535C86.5958 10.0376 87.1785 9.87788 87.8257 9.87788C88.4729 9.87788 89.0692 10.0325 89.5703 10.3416C90.0714 10.6508 90.4655 11.0823 90.7526 11.6344C91.0397 12.1865 91.1841 12.8082 91.1841 13.5013C91.1841 14.1944 91.0397 14.8348 90.7526 15.3784ZM105.737 9.27142C105.318 8.63099 104.732 8.12986 103.981 7.76973C103.23 7.40959 102.36 7.22782 101.375 7.22782C100.565 7.22782 99.8138 7.36033 99.1224 7.62533C98.4293 7.89034 97.8296 8.25557 97.3217 8.71933C96.8138 9.18309 96.4418 9.73179 96.2056 10.3654L98.5686 11.5138C98.7894 10.9685 99.1394 10.5302 99.6184 10.1989C100.097 9.86769 100.646 9.70121 101.265 9.70121C101.927 9.70121 102.46 9.87448 102.866 10.221C103.271 10.5676 103.475 10.9974 103.475 11.5138V11.9028L99.897 12.4855C98.9542 12.6333 98.1745 12.883 97.5562 13.2363C96.9378 13.5897 96.4808 14.0279 96.1869 14.5512C95.8914 15.0744 95.7453 15.6672 95.7453 16.3297C95.7453 16.9923 95.9151 17.6293 96.2532 18.1525C96.5913 18.6757 97.0703 19.0766 97.6886 19.3569C98.307 19.6372 99.0358 19.7765 99.8749 19.7765C100.537 19.7765 101.141 19.6848 101.686 19.4996C102.231 19.3162 102.717 19.0512 103.143 18.7046C103.317 18.5653 103.476 18.4073 103.629 18.2408V19.5115H106.368V11.5155C106.368 10.661 106.157 9.91355 105.737 9.27312V9.27142ZM103.086 16.1072C102.827 16.5642 102.467 16.9209 102.003 17.1791C101.54 17.4373 101.006 17.5664 100.402 17.5664C99.9293 17.5664 99.5369 17.4458 99.2192 17.2012C98.9016 16.9583 98.7436 16.6304 98.7436 16.2176C98.7436 15.8048 98.8829 15.4447 99.1632 15.1797C99.4435 14.9147 99.8699 14.7312 100.444 14.6276L103.47 14.1129V14.6055C103.47 15.1508 103.34 15.6519 103.082 16.1072H103.086ZM118.716 9.40393C118.334 8.71933 117.798 8.18592 117.114 7.802C116.429 7.41978 115.644 7.22782 114.761 7.22782C113.878 7.22782 113.159 7.41639 112.519 7.79181C112.024 8.0823 111.639 8.47641 111.359 8.97244V7.49453H108.642V19.5115H111.535V12.4651C111.535 11.9351 111.639 11.4781 111.844 11.0959C112.05 10.7137 112.337 10.4147 112.706 10.2006C113.074 9.9866 113.494 9.87958 113.964 9.87958C114.435 9.87958 114.873 9.9866 115.235 10.2006C115.595 10.4147 115.879 10.712 116.086 11.0959C116.292 11.4798 116.395 11.9351 116.395 12.4651V19.5115H119.288V11.7805C119.288 10.8818 119.096 10.0902 118.714 9.40563L118.716 9.40393ZM126.661 19.7748C125.614 19.7748 124.69 19.5642 123.889 19.1446C123.085 18.725 122.463 18.1389 122.022 17.3881C121.58 16.6372 121.359 15.7675 121.359 14.7822V7.49283H124.252V14.6938C124.252 15.1797 124.356 15.6078 124.561 15.9747C124.767 16.3433 125.054 16.627 125.423 16.8258C125.791 17.0245 126.211 17.1248 126.681 17.1248C127.152 17.1248 127.59 17.0262 127.952 16.8258C128.312 16.627 128.596 16.3433 128.803 15.9747C129.009 15.6061 129.112 15.1797 129.112 14.6938V7.49283H132.005V14.7822C132.005 15.7692 131.781 16.6372 131.331 17.3881C130.881 18.1389 130.259 18.725 129.464 19.1446C128.669 19.5642 127.733 19.7748 126.659 19.7748H126.661ZM146.11 10.3196C145.571 9.37675 144.848 8.6259 143.934 8.06701C143.02 7.50812 141.997 7.22782 140.864 7.22782C139.937 7.22782 139.12 7.40789 138.413 7.76973C137.932 8.01605 137.521 8.32862 137.176 8.70744V2.98434H134.283V19.5098H137V18.1474C137.387 18.6112 137.869 18.9815 138.447 19.255C139.176 19.6015 139.974 19.7748 140.844 19.7748C142.007 19.7748 143.045 19.4979 143.958 18.9458C144.87 18.3937 145.592 17.6395 146.122 16.6814C146.652 15.725 146.917 14.6633 146.917 13.5013C146.917 12.3394 146.648 11.2624 146.11 10.3213V10.3196ZM143.482 15.3784C143.195 15.9237 142.794 16.3501 142.278 16.6593C141.761 16.9685 141.173 17.1231 140.511 17.1231C139.848 17.1231 139.306 16.9685 138.799 16.6593C138.291 16.3501 137.893 15.9237 137.606 15.3784C137.319 14.8331 137.174 14.208 137.174 13.5013C137.174 12.7946 137.319 12.1865 137.606 11.6344C137.893 11.0823 138.291 10.6508 138.799 10.3416C139.306 10.0325 139.877 9.87788 140.511 9.87788C141.144 9.87788 141.763 10.0359 142.278 10.3535C142.792 10.6712 143.195 11.0976 143.482 11.6344C143.769 12.1729 143.913 12.7946 143.913 13.5013C143.913 14.208 143.769 14.8348 143.482 15.3784ZM159.291 10.8394C159.026 10.1395 158.642 9.51774 158.142 8.97244C157.641 8.42714 157.035 8.00076 156.319 7.69158C155.604 7.38241 154.777 7.22782 153.834 7.22782C152.715 7.22782 151.702 7.49962 150.797 8.04492C149.891 8.59022 149.176 9.32918 148.655 10.2652C148.131 11.2012 147.87 12.2714 147.87 13.4792C147.87 14.6871 148.128 15.7029 148.643 16.6593C149.158 17.6174 149.879 18.375 150.807 18.9339C151.735 19.4945 152.817 19.7731 154.053 19.7731C154.877 19.7731 155.633 19.6474 156.318 19.3977C157.002 19.148 157.595 18.8014 158.096 18.3598C158.597 17.9181 158.964 17.4102 159.201 16.836L156.86 15.6876C156.595 16.1599 156.229 16.5353 155.766 16.8139C155.302 17.0942 154.738 17.2335 154.075 17.2335C153.413 17.2335 152.827 17.0789 152.319 16.7697C151.811 16.4606 151.427 16.0223 151.171 15.4549C151.013 15.1083 150.914 14.7278 150.875 14.3167H159.53C159.59 14.1553 159.629 13.9634 159.651 13.7425C159.673 13.5217 159.685 13.3077 159.685 13.1021C159.685 12.2918 159.552 11.5376 159.287 10.8377L159.291 10.8394ZM152.392 10.0664C152.862 9.76406 153.401 9.61287 154.004 9.61287C154.607 9.61287 155.178 9.76746 155.628 10.0766C156.077 10.3858 156.401 10.8054 156.6 11.3354C156.69 11.5766 156.746 11.8348 156.766 12.1083H151.108C151.157 11.8518 151.227 11.6123 151.32 11.3898C151.563 10.8088 151.92 10.3671 152.392 10.0647V10.0664ZM48.0035 7.50302V4.11061H45.1241V7.50302H43.1094V10.0766H45.1241V19.5081H48.0035V10.0766H50.0182V7.50302H48.0035ZM52.9316 2.41016C51.9922 2.41016 51.2311 3.1712 51.2311 4.11061C51.2311 5.05002 51.9922 5.81106 52.9316 5.81106C53.871 5.81106 54.632 5.05002 54.632 4.11061C54.632 3.1712 53.871 2.41016 52.9316 2.41016Z"/>
+        <path d="M24.0068 0H23.9915C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z"/>
+      </svg>
+    </div>
+
+    <div class="badge r d2">Para agencias · Uso interno</div>
+
+    <h1 class="hero r d3">
+      Battle Card<br><span class="lime">Tiendanube</span> vs <span class="dim">Shopify</span>
+    </h1>
+
+    <p class="hero-sub r d4">
+      Todo lo que necesitas para ganar deals donde el cliente ya usa —o considera— Shopify.
+      Datos reales, argumentos honestos y el script para cada objeción.
+    </p>
+
+    <div class="stats-row r d5">
+      <div class="stat">
+        <div class="stat-val">12×</div>
+        <div class="stat-lbl">Crece más rápido que Shopify en LATAM</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">0%</div>
+        <div class="stat-lbl">Comisión adicional por ventas en TN</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">MXN</div>
+        <div class="stat-lbl">Facturación en pesos, sin sorpresas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">15 min</div>
+        <div class="stat-lbl">SLA soporte WhatsApp Plan Avanzado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+      <rect x="1" y="1" width="14" height="22" rx="7" stroke="white" stroke-width="1.5"/>
+      <circle cx="8" cy="8" r="2" fill="white"><animate attributeName="cy" values="8;14;8" dur="2s" repeatCount="indefinite"/></circle>
+    </svg>
+    <span>Desliza</span>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     S2 · EL REFRAME (Challenger)
+══════════════════════════════════ -->
+<section class="slide bg-dark" id="s1">
+  <div class="inner">
+    <div class="eyebrow r">Empieza aquí · Challenger insight</div>
+    <h2 class="r d1">El argumento que <span class="hi">cambia la conversación</span></h2>
+
+    <div class="reframe r d2">
+      <div class="reframe-label">Abre con esto</div>
+      <div class="reframe-text">
+        "4 de cada 10 marcas en México trabajan con agencias. Las que migran de Shopify no lo hacen por precio —
+        lo hacen porque el checkout en dólares les está costando ventas que no ven en ningún reporte."
+      </div>
+      <div class="reframe-sub">
+        Shopify Payments <strong style="color:white">no está disponible en México</strong>. Eso significa que todos tus clientes en Shopify
+        pagan comisión de transacción (0.5%–2% del GMV) encima de la suscripción mensual en USD.
+        En un merchant con $600k MXN de GMV en plan Standard, eso son ~$7,300 MXN extra al mes.
+        El año que viene: $87,600 MXN. Invisible en el dashboard. Visible en el margen.
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="icard r d2">
+        <div class="icard-num">0%</div>
+        <div class="icard-lbl">Comisión TN</div>
+        <div class="icard-text">Tiendanube no cobra comisión por transacción. Ni en Avanzado ni en Evolución. El precio es el precio.</div>
+      </div>
+      <div class="icard r d3">
+        <div class="icard-num">2%</div>
+        <div class="icard-lbl">Comisión Shopify Basic</div>
+        <div class="icard-text">Shopify Basic cobra 2% por transacción al no poder usar Shopify Payments en MX. Sobre cada peso vendido.</div>
+      </div>
+      <div class="icard r d4">
+        <div class="icard-num">63%</div>
+        <div class="icard-lbl">Crecimiento TN en MX</div>
+        <div class="icard-text">YoY en México, 2025. Las agencias que se posicionaron primero en TN están capturando ese flujo de migraciones.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     S3 · COSTOS REALES
+══════════════════════════════════ -->
+<section class="slide bg-deeper" id="s2">
+  <div class="inner">
+    <div class="eyebrow r">El costo total real · Todos los planes Shopify vs Tiendanube</div>
+    <h2 class="r d1">Lo que realmente <span class="hi">paga tu cliente</span></h2>
+
+    <div class="r d2" style="overflow-x:auto">
+      <table class="cost-tbl">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Shopify · suscripción USD</th>
+            <th>+ Comisión MX (sin Shopify Payments)</th>
+            <th>Tiendanube equivalente · MXN/mes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Basic</td>
+            <td>$29 USD/mes (~$493 MXN)</td>
+            <td>2% del GMV · sobre cada venta</td>
+            <td>Plan Avanzado $999 MXN · 0% comisión</td>
+          </tr>
+          <tr>
+            <td>Standard</td>
+            <td>$79 USD/mes (~$1,343 MXN)</td>
+            <td>1% del GMV · sobre cada venta</td>
+            <td>Plan Avanzado $999 MXN · 0% comisión</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>Advanced</td>
+            <td>$299 USD/mes (~$5,083 MXN)</td>
+            <td>0.5% del GMV · sobre cada venta</td>
+            <td>Plan Evolución $3,999 MXN · 0% comisión</td>
+          </tr>
+          <tr>
+            <td>Plus</td>
+            <td>$2,300 USD/mes (~$39,100 MXN)</td>
+            <td>0.15% del GMV · sobre cada venta</td>
+            <td>Plan Evolución $3,999 MXN · 0% comisión</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="calc-strip r d3">
+      <div class="calc-inputs">
+        <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:.5rem">Calcula el costo real de tu cliente en Shopify</div>
+        <div class="calc-row">
+          <label>GMV mensual (MXN)</label>
+          <input type="range" id="gmvS" min="50000" max="2000000" step="25000" value="400000">
+          <span class="val" id="gmvSVal">$400,000</span>
+        </div>
+        <div class="calc-row">
+          <label>Plan Shopify</label>
+          <select id="planS" style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.4rem .7rem;color:var(--white);font-family:inherit;font-size:.78rem;cursor:pointer;accent-color:var(--lime);">
+            <option value="29,2">Basic · $29 USD · 2% comisión</option>
+            <option value="79,1" selected>Standard · $79 USD · 1% comisión</option>
+            <option value="299,0.5">Advanced · $299 USD · 0.5% comisión</option>
+            <option value="2300,0.15">Plus · $2,300 USD · 0.15% comisión</option>
+          </select>
+        </div>
+        <div class="calc-row">
+          <label>Tipo de cambio USD/MXN</label>
+          <input type="range" id="fxS" min="15" max="20" step="0.5" value="17">
+          <span class="val" id="fxSVal">$17.0</span>
+        </div>
+      </div>
+
+      <div class="calc-result-strip">
+        <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:.5rem">Resultado mensual estimado</div>
+        <div class="cr-row">
+          <span class="cr-lbl">Suscripción Shopify (en MXN)</span>
+          <span class="cr-val bad" id="shopSub">$1,343</span>
+        </div>
+        <div class="cr-row">
+          <span class="cr-lbl">Comisión por transacción</span>
+          <span class="cr-val bad" id="shopComm">$4,000</span>
+        </div>
+        <div class="cr-row">
+          <span class="cr-lbl" style="font-weight:700;color:rgba(255,255,255,.8)">Total mensual Shopify</span>
+          <span class="cr-val bad" id="shopTotal">$5,343</span>
+        </div>
+        <div class="cr-row">
+          <span class="cr-lbl">Tiendanube Avanzado</span>
+          <span class="cr-val good">$999</span>
+        </div>
+        <div class="cr-hero">
+          <div class="cr-hero-val" id="shopSavings">$4,344</div>
+          <div class="cr-hero-lbl">Ahorro mensual estimado</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem;font-size:.65rem;color:rgba(255,255,255,.2)">
+      * Tipo de cambio estimado. Comisiones Shopify aplican cuando no se usa Shopify Payments (no disponible en MX). Cifras orientativas — confirmar con el cliente.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     S4 · DONDE GANAMOS / DONDE PIERDEN
+══════════════════════════════════ -->
+<section class="slide bg-dark" id="s3">
+  <div class="inner">
+    <div class="eyebrow r">Análisis honesto · No inventar, no exagerar</div>
+    <h2 class="r d1">Donde <span class="hl">ganamos</span> y donde <span class="hi">ser honestos</span></h2>
+
+    <div class="honest-grid r d2">
+      <div class="honest-col tn">
+        <div class="col-header">
+          <div class="col-icon">✦</div>
+          <div class="col-title tn">Tiendanube gana en MX/LATAM</div>
+        </div>
+        <ul class="win-list tn">
+          <li><strong>Facturación en MXN.</strong> Sin fluctuación cambiaria, sin sorpresas al cierre del mes.</li>
+          <li><strong>Cero comisión por ventas.</strong> Ni en Avanzado ni en Evolución. Shopify cobra 0.5%–2% porque Shopify Payments no opera en MX.</li>
+          <li><strong>Soporte en español, SLA 15 min.</strong> WhatsApp, persona real, desde México. Shopify Payments ni aplica; el soporte local, tampoco.</li>
+          <li><strong>PDV incluido sin costo extra.</strong> Shopify POS tiene plan separado. En TN el punto de venta está integrado desde Plan Avanzado.</li>
+          <li><strong>Pagos locales nativos.</strong> Mercado Pago, Clip, Kueski, Aplazo, Openpay, Estafeta, DHL, FedEx — sin plugins, sin costo adicional.</li>
+          <li><strong>MSI hasta 18 meses nativo.</strong> En Shopify requiere integración técnica y a veces app de pago.</li>
+          <li><strong>Crecimiento 12× más rápido</strong> que Shopify en LATAM. El ecosistema y el soporte crecen con la plataforma.</li>
+        </ul>
+      </div>
+
+      <div class="honest-col sh">
+        <div class="col-header">
+          <div class="col-icon">◎</div>
+          <div class="col-title sh">Shopify gana en estos escenarios</div>
+        </div>
+        <ul class="win-list sh">
+          <li><strong>Ecosistema de apps global.</strong> Shopify App Store tiene más opciones internacionales. Si el cliente necesita integraciones muy específicas fuera de LATAM, Shopify puede tener ventaja.</li>
+          <li><strong>Presencia internacional.</strong> Si la marca vende activamente fuera de LATAM (US, EU), Shopify tiene mejor cobertura de mercados y medios de pago internacionales.</li>
+          <li><strong>Marketplace de temas más maduro.</strong> Más opciones de diseño, más agencias globales que conocen la plataforma.</li>
+          <li><strong>Reconocimiento de marca global.</strong> Algunos founders lo prefieren por familiaridad o por su stack global de inversores/partners.</li>
+        </ul>
+
+        <div class="honesty-note" style="margin-top:1.25rem">
+          <p><strong>Regla de oro:</strong> Si el cliente tiene 50%+ de tráfico fuera de LATAM o vende activamente en US/EU, Shopify puede ser mejor encaje. Dilo antes de que él lo descubra. La credibilidad se gana siendo honestos, no cerrando el deal equivocado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     S5 · PLAYBOOK DE OBJECIONES
+══════════════════════════════════ -->
+<section class="slide bg-deeper" id="s4">
+  <div class="inner">
+    <div class="eyebrow r">Playbook · Las 4 objeciones más comunes</div>
+    <h2 class="r d1">Cada objeción <span class="hi">tiene su reframe</span></h2>
+
+    <div class="obj-grid r d2">
+
+      <div class="obj-card">
+        <div class="obj-q">Ya tenemos Shopify y nuestro equipo lo conoce bien</div>
+        <div class="obj-a">
+          Tiene sentido proteger lo que ya funciona. La pregunta es: <span class="hook">¿cuánto les está costando ese conocimiento?</span>
+          Si no están usando Shopify Payments —que en México no está disponible— están pagando 0.5–2% de comisión por cada venta,
+          encima del plan en USD. En un GMV de $500k MXN al mes en Basic, eso son $120k MXN al año que no aparecen en ningún reporte
+          de ventas. <strong>El equipo aprende TN en semanas; ese dinero no vuelve.</strong>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-q">Shopify tiene muchas más apps e integraciones</div>
+        <div class="obj-a">
+          Es verdad — globalmente. Pero el 80% de las apps que usan tus clientes en MX
+          tienen equivalente nativo en TN o en el ecosistema LATAM. <span class="hook">¿Cuáles usan específicamente?</span>
+          Si es Klaviyo, Gorgias o Rebuy, hay equivalentes. Si es algo muy específico fuera de LATAM,
+          lo revisamos juntos. <strong>+1,700 integraciones disponibles y el ecosistema crece 12× más rápido que Shopify aquí.</strong>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-q">Shopify es el estándar en e-commerce, todos lo conocen</div>
+        <div class="obj-a">
+          En LATAM, el estándar está cambiando. <span class="hook">4 de cada 10 marcas en México ya trabajan con agencias,
+          y las que migran a TN no lo están haciendo por moda.</span> Lo hacen porque el costo real de Shopify
+          en MX es más alto de lo que parece. +160k marcas en LATAM ya eligieron TN.
+          <strong>Ser el primero de tu red en posicionarte en la plataforma que crece más rápido es ventaja, no riesgo.</strong>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-q">El tipo de cambio no me afecta tanto, no es tanto dinero</div>
+        <div class="obj-a">
+          Entendido — depende del GMV. <span class="hook">¿Podemos hacer los números juntos?</span>
+          En Shopify Standard con $600k MXN de GMV al mes: $1,343 MXN de suscripción + $6,000 MXN de comisión = $7,343 MXN/mes.
+          Tiendanube Avanzado: $999 MXN/mes, cero comisión.
+          <strong>Son ~$76k MXN al año que hoy se van sin que el cliente lo note.</strong>
+          El impacto no es el precio, es que no se ve.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="comision-box r d4">
+      <div class="comision-item">
+        <div class="comision-pct">10%</div>
+        <div class="comision-lbl">Solo referido</div>
+        <div class="comision-detail">Promedio primeros 90 días<br>Tope $50,000 MXN</div>
+      </div>
+      <hr class="comision-divider">
+      <div class="comision-item">
+        <div class="comision-pct">20%</div>
+        <div class="comision-lbl">Referido + implementación</div>
+        <div class="comision-detail">Promedio primeros 90 días<br>Tope $100,000 MXN</div>
+      </div>
+      <hr class="comision-divider">
+      <div class="comision-item">
+        <div class="comision-pct">30%</div>
+        <div class="comision-lbl">Campaña de aceleración</div>
+        <div class="comision-detail">Promedio primeros 90 días<br>Adelanto 20% al Go Live</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     S6 · ENCAJE + CIERRE
+══════════════════════════════════ -->
+<section class="slide bg-midnight" id="s5">
+  <div class="inner">
+    <div class="eyebrow r">Cuándo cerrar y cuándo no · Sé honesto, gana credibilidad</div>
+    <h2 class="r d1">El deal <span class="hl">correcto</span> vale más <span class="hi">que el deal rápido</span></h2>
+
+    <div class="encaje-wrap r d2">
+      <div class="encaje-col si">
+        <div class="encaje-title si">TN es el encaje correcto cuando…</div>
+        <ul class="encaje-list si">
+          <li>El merchant tiene GMV $100k+ MXN/mes con enfoque en México y/o LATAM</li>
+          <li>Está en Shopify Basic o Standard y no usa integraciones muy específicas del ecosistema global</li>
+          <li>Necesita MSI nativos, pagos locales (OXXO, Mercado Pago, Clip) sin plugins</li>
+          <li>Quiere costos predecibles en pesos sin variación por tipo de cambio</li>
+          <li>Valora soporte en español con SLA real, no tickets</li>
+          <li>Tiene operación física (PDV) o la planea — TN lo incluye sin costo extra</li>
+          <li>Trabaja con agencia que quiere comisionarse y acompañar el crecimiento</li>
+        </ul>
+      </div>
+
+      <div class="encaje-col no">
+        <div class="encaje-title no">Recomendaría mantener Shopify si…</div>
+        <ul class="encaje-list no">
+          <li>50%+ del tráfico viene de fuera de LATAM y vende activamente en US/EU</li>
+          <li>Tiene integraciones muy específicas del ecosistema global que no tienen equivalente en TN ni en LATAM (verificar antes de decir que no hay)</li>
+          <li>El costo de migración y reaprendizaje supera el ahorro proyectado en los próximos 12 meses</li>
+          <li>El equipo técnico tiene deuda contraída específicamente con el stack de Shopify y el costo de transición es prohibitivo a corto plazo</li>
+        </ul>
+        <div style="margin-top:1rem;font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.55;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08)">
+          Decir "en tu caso Shopify puede ser mejor" es lo que separa a un asesor de un vendedor. Y es lo que hace que la próxima referencia llegue de ese mismo cliente.
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box r d4">
+      <div class="cta-text">
+        <strong>¿Tienes un lead listo para evaluar?</strong>
+        <p>Manda la URL del prospect + datos de tráfico (Ubersuggest) y armamos juntos el diagnóstico personalizado antes de tu reunión.</p>
+      </div>
+      <div class="cta-contact">
+        <a href="mailto:alan.cervantes@tiendanube.com">alan.cervantes@tiendanube.com</a>
+        <p>+52 56 2704 5594 · WhatsApp</p>
+      </div>
+    </div>
+
+    <p style="margin-top:2.5rem;font-size:.65rem;color:rgba(255,255,255,.18);text-align:center">
+      Tiendanube · Partner Program MX · Vigente mayo 2025 · Uso interno de agencias partner
+    </p>
+  </div>
+</section>
+
+
+<script>
+/* ─── Nav dots ─── */
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+dots.forEach(d => d.addEventListener('click', () => slides[+d.dataset.i].scrollIntoView({behavior:'smooth'})));
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return;
+    const idx = [...slides].indexOf(e.target);
+    dots.forEach((d,j) => d.classList.toggle('on', j===idx));
+    e.target.querySelectorAll('.r').forEach(el => el.classList.add('in'));
+  });
+},{threshold:0.4});
+slides.forEach(s => io.observe(s));
+
+/* ─── Calculator S3 ─── */
+const FMT = n => '$' + Math.round(n).toLocaleString('es-MX');
+const TN_PLAN = 999;
+
+function calcShop(){
+  const gmv  = +document.getElementById('gmvS').value;
+  const fx   = +document.getElementById('fxS').value;
+  const [usd, commPct] = document.getElementById('planS').value.split(',').map(Number);
+  const sub  = usd * fx;
+  const comm = gmv * commPct / 100;
+  const total = sub + comm;
+  const savings = total - TN_PLAN;
+
+  document.getElementById('gmvSVal').textContent  = FMT(gmv);
+  document.getElementById('fxSVal').textContent   = '$' + fx.toFixed(1);
+  document.getElementById('shopSub').textContent  = FMT(sub);
+  document.getElementById('shopComm').textContent = FMT(comm);
+  document.getElementById('shopTotal').textContent= FMT(total);
+  document.getElementById('shopSavings').textContent = savings > 0 ? FMT(savings) : '—';
+}
+
+['gmvS','fxS'].forEach(id => document.getElementById(id).addEventListener('input', calcShop));
+document.getElementById('planS').addEventListener('change', calcShop);
+calcShop();
+</script>
+
+</body>
+</html>
