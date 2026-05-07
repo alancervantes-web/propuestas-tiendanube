@@ -2,424 +2,620 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Battle Card · Tiendanube vs Shopify</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Tiendanube — Battle Card</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET + VARIABLES ─── */
-*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-:root {
-  --blue:#2D52E8; --blue-dark:#1A3BC7; --blue-card:#1E40C9;
-  --white:#ffffff; --lime:#C4F062; --coral:#FF6B5A; --sunset:#FFB547;
-  --muted:rgba(255,255,255,0.6); --periwinkle:rgba(255,255,255,0.52);
-  --ease:cubic-bezier(0.4,0,0.2,1); --bounce:cubic-bezier(0.34,1.56,0.64,1);
-  --spring:cubic-bezier(0.175,0.885,0.32,1.275);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2D3CED;--deep:#1B26B8;--ink:#0D0E2B;
+  --lime:#C4F062;--coral:#FF6B5A;--sunset:#FFB547;--white:#fff;
+  --ease:cubic-bezier(.16,1,.3,1);--bounce:cubic-bezier(.34,1.56,.64,1);
 }
 
-/* TN CLOUD CURSOR — isologo blanco */
-body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='29' viewBox='0 0 37.48 27'%3E%3Cpath d='M24 0H23.99C20.45.005 17.1 1.39 14.59 3.826 13.31 3.282 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.4 0 2.79-.287 4.08-.827C17.01 25.539 20.33 27 23.98 27 31.43 27 37.48 20.944 37.48 13.5S31.44.012 24 0ZM23.98 24C18.2 24 13.48 19.289 13.48 13.5H10.48c0 2.648.77 5.118 2.09 7.204-.67.194-1.37.296-2.07.296C6.37 21 3 17.635 3 13.5S6.37 6 10.5 6c1.64 0 3.19.518 4.5 1.498C16.9 8.93 18 11.118 18 13.5h3c0-3.141-1.36-6.04-3.75-8.042C19.13 3.884 21.51 3.002 23.99 3 29.78 3.003 34.48 7.712 34.48 13.5S29.77 24 23.98 24Z' fill='white'/%3E%3C/svg%3E") 20 14, auto;
-  font-family:'DM Sans',-apple-system,sans-serif;
-  color:var(--white);
-  line-height:1.5;
-  -webkit-font-smoothing:antialiased;
+/* ─── BASE ─────────────────────────────────── */
+html{scroll-snap-type:y mandatory;overflow-y:scroll;height:100%}
+body{
+  font-family:'DM Sans',Arial,sans-serif;color:var(--white);
+  background:linear-gradient(145deg,#0e1f9e 0%,#071060 48%,#030820 100%) fixed;
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 38 28'%3E%3Cpath d='M24 0H24C20.45.005 17.1 1.39 14.59 3.83 13.31 3.28 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.41 0 2.79-.29 4.08-.83C17.01 25.54 20.33 27 23.98 27c7.45 0 13.5-6.06 13.5-13.5S31.44.012 24 0zm-.02 24C18.2 24 13.48 19.29 13.48 13.5h-3c0 2.65.77 5.12 2.09 7.2-.67.2-1.37.3-2.07.3C6.37 21 3 17.63 3 13.5S6.37 6 10.5 6c1.64 0 3.19.52 4.5 1.5C16.91 8.93 18 11.12 18 13.5h3c0-3.14-1.36-6.04-3.75-8.04C19.13 3.88 21.51 3 23.99 3 29.78 3.003 34.48 7.71 34.48 13.5S29.77 24 23.98 24z' fill='white'/%3E%3C/svg%3E") 4 4,auto;
 }
-button { cursor: inherit; }
 
-/* ─── LAYOUT ─── */
-html { scroll-snap-type:y mandatory; overflow-y:scroll; scroll-behavior:smooth; background:#030820; }
-body { background: linear-gradient(145deg,#0e1f9e 0%,#071060 45%,#030820 100%) fixed; }
+/* ─── KEYFRAMES ─────────────────────────────── */
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(9px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(196,240,98,.2)}50%{box-shadow:0 0 48px rgba(196,240,98,.55)}}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes orb-drift{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-20px)}66%{transform:translate(-20px,15px)}}
+@keyframes count-flash{0%{opacity:.4;transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+@keyframes glow-text{0%,100%{text-shadow:0 0 20px rgba(196,240,98,0)}50%{text-shadow:0 0 40px rgba(196,240,98,.6)}}
+@keyframes border-run{0%{background-position:0% 50%}100%{background-position:400% 50%}}
 
-.slide {
-  min-height:100svh; min-height:100vh; scroll-snap-align:start; scroll-snap-stop:always;
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden; padding:0 1.5rem; position:relative;
-  background: transparent;
+/* ─── SLIDE ─────────────────────────────────── */
+.slide{
+  min-height:100svh;min-height:100vh;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 5vw;position:relative;overflow:hidden;
 }
-.bg-blue     { background: rgba(21,48,168,.15); }
-.bg-dark     { background: rgba(11,30,122,.20); }
-.bg-deeper   { background: rgba(7,14,82,.25); }
-.bg-midnight { background: rgba(4,8,40,.30); }
+.inner{width:100%;max-width:1100px;padding:5rem 0;position:relative;z-index:2}
 
-.inner { width:100%; max-width:1100px; padding:4.5rem 0; position:relative; z-index:1; }
+/* ─── ORBS ──────────────────────────────────── */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orb-drift 12s ease-in-out infinite}
+.orb-1{width:520px;height:520px;background:rgba(45,60,237,.4);top:-130px;right:-120px;animation-delay:-4s}
+.orb-2{width:380px;height:380px;background:rgba(196,240,98,.09);bottom:-100px;left:-80px;animation-delay:-8s}
+.orb-3{width:300px;height:300px;background:rgba(255,107,90,.08);top:25%;right:8%;animation-delay:-2s}
+.orb-4{width:220px;height:220px;background:rgba(45,60,237,.25);bottom:15%;left:25%;animation-delay:-6s}
 
-/* ─── FLOATING ORBS ─── */
-.orbs { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
-.orb { position:absolute; border-radius:50%; filter:blur(90px); opacity:.18; animation:orbFloat 9s ease-in-out infinite; }
-.orb-1 { width:500px; height:500px; background:radial-gradient(circle,#2D52E8,transparent); top:-150px; right:-80px; animation-duration:11s; }
-.orb-2 { width:350px; height:350px; background:radial-gradient(circle,#C4F062,transparent); bottom:-120px; left:-60px; opacity:.10; animation-duration:8s; animation-delay:-4s; }
-.orb-3 { width:280px; height:280px; background:radial-gradient(circle,#FF6B5A,transparent); top:40%; right:15%; opacity:.10; animation-duration:10s; animation-delay:-6s; }
-.orb-4 { width:200px; height:200px; background:radial-gradient(circle,#FFB547,transparent); top:20%; left:10%; opacity:.08; animation-duration:12s; animation-delay:-2s; }
-@keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-28px) scale(1.04)} }
+/* ─── NAV DOTS ──────────────────────────────── */
+.nav{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.7rem;z-index:100}
+@media(max-width:600px){.nav{right:auto;top:auto;transform:none;bottom:1.3rem;left:50%;transform:translateX(-50%);flex-direction:row}}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);border:none;padding:0;cursor:pointer;transition:all .35s var(--bounce)}
+.dot.on{background:var(--lime);transform:scale(1.65);box-shadow:0 0 14px rgba(196,240,98,.6)}
 
-/* ─── BADGES & EYEBROWS ─── */
-.badge {
-  display:inline-flex; align-items:center; font-size:.62rem; font-weight:700;
-  text-transform:uppercase; letter-spacing:.13em; color:var(--white);
-  border:1px solid rgba(255,255,255,.3); border-radius:999px;
-  padding:.4rem 1rem; margin-bottom:1.5rem; background:rgba(255,255,255,.07);
+/* ─── REVEAL ─────────────────────────────────── */
+.r  {opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rl {opacity:0;transform:translateX(-30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rr {opacity:0;transform:translateX(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rs {opacity:0;transform:scale(.88);transition:opacity .7s var(--ease),transform .7s var(--bounce)}
+.r.in,.rl.in,.rr.in,.rs.in{opacity:1;transform:none}
+.d1{transition-delay:.05s}.d2{transition-delay:.13s}.d3{transition-delay:.21s}.d4{transition-delay:.29s}
+.d5{transition-delay:.37s}.d6{transition-delay:.45s}.d7{transition-delay:.53s}.d8{transition-delay:.61s}
+
+/* ─── SCROLL HINT ────────────────────────────── */
+.hint{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.25;animation:bob 2.4s ease-in-out infinite}
+.hint span{font-size:.55rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* ─── TYPOGRAPHY ─────────────────────────────── */
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.7rem}
+.badge-pill{display:inline-block;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 18px;color:var(--lime);margin-bottom:1.25rem}
+.hero{font-size:clamp(2.5rem,7vw,5.2rem);font-weight:800;line-height:1.04;letter-spacing:-.025em;margin-bottom:1.25rem}
+.hero-sub{font-size:clamp(.95rem,2vw,1.15rem);color:rgba(255,255,255,.6);max-width:580px;line-height:1.7;margin-bottom:2.25rem}
+h2{font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.022em;margin-bottom:1.25rem}
+.section-sub{font-size:.95rem;color:rgba(255,255,255,.52);max-width:580px;line-height:1.7;margin-bottom:2.25rem}
+.lime{color:var(--lime)}.coral{color:var(--coral)}.sunset{color:var(--sunset)}
+.hl{color:var(--lime);animation:glow-text 3s ease-in-out infinite}
+.hi{color:var(--coral)}
+
+/* animated gradient text */
+.grad-text{
+  background:linear-gradient(90deg,#fff 0%,var(--lime) 40%,#fff 80%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 3s linear infinite;
 }
-.eyebrow { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.14em; color:rgba(255,255,255,.4); margin-bottom:1rem; }
 
-/* ─── TYPOGRAPHY ─── */
-h1.hero { font-size:clamp(2.6rem,6vw,5.5rem); font-weight:800; line-height:1.0; letter-spacing:-0.02em; margin-bottom:1.2rem; }
-h1.hero .lime { color:var(--lime); }
-h1.hero .dim  { font-weight:400; font-style:italic; color:var(--periwinkle); }
-h2 { font-size:clamp(1.8rem,4vw,3.2rem); font-weight:800; line-height:1.08; letter-spacing:-0.02em; margin-bottom:.9rem; }
-h2 .hl { color:var(--lime); }
-h2 .hi { font-style:italic; font-weight:400; color:rgba(255,255,255,.5); }
-.hero-sub { font-size:clamp(.92rem,1.4vw,1.05rem); color:var(--muted); line-height:1.65; max-width:660px; margin-bottom:2.5rem; }
-
-/* ─── STATS ROW ─── */
-.stats-row { display:grid; grid-template-columns:repeat(2,1fr); gap:.75rem; }
-@media(min-width:600px){ .stats-row { grid-template-columns:repeat(4,1fr); } }
-.stat {
-  background:var(--blue-card); border-radius:14px; padding:1.1rem 1.4rem;
-  transition:transform .3s var(--bounce),background .2s,box-shadow .3s;
-  position:relative; overflow:hidden;
+/* ─── CARD BASE ──────────────────────────────── */
+.card{
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:1.6rem 1.4rem;
+  transition:transform .25s var(--ease),box-shadow .25s;
 }
-.stat::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.06),transparent); opacity:0; transition:opacity .2s; }
-.stat:hover { transform:translateY(-5px) scale(1.02); background:#2244d8; box-shadow:0 12px 30px rgba(0,0,0,.3); }
-.stat:hover::after { opacity:1; }
-.stat-val { font-size:clamp(1.5rem,3vw,2.2rem); font-weight:800; color:var(--lime); line-height:1; margin-bottom:.3rem; letter-spacing:-0.02em; }
-.stat-lbl { font-size:.73rem; color:rgba(255,255,255,.65); font-weight:500; line-height:1.35; }
+.card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.card.lime-glow{border-color:rgba(196,240,98,.22);animation:pulse-glow 3s ease-in-out infinite}
+.card.blue-glow{border-color:rgba(45,60,237,.45);background:rgba(45,60,237,.18)}
 
-/* ─── REFRAME ─── */
-.reframe { background:rgba(196,240,98,.08); border:1px solid rgba(196,240,98,.25); border-radius:20px; padding:2rem 2.25rem; margin-bottom:1.5rem; }
-.reframe-label { font-size:.58rem; font-weight:700; text-transform:uppercase; letter-spacing:.13em; color:var(--lime); margin-bottom:.75rem; }
-.reframe-text { font-size:clamp(.95rem,1.3vw,1.05rem); color:var(--white); font-weight:500; line-height:1.6; }
-.reframe-sub { font-size:.82rem; color:rgba(255,255,255,.5); margin-top:.75rem; line-height:1.6; }
-
-/* ─── INSIGHT CARDS ─── */
-.insight-grid { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1.5rem; }
-@media(min-width:600px){ .insight-grid { grid-template-columns:repeat(3,1fr); } }
-.icard {
-  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-  border-radius:18px; padding:1.5rem;
-  transition:transform .3s var(--bounce),border-color .2s,box-shadow .3s;
+/* glowing border card */
+.glow-border{
+  position:relative;border-radius:20px;padding:2px;
+  background:linear-gradient(90deg,rgba(196,240,98,.3),rgba(45,60,237,.4),rgba(255,181,71,.3),rgba(196,240,98,.3));
+  background-size:300% 100%;animation:border-run 4s linear infinite;
 }
-.icard:hover { transform:translateY(-6px); border-color:rgba(255,255,255,.22); box-shadow:0 16px 40px rgba(0,0,0,.25); }
-.icard-num { font-size:2rem; font-weight:800; color:var(--lime); line-height:1; margin-bottom:.5rem; }
-.icard-lbl { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.5rem; }
-.icard-text { font-size:.8rem; color:rgba(255,255,255,.55); line-height:1.55; }
+.glow-border-inner{background:#071060;border-radius:18px;padding:1.6rem 1.4rem;height:100%}
 
-/* ─── PLAN CARDS S3 ─── */
-.plans-row { display:grid; grid-template-columns:1fr; gap:1.25rem; margin-top:1.5rem; }
-@media(min-width:768px){ .plans-row { grid-template-columns:1fr 1fr; gap:1.5rem; } }
-.plan-group { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:20px; padding:1.6rem; }
-.plan-group.tn-group { border-color:rgba(196,240,98,.22); }
-.plan-group-title { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-bottom:1.2rem; padding-bottom:.75rem; border-bottom:1px solid rgba(255,255,255,.07); }
-.plan-group-title.sh { color:rgba(255,107,90,.7); }
-.plan-group-title.tn { color:var(--lime); }
-.plan-item { display:flex; justify-content:space-between; align-items:flex-start; padding:.65rem 0; border-bottom:1px solid rgba(255,255,255,.05); gap:1rem; }
-.plan-item:last-child { border:none; padding-bottom:0; }
-.pi-name { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.75); text-transform:uppercase; letter-spacing:.05em; }
-.pi-price { font-size:.82rem; font-weight:700; text-align:right; }
-.pi-price.sh { color:rgba(255,107,90,.8); }
-.pi-price.tn { color:var(--lime); }
-.pi-note { font-size:.64rem; color:rgba(255,255,255,.35); margin-top:.2rem; }
-.pi-note.warn { color:rgba(255,181,71,.6); }
-
-/* ─── S3 CALC + ECOSYSTEM ─── */
-.s3-bottom { display:grid; grid-template-columns:1fr; gap:1.25rem; margin-top:1.25rem; }
-@media(min-width:768px){ .s3-bottom { grid-template-columns:1fr 1fr; gap:1.5rem; } }
-.calc-box { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:18px; padding:1.5rem; }
-.calc-title { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.35); margin-bottom:1.1rem; }
-.slider-row { margin-bottom:1rem; }
-.slider-row label { font-size:.72rem; color:rgba(255,255,255,.55); display:flex; justify-content:space-between; margin-bottom:.4rem; }
-.slider-row label span { font-weight:700; color:var(--lime); }
-.slider-row input[type=range] { width:100%; accent-color:var(--lime); height:4px; cursor:pointer; }
-.slider-row select { width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:.45rem .7rem; color:var(--white); font-family:inherit; font-size:.78rem; cursor:pointer; margin-top:.4rem; }
-.cr-row { display:flex; justify-content:space-between; align-items:baseline; padding:.5rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
-.cr-row:last-of-type { border:none; }
-.cr-lbl { font-size:.72rem; color:rgba(255,255,255,.45); }
-.cr-val { font-size:.88rem; font-weight:700; }
-.cr-val.bad  { color:rgba(255,107,90,.85); }
-.cr-val.good { color:var(--lime); }
-.diff-box { margin-top:.75rem; padding:1rem; border-radius:12px; text-align:center; }
-.diff-box.save   { background:rgba(196,240,98,.08); border:1px solid rgba(196,240,98,.2); }
-.diff-box.invest { background:rgba(255,181,71,.06); border:1px solid rgba(255,181,71,.18); }
-.diff-val { font-size:1.1rem; font-weight:800; line-height:1; }
-.diff-val.save   { color:var(--lime); }
-.diff-val.invest { color:var(--sunset); }
-.diff-lbl { font-size:.62rem; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.35); margin-top:.25rem; }
-.eco-box { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:18px; padding:1.5rem; }
-.eco-title { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--lime); margin-bottom:1.1rem; }
-.eco-item { display:flex; align-items:flex-start; gap:.75rem; padding:.6rem 0; border-bottom:1px solid rgba(255,255,255,.05); }
-.eco-item:last-child { border:none; }
-.eco-icon { font-size:.9rem; flex-shrink:0; margin-top:.1rem; }
-.eco-text { font-size:.76rem; color:rgba(255,255,255,.65); line-height:1.5; }
-.eco-text strong { color:var(--white); display:block; font-size:.78rem; margin-bottom:.1rem; }
-
-/* ─── MIGRATION CALLOUT ─── */
-.migration-box {
-  margin-top:1.25rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
-  border-radius:18px; padding:1.4rem 1.75rem;
-  display:grid; grid-template-columns:1fr; gap:1.25rem;
+/* ══ S0 · HERO ══════════════════════════════════ */
+.hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+@media(max-width:700px){.hero-grid{grid-template-columns:repeat(2,1fr)}}
+.hstat{
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;padding:1.25rem 1rem;
+  transition:transform .25s var(--ease),box-shadow .25s;
 }
-@media(min-width:600px){ .migration-box { grid-template-columns:1fr 1fr; } }
-.mig-tag { display:inline-flex; align-items:center; font-size:.55rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; padding:.28rem .7rem; border-radius:999px; margin-bottom:.6rem; }
-.mig-tag.lime   { color:#0d2490; background:var(--lime); }
-.mig-tag.sunset { color:#1a1400; background:var(--sunset); }
-.mig-title { font-size:.88rem; font-weight:700; color:var(--white); margin-bottom:.4rem; }
-.mig-desc { font-size:.75rem; color:rgba(255,255,255,.5); line-height:1.6; }
-.mig-cond { font-size:.68rem; color:rgba(255,181,71,.65); margin-top:.5rem; font-style:italic; }
-.mig-footnote { font-size:.65rem; color:rgba(255,255,255,.28); margin-top:.9rem; font-style:italic; }
+.hstat:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.hstat-val{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--lime);line-height:1;margin-bottom:.3rem}
+.hstat-lbl{font-size:.73rem;color:rgba(255,255,255,.5);line-height:1.45}
 
-/* ─── HONEST GRID ─── */
-.honest-grid { display:grid; grid-template-columns:1fr; gap:1.25rem; margin-top:2rem; }
-@media(min-width:768px){ .honest-grid { grid-template-columns:1fr 1fr; gap:1.5rem; } }
-.honest-col { background:rgba(255,255,255,.04); border-radius:20px; padding:1.75rem; border:1px solid rgba(255,255,255,.09); }
-.honest-col.tn { border-color:rgba(196,240,98,.25); }
-.honest-col.sh { border-color:rgba(255,107,90,.2); }
-.col-header { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
-.col-icon { font-size:1.5rem; }
-.col-title { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; }
-.col-title.tn { color:var(--lime); }
-.col-title.sh { color:rgba(255,107,90,.85); }
-.win-list { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
-.win-list li { font-size:.82rem; color:rgba(255,255,255,.7); padding-left:1.3rem; position:relative; line-height:1.5; }
-.win-list.tn li::before { content:'✓'; position:absolute; left:0; color:var(--lime); font-size:.7rem; top:.15rem; }
-.win-list.sh li::before { content:'✓'; position:absolute; left:0; color:rgba(255,107,90,.7); font-size:.7rem; top:.15rem; }
-.honesty-note { margin-top:1.25rem; padding:1.1rem 1.4rem; background:rgba(255,181,71,.06); border:1px solid rgba(255,181,71,.2); border-radius:14px; }
-.honesty-note p { font-size:.78rem; color:rgba(255,255,255,.55); line-height:1.6; }
-.honesty-note strong { color:var(--sunset); }
+/* ══ S1 · LATAM ══════════════════════════════════ */
+.latam-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:1.5rem}
+@media(max-width:700px){.latam-grid{grid-template-columns:1fr}}
+.lcard-icon{font-size:1.75rem;margin-bottom:.75rem}
+.lcard-num{font-size:2.2rem;font-weight:800;line-height:1;margin-bottom:.25rem}
+.lcard-lbl{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem}
+.lcard-text{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6}
+.timing-bar{display:flex;align-items:flex-start;gap:.9rem;padding:1.1rem 1.3rem;background:rgba(196,240,98,.06);border:1px solid rgba(196,240,98,.18);border-radius:14px;margin-top:.75rem}
+.timing-dot{width:9px;height:9px;border-radius:50%;background:var(--lime);flex-shrink:0;margin-top:.3rem;box-shadow:0 0 12px rgba(196,240,98,.7);animation:pulse-glow 2s ease-in-out infinite}
+.timing-text{font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.6}
 
-/* ─── OBJECTION CARDS ─── */
-.obj-grid { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1.5rem; }
-@media(min-width:600px){ .obj-grid { grid-template-columns:1fr 1fr; } }
-.obj-card {
-  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
-  border-radius:18px; padding:1.5rem;
-  transition:border-color .2s,transform .3s var(--bounce),box-shadow .3s;
+/* ══ S2 · POR QUÉ TN ════════════════════════════ */
+.tn-creds{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+@media(max-width:700px){.tn-creds{grid-template-columns:1fr}}
+.cred-num{font-size:2.2rem;font-weight:800;line-height:1;color:var(--lime);margin-bottom:.2rem}
+.cred-lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.42);margin-bottom:.5rem}
+.cred-text{font-size:.83rem;color:rgba(255,255,255,.62);line-height:1.55}
+.brands-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
+.brand-chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:8px;padding:5px 12px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.65);white-space:nowrap;transition:all .2s}
+.brand-chip:hover{background:rgba(255,255,255,.12);color:#fff}
+.suite-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem;margin-top:1.5rem}
+@media(max-width:700px){.suite-row{grid-template-columns:repeat(3,1fr)}}
+.suite-item{background:rgba(196,240,98,.05);border:1px solid rgba(196,240,98,.13);border-radius:12px;padding:.85rem .6rem;text-align:center;transition:all .25s}
+.suite-item:hover{background:rgba(196,240,98,.12);transform:translateY(-3px)}
+.suite-icon{font-size:1.35rem;margin-bottom:.35rem}
+.suite-name{font-size:.68rem;font-weight:700;color:var(--lime)}
+
+/* ══ S3 · MÁS VENTAS ════════════════════════════ */
+.money-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+@media(max-width:700px){.money-grid{grid-template-columns:1fr}}
+.mc-tag{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;border-radius:7px;padding:3px 10px;margin-bottom:.7rem}
+.mc-tag.g{background:rgba(196,240,98,.15);color:var(--lime)}
+.mc-tag.c{background:rgba(255,107,90,.15);color:var(--coral)}
+.mc-tag.s{background:rgba(255,181,71,.15);color:var(--sunset)}
+.mc-tag.b{background:rgba(100,120,255,.2);color:rgba(180,190,255,1)}
+.mc-num{font-size:2.8rem;font-weight:800;line-height:1;margin-bottom:.2rem}
+.mc-lbl{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.45);margin-bottom:.55rem}
+.mc-text{font-size:.83rem;color:rgba(255,255,255,.62);line-height:1.6}
+.brands-proof{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.07)}
+.proof-tag{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.5);padding:4px 10px;background:rgba(255,255,255,.05);border-radius:6px}
+
+/* ══ S4 · CALCULADORA ═══════════════════════════ */
+.calc-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:1.4rem}
+@media(max-width:760px){.calc-layout{grid-template-columns:1fr}}
+
+.calc-panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.6rem 1.4rem}
+.cp-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:1.2rem}
+
+.sl-row{margin-bottom:1rem}
+.sl-row label{font-size:.75rem;color:rgba(255,255,255,.55);display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem}
+.sl-val{font-weight:700;color:var(--lime)}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:99px;background:rgba(255,255,255,.15);cursor:pointer;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--lime);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+select.calc-sel{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:.5rem .8rem;color:var(--white);font-family:inherit;font-size:.82rem;cursor:pointer;margin-top:.3rem;-webkit-appearance:none;appearance:none}
+
+/* app checkboxes */
+.app-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.25rem}
+.app-item{display:flex;align-items:center;gap:.65rem;padding:.6rem .9rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;cursor:pointer;transition:all .2s}
+.app-item:hover{background:rgba(255,255,255,.08)}
+.app-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--lime);cursor:pointer;flex-shrink:0}
+.app-item label{font-size:.8rem;color:rgba(255,255,255,.7);cursor:pointer;flex:1;display:flex;justify-content:space-between;align-items:center}
+.app-cost{font-size:.72rem;color:rgba(255,181,71,.8);font-weight:700}
+.app-item.checked{background:rgba(196,240,98,.06);border-color:rgba(196,240,98,.2)}
+
+/* results panel */
+.results-panel{display:flex;flex-direction:column;gap:1rem}
+.r-block{background:rgba(0,0,0,.2);border-radius:14px;padding:1.1rem 1.2rem}
+.r-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.38);margin-bottom:.7rem}
+.r-row{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.r-row:last-child{border-bottom:none}
+.r-row .r-item{color:rgba(255,255,255,.65)}
+.r-row .r-amt{font-weight:700}
+.r-amt.bad{color:var(--coral)}
+.r-amt.ok{color:rgba(255,255,255,.5)}
+.r-amt.good{color:var(--lime)}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;padding:.8rem .9rem;border-radius:10px;margin-top:.25rem}
+.total-row.shopify{background:rgba(255,107,90,.1);border:1px solid rgba(255,107,90,.2)}
+.total-row.saving{background:rgba(196,240,98,.1);border:1px solid rgba(196,240,98,.22)}
+.total-lbl{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.total-val{font-size:1.6rem;font-weight:800}
+.total-val.bad{color:var(--coral)}
+.total-val.good{color:var(--lime);animation:pulse-glow 2.5s ease-in-out infinite}
+.annual-note{font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.3rem;text-align:right}
+
+.sla-bar{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
+.sla-item{border-radius:12px;padding:.9rem 1rem;text-align:center}
+.sla-item.tn{background:rgba(196,240,98,.08);border:1px solid rgba(196,240,98,.2)}
+.sla-item.sh{background:rgba(255,107,90,.07);border:1px solid rgba(255,107,90,.15)}
+.sla-time{font-size:1.5rem;font-weight:800;margin-bottom:.15rem}
+.sla-item.tn .sla-time{color:var(--lime)}
+.sla-item.sh .sla-time{color:var(--coral)}
+.sla-lbl{font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.4}
+.sla-note{font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.6;margin-top:.75rem;padding:.75rem .9rem;background:rgba(255,181,71,.06);border:1px solid rgba(255,181,71,.15);border-radius:10px}
+
+/* ══ S5 · VS SHOPIFY ════════════════════════════ */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.25rem}
+@media(max-width:700px){.vs-grid{grid-template-columns:1fr}}
+.vs-col{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.6rem 1.4rem}
+.vs-col.tn-col{background:rgba(196,240,98,.06);border-color:rgba(196,240,98,.2)}
+.vs-header{display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem}
+.vs-brand{font-size:.92rem;font-weight:800}
+.vs-brand.tn{color:var(--lime)}.vs-brand.sh{color:rgba(255,255,255,.45)}
+.vs-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.vs-list li{display:flex;gap:.55rem;align-items:flex-start;font-size:.83rem;color:rgba(255,255,255,.72);line-height:1.45}
+.tn-col .vs-list li::before{content:'✓';color:var(--lime);font-weight:800;font-size:.78rem;flex-shrink:0;margin-top:.1rem}
+.sh-col .vs-list li::before{content:'·';color:rgba(255,255,255,.28);font-size:1.1rem;flex-shrink:0;margin-top:.05rem}
+.vs-list li strong{color:var(--white)}
+.honesty-note{margin-top:1.25rem;background:rgba(255,255,255,.04);border-radius:12px;padding:1rem 1.1rem;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.6}
+
+/* ══ S6 · CTA ═══════════════════════════════════ */
+.cta-wrap{text-align:center;position:relative;z-index:2}
+.cta-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1rem}
+.cta-title{font-size:clamp(2.4rem,6vw,4.5rem);font-weight:800;line-height:1.05;letter-spacing:-.025em;margin-bottom:1.25rem}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:500px;margin:0 auto 2.5rem;line-height:1.7}
+.cta-buttons{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:3rem}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--lime);color:#0a1400;
+  font-family:inherit;font-size:1rem;font-weight:800;
+  border:none;border-radius:14px;padding:.95rem 2.2rem;
+  cursor:pointer;text-decoration:none;
+  transition:transform .2s var(--bounce),box-shadow .2s;
+  animation:pulse-glow 3s ease-in-out infinite;
 }
-.obj-card:hover { border-color:rgba(196,240,98,.25); transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.25); }
-.obj-q { font-size:.75rem; font-weight:700; color:rgba(255,107,90,.85); margin-bottom:1rem; padding-bottom:.75rem; border-bottom:1px solid rgba(255,255,255,.07); line-height:1.45; }
-.obj-q::before { content:'"'; } .obj-q::after { content:'"'; }
-.obj-a { font-size:.8rem; color:rgba(255,255,255,.65); line-height:1.6; }
-.obj-a strong { color:var(--white); font-weight:600; }
-.obj-a .hook { color:var(--lime); font-weight:600; }
-
-/* ─── NAV DOTS ─── */
-.nav {
-  position:fixed; right:1.25rem; top:50%; transform:translateY(-50%);
-  display:flex; flex-direction:column; gap:.6rem; z-index:100;
+.btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 16px 40px rgba(196,240,98,.4)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.08);color:var(--white);
+  border:1px solid rgba(255,255,255,.2);
+  font-family:inherit;font-size:1rem;font-weight:600;
+  border-radius:14px;padding:.95rem 2.2rem;
+  cursor:pointer;text-decoration:none;
+  transition:transform .2s var(--bounce),background .2s;
 }
+.btn-secondary:hover{background:rgba(255,255,255,.14);transform:translateY(-3px)}
+.cta-proof{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:center;margin-bottom:2.5rem}
+.proof-pill{display:flex;align-items:center;gap:.45rem;font-size:.8rem;color:rgba(255,255,255,.55)}
+.proof-pill .dot-g{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px rgba(196,240,98,.7)}
+.cta-contact{font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.9}
+.cta-contact a{color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);transition:color .2s}
+.cta-contact a:hover{color:var(--lime)}
+
+/* floating cloud deco */
+.cloud-deco{position:absolute;opacity:.04;pointer-events:none;animation:float 8s ease-in-out infinite}
+.cloud-deco:nth-child(2){animation-delay:-3s;right:5%;top:15%;opacity:.06}
+.cloud-deco:nth-child(3){animation-delay:-6s;left:8%;bottom:20%;opacity:.05}
+
+/* ─── MOBILE ─────────────────────────────────── */
 @media(max-width:600px){
-  .nav { right:auto; top:auto; transform:none; bottom:1.25rem; left:50%; transform:translateX(-50%); flex-direction:row; }
-}
-.dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.25); border:none; padding:0; transition:all .3s var(--bounce); }
-.dot.on { background:var(--lime); transform:scale(1.55); box-shadow:0 0 10px rgba(196,240,98,.55); }
-
-/* ─── REVEAL ANIMATIONS ─── */
-.r  { opacity:0; transform:translateY(28px); transition:opacity .75s var(--ease),transform .75s var(--ease); }
-.rl { opacity:0; transform:translateX(-28px); transition:opacity .75s var(--ease),transform .75s var(--ease); }
-.rr { opacity:0; transform:translateX(28px); transition:opacity .75s var(--ease),transform .75s var(--ease); }
-.rs { opacity:0; transform:scale(.9); transition:opacity .7s var(--ease),transform .7s var(--spring); }
-.r.in,.rl.in,.rr.in,.rs.in { opacity:1; transform:none; }
-.d1{transition-delay:.06s}.d2{transition-delay:.14s}.d3{transition-delay:.22s}
-.d4{transition-delay:.30s}.d5{transition-delay:.38s}.d6{transition-delay:.46s}
-.d7{transition-delay:.54s}.d8{transition-delay:.62s}
-
-/* ─── SCROLL HINT ─── */
-.hint { position:absolute; bottom:1.75rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.4rem; opacity:.28; animation:bob 2.2s ease-in-out infinite; }
-.hint span { font-size:.56rem; letter-spacing:.12em; text-transform:uppercase; }
-@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)} }
-
-/* ─── MOBILE ─── */
-@media(max-width:600px){
-  .inner { padding:2.5rem 0 3rem; }
-  .slide { padding:0 1.1rem; min-height:100svh; min-height:100vh; }
-  .plans-row { grid-template-columns:1fr; }
+  .inner{padding:3.5rem 0 4.5rem}
+  .slide{padding:0 1.1rem;min-height:100svh;min-height:100vh}
+  .hero{font-size:2.2rem;letter-spacing:-.02em}
+  h2{font-size:1.65rem}
+  .hero-sub,.section-sub{font-size:.9rem}
+  .calc-layout{grid-template-columns:1fr}
+  .vs-grid{grid-template-columns:1fr}
+  .money-grid{grid-template-columns:1fr}
+  .tn-creds{grid-template-columns:1fr}
+  .sla-bar{grid-template-columns:1fr 1fr}
+  /* CTA sin botones — más espacio vertical */
+  .cta-wrap{padding:0 .25rem}
+  .cta-title{font-size:2.1rem;letter-spacing:-.02em}
+  .cta-sub{font-size:.9rem;margin-bottom:1.75rem}
+  .cta-proof{gap:.9rem;flex-direction:column;align-items:flex-start;padding:0 .5rem}
+  .proof-pill{font-size:.78rem}
+  /* calc */
+  .app-item label{font-size:.75rem}
+  .app-cost{font-size:.68rem}
+  .total-val{font-size:1.35rem}
+  /* cards */
+  .mc-num{font-size:2.2rem}
+  .cred-num{font-size:1.9rem}
+  .hstat-val{font-size:1.8rem}
+  /* brands */
+  .brands-row{gap:.35rem}
+  .brand-chip{font-size:.68rem;padding:4px 9px}
+  /* suite */
+  .suite-row{grid-template-columns:repeat(3,1fr)}
+  /* latam */
+  .latam-grid{grid-template-columns:1fr}
+  /* cloud decos – hide on mobile */
+  .cloud-deco{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV DOTS (5 slides) -->
 <nav class="nav" id="nav">
   <button class="dot on" data-i="0"></button>
   <button class="dot"    data-i="1"></button>
   <button class="dot"    data-i="2"></button>
   <button class="dot"    data-i="3"></button>
   <button class="dot"    data-i="4"></button>
+  <button class="dot"    data-i="5"></button>
+  <button class="dot"    data-i="6"></button>
 </nav>
 
 
-<!-- ══ S1 · HERO ══ -->
-<section class="slide bg-blue" id="s0">
+<!-- ══ S0 · HERO ══════════════════════════════════════════ -->
+<section class="slide" id="s0">
   <div class="orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-4"></div></div>
   <div class="inner">
-    <div class="tn-logo r d1" style="display:flex;align-items:center;gap:10px;margin-bottom:2rem">
-      <!-- Cloud isologo -->
-      <svg viewBox="0 0 38 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px;height:36px;" aria-hidden="true">
-        <path d="M24.0068 0H23.9915C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z" fill="white"/>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.75rem" class="r">
+      <svg viewBox="0 0 38 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px">
+        <path d="M24 0H24C20.45.005 17.1 1.39 14.59 3.83 13.31 3.28 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.41 0 2.79-.29 4.08-.83C17.01 25.54 20.33 27 23.98 27c7.45 0 13.5-6.06 13.5-13.5S31.44.012 24 0zm-.02 24C18.2 24 13.48 19.29 13.48 13.5h-3c0 2.65.77 5.12 2.09 7.2-.67.2-1.37.3-2.07.3C6.37 21 3 17.63 3 13.5S6.37 6 10.5 6c1.64 0 3.19.52 4.5 1.5C16.91 8.93 18 11.12 18 13.5h3c0-3.14-1.36-6.04-3.75-8.04C19.13 3.88 21.51 3 23.99 3 29.78 3.003 34.48 7.71 34.48 13.5S29.77 24 23.98 24z" fill="white"/>
       </svg>
-      <!-- Wordmark en texto — siempre correcto -->
-      <span style="font-family:'DM Sans',Arial,sans-serif;font-size:1.15rem;font-weight:700;color:#fff;letter-spacing:-.01em">Tiendanube</span>
+      <span style="font-size:1.1rem;font-weight:700;letter-spacing:-.01em">Tiendanube</span>
     </div>
-    <div class="badge r d2">Tiendanube vs Shopify · Comparativa honesta</div>
-    <h1 class="hero r d3">Tu tienda merece<br>crecer en <span class="lime">pesos</span></h1>
-    <p class="hero-sub r d4">Una comparativa real: costos, aprobación de pagos, soporte y lo que cada plataforma incluye —o cobra aparte. Sin exagerar, sin esconder nada.</p>
-    <div class="stats-row r d5">
-      <div class="stat"><div class="stat-val">12×</div><div class="stat-lbl">Crece más rápido que Shopify en LATAM</div></div>
-      <div class="stat"><div class="stat-val">87%+</div><div class="stat-lbl">Aprobación Pago Nube vs 71% mercado</div></div>
-      <div class="stat"><div class="stat-val">MXN</div><div class="stat-lbl">Plan en pesos, sin riesgo cambiario</div></div>
-      <div class="stat"><div class="stat-val">15 min</div><div class="stat-lbl">SLA soporte WhatsApp Plan Avanzado</div></div>
+    <div class="badge-pill r d1">Battle Card</div>
+    <h1 class="hero r d2">La plataforma que<br>crece contigo en <span class="hl">LATAM</span></h1>
+    <p class="hero-sub r d3">+160,000 marcas. 15 años de experiencia. El único unicornio de e-commerce construido 100% para México y América Latina.</p>
+    <div class="hero-grid r d4">
+      <div class="hstat">
+        <div class="hstat-val" data-count="12" data-suffix="×">12×</div>
+        <div class="hstat-lbl">más rápido que Shopify en LATAM</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val" data-count="87" data-suffix="%+">87%+</div>
+        <div class="hstat-lbl">aprobación de pagos vs 71% del mercado</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val" data-count="50" data-suffix="%">50%</div>
+        <div class="hstat-lbl">checkout más rápido que la media</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">15 min</div>
+        <div class="hstat-lbl">SLA soporte WhatsApp en México</div>
+      </div>
     </div>
   </div>
   <div class="hint"><svg width="16" height="24" viewBox="0 0 16 24" fill="none"><rect x="1" y="1" width="14" height="22" rx="7" stroke="white" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="white"><animate attributeName="cy" values="8;14;8" dur="2s" repeatCount="indefinite"/></circle></svg><span>Desliza</span></div>
 </section>
 
 
-<!-- ══ S2 · REFRAME ══ -->
-<section class="slide bg-dark" id="s1">
+<!-- ══ S1 · POR QUÉ LATAM ══════════════════════════════════ -->
+<section class="slide" id="s1">
+  <div class="orbs"><div class="orb orb-3"></div><div class="orb orb-4" style="opacity:.4"></div></div>
   <div class="inner">
-    <div class="eyebrow r">El dato que cambia la perspectiva</div>
-    <h2 class="r d1">La pregunta que <span class="hi">pocos se hacen</span></h2>
-    <div class="reframe r d2">
-      <div class="reframe-label">Piénsalo así</div>
-      <div class="reframe-text">"Shopify Payments ya opera en México — eso es una mejora real. Pero el plan sigue en dólares, y la brecha de aprobación de pagos sigue ahí: 87%+ con Pago Nube vs ~71% del promedio. ¿Sabes cuántas ventas se pierden cada mes en tu checkout por rechazo de tarjeta?"</div>
-      <div class="reframe-sub">La conversación real no es solo sobre comisiones — es sobre <strong style="color:white">predictibilidad de costos en MXN</strong> y <strong style="color:white">tasa de aprobación real en México</strong>. La diferencia de 16 puntos porcentuales en aprobación no aparece en ningún reporte de Shopify. Aparece en tu margen.</div>
+    <div class="eyebrow r">El mercado</div>
+    <h2 class="r d1">Por qué <span class="hl">LATAM es el momento</span></h2>
+    <p class="section-sub r d2">El e-commerce en México crece casi 5 veces más rápido que el retail físico. Las marcas que se posicionan hoy capturan una ventaja difícil de revertir.</p>
+    <div class="latam-grid">
+      <div class="card rl d2">
+        <div class="lcard-icon">📈</div>
+        <div class="lcard-num" style="color:var(--lime)" data-count="19.2" data-suffix="%">19.2%</div>
+        <div class="lcard-lbl">Crecimiento e-commerce MX 2025</div>
+        <div class="lcard-text">El retail físico crece al 3–4% anual. El e-commerce crece casi 5× más rápido. Estar digital ya no es una ventaja — es el mínimo.</div>
+      </div>
+      <div class="card r d3">
+        <div class="lcard-icon">🛒</div>
+        <div class="lcard-num" style="color:var(--sunset)" data-count="17.4" data-suffix="%">17.4%</div>
+        <div class="lcard-lbl">Del retail total ya es e-commerce</div>
+        <div class="lcard-text">Y la proyección supera el 30% en los próximos años. El consumidor ya compra en línea — la pregunta es si tu tienda convierte bien.</div>
+      </div>
+      <div class="card rr d4">
+        <div class="lcard-icon">🎯</div>
+        <div class="lcard-num" style="color:var(--coral)" data-count="75.5" data-suffix="%">75.5%</div>
+        <div class="lcard-lbl">De marcas dice que conversión es su reto #1</div>
+        <div class="lcard-text">La mayoría gasta en ads sin resolver el leak real: checkout lento, pagos rechazados, falta de MSI. Eso se arregla con la plataforma correcta.</div>
+      </div>
     </div>
-    <div class="insight-grid">
-      <div class="icard rl d2">
-        <div class="icard-num">16pp</div>
-        <div class="icard-lbl">Brecha de aprobación</div>
-        <div class="icard-text">Pago Nube 87%+ vs ~71% promedio de mercado en MX. Cada punto porcentual son ventas que se completan o se pierden en tu checkout.</div>
-      </div>
-      <div class="icard r d3">
-        <div class="icard-num">USD</div>
-        <div class="icard-lbl">Plan Shopify en dólares</div>
-        <div class="icard-text">El plan mensual sigue en USD. Con tipo de cambio variable, tu costo real cambia cada mes sin que tú lo decidas.</div>
-      </div>
-      <div class="icard rr d4">
-        <div class="icard-num">63%</div>
-        <div class="icard-lbl">Crecimiento TN en MX</div>
-        <div class="icard-text">YoY en México, 2025. Más de 160,000 marcas en LATAM ya venden en Tiendanube — y el ecosistema crece 12× más rápido que Shopify en la región.</div>
-      </div>
+    <div class="timing-bar r d5">
+      <div class="timing-dot"></div>
+      <div class="timing-text">Tiendanube proyecta procesar <strong>10% del e-commerce de América Latina</strong> en los próximos 10 años — y el ecosistema que rodea a las marcas que están adentro crece con eso.</div>
     </div>
   </div>
 </section>
 
 
-<!-- ══ S3 · COSTOS + ECOSISTEMA ══ -->
-<section class="slide bg-deeper" id="s2">
+<!-- ══ S2 · POR QUÉ TN ═════════════════════════════════════ -->
+<section class="slide" id="s2">
+  <div class="orbs"><div class="orb orb-1" style="opacity:.45"></div><div class="orb orb-2"></div></div>
   <div class="inner">
-    <div class="eyebrow r">Riesgo cambiario · Lo que Shopify no te dice</div>
-    <h2 class="r d1">El precio <span class="hi">es solo una parte</span></h2>
-    <div class="plans-row r d2">
-      <div class="plan-group">
-        <div class="plan-group-title sh">Shopify · Planes en USD (tipo cambio variable)</div>
-        <div class="plan-item">
-          <div><div class="pi-name">Basic</div><div class="pi-note warn">Shopify Payments MX: ~2.0% por transacción</div></div>
-          <div><div class="pi-price sh">$29 USD/mes</div><div class="pi-note" id="basic-mxn" style="text-align:right">~$493 MXN</div></div>
-        </div>
-        <div class="plan-item">
-          <div><div class="pi-name">Standard</div><div class="pi-note warn">Shopify Payments MX: ~1.7% por transacción</div></div>
-          <div><div class="pi-price sh">$79 USD/mes</div><div class="pi-note" id="std-mxn" style="text-align:right">~$1,343 MXN</div></div>
-        </div>
-        <div class="plan-item">
-          <div><div class="pi-name">Advanced</div><div class="pi-note warn">Shopify Payments MX: ~1.5% por transacción</div></div>
-          <div><div class="pi-price sh">$299 USD/mes</div><div class="pi-note" id="adv-mxn" style="text-align:right">~$5,083 MXN</div></div>
-        </div>
-        <div class="plan-item">
-          <div><div class="pi-name">Plus</div><div class="pi-note warn">Shopify Payments MX: ~1.5% por transacción</div></div>
-          <div><div class="pi-price sh">$2,300 USD/mes</div><div class="pi-note" id="plus-mxn" style="text-align:right">~$39,100 MXN</div></div>
-        </div>
-        <p style="font-size:.62rem;color:rgba(255,255,255,.25);margin-top:1rem">PDV, apps de email, envíos y chat: costo adicional separado.</p>
+    <div class="eyebrow r">Por qué Tiendanube</div>
+    <h2 class="r d1">15 años construyendo<br><span class="hl">el e-commerce de LATAM</span></h2>
+    <div class="tn-creds">
+      <div class="card lime-glow rl d2">
+        <div class="cred-num" data-count="160" data-prefix="+" data-suffix="k">+160k</div>
+        <div class="cred-lbl">Marcas activas en LATAM</div>
+        <div class="cred-text">Somos el ecosistema de e-commerce más grande de América Latina. Unicornio valuado en +1,000 MDD, con +1,200 empleados en la región.</div>
       </div>
-      <div class="plan-group tn-group">
-        <div class="plan-group-title tn">Tiendanube · Facturación en MXN · precio fijo</div>
-        <div style="margin-bottom:1rem;padding:1rem;background:rgba(196,240,98,.07);border:1px solid rgba(196,240,98,.18);border-radius:12px;">
-          <p style="font-size:.82rem;color:rgba(255,255,255,.8);font-weight:600;margin-bottom:.4rem">Precio fijo en pesos. Siempre.</p>
-          <p style="font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.6">Sin importar cómo cierre el dólar ese mes, tu costo de plataforma no varía. Lo que presupuestas es lo que pagas.</p>
-        </div>
-        <div class="calc-box" style="margin-top:0">
-          <div class="calc-title">¿Cuánto pagarías en Shopify si el dólar sube? · Ajusta el tipo de cambio</div>
-          <div class="slider-row">
-            <label>Tipo de cambio USD/MXN <span id="fxVal">$17.0</span></label>
-            <input type="range" id="fxSlider" min="15" max="20" step="0.5" value="17">
-          </div>
-          <div class="slider-row">
-            <label>Plan Shopify</label>
-            <select id="planSel">
-              <option value="29">Basic · $29 USD</option>
-              <option value="79" selected>Standard · $79 USD</option>
-              <option value="299">Advanced · $299 USD</option>
-              <option value="2300">Plus · $2,300 USD</option>
-            </select>
-          </div>
-          <div style="margin-top:1.1rem;">
-            <div class="cr-row"><span class="cr-lbl">Plan Shopify en MXN (tipo de cambio actual)</span><span class="cr-val bad" id="shopMXN">$1,343 MXN</span></div>
-            <div class="cr-row"><span class="cr-lbl">Plan Shopify en MXN (si USD sube a $19)</span><span class="cr-val bad" id="shopMXN19">$1,501 MXN</span></div>
-            <div class="cr-row"><span class="cr-lbl">Plan Shopify en MXN (si USD sube a $20)</span><span class="cr-val bad" id="shopMXN20">$1,580 MXN</span></div>
-          </div>
-          <div class="diff-box invest" style="margin-top:.75rem">
-            <div class="diff-val invest" style="font-size:1.1rem;color:rgba(255,181,71,.9)">Riesgo cambiario</div>
-            <div class="diff-lbl">Tu plan Shopify puede subir sin que cambies nada. En TN el precio en MXN no varía.</div>
-          </div>
-        </div>
+      <div class="card r d3">
+        <div class="cred-num" data-count="1700" data-prefix="+" data-suffix="">+1,700</div>
+        <div class="cred-lbl">Integraciones disponibles</div>
+        <div class="cred-text">Logística local, pagos mexicanos, ERP, marketing. Todo el stack que una marca en México necesita — sin depender de apps internacionales.</div>
+      </div>
+      <div class="card rl d4">
+        <div class="cred-num" data-count="63" data-suffix="%">63%</div>
+        <div class="cred-lbl">Crecimiento YoY en México 2025</div>
+        <div class="cred-text">México es uno de nuestros mercados de mayor crecimiento. Crecemos 12× más rápido que Shopify en LATAM y seguimos acelerando.</div>
+      </div>
+      <div class="card blue-glow r d5">
+        <div class="cred-num">15 años</div>
+        <div class="cred-lbl">De experiencia en LATAM</div>
+        <div class="cred-text">Conocemos el mercado mexicano mejor que cualquier plataforma global. Nuestro soporte, integraciones y roadmap están hechos aquí, para aquí.</div>
       </div>
     </div>
-    <div class="s3-bottom r d3">
-      <div class="eco-box">
-        <div class="eco-title">Lo que viene incluido en TN · sin apps adicionales</div>
-        <div class="eco-item"><div class="eco-icon">💳</div><div class="eco-text"><strong>Pago Nube</strong>Aprobación 87%+, MSI hasta 18 meses, OXXO, USD. Sin comisión adicional de plataforma.</div></div>
-        <div class="eco-item"><div class="eco-icon">📦</div><div class="eco-text"><strong>Envío Nube</strong>FedEx, DHL y Estafeta integrados. Hasta 45% más barato que cotizar directo.</div></div>
-        <div class="eco-item"><div class="eco-icon">📧</div><div class="eco-text"><strong>Marketing Nube</strong>Email automatizado, recuperación de carrito, automations. Sin app de pago extra.</div></div>
-        <div class="eco-item"><div class="eco-icon">🏪</div><div class="eco-text"><strong>PDV Nube</strong>Punto de venta físico integrado con stock unificado. En Shopify es plan aparte.</div></div>
-        <div class="eco-item"><div class="eco-icon">🎧</div><div class="eco-text"><strong>Soporte 15 min · WhatsApp · MX</strong>SLA real, persona real, en español. No tickets con tiempos inciertos.</div></div>
-      </div>
-      <div class="migration-box r d4" style="margin-top:0">
-        <div class="mig-item">
-          <div class="mig-tag lime">Migración</div>
-          <div class="mig-title">Subsidio de migración</div>
-          <div class="mig-desc">Tiendanube puede subsidiar la migración —total o parcialmente— dependiendo del perfil de la cuenta.</div>
-          <div class="mig-cond">Sujeto a revisión y aprobación del caso. Revisa las condiciones con tu agencia.*</div>
-        </div>
-        <div class="mig-item">
-          <div class="mig-tag sunset">Meses gratis</div>
-          <div class="mig-title">Meses de cortesía</div>
-          <div class="mig-desc">En determinados casos, Tiendanube puede otorgar meses de cortesía en el plan para facilitar la transición.</div>
-          <div class="mig-cond">Sujeto a análisis de cuenta y aprobación. Revisa las condiciones con tu agencia.*</div>
-        </div>
-      </div>
+    <div class="eyebrow r d5" style="margin-bottom:.6rem">Marcas que ya venden en Tiendanube</div>
+    <div class="brands-row r d6">
+      <div class="brand-chip">Billabong</div><div class="brand-chip">Saucony</div><div class="brand-chip">Citizen</div>
+      <div class="brand-chip">Olaplex</div><div class="brand-chip">Wrangler</div><div class="brand-chip">Playmobil</div>
+      <div class="brand-chip">Belkin</div><div class="brand-chip">Babolat</div><div class="brand-chip">Baby Creysi</div>
+      <div class="brand-chip">Kampak</div><div class="brand-chip">Osram</div><div class="brand-chip">Rinat</div>
     </div>
-    <p class="mig-footnote r d5">* Agencia oficial Tiendanube. Las condiciones se confirman en el análisis de cuenta.</p>
+    <div class="suite-row r d7">
+      <div class="suite-item"><div class="suite-icon">💳</div><div class="suite-name">Pago Nube</div></div>
+      <div class="suite-item"><div class="suite-icon">📦</div><div class="suite-name">Envío Nube</div></div>
+      <div class="suite-item"><div class="suite-icon">💬</div><div class="suite-name">Chat Nube</div></div>
+      <div class="suite-item"><div class="suite-icon">📧</div><div class="suite-name">Marketing Nube</div></div>
+      <div class="suite-item"><div class="suite-icon">🏪</div><div class="suite-name">PDV Nube</div></div>
+    </div>
   </div>
 </section>
 
 
-<!-- ══ S4 · COMPARATIVA HONESTA ══ -->
-<section class="slide bg-dark" id="s3">
+<!-- ══ S3 · MÁS VENTAS ════════════════════════════════════ -->
+<section class="slide" id="s3">
+  <div class="orbs"><div class="orb orb-2" style="opacity:.6"></div><div class="orb orb-3"></div></div>
   <div class="inner">
-    <div class="eyebrow r">Comparativa honesta</div>
-    <h2 class="r d1">Dónde <span class="hl">TN es mejor</span> y dónde <span class="hi">Shopify puede serlo</span></h2>
-    <div class="honest-grid r d2">
-      <div class="honest-col tn">
-        <div class="col-header"><div class="col-icon">✦</div><div class="col-title tn">Tiendanube gana en MX/LATAM</div></div>
-        <ul class="win-list tn">
-          <li><strong>Plan en MXN, precio fijo.</strong> Sin fluctuación cambiaria. El costo de Shopify cambia cada mes con el dólar.</li>
-          <li><strong>Pago Nube 87%+ de aprobación.</strong> 16pp sobre el promedio de mercado. Cada punto vale ventas reales que hoy se pierden en el checkout.</li>
-          <li><strong>MSI hasta 18 meses nativo.</strong> En Shopify requiere configuración técnica adicional y a veces app de pago.</li>
-          <li><strong>Soporte en español, SLA 15 min.</strong> WhatsApp, persona real, desde México. No tickets con tiempos inciertos.</li>
-          <li><strong>PDV incluido sin costo extra.</strong> Shopify POS tiene plan separado. En TN está integrado.</li>
-          <li><strong>Suite Nube all-in-one.</strong> Envíos, email, chat, PDV en un panel. En Shopify cada herramienta es un app aparte.</li>
-          <li><strong>Crece 12× más rápido que Shopify en LATAM.</strong> El ecosistema local crece con la plataforma.</li>
+    <div class="eyebrow r">Genera más dinero</div>
+    <h2 class="r d1">Mismo tráfico. <span class="hl">Más ventas.</span></h2>
+    <p class="section-sub r d2">La plataforma correcta no solo baja costos — multiplica la conversión. Estos son los impactos directos en tu resultado mensual.</p>
+    <div class="money-grid">
+      <div class="card lime-glow rl d2">
+        <div class="mc-tag g">Checkout</div>
+        <div class="mc-num" style="color:var(--lime)">50%</div>
+        <div class="mc-lbl">Más rápido que la media</div>
+        <div class="mc-text">Un checkout lento cuesta ventas antes de que el cliente llegue a pagar. El de TN está optimizado para móvil y para el mercado mexicano desde el día uno.</div>
+      </div>
+      <div class="card rr d3">
+        <div class="mc-tag c">Aprobación</div>
+        <div class="mc-num" style="color:var(--coral)">+16pp</div>
+        <div class="mc-lbl">Más aprobación de pagos</div>
+        <div class="mc-text">Pago Nube 87%+ vs ~71% del promedio del mercado en MX. Cada punto porcentual son pedidos reales que se completan — o se van para siempre.</div>
+      </div>
+      <div class="card rl d4">
+        <div class="mc-tag s">Ticket promedio</div>
+        <div class="mc-num" style="color:var(--sunset)">18 MSI</div>
+        <div class="mc-lbl">Meses sin intereses nativos</div>
+        <div class="mc-text">Kueski, Aplazo, Clip, OXXO — MSI hasta 18 meses sin app extra ni configuración compleja. Más opciones de pago = ticket más alto y menos carritos abandonados.</div>
+      </div>
+      <div class="card rr d5">
+        <div class="mc-tag b">Omnicanal</div>
+        <div class="mc-num" style="color:rgba(160,175,255,1)">PDV</div>
+        <div class="mc-lbl">Físico + online sin fricción</div>
+        <div class="mc-text">Punto de Venta integrado con inventario unificado. Vende en tienda física y en línea desde el mismo panel — sin sistemas separados, sin reconciliaciones manuales.</div>
+      </div>
+    </div>
+    <div class="brands-proof r d6">
+      <span class="proof-tag">Billabong MX</span>
+      <span class="proof-tag">Saucony LATAM</span>
+      <span class="proof-tag">Baby Creysi</span>
+      <span class="proof-tag">Olaplex MX</span>
+      <span class="proof-tag">Kampak</span>
+      <span class="proof-tag">+160,000 marcas más</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ S4 · CALCULADORA ═══════════════════════════════════ -->
+<section class="slide" id="s4">
+  <div class="orbs"><div class="orb orb-1" style="opacity:.35;top:auto;bottom:-100px;right:-80px"></div><div class="orb orb-3" style="opacity:.5"></div></div>
+  <div class="inner">
+    <div class="eyebrow r">Calculadora de ahorro</div>
+    <h2 class="r d1">¿Cuánto te cuesta <span class="hi">Shopify en realidad?</span></h2>
+    <p class="section-sub r d2">Selecciona tu plan y las apps que pagas hoy. Calcula lo que podrías dejar de gastar.</p>
+
+    <div class="calc-layout r d3">
+
+      <!-- INPUTS -->
+      <div class="calc-panel">
+        <div class="cp-title">Tu situación actual en Shopify</div>
+
+        <div class="sl-row">
+          <label>Plan Shopify actual</label>
+          <select class="calc-sel" id="shopPlan" onchange="calcSavings()">
+            <option value="29">Basic · $29 USD/mes</option>
+            <option value="79" selected>Standard · $79 USD/mes</option>
+            <option value="299">Advanced · $299 USD/mes</option>
+            <option value="2300">Plus · $2,300 USD/mes</option>
+          </select>
+        </div>
+
+        <div class="sl-row">
+          <label>Tipo de cambio USD/MXN <span class="sl-val" id="fxLbl">$17.5</span></label>
+          <input type="range" id="fxRange" min="15" max="22" step="0.5" value="17.5" oninput="calcSavings()">
+        </div>
+
+        <div class="sl-row" style="margin-bottom:.5rem">
+          <label>Apps que pagas mensualmente <span style="font-weight:400;color:rgba(255,255,255,.35)">(selecciona las que aplican)</span></label>
+        </div>
+        <div class="app-list" id="appList">
+          <div class="app-item" onclick="toggleApp(this,'email',75)">
+            <input type="checkbox" id="chk-email">
+            <label for="chk-email">Email marketing / automations <span class="app-cost">~$75 USD/mes</span></label>
+          </div>
+          <div class="app-item" onclick="toggleApp(this,'pdv',89)">
+            <input type="checkbox" id="chk-pdv">
+            <label for="chk-pdv">PDV / Punto de venta físico <span class="app-cost">~$89 USD/mes</span></label>
+          </div>
+          <div class="app-item" onclick="toggleApp(this,'chat',45)">
+            <input type="checkbox" id="chk-chat">
+            <label for="chk-chat">Chat / CX (ej. Gorgias, Re:amaze) <span class="app-cost">~$45 USD/mes</span></label>
+          </div>
+          <div class="app-item" onclick="toggleApp(this,'reviews',35)">
+            <input type="checkbox" id="chk-reviews">
+            <label for="chk-reviews">Reviews / SEO (ej. Judge.me, Yotpo) <span class="app-cost">~$35 USD/mes</span></label>
+          </div>
+          <div class="app-item" onclick="toggleApp(this,'shipping',30)">
+            <input type="checkbox" id="chk-shipping">
+            <label for="chk-shipping">Gestión de envíos / Tracking <span class="app-cost">~$30 USD/mes</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="results-panel">
+        <div class="r-block">
+          <div class="r-label">Desglose mensual Shopify</div>
+          <div class="r-row"><span class="r-item">Plan Shopify (USD→MXN)</span><span class="r-amt bad" id="r-plan">$1,383 MXN</span></div>
+          <div class="r-row"><span class="r-item">Apps seleccionadas (USD→MXN)</span><span class="r-amt bad" id="r-apps">$0 MXN</span></div>
+          <div class="r-row"><span class="r-item">Riesgo cambiario (±10%)</span><span class="r-amt bad" id="r-fx">Variable</span></div>
+          <div class="total-row shopify">
+            <div>
+              <div class="total-lbl" style="color:var(--coral)">Total estimado Shopify</div>
+              <div class="annual-note" id="r-annual-sh">~$16,596 MXN anuales</div>
+            </div>
+            <div class="total-val bad" id="r-total">$1,383 MXN</div>
+          </div>
+        </div>
+
+        <div class="r-block">
+          <div class="r-label">Lo que se vuelve nativo en TN</div>
+          <div class="r-row" id="native-email" style="display:none"><span class="r-item">✓ Marketing Nube (email + automations)</span><span class="r-amt good">Incluido</span></div>
+          <div class="r-row" id="native-pdv"   style="display:none"><span class="r-item">✓ PDV Nube (punto de venta físico)</span><span class="r-amt good">Incluido</span></div>
+          <div class="r-row" id="native-chat"  style="display:none"><span class="r-item">✓ Chat Nube (atención al cliente)</span><span class="r-amt good">Incluido</span></div>
+          <div class="r-row" id="native-reviews" style="display:none"><span class="r-item">✓ Envío Nube + integraciones MX</span><span class="r-amt good">Incluido</span></div>
+          <div class="r-row" id="native-shipping" style="display:none"><span class="r-item">✓ Logística integrada (FedEx, DHL, Estafeta)</span><span class="r-amt good">Incluido</span></div>
+          <div class="total-row saving">
+            <div>
+              <div class="total-lbl" style="color:var(--lime)">Apps que dejarías de pagar</div>
+              <div class="annual-note" id="r-annual-sv">Ahorro estimado anual</div>
+            </div>
+            <div class="total-val good" id="r-saving">$0 MXN</div>
+          </div>
+        </div>
+
+        <!-- SLA impact -->
+        <div class="r-block">
+          <div class="r-label">Costo oculto: mal SLA en CX</div>
+          <div class="sla-bar">
+            <div class="sla-item tn"><div class="sla-time">15 min</div><div class="sla-lbl">SLA Tiendanube · WhatsApp · MX</div></div>
+            <div class="sla-item sh"><div class="sla-time">+24h</div><div class="sla-lbl">Shopify email / foro comunidad</div></div>
+          </div>
+          <div class="sla-note">50% de las quejas en e-commerce son por logística o atención. Cada ticket sin resolver a tiempo = cliente que no regresa. El tiempo de respuesta es el costo oculto más difícil de medir — pero más fácil de perder.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ S5 · VS SHOPIFY ═════════════════════════════════════ -->
+<section class="slide" id="s5">
+  <div class="orbs"><div class="orb orb-1" style="opacity:.3"></div></div>
+  <div class="inner">
+    <div class="eyebrow r">La comparativa</div>
+    <h2 class="r d1">Tiendanube vs Shopify<br><span class="hi">sin adornos</span></h2>
+    <div class="vs-grid r d2">
+      <div class="vs-col tn-col">
+        <div class="vs-header">
+          <svg viewBox="0 0 38 28" fill="none" style="width:22px;height:22px"><path d="M24 0H24C20.45.005 17.1 1.39 14.59 3.83 13.31 3.28 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.41 0 2.79-.29 4.08-.83C17.01 25.54 20.33 27 23.98 27c7.45 0 13.5-6.06 13.5-13.5S31.44.012 24 0zm-.02 24C18.2 24 13.48 19.29 13.48 13.5h-3c0 2.65.77 5.12 2.09 7.2-.67.2-1.37.3-2.07.3C6.37 21 3 17.63 3 13.5S6.37 6 10.5 6c1.64 0 3.19.52 4.5 1.5C16.91 8.93 18 11.12 18 13.5h3c0-3.14-1.36-6.04-3.75-8.04C19.13 3.88 21.51 3 23.99 3 29.78 3.003 34.48 7.71 34.48 13.5S29.77 24 23.98 24z" fill="#C4F062"/></svg>
+          <div class="vs-brand tn">Tiendanube · Hecho para MX/LATAM</div>
+        </div>
+        <ul class="vs-list">
+          <li><strong>Plan en MXN, precio fijo.</strong> Sin fluctuaciones cambiarias. El presupuesto no tiene sorpresas.</li>
+          <li><strong>Pago Nube 87%+ de aprobación.</strong> 16pp más que el promedio — cada punto son ventas reales.</li>
+          <li><strong>Suite all-in-one incluida.</strong> Pagos, envíos, email, PDV, chat — nativos, sin apps de pago.</li>
+          <li><strong>MSI hasta 18 meses nativo.</strong> Kueski, Aplazo, Clip, OXXO. Sin setup complejo.</li>
+          <li><strong>Soporte 15 min · WhatsApp · MX.</strong> Persona real, en español, SLA garantizado.</li>
+          <li><strong>PDV integrado sin costo adicional.</strong> Inventario unificado físico + online.</li>
+          <li><strong>Crece 12× más rápido que Shopify en LATAM.</strong> Ecosistema con momentum real.</li>
         </ul>
       </div>
-      <div class="honest-col sh">
-        <div class="col-header"><div class="col-icon">◎</div><div class="col-title sh">Shopify puede ser mejor opción si…</div></div>
-        <ul class="win-list sh">
-          <li><strong>Venta activa fuera de LATAM.</strong> Si 50%+ del GMV viene de US/EU, Shopify tiene mejor cobertura de mercados y medios de pago internacionales.</li>
-          <li><strong>Integraciones globales muy específicas.</strong> El App Store global tiene más opciones internacionales — verificar caso por caso.</li>
-          <li><strong>Stack técnico consolidado.</strong> Si tienen customizaciones profundas o APIs propias con Shopify, el costo de migración puede superar el beneficio a corto plazo.</li>
-          <li><strong>Reconocimiento global de marca.</strong> Algunos founders lo prefieren por familiaridad con inversores o partners internacionales.</li>
+      <div class="vs-col sh-col">
+        <div class="vs-header">
+          <div style="font-size:1.1rem;opacity:.4">◎</div>
+          <div class="vs-brand sh">Shopify · Puede ser mejor si…</div>
+        </div>
+        <ul class="vs-list">
+          <li>Vende activamente fuera de LATAM — US, Europa — con +50% del GMV internacional.</li>
+          <li>Necesitas integraciones globales muy específicas sin equivalente en el ecosistema LATAM.</li>
+          <li>Tienes customizaciones técnicas profundas donde el costo de migración supera el beneficio a corto plazo.</li>
+          <li>El equipo técnico tiene dependencia contractual directa con el stack de Shopify.</li>
         </ul>
-        <div class="honesty-note" style="margin-top:1.25rem">
-          <p><strong>Nuestra postura:</strong> Si vendes principalmente en MX/LATAM y no tienes integraciones globales que no existan en TN, la migración tiene sentido. Si tu foco es internacional, te lo decimos antes de avanzar.</p>
+        <div class="honesty-note">
+          <strong style="color:var(--white)">Nuestra postura:</strong> Si tu mercado es México y LATAM, TN es el encaje correcto. Si no es así, te lo decimos antes de que avancemos un solo paso.
         </div>
       </div>
     </div>
@@ -427,76 +623,133 @@ h2 .hi { font-style:italic; font-weight:400; color:rgba(255,255,255,.5); }
 </section>
 
 
-<!-- ══ S5 · OBJECIONES ══ -->
-<section class="slide bg-deeper" id="s4">
+<!-- ══ S6 · CTA ════════════════════════════════════════════ -->
+<section class="slide" id="s6">
+  <div class="orbs">
+    <div class="orb orb-1" style="width:700px;height:700px;opacity:.3;top:-200px;right:-200px"></div>
+    <div class="orb orb-2" style="width:450px;height:450px;opacity:.15;bottom:-150px;left:-150px"></div>
+  </div>
+
+  <!-- floating cloud decos -->
+  <svg class="cloud-deco" style="width:300px;left:3%;top:10%" viewBox="0 0 38 28" fill="white"><path d="M24 0H24C20.45.005 17.1 1.39 14.59 3.83 13.31 3.28 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.41 0 2.79-.29 4.08-.83C17.01 25.54 20.33 27 23.98 27c7.45 0 13.5-6.06 13.5-13.5S31.44.012 24 0zm-.02 24C18.2 24 13.48 19.29 13.48 13.5h-3c0 2.65.77 5.12 2.09 7.2-.67.2-1.37.3-2.07.3C6.37 21 3 17.63 3 13.5S6.37 6 10.5 6c1.64 0 3.19.52 4.5 1.5C16.91 8.93 18 11.12 18 13.5h3c0-3.14-1.36-6.04-3.75-8.04C19.13 3.88 21.51 3 23.99 3 29.78 3.003 34.48 7.71 34.48 13.5S29.77 24 23.98 24z"/></svg>
+  <svg class="cloud-deco" style="width:180px;right:5%;bottom:15%" viewBox="0 0 38 28" fill="white"><path d="M24 0H24C20.45.005 17.1 1.39 14.59 3.83 13.31 3.28 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.41 0 2.79-.29 4.08-.83C17.01 25.54 20.33 27 23.98 27c7.45 0 13.5-6.06 13.5-13.5S31.44.012 24 0zm-.02 24C18.2 24 13.48 19.29 13.48 13.5h-3c0 2.65.77 5.12 2.09 7.2-.67.2-1.37.3-2.07.3C6.37 21 3 17.63 3 13.5S6.37 6 10.5 6c1.64 0 3.19.52 4.5 1.5C16.91 8.93 18 11.12 18 13.5h3c0-3.14-1.36-6.04-3.75-8.04C19.13 3.88 21.51 3 23.99 3 29.78 3.003 34.48 7.71 34.48 13.5S29.77 24 23.98 24z"/></svg>
+
   <div class="inner">
-    <div class="eyebrow r">Preguntas frecuentes</div>
-    <h2 class="r d1">Las dudas más comunes <span class="hi">respondidas sin rodeos</span></h2>
-    <div class="obj-grid r d2">
-      <div class="obj-card">
-        <div class="obj-q">Ya tengo Shopify Payments, ya no pago comisión extra</div>
-        <div class="obj-a">Es un avance real. <span class="hook">Lo que no cambia: la tasa de procesamiento (~1.5–2% en MX) y el plan sigue en dólares.</span> Y lo más importante: la aprobación. <strong>Pago Nube aprueba 87%+ vs el ~71% del promedio de mercado en MX.</strong> Esos 16 puntos son ventas que se completan o se van — y no aparecen en ningún dashboard de Shopify.</div>
+    <div class="cta-wrap">
+      <div class="cta-eyebrow r">¿Listo para dar el siguiente paso?</div>
+      <h1 class="hero r d1">Hablemos 30 minutos.<br>Sin compromiso.</h1>
+      <p class="cta-sub r d2">Tu agencia es partner oficial de Tiendanube. Agenda en conjunto una demo con el equipo comercial — revisamos tu operación, tu stack actual y armamos una propuesta a la medida de tu negocio.</p>
+
+
+      <div class="cta-proof r d4">
+        <div class="proof-pill"><div class="dot-g"></div>+160,000 marcas activas en LATAM</div>
+        <div class="proof-pill"><div class="dot-g"></div>Unicornio LATAM · 15 años de experiencia</div>
+        <div class="proof-pill"><div class="dot-g"></div>SLA 15 min · soporte en español</div>
+        <div class="proof-pill"><div class="dot-g"></div>Demo en 30 minutos · sin costo</div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q">Mi equipo ya conoce Shopify, migrar es mucho trabajo</div>
-        <div class="obj-a">Es una preocupación válida. <span class="hook">La mayoría de equipos que migran a TN están operando solos en 3–4 semanas</span> — el panel es más simple, no más complejo. <strong>Todo lo aprendido en Shopify aplica.</strong> Además, cuentas con un Account Executive dedicado de TN que acompaña el proceso de principio a fin.</div>
-      </div>
-      <div class="obj-card">
-        <div class="obj-q">Shopify tiene muchas más apps e integraciones</div>
-        <div class="obj-a">Es verdad a nivel global. <span class="hook">La pregunta es: ¿cuáles necesitas tú específicamente?</span> El 80% de las apps que usan marcas en MX tienen equivalente nativo o en el ecosistema LATAM. <strong>TN tiene +1,700 integraciones</strong> — vale la pena revisar tu stack actual antes de asumir que algo falta.</div>
-      </div>
-      <div class="obj-card">
-        <div class="obj-q">El tipo de cambio no me afecta tanto, no es mucho dinero</div>
-        <div class="obj-a"><span class="hook">El problema no es el monto — es que es impredecible.</span> En Shopify Standard a $17 MXN/USD pagas $1,343 MXN. Si el dólar sube a $19, pagas $1,501 — sin que hayas cambiado nada, sin aviso previo. <strong>En TN el precio en MXN no varía.</strong> Lo que presupuestaste es lo que pagas.</div>
-      </div>
+
     </div>
   </div>
 </section>
-
-
 
 
 <script>
-// ─── NAVIGATION ───────────────────────────────────────────
+// ─── NAV DOTS ──────────────────────────────────────────────
 const slides = document.querySelectorAll('.slide');
 const dots   = document.querySelectorAll('.dot');
 dots.forEach(d => d.addEventListener('click', () =>
   slides[+d.dataset.i].scrollIntoView({behavior:'smooth'})
 ));
 
+// ─── INTERSECTION OBSERVER (reveal + counter) ───────────────
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     const idx = [...slides].indexOf(e.target);
     dots.forEach((d,j) => d.classList.toggle('on', j===idx));
     e.target.querySelectorAll('.r,.rl,.rr,.rs').forEach(el => el.classList.add('in'));
+    // counter animation
+    e.target.querySelectorAll('[data-count]').forEach(el => {
+      if (el.dataset.animated) return;
+      el.dataset.animated = '1';
+      const target = parseFloat(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const isFloat = target % 1 !== 0;
+      const duration = 1600;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1-p, 3);
+        const v = target * eased;
+        el.textContent = prefix + (isFloat ? v.toFixed(1) : Math.round(v).toLocaleString('es-MX')) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
   });
-}, {threshold:0.35});
+}, {threshold:0.25});
 slides.forEach(s => io.observe(s));
 
+// ─── TILT EFFECT ON CARDS ──────────────────────────────────
+document.querySelectorAll('.card,.hstat').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width  - .5) * 10;
+    const y = ((e.clientY - r.top)  / r.height - .5) * -10;
+    card.style.transform = `translateY(-4px) rotateX(${y}deg) rotateY(${x}deg) scale(1.01)`;
+  });
+  card.addEventListener('mouseleave', () => card.style.transform = '');
+});
 
-// ─── UTILITY ──────────────────────────────────────────────
-const FMT = n => '$' + Math.round(n).toLocaleString('es-MX');
+// ─── CALCULATOR ────────────────────────────────────────────
+const appCosts = {email:75,pdv:89,chat:45,reviews:35,shipping:30};
+let selectedApps = {};
 
-
-// ─── S3 · FX CALC ─────────────────────────────────────────
-function updateCalc(){
-  const fx  = +document.getElementById('fxSlider').value;
-  const usd = +document.getElementById('planSel').value;
-  document.getElementById('fxVal').textContent = '$' + fx.toFixed(1);
-  document.getElementById('basic-mxn').textContent = '~' + FMT(29*fx)   + ' MXN';
-  document.getElementById('std-mxn').textContent   = '~' + FMT(79*fx)   + ' MXN';
-  document.getElementById('adv-mxn').textContent   = '~' + FMT(299*fx)  + ' MXN';
-  document.getElementById('plus-mxn').textContent  = '~' + FMT(2300*fx) + ' MXN';
-  document.getElementById('shopMXN').textContent   = FMT(usd * fx)  + ' MXN';
-  document.getElementById('shopMXN19').textContent = FMT(usd * 19)  + ' MXN';
-  document.getElementById('shopMXN20').textContent = FMT(usd * 20)  + ' MXN';
+function toggleApp(el, key, usd){
+  const chk = el.querySelector('input[type=checkbox]');
+  chk.checked = !chk.checked;
+  el.classList.toggle('checked', chk.checked);
+  if (chk.checked) selectedApps[key] = usd;
+  else delete selectedApps[key];
+  calcSavings();
 }
-document.getElementById('fxSlider').addEventListener('input', updateCalc);
-document.getElementById('planSel').addEventListener('change', updateCalc);
-updateCalc();
 
+function calcSavings(){
+  const fx     = parseFloat(document.getElementById('fxRange').value);
+  const planUSD= parseFloat(document.getElementById('shopPlan').value);
+  document.getElementById('fxLbl').textContent = '$' + fx.toFixed(1);
 
+  const planMXN = Math.round(planUSD * fx);
+  const appsMXN = Object.values(selectedApps).reduce((a,b) => a + b, 0) * fx;
+  const fxRisk  = Math.round(planUSD * 1.1 * fx) - planMXN;
+  const total   = planMXN + Math.round(appsMXN);
+
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-MX') + ' MXN';
+
+  document.getElementById('r-plan').textContent   = fmt(planMXN);
+  document.getElementById('r-apps').textContent   = fmt(appsMXN);
+  document.getElementById('r-fx').textContent     = '+' + fmt(fxRisk) + ' potencial';
+  document.getElementById('r-total').textContent  = fmt(total);
+  document.getElementById('r-annual-sh').textContent = '~' + fmt(total * 12) + ' anuales';
+
+  const saving = Math.round(appsMXN);
+  document.getElementById('r-saving').textContent = fmt(saving);
+  document.getElementById('r-annual-sv').textContent = saving > 0 ? '~' + fmt(saving * 12) + ' al año' : 'Selecciona apps arriba';
+
+  // show/hide native rows
+  ['email','pdv','chat','reviews','shipping'].forEach(k => {
+    const row = document.getElementById('native-' + k);
+    if (row) row.style.display = selectedApps[k] ? 'flex' : 'none';
+  });
+
+  // animate saving number
+  document.getElementById('r-saving').style.animation = 'none';
+  void document.getElementById('r-saving').offsetWidth;
+  document.getElementById('r-saving').style.animation = '';
+}
+
+calcSavings();
 </script>
 </body>
 </html>
