@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo de Colaboración · Tiendanube Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue: #2D52E8; --blue-dark: #1B26B8;
+  --white: #fff; --lime: #C4F062; --coral: #FF6B5A; --sunset: #FFB547;
+  --ink: #0D0E2B;
+  --muted: rgba(255,255,255,.55);
+  --ease: cubic-bezier(0.4,0,0.2,1);
+  --bounce: cubic-bezier(0.34,1.56,0.64,1);
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: linear-gradient(160deg, #0e1f9e 0%, #071060 40%, #030820 100%) fixed;
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='29' viewBox='0 0 37.48 27'%3E%3Cpath d='M24 0H23.99C20.45.005 17.1 1.39 14.59 3.826 13.31 3.282 11.93 3 10.5 3 4.71 3 0 7.71 0 13.5S4.71 24 10.5 24c1.4 0 2.79-.287 4.08-.827C17.01 25.539 20.33 27 23.98 27 31.43 27 37.48 20.944 37.48 13.5S31.44.012 24 0ZM23.98 24C18.2 24 13.48 19.289 13.48 13.5H10.48c0 2.648.77 5.118 2.09 7.204-.67.194-1.37.296-2.07.296C6.37 21 3 17.635 3 13.5S6.37 6 10.5 6c1.64 0 3.19.518 4.5 1.498C16.9 8.93 18 11.118 18 13.5h3c0-3.141-1.36-6.04-3.75-8.042C19.13 3.884 21.51 3.002 23.99 3 29.78 3.003 34.48 7.712 34.48 13.5S29.77 24 23.98 24Z' fill='white'/%3E%3C/svg%3E") 20 14, auto;
+}
+
+/* ── LAYOUT ── */
+.page { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+/* ── HERO ── */
+.hero {
+  padding: 4rem 0 3rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.hero-logo {
+  display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem;
+}
+.hero-logo svg { width: 130px; height: auto; }
+.hero-eyebrow {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--lime); margin-bottom: .5rem;
+}
+.hero-title {
+  font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 800;
+  line-height: 1.05; letter-spacing: -.02em;
+}
+.hero-title span { color: var(--lime); }
+.hero-sub {
+  font-size: clamp(.9rem, 1.3vw, 1.05rem); color: var(--muted);
+  max-width: 580px; line-height: 1.65;
+}
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-size: .6rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: rgba(255,255,255,.3);
+  margin-bottom: 1.5rem; margin-top: 3.5rem;
+  padding-bottom: .75rem; border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+/* ── TIER CARDS ── */
+.tiers { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media(min-width: 700px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+
+.tier {
+  border-radius: 22px; padding: 2rem 1.75rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  position: relative; overflow: hidden;
+  transition: transform .3s var(--bounce), box-shadow .3s, border-color .2s;
+}
+.tier:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+
+.tier::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 22px 22px 0 0;
+}
+.tier-1::before { background: rgba(255,255,255,.2); }
+.tier-2::before { background: var(--sunset); }
+.tier-3::before { background: var(--lime); }
+.tier-3 { border-color: rgba(196,240,98,.2); background: rgba(196,240,98,.04); }
+
+.tier-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .58rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; border-radius: 999px; padding: .3rem .85rem;
+  width: fit-content;
+}
+.tier-1 .tier-badge { background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+.tier-2 .tier-badge { background: rgba(255,181,71,.12); color: var(--sunset); }
+.tier-3 .tier-badge { background: rgba(196,240,98,.12); color: var(--lime); }
+
+.tier-name {
+  font-size: 1.1rem; font-weight: 800; line-height: 1.15;
+}
+.tier-3 .tier-name { color: var(--lime); }
+
+.tier-pct {
+  font-size: clamp(3rem, 8vw, 4rem); font-weight: 800; line-height: 1;
+  letter-spacing: -.03em;
+}
+.tier-1 .tier-pct { color: rgba(255,255,255,.7); }
+.tier-2 .tier-pct { color: var(--sunset); }
+.tier-3 .tier-pct { color: var(--lime); }
+.tier-pct-sub {
+  font-size: .72rem; color: var(--muted); margin-top: .25rem; line-height: 1.5;
+}
+
+.tier-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); }
+
+.tier-detail { display: flex; flex-direction: column; gap: .65rem; }
+.tier-row { display: flex; align-items: flex-start; gap: .6rem; }
+.tier-row-icon { font-size: .8rem; margin-top: .1rem; flex-shrink: 0; }
+.tier-row-text { font-size: .8rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+.tier-row-text strong { color: var(--white); font-weight: 600; display: block; }
+
+.tier-cap {
+  margin-top: auto;
+  background: rgba(255,255,255,.06); border-radius: 12px;
+  padding: .9rem 1rem;
+  text-align: center;
+}
+.tier-cap-val {
+  font-size: 1.25rem; font-weight: 800;
+}
+.tier-1 .tier-cap-val { color: rgba(255,255,255,.8); }
+.tier-2 .tier-cap-val { color: var(--sunset); }
+.tier-3 .tier-cap-val { color: var(--lime); }
+.tier-cap-lbl {
+  font-size: .6rem; text-transform: uppercase; letter-spacing: .08em;
+  color: rgba(255,255,255,.3); margin-top: .2rem;
+}
+
+/* ── ACELERACIÓN HIGHLIGHT ── */
+.accel-badge {
+  background: rgba(196,240,98,.1); border: 1px solid rgba(196,240,98,.25);
+  border-radius: 12px; padding: .6rem .9rem;
+  font-size: .75rem; color: var(--lime); font-weight: 600;
+  display: flex; align-items: center; gap: .5rem;
+}
+
+/* ── SIMULADOR ── */
+.sim-card {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+  border-radius: 24px; padding: 2rem 2.25rem; margin-top: 0;
+}
+.sim-title {
+  font-size: 1rem; font-weight: 800; margin-bottom: .4rem;
+}
+.sim-sub { font-size: .8rem; color: var(--muted); margin-bottom: 1.75rem; }
+
+.sim-slider-wrap { margin-bottom: 1.5rem; }
+.sim-slider-label {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.65);
+  margin-bottom: .65rem;
+}
+.sim-slider-label .val { font-size: 1.05rem; font-weight: 800; color: var(--lime); }
+
+input.sim-range {
+  -webkit-appearance: none; width: 100%; height: 5px;
+  border-radius: 3px; background: rgba(255,255,255,.12); outline: none; cursor: pointer;
+}
+input.sim-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--lime); cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(196,240,98,.18), 0 4px 12px rgba(196,240,98,.3);
+  transition: transform .15s var(--bounce);
+}
+input.sim-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+input.sim-range::-moz-range-thumb {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--lime); border: none; cursor: pointer;
+}
+.sim-ticks { display: flex; justify-content: space-between; margin-top: .4rem; }
+.sim-ticks span { font-size: .58rem; color: rgba(255,255,255,.3); }
+
+.sim-results {
+  display: grid; grid-template-columns: 1fr; gap: .85rem;
+  margin-top: 1.5rem;
+}
+@media(min-width: 600px) { .sim-results { grid-template-columns: repeat(3, 1fr); } }
+
+.sim-result {
+  border-radius: 16px; padding: 1.25rem 1.4rem;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  transition: border-color .2s, transform .25s var(--bounce);
+}
+.sim-result:hover { transform: translateY(-3px); }
+.sim-result.t1 { }
+.sim-result.t2 { border-color: rgba(255,181,71,.18); }
+.sim-result.t3 { border-color: rgba(196,240,98,.2); background: rgba(196,240,98,.04); }
+
+.sim-result-tier {
+  font-size: .58rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; margin-bottom: .5rem;
+}
+.t1 .sim-result-tier { color: rgba(255,255,255,.35); }
+.t2 .sim-result-tier { color: var(--sunset); }
+.t3 .sim-result-tier { color: var(--lime); }
+
+.sim-result-val {
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 800; line-height: 1;
+}
+.t1 .sim-result-val { color: rgba(255,255,255,.75); }
+.t2 .sim-result-val { color: var(--sunset); }
+.t3 .sim-result-val { color: var(--lime); }
+
+.sim-result-capped {
+  font-size: .62rem; color: rgba(255,181,71,.7);
+  margin-top: .3rem; display: none;
+}
+.sim-result-note { font-size: .66rem; color: rgba(255,255,255,.3); margin-top: .3rem; line-height: 1.45; }
+
+.sim-advance {
+  margin-top: .75rem; padding: .65rem .9rem;
+  background: rgba(196,240,98,.07); border: 1px solid rgba(196,240,98,.15);
+  border-radius: 10px;
+  font-size: .72rem; color: var(--lime); display: none;
+}
+
+/* ── CONDICIONES ── */
+.conds {
+  display: grid; grid-template-columns: 1fr; gap: 1rem;
+}
+@media(min-width: 600px) { .conds { grid-template-columns: 1fr 1fr; } }
+
+.cond-card {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px; padding: 1.4rem 1.6rem;
+  display: flex; align-items: flex-start; gap: .9rem;
+}
+.cond-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
+.cond-text { font-size: .8rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+.cond-text strong { color: var(--white); display: block; margin-bottom: .15rem; }
+
+/* ── REFRAME ── */
+.reframe-box {
+  background: rgba(196,240,98,.07); border: 1px solid rgba(196,240,98,.2);
+  border-radius: 20px; padding: 1.75rem 2rem; margin-top: 0;
+}
+.reframe-tag {
+  font-size: .58rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--lime); margin-bottom: .75rem;
+}
+.reframe-text {
+  font-size: clamp(.88rem, 1.2vw, 1rem); color: var(--white);
+  font-weight: 500; line-height: 1.65;
+}
+.reframe-text em { color: var(--lime); font-style: normal; }
+
+/* ── FOOTER ── */
+.foot {
+  margin-top: 3.5rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.foot-logo svg { width: 100px; height: auto; opacity: .5; }
+.foot-note { font-size: .65rem; color: rgba(255,255,255,.25); line-height: 1.6; }
+
+/* ── REVEAL ANIMATIONS ── */
+.r { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.r.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .07s } .d2 { transition-delay: .14s }
+.d3 { transition-delay: .21s } .d4 { transition-delay: .28s }
+.d5 { transition-delay: .35s } .d6 { transition-delay: .42s }
+
+@media(max-width: 600px) {
+  .page { padding: 0 1.1rem 4rem; }
+  .sim-card { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-logo r">
+      <svg viewBox="0 0 160 40" fill="white" xmlns="http://www.w3.org/2000/svg" aria-label="Tiendanube">
+        <path d="M51.4723 19.5098V7.49283H54.3653V19.5098H51.4723ZM67.3608 10.8394C67.0958 10.1395 66.7119 9.51774 66.2124 8.97244C65.7113 8.42714 65.1048 8.00076 64.3897 7.69158C63.6745 7.38241 62.8472 7.22782 61.9044 7.22782C60.7849 7.22782 59.7725 7.49962 58.867 8.04492C57.9616 8.59022 57.2464 9.32918 56.7249 10.2652C56.2017 11.2012 55.9401 12.2714 55.9401 13.4792C55.9401 14.6871 56.1983 15.7029 56.713 16.6593C57.2277 17.6174 57.9497 18.375 58.8772 18.9339C59.8047 19.4945 60.8868 19.7731 62.1235 19.7731C62.9474 19.7731 63.7034 19.6474 64.388 19.3977C65.0726 19.148 65.6654 18.8014 66.1666 18.3598C66.6677 17.9181 67.0346 17.4102 67.2708 16.836L64.9299 15.6876C64.6649 16.1599 64.2996 16.5353 63.8359 16.8139C63.3721 17.0942 62.8081 17.2335 62.1456 17.2335C61.4831 17.2335 60.897 17.0789 60.3891 16.7697C59.8812 16.4606 59.4973 16.0223 59.2407 15.4549C59.0828 15.1083 58.9842 14.7278 58.9452 14.3167H67.6003C67.6598 14.1553 67.6988 13.9634 67.7209 13.7425C67.743 13.5217 67.7549 13.3077 67.7549 13.1021C67.7549 12.2918 67.6224 11.5376 67.3574 10.8377L67.3608 10.8394ZM60.2923 10.0664C60.7628 9.76406 61.3013 9.61287 61.9044 9.61287C62.5075 9.61287 63.0782 9.76746 63.5284 10.0766C63.9769 10.3858 64.3013 10.8054 64.5001 11.3354C64.5901 11.5766 64.6445 11.8348 64.6666 12.1083H59.008C59.0573 11.8518 59.1269 11.6123 59.2204 11.3898C59.4633 10.8088 59.82 10.3671 60.2923 10.0647V10.0664ZM79.3744 9.40393C78.9922 8.71933 78.4571 8.18592 77.7725 7.802C77.0879 7.41978 76.303 7.22782 75.4197 7.22782C74.5363 7.22782 73.8178 7.41639 73.1773 7.79181C72.683 8.0823 72.2974 8.47641 72.0171 8.97244V7.49453H69.3008V19.5115H72.1937V12.4651C72.1937 11.9351 72.2974 11.4781 72.5029 11.0959C72.7085 10.7137 72.9956 10.4147 73.3642 10.2006C73.7328 9.9866 74.1524 9.87958 74.623 9.87958C75.0935 9.87958 75.5318 9.9866 75.8936 10.2006C76.2538 10.4147 76.5375 10.712 76.7447 11.0959C76.9503 11.4798 77.0539 11.9351 77.0539 12.4651V19.5115H79.9469V11.7805C79.9469 10.8818 79.7549 10.0902 79.3727 9.40563L79.3744 9.40393ZM91.1824 2.98434V8.70914C90.8359 8.33031 90.4214 8.01605 89.9338 7.76973C89.2187 7.40959 88.4067 7.22782 87.4927 7.22782C86.358 7.22782 85.3319 7.50812 84.4112 8.06701C83.4905 8.6276 82.7651 9.37845 82.2351 10.3196C81.7051 11.2624 81.4401 12.3224 81.4401 13.4996C81.4401 14.6769 81.7051 15.7233 82.2351 16.6797C82.7651 17.6378 83.4871 18.392 84.3993 18.9441C85.3115 19.4962 86.3512 19.7731 87.5131 19.7731C88.3812 19.7731 89.1847 19.5999 89.9202 19.2533C90.4876 18.9866 90.9582 18.6282 91.3336 18.1814V19.5064H94.072V2.98434H91.179H91.1824ZM90.7526 15.3784C90.4655 15.9237 90.0714 16.3501 89.5703 16.6593C89.0692 16.9685 88.4882 17.1231 87.8257 17.1231C87.1632 17.1231 86.5958 16.9685 86.0811 16.6593C85.5646 16.3501 85.1637 15.9237 84.8766 15.3784C84.5896 14.8331 84.4452 14.208 84.4452 13.5013C84.4452 12.7946 84.5896 12.1729 84.8766 11.6344C85.1137 11.0976 85.5646 10.6695 86.0811 10.3535C86.5958 10.0376 87.1785 9.87788 87.8257 9.87788C88.4729 9.87788 89.0692 10.0325 89.5703 10.3416C90.0714 10.6508 90.4655 11.0823 90.7526 11.6344C91.0397 12.1865 91.1841 12.8082 91.1841 13.5013C91.1841 14.1944 91.0397 14.8348 90.7526 15.3784ZM105.737 9.27142C105.318 8.63099 104.732 8.12986 103.981 7.76973C103.23 7.40959 102.36 7.22782 101.375 7.22782C100.565 7.22782 99.8138 7.36033 99.1224 7.62533C98.4293 7.89034 97.8296 8.25557 97.3217 8.71933C96.8138 9.18309 96.4418 9.73179 96.2056 10.3654L98.5686 11.5138C98.7894 10.9685 99.1394 10.5302 99.6184 10.1989C100.097 9.86769 100.646 9.70121 101.265 9.70121C101.927 9.70121 102.46 9.87448 102.866 10.221C103.271 10.5676 103.475 10.9974 103.475 11.5138V11.9028L99.897 12.4855C98.9542 12.6333 98.1745 12.883 97.5562 13.2363C96.9378 13.5897 96.4808 14.0279 96.1869 14.5512C95.8914 15.0744 95.7453 15.6672 95.7453 16.3297C95.7453 16.9923 95.9151 17.6293 96.2532 18.1525C96.5913 18.6757 97.0703 19.0766 97.6886 19.3569C98.307 19.6372 99.0358 19.7765 99.8749 19.7765C100.537 19.7765 101.141 19.6848 101.686 19.4996C102.231 19.3162 102.717 19.0512 103.143 18.7046C103.317 18.5653 103.476 18.4073 103.629 18.2408V19.5115H106.368V11.5155C106.368 10.661 106.157 9.91355 105.737 9.27312V9.27142ZM103.086 16.1072C102.827 16.5642 102.467 16.9209 102.003 17.1791C101.54 17.4373 101.006 17.5664 100.402 17.5664C99.9293 17.5664 99.5369 17.4458 99.2192 17.2012C98.9016 16.9583 98.7436 16.6304 98.7436 16.2176C98.7436 15.8048 98.8829 15.4447 99.1632 15.1797C99.4435 14.9147 99.8699 14.7312 100.444 14.6276L103.47 14.1129V14.6055C103.47 15.1508 103.34 15.6519 103.082 16.1072H103.086ZM118.716 9.40393C118.334 8.71933 117.798 8.18592 117.114 7.802C116.429 7.41978 115.644 7.22782 114.761 7.22782C113.878 7.22782 113.159 7.41639 112.519 7.79181C112.024 8.0823 111.639 8.47641 111.359 8.97244V7.49453H108.642V19.5115H111.535V12.4651C111.535 11.9351 111.639 11.4781 111.844 11.0959C112.05 10.7137 112.337 10.4147 112.706 10.2006C113.074 9.9866 113.494 9.87958 113.964 9.87958C114.435 9.87958 114.873 9.9866 115.235 10.2006C115.595 10.4147 115.879 10.712 116.086 11.0959C116.292 11.4798 116.395 11.9351 116.395 12.4651V19.5115H119.288V11.7805C119.288 10.8818 119.096 10.0902 118.714 9.40563L118.716 9.40393ZM126.661 19.7748C125.614 19.7748 124.69 19.5642 123.889 19.1446C123.085 18.725 122.463 18.1389 122.022 17.3881C121.58 16.6372 121.359 15.7675 121.359 14.7822V7.49283H124.252V14.6938C124.252 15.1797 124.356 15.6078 124.561 15.9747C124.767 16.3433 125.054 16.627 125.423 16.8258C125.791 17.0245 126.211 17.1248 126.681 17.1248C127.152 17.1248 127.59 17.0262 127.952 16.8258C128.312 16.627 128.596 16.3433 128.803 15.9747C129.009 15.6061 129.112 15.1797 129.112 14.6938V7.49283H132.005V14.7822C132.005 15.7692 131.781 16.6372 131.331 17.3881C130.881 18.1389 130.259 18.725 129.464 19.1446C128.669 19.5642 127.733 19.7748 126.659 19.7748H126.661ZM146.11 10.3196C145.571 9.37675 144.848 8.6259 143.934 8.06701C143.02 7.50812 141.997 7.22782 140.864 7.22782C139.937 7.22782 139.12 7.40789 138.413 7.76973C137.932 8.01605 137.521 8.32862 137.176 8.70744V2.98434H134.283V19.5098H137V18.1474C137.387 18.6112 137.869 18.9815 138.447 19.255C139.176 19.6015 139.974 19.7748 140.844 19.7748C142.007 19.7748 143.045 19.4979 143.958 18.9458C144.87 18.3937 145.592 17.6395 146.122 16.6814C146.652 15.725 146.917 14.6633 146.917 13.5013C146.917 12.3394 146.648 11.2624 146.11 10.3213V10.3196ZM143.482 15.3784C143.195 15.9237 142.794 16.3501 142.278 16.6593C141.761 16.9685 141.173 17.1231 140.511 17.1231C139.848 17.1231 139.306 16.9685 138.799 16.6593C138.291 16.3501 137.893 15.9237 137.606 15.3784C137.319 14.8331 137.174 14.208 137.174 13.5013C137.174 12.7946 137.319 12.1865 137.606 11.6344C137.893 11.0823 138.291 10.6508 138.799 10.3416C139.306 10.0325 139.877 9.87788 140.511 9.87788C141.144 9.87788 141.763 10.0359 142.278 10.3535C142.792 10.6712 143.195 11.0976 143.482 11.6344C143.769 12.1729 143.913 12.7946 143.913 13.5013C143.913 14.208 143.769 14.8348 143.482 15.3784ZM159.291 10.8394C159.026 10.1395 158.642 9.51774 158.142 8.97244C157.641 8.42714 157.035 8.00076 156.319 7.69158C155.604 7.38241 154.777 7.22782 153.834 7.22782C152.715 7.22782 151.702 7.49962 150.797 8.04492C149.891 8.59022 149.176 9.32918 148.655 10.2652C148.131 11.2012 147.87 12.2714 147.87 13.4792C147.87 14.6871 148.128 15.7029 148.643 16.6593C149.158 17.6174 149.879 18.375 150.807 18.9339C151.735 19.4945 152.817 19.7731 154.053 19.7731C154.877 19.7731 155.633 19.6474 156.318 19.3977C157.002 19.148 157.595 18.8014 158.096 18.3598C158.597 17.9181 158.964 17.4102 159.201 16.836L156.86 15.6876C156.595 16.1599 156.229 16.5353 155.766 16.8139C155.302 17.0942 154.738 17.2335 154.075 17.2335C153.413 17.2335 152.827 17.0789 152.319 16.7697C151.811 16.4606 151.427 16.0223 151.171 15.4549C151.013 15.1083 150.914 14.7278 150.875 14.3167H159.53C159.59 14.1553 159.629 13.9634 159.651 13.7425C159.673 13.5217 159.685 13.3077 159.685 13.1021C159.685 12.2918 159.552 11.5376 159.287 10.8377L159.291 10.8394ZM152.392 10.0664C152.862 9.76406 153.401 9.61287 154.004 9.61287C154.607 9.61287 155.178 9.76746 155.628 10.0766C156.077 10.3858 156.401 10.8054 156.6 11.3354C156.69 11.5766 156.746 11.8348 156.766 12.1083H151.108C151.157 11.8518 151.227 11.6123 151.32 11.3898C151.563 10.8088 151.92 10.3671 152.392 10.0647V10.0664ZM48.0035 7.50302V4.11061H45.1241V7.50302H43.1094V10.0766H45.1241V19.5081H48.0035V10.0766H50.0182V7.50302H48.0035ZM52.9316 2.41016C51.9922 2.41016 51.2311 3.1712 51.2311 4.11061C51.2311 5.05002 51.9922 5.81106 52.9316 5.81106C53.871 5.81106 54.632 5.05002 54.632 4.11061C54.632 3.1712 53.871 2.41016 52.9316 2.41016Z"/>
+        <path d="M24.0068 0H23.9915C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0ZM23.9847 24C18.1954 24 13.4847 19.2894 13.4847 13.5H10.4847C10.4847 16.1484 11.2542 18.6183 12.5759 20.7044C11.9032 20.8981 11.205 21 10.5 21C6.36523 21 3 17.6348 3 13.5C3 9.36523 6.36523 6 10.5 6C12.1376 6 13.6937 6.51812 14.9983 7.4983C16.906 8.93035 18 11.1183 18 13.5H21C21 10.359 19.6393 7.45923 17.2491 5.4581C19.1263 3.88335 21.5062 3.0017 23.9915 3C29.7775 3.0034 34.483 7.71234 34.483 13.5C34.483 19.2877 29.7724 24 23.983 24H23.9847Z"/>
+      </svg>
+    </div>
+    <div class="hero-eyebrow r d1">Programa de partners · México · Vigente desde mayo 2025</div>
+    <h1 class="hero-title r d2">Monetiza cada<br><span>oportunidad</span> que generes</h1>
+    <p class="hero-sub r d3">Tres niveles de participación. Comisiones reales sobre facturación real. Sin letra chica.</p>
+  </div>
+
+  <!-- ── TIERS ── -->
+  <div class="section-label r">Niveles de participación</div>
+  <div class="tiers">
+
+    <!-- TIER 1 -->
+    <div class="tier tier-1 r d1">
+      <div>
+        <div class="tier-badge">Nivel 1</div>
+        <div class="tier-name" style="margin-top:.5rem">Referido</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.25rem">Solo generación de lead</div>
+      </div>
+      <div>
+        <div class="tier-pct">10%</div>
+        <div class="tier-pct-sub">sobre el promedio de facturación<br>de los primeros 90 días</div>
+      </div>
+      <hr class="tier-divider">
+      <div class="tier-detail">
+        <div class="tier-row">
+          <div class="tier-row-icon">→</div>
+          <div class="tier-row-text">Presentas la marca, conectas al AE y listo. El equipo TN cierra.</div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-icon">→</div>
+          <div class="tier-row-text">No requiere implementación de tu parte.</div>
+        </div>
+      </div>
+      <div class="tier-cap">
+        <div class="tier-cap-val">$50,000 MXN</div>
+        <div class="tier-cap-lbl">tope máximo por tienda</div>
+      </div>
+    </div>
+
+    <!-- TIER 2 -->
+    <div class="tier tier-2 r d2">
+      <div>
+        <div class="tier-badge">Nivel 2</div>
+        <div class="tier-name" style="margin-top:.5rem">Referido + Implementación</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.25rem">Traes el lead y llevas la ejecución</div>
+      </div>
+      <div>
+        <div class="tier-pct">20%</div>
+        <div class="tier-pct-sub">sobre el promedio de facturación<br>de los primeros 90 días</div>
+      </div>
+      <hr class="tier-divider">
+      <div class="tier-detail">
+        <div class="tier-row">
+          <div class="tier-row-icon">→</div>
+          <div class="tier-row-text">Tu agencia se encarga de la configuración, migración o lanzamiento.</div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-icon">→</div>
+          <div class="tier-row-text">Doble ingreso: comisión TN + honorarios de implementación que cotizas tú.</div>
+        </div>
+      </div>
+      <div class="tier-cap">
+        <div class="tier-cap-val">$100,000 MXN</div>
+        <div class="tier-cap-lbl">tope máximo por tienda</div>
+      </div>
+    </div>
+
+    <!-- TIER 3 -->
+    <div class="tier tier-3 r d3">
+      <div>
+        <div class="tier-badge">Nivel 3 · Estratégico</div>
+        <div class="tier-name" style="margin-top:.5rem">Campaña de Aceleración</div>
+        <div style="font-size:.75rem;color:rgba(196,240,98,.6);margin-top:.25rem">Modelo completo de go-to-market</div>
+      </div>
+      <div>
+        <div class="tier-pct">30%</div>
+        <div class="tier-pct-sub">sobre el promedio de facturación<br>de los primeros 90 días</div>
+      </div>
+      <hr class="tier-divider" style="border-color:rgba(196,240,98,.12)">
+      <div class="tier-detail">
+        <div class="tier-row">
+          <div class="tier-row-icon" style="color:var(--lime)">→</div>
+          <div class="tier-row-text">Para migraciones desde Shopify, VTEX u otras plataformas.</div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-icon" style="color:var(--lime)">→</div>
+          <div class="tier-row-text">Adelanto del <strong style="color:var(--lime)">20% al Go Live</strong> — no esperas los 90 días para ver el primer ingreso.</div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-row-icon" style="color:var(--lime)">→</div>
+          <div class="tier-row-text">Posicionas a tu agencia como socio estratégico de migración, no solo de diseño.</div>
+        </div>
+      </div>
+      <div class="accel-badge">
+        ☁ 20% adelantado al Go Live · resto al completar 90 días
+      </div>
+      <div class="tier-cap">
+        <div class="tier-cap-val">$100,000 MXN</div>
+        <div class="tier-cap-lbl">tope máximo por tienda</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── SIMULADOR ── -->
+  <div class="section-label r">Simulador · ¿Cuánto ganarías?</div>
+  <div class="sim-card r">
+    <div class="sim-title">Calcula tu comisión estimada</div>
+    <div class="sim-sub">Mueve el slider con la facturación promedio mensual de la tienda durante los primeros 90 días. Las comisiones aplican sobre ese promedio.</div>
+
+    <div class="sim-slider-wrap">
+      <div class="sim-slider-label">
+        <span>Facturación mensual promedio (90 días)</span>
+        <span class="val" id="gmvLabel">$300,000 MXN</span>
+      </div>
+      <input type="range" class="sim-range" id="gmvSlider" min="50000" max="500000" step="10000" value="300000">
+      <div class="sim-ticks">
+        <span>$50k</span><span>$150k</span><span>$250k</span><span>$350k</span><span>$500k+</span>
+      </div>
+    </div>
+
+    <div class="sim-results">
+
+      <div class="sim-result t1">
+        <div class="sim-result-tier">Referido · 10%</div>
+        <div class="sim-result-val" id="r1Val">$30,000 MXN</div>
+        <div class="sim-result-capped" id="r1Cap">⚠ Tope aplicado ($50,000)</div>
+        <div class="sim-result-note">Solo generación de lead</div>
+      </div>
+
+      <div class="sim-result t2">
+        <div class="sim-result-tier">Ref. + Impl. · 20%</div>
+        <div class="sim-result-val" id="r2Val">$60,000 MXN</div>
+        <div class="sim-result-capped" id="r2Cap">⚠ Tope aplicado ($100,000)</div>
+        <div class="sim-result-note">Lead + implementación a cargo de tu agencia</div>
+      </div>
+
+      <div class="sim-result t3">
+        <div class="sim-result-tier">Aceleración · 30%</div>
+        <div class="sim-result-val" id="r3Val">$90,000 MXN</div>
+        <div class="sim-result-capped" id="r3Cap">⚠ Tope aplicado ($100,000)</div>
+        <div class="sim-advance" id="r3Adv">
+          ☁ Adelanto al Go Live: <strong id="r3AdvVal">$18,000 MXN</strong>
+        </div>
+        <div class="sim-result-note">Migración completa + modelo estratégico</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── CONDICIONES ── -->
+  <div class="section-label r">Condiciones generales</div>
+  <div class="conds">
+    <div class="cond-card r d1">
+      <div class="cond-icon">📊</div>
+      <div class="cond-text">
+        <strong>Facturación mínima aplicable</strong>
+        La tienda debe facturar al menos $50,000 MXN/mes para que aplique el programa de comisiones.
+      </div>
+    </div>
+    <div class="cond-card r d2">
+      <div class="cond-icon">🔄</div>
+      <div class="cond-text">
+        <strong>Mantenimiento activo</strong>
+        Mínimo 1 tienda migrada o referida cada 6 meses para mantenerse activo en el programa.
+      </div>
+    </div>
+    <div class="cond-card r d3">
+      <div class="cond-icon">💳</div>
+      <div class="cond-text">
+        <strong>Pago Nube como pasarela principal</strong>
+        Al menos el 80% de las ventas de la tienda deben procesarse por Pago Nube para que aplique la comisión.
+      </div>
+    </div>
+    <div class="cond-card r d4">
+      <div class="cond-icon">🏷️</div>
+      <div class="cond-text">
+        <strong>Meses de cortesía + implementación pagada</strong>
+        En algunos casos es posible otorgar meses de cortesía al merchant y que la agencia cobre la implementación directamente. Especialmente en plan Evolución. Revisar caso por caso.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REFRAME ── -->
+  <div class="section-label r">Por qué importa posicionarte hoy</div>
+  <div class="reframe-box r">
+    <div class="reframe-tag">Challenger insight · Para tu próxima reunión</div>
+    <div class="reframe-text">
+      "4 de cada 10 marcas en México trabajan con agencias. Las agencias que se posicionaron primero en Tiendanube están capturando el flujo de migraciones desde Shopify — en un mercado donde TN crece <em>12× más rápido</em>. El momento de entrar no es cuando todos ya están, es ahora."
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="foot r">
+    <div class="foot-logo">
+      <svg viewBox="0 0 160 40" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24.0068 0H23.9915C20.4547 0.00509626 17.098 1.38958 14.5923 3.82559C13.3097 3.28199 11.9287 3 10.5017 3C4.71065 3 0 7.71065 0 13.5C0 19.2894 4.71065 24 10.5 24C11.9049 24 13.2945 23.7129 14.5804 23.1727C17.013 25.5391 20.3307 27 23.9847 27C31.4287 27 37.4847 20.9439 37.4847 13.5C37.4847 6.05606 31.4405 0.0118913 24.0068 0Z"/>
+      </svg>
+    </div>
+    <div class="foot-note">
+      Programa vigente desde mayo 2025 · Mid Market México<br>
+      Dudas: alan.cervantes@tiendanube.com · Facturación de comisiones: vendors_mx@tiendanube.com
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── REVEAL ON SCROLL ──
+const revEls = document.querySelectorAll('.r');
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.12 });
+revEls.forEach(el => ro.observe(el));
+
+// ── COMMISSION SIMULATOR ──
+const FMT = n => '$' + Math.round(n).toLocaleString('es-MX') + ' MXN';
+const CAP1 = 50000, CAP2 = 100000, CAP3 = 100000;
+
+function simulate() {
+  const gmv = +document.getElementById('gmvSlider').value;
+  document.getElementById('gmvLabel').textContent = FMT(gmv).replace(' MXN','');
+
+  // Tier 1
+  const raw1 = gmv * 0.10;
+  const val1 = Math.min(raw1, CAP1);
+  document.getElementById('r1Val').textContent = FMT(val1);
+  document.getElementById('r1Cap').style.display = raw1 > CAP1 ? 'block' : 'none';
+
+  // Tier 2
+  const raw2 = gmv * 0.20;
+  const val2 = Math.min(raw2, CAP2);
+  document.getElementById('r2Val').textContent = FMT(val2);
+  document.getElementById('r2Cap').style.display = raw2 > CAP2 ? 'block' : 'none';
+
+  // Tier 3
+  const raw3 = gmv * 0.30;
+  const val3 = Math.min(raw3, CAP3);
+  document.getElementById('r3Val').textContent = FMT(val3);
+  document.getElementById('r3Cap').style.display = raw3 > CAP3 ? 'block' : 'none';
+
+  // Advance: 20% of Tier 3 commission
+  const advance = val3 * 0.20;
+  const advEl = document.getElementById('r3Adv');
+  advEl.style.display = 'block';
+  document.getElementById('r3AdvVal').textContent = FMT(advance);
+}
+
+document.getElementById('gmvSlider').addEventListener('input', simulate);
+simulate();
+</script>
+</body>
+</html>
