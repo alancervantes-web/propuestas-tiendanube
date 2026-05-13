@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Tiendanube Partners 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:    #3355FF;
+  --blue-d:  #2644ee;
+  --blue-dd: #1f3bdb;
+  --blue-c:  rgba(255,255,255,0.10);
+  --blue-c2: rgba(255,255,255,0.06);
+  --lime:    #c8ff57;
+  --cock-col:#ffd057;
+  --white:   #ffffff;
+  --white2:  rgba(255,255,255,0.7);
+  --white3:  rgba(255,255,255,0.4);
+  --white4:  rgba(255,255,255,0.15);
+  --white5:  rgba(255,255,255,0.07);
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --r: 16px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--blue);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 56px;
+  background: rgba(51,85,255,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--white4);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--white2);
+}
+.nav-right { display: flex; gap: 8px; align-items: center; }
+.pill {
+  font-size: 10px; font-weight: 700; padding: 4px 12px;
+  border-radius: 999px; border: 1.5px solid var(--white4); color: var(--white2);
+  letter-spacing: 0.04em;
+}
+.pill.ene  { border-color: rgba(200,255,87,0.45); color: var(--lime); }
+.pill.cock { border-color: rgba(255,208,87,0.45); color: var(--cock-col); }
+.ticker-wrap {
+  overflow: hidden; background: var(--blue-dd);
+  height: 30px; display: flex; align-items: center;
+  border-bottom: 1px solid var(--white4);
+}
+.ticker-inner {
+  display: flex; animation: ticker 32s linear infinite; white-space: nowrap;
+}
+.ticker-item {
+  font-size: 10px; font-weight: 600; color: var(--white3);
+  padding: 0 2.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.ticker-item b { color: var(--lime); }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.hero {
+  text-align: center; padding: 5rem 2rem 3rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--white2);
+  border: 1.5px solid var(--white4); border-radius: 999px; padding: 5px 18px;
+  margin-bottom: 1.5rem; animation: fadeUp 0.5s ease both;
+}
+.hero-title {
+  font-size: clamp(2.6rem, 5.5vw, 4.8rem); font-weight: 800; line-height: 1.02;
+  margin-bottom: 0.5rem; animation: fadeUp 0.5s 0.1s ease both;
+}
+.hero-title em {
+  font-style: italic; font-weight: 300; color: var(--white2); display: block;
+}
+.hero-sub {
+  font-size: 15px; color: var(--white2); max-width: 460px; margin: 0 auto;
+  line-height: 1.6; animation: fadeUp 0.5s 0.2s ease both;
+}
+.summary-bar {
+  display: grid; grid-template-columns: repeat(5,1fr);
+  margin: 2.5rem 2.5rem 0;
+  border-radius: var(--r); overflow: hidden;
+  border: 1px solid var(--white4);
+  animation: fadeUp 0.5s 0.25s ease both;
+}
+.summary-item {
+  background: var(--blue-c2); padding: 1.4rem 1.5rem;
+  border-right: 1px solid var(--white4); transition: background 0.2s;
+}
+.summary-item:last-child { border-right: none; }
+.summary-item:hover { background: var(--blue-c); }
+.s-label {
+  font-size: 10px; font-weight: 600; color: var(--white3);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.s-val { font-size: 1.75rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+.s-val.lime { color: var(--lime); }
+.s-val.yellow { color: var(--cock-col); }
+.s-val.dim { color: var(--white); }
+.s-sub { font-size: 11px; color: var(--white3); }
+.gauges-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--white4); margin: 2rem 2.5rem;
+  border-radius: var(--r); overflow: hidden; border: 1px solid var(--white4);
+  animation: fadeUp 0.5s 0.3s ease both;
+}
+.gauge-cell {
+  background: var(--blue-c2); padding: 2rem; transition: background 0.2s;
+}
+.gauge-cell:hover { background: var(--blue-c); }
+.gc-label {
+  font-size: 10px; font-weight: 600; color: var(--white3);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.2rem;
+}
+.gauge-inner { display: flex; align-items: center; gap: 2rem; }
+.gauge-ring { position: relative; flex-shrink: 0; width: 96px; height: 96px; }
+.gauge-ring svg { transform: rotate(-90deg); }
+.g-bg   { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 8; }
+.g-fill { fill: none; stroke-width: 8; stroke-linecap: round;
+          transition: stroke-dashoffset 1.2s cubic-bezier(0.23,1,0.32,1); }
+.gauge-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.gauge-pct  { font-size: 1.3rem; font-weight: 800; line-height: 1; }
+.gauge-word { font-size: 8px; font-weight: 600; color: var(--white3);
+              letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+.gauge-details { flex: 1; }
+.gd-lbl { font-size: 10px; font-weight: 600; color: var(--white3);
+          letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+.gd-val { font-size: 2rem; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.gd-meta { font-size: 12px; color: var(--white3); margin-bottom: 12px; }
+.gd-track { height: 4px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; }
+.gd-fill  { height: 100%; border-radius: 999px; transition: width 1s cubic-bezier(0.23,1,0.32,1); }
+.section { padding: 0 2.5rem 2.5rem; }
+.section-head {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--white4);
+}
+.stag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 999px;
+}
+.stag.ene  { background: rgba(200,255,87,0.15); color: var(--lime); }
+.stag.cock { background: rgba(255,208,87,0.15); color: var(--cock-col); }
+.stitle { font-size: 1.1rem; font-weight: 700; }
+.cards-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+  gap: 1px; background: var(--white4);
+  border: 1px solid var(--white4); border-radius: var(--r); overflow: hidden;
+}
+.card {
+  background: var(--blue-c2); padding: 1.25rem 1.4rem;
+  transition: background 0.2s; animation: fadeUp 0.4s ease both;
+}
+.card:hover { background: var(--blue-c); }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+.card-tipo { font-size: 9.5px; font-weight: 600; color: var(--white3); letter-spacing: 0.1em; text-transform: uppercase; }
+.card-time { font-size: 9.5px; font-weight: 600; color: var(--white3); background: rgba(255,255,255,0.09); padding: 2px 8px; border-radius: 4px; }
+.card-titulo { font-size: 13.5px; font-weight: 700; margin-bottom: 0.25rem; line-height: 1.3; }
+.card-detalle { font-size: 11px; color: var(--white3); margin-bottom: 0.9rem; line-height: 1.45; }
+.mrow { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; margin-bottom: 0.75rem; }
+.mbox {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--white4);
+  border-radius: 8px; padding: 6px 8px;
+}
+.mbox label {
+  font-size: 8.5px; font-weight: 600; color: var(--white3);
+  letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 2px;
+}
+.mbox input {
+  width: 100%; background: transparent; border: none; outline: none;
+  font-family: var(--font); font-size: 1rem; font-weight: 800; color: var(--white);
+  caret-color: var(--lime);
+}
+.mbox input:focus { color: var(--lime); }
+.mbox .mc { font-size: 8.5px; color: var(--white3); margin-top: 1px; }
+.prow { margin-bottom: 5px; }
+.plabel { display: flex; justify-content: space-between; font-size: 9.5px; font-weight: 600; color: var(--white3); margin-bottom: 4px; }
+.ptrack { height: 4px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
+.pfill  { height: 100%; border-radius: 999px; transition: width 0.8s cubic-bezier(0.23,1,0.32,1); }
+.sbadge { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-top: 0.5rem; }
+.sbadge::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; animation: blink 2s infinite; }
+.b-none  { background:rgba(255,255,255,0.07); color:var(--white3); }
+.b-start { background:rgba(255,160,50,0.15); color:#ffa032; }
+.b-mid   { background:rgba(100,200,255,0.15); color:#64c8ff; }
+.b-done  { background:rgba(200,255,87,0.15);  color:var(--lime); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+footer {
+  border-top: 1px solid var(--white4); padding: 1.25rem 2.5rem;
+  display: flex; justify-content: space-between; font-size: 10px; font-weight: 500; color: var(--white3);
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+input[type=number] { -moz-appearance: textfield; }
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+@media(max-width:800px){
+  .summary-bar{grid-template-columns:repeat(2,1fr);margin:1rem;}
+  .gauges-wrap{grid-template-columns:1fr;margin:1rem;}
+  .section{padding:0 1rem 2rem;}
+  nav{padding:0 1rem;}
+  .hero{padding:3rem 1rem 2rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <svg width="26" height="18" viewBox="0 0 52 36" fill="none">
+      <path d="M39 32H13C8 32 4 28 4 23c0-4 2.7-7.4 6.4-8.5C10 13.6 10 12.8 10 12 10 7.6 13.6 4 18 4c2 0 3.8.7 5.2 1.9C25 3.2 27.7 2 30.8 2 35.8 2 40 6.2 40 11.2c0 .3 0 .5-.1.8 4 1.2 7 4.8 7 9.1C47 26 43 32 39 32z" fill="white" opacity="0.92"/>
+    </svg>
+    Tiendanube · Partner Dashboard 2026
+  </div>
+  <div class="nav-right">
+    <div class="pill ene">EneConceptos</div>
+    <div class="pill cock">Cocktail Mktg</div>
+    <div class="pill" id="lastUpdate">—</div>
+  </div>
+</nav>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="ticker">
+    <div class="ticker-item"><b>▸</b> Cargando…</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Dashboard de avance · H1–H2 2026</div>
+  <h1 class="hero-title">
+    Alcance vs Compromiso
+    <em>actualizado en tiempo real.</em>
+  </h1>
+  <p class="hero-sub">Ingresa los números reales en cada iniciativa y sigue el avance vs la meta comprometida por agencia.</p>
+</div>
+
+<div class="summary-bar">
+  <div class="summary-item">
+    <div class="s-label">GMV Comprometido</div>
+    <div class="s-val dim" id="s-gmv-c">$0</div>
+    <div class="s-sub">ambas agencias</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">GMV Alcanzado</div>
+    <div class="s-val lime" id="s-gmv-w">$0</div>
+    <div class="s-sub">real acumulado</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">Leads Comprometidos</div>
+    <div class="s-val dim" id="s-leads-c">0</div>
+    <div class="s-sub">total programa</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">Leads Alcanzados</div>
+    <div class="s-val lime" id="s-leads-w">0</div>
+    <div class="s-sub">real acumulado</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">Avance General</div>
+    <div class="s-val yellow" id="s-pct">0%</div>
+    <div class="s-sub">sobre GMV total</div>
+  </div>
+</div>
+
+<div class="gauges-wrap">
+  <div class="gauge-cell">
+    <div class="gc-label">EneConceptos · GMV Total</div>
+    <div class="gauge-inner">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 96 96" width="96" height="96">
+          <circle class="g-bg" cx="48" cy="48" r="40"/>
+          <circle class="g-fill" id="g-ene" cx="48" cy="48" r="40"
+            stroke="#c8ff57" stroke-dasharray="251.3" stroke-dashoffset="251.3"/>
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-pct" style="color:var(--lime)" id="gp-ene">0%</div>
+          <div class="gauge-word">logrado</div>
+        </div>
+      </div>
+      <div class="gauge-details">
+        <div class="gd-lbl">GMV alcanzado</div>
+        <div class="gd-val" style="color:var(--lime)" id="gv-ene">$0</div>
+        <div class="gd-meta" id="gm-ene">meta: $0</div>
+        <div class="gd-track"><div class="gd-fill" id="gb-ene" style="width:0%;background:var(--lime)"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="gauge-cell">
+    <div class="gc-label">Cocktail Marketing · GMV Total</div>
+    <div class="gauge-inner">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 96 96" width="96" height="96">
+          <circle class="g-bg" cx="48" cy="48" r="40"/>
+          <circle class="g-fill" id="g-cock" cx="48" cy="48" r="40"
+            stroke="#ffd057" stroke-dasharray="251.3" stroke-dashoffset="251.3"/>
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-pct" style="color:var(--cock-col)" id="gp-cock">0%</div>
+          <div class="gauge-word">logrado</div>
+        </div>
+      </div>
+      <div class="gauge-details">
+        <div class="gd-lbl">GMV alcanzado</div>
+        <div class="gd-val" style="color:var(--cock-col)" id="gv-cock">$0</div>
+        <div class="gd-meta" id="gm-cock">meta: $0</div>
+        <div class="gd-track"><div class="gd-fill" id="gb-cock" style="width:0%;background:var(--cock-col)"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head">
+    <div class="stag ene">EneConceptos</div>
+    <div class="stitle">Iniciativas & Avance</div>
+  </div>
+  <div class="cards-grid" id="grid-ene"></div>
+</div>
+
+<div class="section">
+  <div class="section-head">
+    <div class="stag cock">Cocktail Marketing</div>
+    <div class="stitle">Iniciativas & Avance</div>
+  </div>
+  <div class="cards-grid" id="grid-cock"></div>
+</div>
+
+<footer>
+  <span>Datos guardados automáticamente en tu navegador</span>
+  <span id="footerTs">—</span>
+</footer>
+
+<script>
+const ENE=[
+  {id:'e1', tipo:'Campañas · Meta',      sub:'Q1', titulo:'Meta Ads (Instagram)',              detalle:'Meta Ads Instagram · Conversión',                         inv:24000, oc:16, gc:200000},
+  {id:'e2', tipo:'Campañas · Meta',      sub:'Q2', titulo:'Meta Ads (Instagram)',              detalle:'Meta Ads Instagram · Conversión',                         inv:24000, oc:16, gc:200000},
+  {id:'e3', tipo:'Campañas · Meta',      sub:'Q3', titulo:'Meta Ads (Instagram)',              detalle:'Meta Ads Instagram · Conversión',                         inv:24000, oc:16, gc:200000},
+  {id:'e4', tipo:'Campañas · Google',    sub:'Q1', titulo:'Google Ads',                        detalle:'Google Ads Search · Conversión',                          inv:24000, oc:16, gc:200000},
+  {id:'e5', tipo:'Campañas · Google',    sub:'Q2', titulo:'Google Ads',                        detalle:'Google Ads Search · Conversión',                          inv:24000, oc:16, gc:200000},
+  {id:'e6', tipo:'Campañas · Google',    sub:'Q3', titulo:'Google Ads',                        detalle:'Google Ads Search · Conversión',                          inv:24000, oc:16, gc:200000},
+  {id:'e7', tipo:'Eventos · Webinar',    sub:'Trim.',titulo:'4 Webinars',                      detalle:'Marketplace→marca, Buen Fin, Optimización, Pagos',        inv:12269, oc:30, gc:200000},
+  {id:'e8', tipo:'Eventos · Workshop',   sub:'Trim.',titulo:'4 Workshops',                     detalle:'Buen Fin, Conversión, Innovación, Psicología',            inv:39620, oc:20, gc:400000},
+  {id:'e9', tipo:'Eventos · Networking', sub:'Sem.', titulo:'2 Networking Events',             detalle:'Buen Fin Warm Up + HotSale Evolución',                   inv:54800, oc:35, gc:400000},
+  {id:'e10',tipo:'Alianzas · Partner',   sub:'Q1', titulo:'Tech Partners',                     detalle:'Koin, ClearSale, Jelou, Growlat, Envia.com',              inv:0,     oc:0,  gc:0},
+  {id:'e11',tipo:'Alianzas · Logística', sub:'Q1', titulo:'DHL + Cubbo + NetPay + Aplazo',    detalle:'Paquete completo alianzas estratégicas',                 inv:183000,oc:0,  gc:0},
+  {id:'e12',tipo:'Pipeline Directo',     sub:'Q1', titulo:'5 Merchants Q1',                    detalle:'JBL, julio.com, vertiche.mx, bellisima.mx, priveperfumeshn.com', inv:0, oc:5, gc:1200000},
+];
+const COCK=[
+  {id:'c1', tipo:'Campañas · Google',    sub:'Q2-Q3',titulo:'Google Ads – Escenario 1',        detalle:'Branding + Mantenimiento + Competidores · $8,620/mes',   inv:8620,  oc:6,  gc:200000},
+  {id:'c2', tipo:'Campañas · Google',    sub:'Q2-Q3',titulo:'Google Ads – Escenario 2',        detalle:'Branding + Mantenimiento + Competidores · $17,240/mes',  inv:17240, oc:14, gc:200000},
+  {id:'c3', tipo:'Eventos · Webinar',    sub:'Q2',   titulo:'Webinar: Marcas de moda',          detalle:'25 leads · $20,500 · conv. 10–30%',                      inv:20500, oc:25, gc:200000},
+  {id:'c4', tipo:'Eventos · Webinar',    sub:'Q3',   titulo:'Webinar: Alimentos y bebidas',     detalle:'25 leads · $20,500 · conv. 10–30%',                      inv:20500, oc:25, gc:200000},
+  {id:'c5', tipo:'Eventos · Webinar',    sub:'Q3',   titulo:'Webinar: Tecnología',              detalle:'25 leads · $34,000 · conv. 10–30%',                      inv:34000, oc:25, gc:200000},
+  {id:'c6', tipo:'Eventos · Desayuno',   sub:'Q3',   titulo:'Desayuno: Líderes de retail',      detalle:'20 leads · $28,000 · presencial',                        inv:28000, oc:20, gc:200000},
+  {id:'c7', tipo:'Eventos · Workshop',   sub:'Q4',   titulo:'Workshop: Construye tu tienda',    detalle:'20 leads · $30,000 · presencial',                        inv:30000, oc:20, gc:200000},
+  {id:'c8', tipo:'Alianzas · Tec MX',    sub:'Q2 Jul',titulo:'Workshop Incubadora Tec MX',      detalle:'15 leads · $18,000 · Edo. Méx.',                         inv:18000, oc:15, gc:200000},
+  {id:'c9', tipo:'Alianzas · Tec MX',    sub:'Q3 Sep',titulo:'Clínica Diagnóstico Digital',     detalle:'15 leads · $12,000 · sesiones 1:1',                     inv:12000, oc:15, gc:200000},
+  {id:'c10',tipo:'Alianzas · Tec MX',    sub:'Q4 Oct',titulo:'Mesa Innovación Digital',         detalle:'15 leads · $28,000 · por invitación',                   inv:28000, oc:15, gc:200000},
+  {id:'c11',tipo:'Pipeline Directo',     sub:'Q1-Q2',titulo:'12 Merchants Identificados',       detalle:'Gastronómico, Moda, Electrónica · 6 proyectados cerrar', inv:0,     oc:12, gc:1950000},
+];
+
+let S={};
+try{S=JSON.parse(localStorage.getItem('tn_v3')||'{}');}catch(e){}
+function save(){localStorage.setItem('tn_v3',JSON.stringify(S));stamp();}
+function gv(id,f){return S[id]?.[f]??'';}
+function sv(id,f,v){if(!S[id])S[id]={};S[id][f]=v;save();}
+
+function fmx(n){
+  if(!n&&n!==0)return'$0';
+  if(n>=1e6)return'$'+(n/1e6).toFixed(1).replace(/\.0$/,'')+'M';
+  if(n>=1000)return'$'+Math.round(n/1000)+'K';
+  return'$'+n.toLocaleString('es-MX');
+}
+function fn(n){return n?n.toLocaleString('es-MX'):'0';}
+function pp(a,b){return b>0?Math.min(100,Math.round(a/b*100)):0;}
+function cc(p){
+  if(p>=80)return'#c8ff57';
+  if(p>=40)return'#64c8ff';
+  if(p>0)return'#ffa032';
+  return'rgba(255,255,255,0.25)';
+}
+function bdg(p){
+  if(p===0) return`<div class="sbadge b-none">Sin inicio</div>`;
+  if(p<30)  return`<div class="sbadge b-start">En progreso</div>`;
+  if(p<80)  return`<div class="sbadge b-mid">Avanzando</div>`;
+  return`<div class="sbadge b-done">En meta ✓</div>`;
+}
+
+function mkCard(item){
+  const ow=parseFloat(gv(item.id,'ow'))||0;
+  const gw=parseFloat(gv(item.id,'gw'))||0;
+  const po=pp(ow,item.oc), pg=pp(gw,item.gc);
+  const co=cc(po), cg=cc(pg);
+  return`<div class="card" id="card-${item.id}">
+  <div class="card-top">
+    <div class="card-tipo">${item.tipo}</div>
+    <div class="card-time">${item.sub}</div>
+  </div>
+  <div class="card-titulo">${item.titulo}</div>
+  <div class="card-detalle">${item.detalle}</div>
+  <div class="mrow">
+    <div class="mbox">
+      <label>Opps logradas</label>
+      <input type="number" min="0" value="${ow||''}" placeholder="0" oninput="hi('${item.id}','ow',this.value)">
+      <div class="mc">meta: ${item.oc}</div>
+    </div>
+    <div class="mbox">
+      <label>GMV logrado</label>
+      <input type="number" min="0" value="${gw||''}" placeholder="0" oninput="hi('${item.id}','gw',this.value)">
+      <div class="mc">meta: ${fmx(item.gc)}</div>
+    </div>
+    <div class="mbox">
+      <label>Inversión real</label>
+      <input type="number" min="0" value="${parseFloat(gv(item.id,'inv'))||item.inv||''}" placeholder="0" oninput="hi('${item.id}','inv',this.value)">
+      <div class="mc">budget: ${fmx(item.inv)}</div>
+    </div>
+  </div>
+  ${item.oc>0?`<div class="prow">
+    <div class="plabel"><span>Opps</span><span id="pt-o-${item.id}" style="color:${co}">${po}%</span></div>
+    <div class="ptrack"><div class="pfill" id="pb-o-${item.id}" style="width:${po}%;background:${co}"></div></div>
+  </div>`:''}
+  ${item.gc>0?`<div class="prow">
+    <div class="plabel"><span id="pl-g-${item.id}">GMV ${fmx(gw)} / ${fmx(item.gc)}</span><span id="pt-g-${item.id}" style="color:${cg}">${pg}%</span></div>
+    <div class="ptrack"><div class="pfill" id="pb-g-${item.id}" style="width:${pg}%;background:${cg}"></div></div>
+  </div>`:''}
+  <div id="bdg-${item.id}">${bdg(Math.max(po,pg))}</div>
+</div>`;
+}
+
+function hi(id,field,raw){
+  const v=parseFloat(raw)||0;
+  sv(id,field,v);
+  const all=[...ENE,...COCK];
+  const item=all.find(x=>x.id===id);
+  if(!item)return;
+  if(field==='ow'){
+    const p=pp(v,item.oc),c=cc(p);
+    const pb=document.getElementById(`pb-o-${id}`);
+    const pt=document.getElementById(`pt-o-${id}`);
+    if(pb){pb.style.width=p+'%';pb.style.background=c;}
+    if(pt){pt.textContent=p+'%';pt.style.color=c;}
+  }
+  if(field==='gw'){
+    const p=pp(v,item.gc),c=cc(p);
+    const pb=document.getElementById(`pb-g-${id}`);
+    const pt=document.getElementById(`pt-g-${id}`);
+    const pl=document.getElementById(`pl-g-${id}`);
+    if(pb){pb.style.width=p+'%';pb.style.background=c;}
+    if(pt){pt.textContent=p+'%';pt.style.color=c;}
+    if(pl)pl.textContent=`GMV ${fmx(v)} / ${fmx(item.gc)}`;
+  }
+  const ow2=parseFloat(gv(id,'ow'))||0;
+  const gw2=parseFloat(gv(id,'gw'))||0;
+  const b=document.getElementById(`bdg-${id}`);
+  if(b)b.innerHTML=bdg(Math.max(pp(ow2,item.oc),pp(gw2,item.gc)));
+  upd();
+}
+
+function upd(){
+  let eGC=0,eGW=0,eLC=0,eLW=0;
+  ENE.forEach(i=>{eGC+=i.gc;eLC+=i.oc;eGW+=parseFloat(gv(i.id,'gw'))||0;eLW+=parseFloat(gv(i.id,'ow'))||0;});
+  let cGC=0,cGW=0,cLC=0,cLW=0;
+  COCK.forEach(i=>{cGC+=i.gc;cLC+=i.oc;cGW+=parseFloat(gv(i.id,'gw'))||0;cLW+=parseFloat(gv(i.id,'ow'))||0;});
+  const tGC=eGC+cGC,tGW=eGW+cGW,tLC=eLC+cLC,tLW=eLW+cLW;
+  document.getElementById('s-gmv-c').textContent=fmx(tGC);
+  document.getElementById('s-gmv-w').textContent=fmx(tGW);
+  document.getElementById('s-leads-c').textContent=fn(tLC);
+  document.getElementById('s-leads-w').textContent=fn(tLW);
+  document.getElementById('s-pct').textContent=pp(tGW,tGC)+'%';
+  const C=251.3, ep=pp(eGW,eGC), cp=pp(cGW,cGC);
+  document.getElementById('g-ene').style.strokeDashoffset=C-(C*ep/100);
+  document.getElementById('gp-ene').textContent=ep+'%';
+  document.getElementById('gv-ene').textContent=fmx(eGW);
+  document.getElementById('gm-ene').textContent='meta: '+fmx(eGC);
+  document.getElementById('gb-ene').style.width=ep+'%';
+  document.getElementById('g-cock').style.strokeDashoffset=C-(C*cp/100);
+  document.getElementById('gp-cock').textContent=cp+'%';
+  document.getElementById('gv-cock').textContent=fmx(cGW);
+  document.getElementById('gm-cock').textContent='meta: '+fmx(cGC);
+  document.getElementById('gb-cock').style.width=cp+'%';
+  tkr(tGW,tGC,ep,cp,tLW,tLC);
+}
+
+function tkr(gw,gc,ep,cp,lw,lc){
+  const its=[
+    `GMV Total · ${fmx(gw)} / ${fmx(gc)}`,
+    `EneConceptos · ${ep}% de su meta`,
+    `Cocktail Mktg · ${cp}% de su meta`,
+    `Leads · ${fn(lw)} / ${fn(lc)}`,
+    `Avance general · ${pp(gw,gc)}%`,
+    `Tiendanube Partner Program · 2026`,
+  ];
+  document.getElementById('ticker').innerHTML=[...its,...its].map(t=>`<div class="ticker-item"><b>▸</b> ${t}</div>`).join('');
+}
+
+function stamp(){
+  const n=new Date();
+  const s=`guardado ${n.toLocaleDateString('es-MX',{day:'2-digit',month:'short'})} ${n.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})}`;
+  ['lastUpdate','footerTs'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=s;});
+}
+
+document.getElementById('grid-ene').innerHTML=ENE.map(mkCard).join('');
+document.getElementById('grid-cock').innerHTML=COCK.map(mkCard).join('');
+document.querySelectorAll('.card').forEach((el,i)=>{el.style.animationDelay=(i*0.035)+'s';});
+upd();
+if(Object.keys(S).length)stamp();
+</script>
+</body>
+</html>
