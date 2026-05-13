@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa de Aceleración · Tiendanube MX</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue:#3B5BF6;
+  --blue-card:rgba(0,0,0,0.18);
+  --blue-card-border:rgba(255,255,255,0.13);
+  --lime:#C8FF47;
+  --w60:rgba(255,255,255,0.60);
+  --w35:rgba(255,255,255,0.35);
+  --w12:rgba(255,255,255,0.12);
+  --w07:rgba(255,255,255,0.07);
+  --ok:#4ADE80;--warn:#FACC15;--risk:#FF5B5B;
+}
+html,body{background:var(--blue);color:#fff;font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* ─── PANTALLA DE SELECCIÓN ─── */
+#selector-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+#selector-screen.hidden{display:none;}
+.sel-logo{display:flex;align-items:center;gap:10px;margin-bottom:48px;}
+.sel-logo-t{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;}
+.sel-pill{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.3);border-radius:100px;padding:6px 18px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:24px;}
+.sel-h1{font-family:'Sora',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.03em;text-align:center;margin-bottom:8px;}
+.sel-h2{font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:300;font-style:italic;color:rgba(255,255,255,.45);text-align:center;margin-bottom:48px;}
+.sel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;width:100%;max-width:900px;margin-bottom:32px;}
+.sel-card{background:var(--blue-card);border:1.5px solid var(--blue-card-border);border-radius:16px;padding:20px 18px;cursor:pointer;transition:all .2s;text-align:center;}
+.sel-card:hover{border-color:rgba(200,255,71,.5);transform:translateY(-3px);}
+.sel-card-name{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:4px;}
+.sel-card-sub{font-size:11px;color:var(--w35);}
+.sel-card-icon{font-size:28px;margin-bottom:10px;}
+.sel-admin{background:rgba(200,255,71,.1);border:1.5px solid rgba(200,255,71,.3);cursor:pointer;}
+.sel-admin:hover{background:rgba(200,255,71,.18);}
+.sel-admin .sel-card-name{color:var(--lime);}
+.sel-note{font-size:11px;color:var(--w35);text-align:center;}
+
+/* ─── PANTALLA PIN ─── */
+#pin-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+#pin-screen.hidden{display:none;}
+.pin-box{background:var(--blue-card);border:1.5px solid var(--blue-card-border);border-radius:20px;padding:36px 40px;text-align:center;max-width:360px;width:100%;}
+.pin-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px;}
+.pin-sub{font-size:13px;color:var(--w60);margin-bottom:28px;}
+.pin-dots{display:flex;gap:12px;justify-content:center;margin-bottom:24px;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--w35);transition:all .2s;}
+.pin-dot.filled{background:var(--lime);border-color:var(--lime);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.pin-btn{background:rgba(0,0,0,.2);border:1.5px solid var(--w12);border-radius:12px;padding:16px;font-family:'Sora',sans-serif;font-size:20px;font-weight:600;color:#fff;cursor:pointer;transition:all .15s;}
+.pin-btn:hover{background:rgba(255,255,255,.1);border-color:var(--w35);}
+.pin-btn:active{transform:scale(.95);}
+.pin-btn.del{font-size:14px;color:var(--w60);}
+.pin-error{font-size:12px;color:var(--risk);height:16px;margin-bottom:8px;}
+.pin-back{font-size:12px;color:var(--w35);cursor:pointer;text-decoration:underline;margin-top:8px;}
+.pin-back:hover{color:#fff;}
+
+/* ─── HEADER ─── */
+#dashboard{display:none;}
+#dashboard.visible{display:block;}
+.hdr{padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-t{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.02em;}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.wpill{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.3);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:500;color:rgba(255,255,255,.85);}
+.wdot{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
+.switch-btn{background:rgba(0,0,0,.2);border:1.5px solid var(--w12);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--w60);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.switch-btn:hover{border-color:var(--lime);color:var(--lime);}
+
+/* ─── HERO ─── */
+.hero{padding:36px 48px 30px;text-align:center;}
+.hero-agency{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.3);border-radius:100px;padding:6px 18px;margin-bottom:18px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8);}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(32px,4.5vw,56px);font-weight:800;letter-spacing:-.03em;margin-bottom:6px;}
+.hero h2{font-family:'Sora',sans-serif;font-size:clamp(18px,2.5vw,32px);font-weight:300;font-style:italic;color:rgba(255,255,255,.45);letter-spacing:-.02em;}
+
+/* ─── GLOBAL STATS ─── */
+.gstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:24px 48px 36px;}
+.gs{background:var(--blue-card);border:1.5px solid var(--blue-card-border);border-radius:16px;padding:20px 16px;text-align:center;}
+.gs-val{font-family:'Sora',sans-serif;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:var(--lime);letter-spacing:-.03em;line-height:1;margin-bottom:6px;}
+.gs-lbl{font-size:12px;color:var(--w60);line-height:1.4;}
+
+/* ─── BODY ─── */
+.body{background:rgba(0,0,0,0.22);border-top:1px solid var(--w12);padding:36px 48px 52px;}
+
+/* ─── SECTION TITLE ─── */
+.stitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.stitle::after{content:'';flex:1;height:1px;background:rgba(200,255,71,.2);}
+
+/* ─── GMV POR Q ─── */
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px;}
+.qc{background:var(--blue-card);border:1.5px solid var(--blue-card-border);border-radius:16px;padding:20px 16px;}
+.qc-q{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lime);}
+.qc-p{font-size:10px;color:var(--w35);margin-bottom:12px;}
+.qc-meta-lbl{font-size:10px;color:var(--w35);margin-bottom:2px;}
+.qc-meta{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:4px;}
+.bar-w{background:rgba(255,255,255,.1);border-radius:100px;height:5px;overflow:hidden;margin:8px 0;}
+.bar-f{height:5px;border-radius:100px;transition:width .6s ease;}
+.qc-real{font-family:'Sora',sans-serif;font-size:14px;font-weight:600;}
+.qc-pct{font-size:11px;margin-top:4px;}
+.qc-opps{font-size:11px;color:var(--w60);margin-top:8px;padding-top:8px;border-top:1px solid var(--w07);}
+.pok{color:var(--ok);}.pwarn{color:var(--warn);}.prisk{color:var(--risk);}.ppend{color:var(--w35);}
+
+/* ─── FILTROS DE ACTIVACIÓN ─── */
+.act-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.afbtn{background:rgba(0,0,0,.2);border:1.5px solid var(--w12);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--w60);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.afbtn:hover{border-color:var(--w35);color:#fff;}
+.afbtn.on{background:var(--lime);border-color:var(--lime);color:#0B1A00;font-weight:700;}
+
+/* ─── TABLA DE ACTIVACIONES ─── */
+.act-table-wrap{overflow-x:auto;border-radius:16px;border:1.5px solid var(--blue-card-border);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{background:rgba(0,0,0,.35);}
+th{padding:12px 14px;text-align:left;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--w35);white-space:nowrap;border-bottom:1px solid var(--w07);}
+tbody tr{border-bottom:1px solid var(--w07);transition:background .15s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.04);}
+td{padding:12px 14px;color:rgba(255,255,255,.8);vertical-align:middle;}
+td.tipo{font-weight:500;color:#fff;}
+.tipo-badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;letter-spacing:.04em;}
+.t-camp{background:rgba(59,91,246,.3);color:#8BA4FF;}
+.t-event{background:rgba(74,222,128,.15);color:#4ADE80;}
+.t-tech{background:rgba(250,204,21,.15);color:#FACC15;}
+.t-alia{background:rgba(255,91,91,.15);color:#FF9090;}
+.t-venta{background:rgba(200,255,71,.15);color:#C8FF47;}
+.t-cont{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);}
+.num{font-family:'Sora',sans-serif;font-weight:600;color:var(--lime);}
+.num-muted{font-family:'Sora',sans-serif;color:var(--w60);}
+.progress-cell{min-width:100px;}
+.mini-bar-w{background:rgba(255,255,255,.08);border-radius:100px;height:4px;overflow:hidden;margin-top:4px;}
+.mini-bar-f{height:4px;border-radius:100px;}
+.q-tag{display:inline-block;background:rgba(44,104,246,.25);color:#8BA4FF;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
+
+/* ─── TOTALES POR TIPO ─── */
+.totales-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:28px;}
+.tot-card{background:var(--blue-card);border:1.5px solid var(--blue-card-border);border-radius:12px;padding:14px 16px;}
+.tot-tipo{font-size:10px;font-weight:600;margin-bottom:6px;}
+.tot-inv{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:-.02em;}
+.tot-lbl{font-size:10px;color:var(--w35);margin-top:2px;}
+
+/* ─── VISTA ADMIN: grid de agencias ─── */
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
+.admin-card{background:var(--blue-card);border:1.5px solid var(--blue-card-border);border-radius:16px;overflow:hidden;transition:all .2s;cursor:pointer;}
+.admin-card:hover{border-color:rgba(200,255,71,.3);transform:translateY(-2px);}
+.admin-card-hdr{padding:16px 20px;border-bottom:1px solid var(--w07);display:flex;align-items:center;justify-content:space-between;}
+.admin-card-name{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;}
+.admin-card-sub{font-size:11px;color:var(--w35);margin-top:2px;}
+.badge{font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;letter-spacing:.04em;white-space:nowrap;}
+.b-ok{background:rgba(74,222,128,.18);color:#4ADE80;}
+.b-warn{background:rgba(250,204,21,.18);color:#FACC15;}
+.b-risk{background:rgba(255,91,91,.18);color:#FF5B5B;}
+.b-pend{background:rgba(255,255,255,.09);color:rgba(255,255,255,.45);}
+.admin-card-body{padding:16px 20px;}
+.admin-qrow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
+.admin-qb{text-align:center;background:rgba(0,0,0,.2);border-radius:8px;padding:8px 4px;}
+.admin-qb-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--w35);}
+.admin-qb-m{font-size:10px;color:var(--w60);margin:2px 0;}
+.admin-qb-bw{background:rgba(255,255,255,.07);border-radius:100px;height:3px;overflow:hidden;margin:3px 0;}
+.admin-qb-bf{height:3px;border-radius:100px;}
+.admin-qb-r{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--lime);}
+.admin-mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.admin-mb{background:rgba(0,0,0,.15);border:1px solid var(--w07);border-radius:8px;padding:10px 10px;}
+.admin-mb-l{font-size:9px;color:var(--w35);margin-bottom:3px;}
+.admin-mb-v{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.02em;}
+.admin-mb-p{font-size:10px;font-weight:600;margin-top:2px;}
+.blank-card{opacity:.4;}
+.blank-body{padding:32px;text-align:center;font-size:12px;color:var(--w35);}
+
+/* ─── FOOTER ─── */
+.footer{background:rgba(0,0,0,.2);border-top:1px solid var(--w07);padding:16px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--w35);}
+.footer strong{color:var(--lime);}
+
+@media(max-width:720px){
+  .hdr,.hero,.gstats,.body,.footer{padding-left:18px;padding-right:18px;}
+  .gstats,.qgrid{grid-template-columns:repeat(2,1fr);}
+  .admin-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+  ⚙️  ZONA DE DATOS — EDITA SOLO AQUÍ CADA SEMANA
+  ══════════════════════════════════════════════════ -->
+<script>
+const SEMANA = "Semana 1 · Mayo 2026";
+
+// PIN de admin (para ver todas las agencias)
+const PIN_ADMIN = "1234";
+
+const AGENCIAS = [
+  {
+    id: "fideliza",
+    nombre: "Fideliza",
+    pin: "0001",           // ← PIN exclusivo de esta agencia
+    ciudad: "Culiacán, Sinaloa",
+    verticales: "Salud · Alimentos · Moda",
+    // GMV comprometido y real por Q
+    gmv: {
+      q1:{ meta:750000,  real:0, opps_meta:14, opps_real:0 },
+      q2:{ meta:1200000, real:0, opps_meta:12, opps_real:0 },
+      q3:{ meta:1300000, real:0, opps_meta:10, opps_real:0 },
+      q4:{ meta:1500000, real:0, opps_meta:8,  opps_real:0 },
+    },
+    // Activaciones: tipo, sub, detalle, tiempo, inversión, opps meta, opps real
+    activaciones: [
+      { tipo:"Campañas",  sub:"Meta Ads",           detalle:"Facebook + Instagram captación",  tiempo:"Q1–Q4", inversion:130000, opps_meta:44,  opps_real:0 },
+      { tipo:"Campañas",  sub:"Google Ads",          detalle:"Search B2B SEM",                  tiempo:"Q1–Q4", inversion:97000,  opps_meta:38,  opps_real:0 },
+      { tipo:"Campañas",  sub:"Creatividades",       detalle:"Producción de piezas y assets",   tiempo:"Q1–Q4", inversion:43000,  opps_meta:0,   opps_real:0 },
+      { tipo:"Campañas",  sub:"Retargeting",         detalle:"Optimización y remarketing",      tiempo:"Q2–Q4", inversion:15000,  opps_meta:0,   opps_real:0 },
+      { tipo:"Eventos",   sub:"Webinars",            detalle:"3 webinars/Q · verticales rotativas", tiempo:"Q1–Q4", inversion:48000, opps_meta:120, opps_real:0 },
+      { tipo:"Eventos",   sub:"Desayunos ejecutivos",detalle:"CUL · MTY · HMO · GDL",          tiempo:"Q1–Q4", inversion:83000,  opps_meta:72,  opps_real:0 },
+      { tipo:"Eventos",   sub:"AMVO E-commerce Day", detalle:"Participación + networking",      tiempo:"Q2",    inversion:27000,  opps_meta:30,  opps_real:0 },
+      { tipo:"Eventos",   sub:"Expo CANACINTRA",     detalle:"Sponsor vertical alimentos",      tiempo:"Q3",    inversion:17000,  opps_meta:25,  opps_real:0 },
+      { tipo:"Tech",      sub:"Playbooks verticales",detalle:"S&B · Alimentos · Moda (Clientify)", tiempo:"Q1–Q2", inversion:20000, opps_meta:0,  opps_real:0 },
+      { tipo:"Tech",      sub:"Dashboard ejecutivo", detalle:"KPIs unificados merchant",        tiempo:"Q2",    inversion:15000,  opps_meta:0,   opps_real:0 },
+      { tipo:"Tech",      sub:"Templates mensajería",detalle:"WhatsApp · Email · SMS",          tiempo:"Q2",    inversion:8000,   opps_meta:0,   opps_real:0 },
+      { tipo:"Contenido", sub:"Oveja Negra",         detalle:"Producción de contenido",         tiempo:"Q1–Q4", inversion:40000,  opps_meta:0,   opps_real:0 },
+      { tipo:"Contenido", sub:"Materiales ventas",   detalle:"Demos y materiales comerciales",  tiempo:"Q1–Q4", inversion:20000,  opps_meta:0,   opps_real:0 },
+      { tipo:"Alianzas",  sub:"CANACO / CANACINTRA", detalle:"Convenios regionales Noroeste",   tiempo:"Permanente", inversion:0, opps_meta:30, opps_real:0 },
+      { tipo:"Alianzas",  sub:"Gremios sectoriales", detalle:"AMVO · Moda · Alimentos",         tiempo:"Permanente", inversion:0, opps_meta:20, opps_real:0 },
+      { tipo:"Ventas",    sub:"Pipeline directo",    detalle:"14 merchants identificados Noroeste+JAL/NL", tiempo:"Permanente", inversion:0, opps_meta:14, opps_real:0 },
+    ]
+  },
+  // ─── AGREGA AQUÍ LAS SIGUIENTES AGENCIAS ─────────────────────────
+  // Copia el bloque completo de Fideliza y rellena sus datos
+  // ─────────────────────────────────────────────────────────────────
+  {
+    id: "estudiomerca",
+    nombre: "Estudio Merca",
+    pin: "0002",
+    ciudad: "CDMX",
+    verticales: "Automotriz · Moda · Salud · Calzado",
+    gmv: {
+      q1:{ meta:1640000, real:0, opps_meta:6,  opps_real:0 },
+      q2:{ meta:1900000, real:0, opps_meta:8,  opps_real:0 },
+      q3:{ meta:1250000, real:0, opps_meta:7,  opps_real:0 },
+      q4:{ meta:1600000, real:0, opps_meta:7,  opps_real:0 },
+    },
+    activaciones: [
+      { tipo:"Campañas",  sub:"Meta Ads",               detalle:"Lead gen D2C merchants · campaña El Momento es Hoy", tiempo:"May–Dic 2026", inversion:16667, opps_meta:60,  opps_real:0 },
+      { tipo:"Campañas",  sub:"Google Ads",              detalle:"Search B2B captación merchants",                     tiempo:"May–Dic 2026", inversion:16667, opps_meta:60,  opps_real:0 },
+      { tipo:"Campañas",  sub:"LinkedIn Ads",            detalle:"Captación perfil directivo / industrial",            tiempo:"May–Dic 2026", inversion:16667, opps_meta:40,  opps_real:0 },
+      { tipo:"Campañas",  sub:"Producción El Momento es Hoy", detalle:"14 episodios storytelling · video + diseño",   tiempo:"Abr–Dic 2026", inversion:50000, opps_meta:0,   opps_real:0 },
+      { tipo:"Eventos",   sub:"Evento León / SFR",       detalle:"Industria calzado · cuero · sombrero",              tiempo:"Jun 2026",     inversion:50000, opps_meta:25,  opps_real:0 },
+      { tipo:"Eventos",   sub:"Desayuno Automotriz CDMX",detalle:"Distribuidores y retailers automotriz",             tiempo:"Ago 2026",     inversion:50000, opps_meta:20,  opps_real:0 },
+      { tipo:"Eventos",   sub:"RUJAC Guadalajara",       detalle:"Presentación ClicknCompat · directivos automotriz", tiempo:"Ago 2026",     inversion:70000, opps_meta:30,  opps_real:0 },
+      { tipo:"Eventos",   sub:"MeLiXP",                  detalle:"Stand Estudio Merca · conversión sellers ML a D2C ⚠ sin presupuesto aprobado", tiempo:"Sep 2026", inversion:0, opps_meta:50, opps_real:0 },
+      { tipo:"Eventos",   sub:"Webinars Estudio Nube",   detalle:"6 sesiones · 30–60 asistentes c/u",                tiempo:"May–Dic 2026", inversion:0,     opps_meta:80,  opps_real:0 },
+      { tipo:"Tech",      sub:"ClicknCompat",            detalle:"Solución catálogos automotriz + compatibilidades",  tiempo:"Inmediato",    inversion:60000, opps_meta:0,   opps_real:0 },
+      { tipo:"Tech",      sub:"EM Tools",                detalle:"Importación SKUs ML · carga masiva · descuentos",   tiempo:"Inmediato",    inversion:31500, opps_meta:0,   opps_real:0 },
+      { tipo:"Alianzas",  sub:"ARIDRA",                  detalle:"+500 miembros · evento patrocinado + referidos",    tiempo:"Permanente",   inversion:0,     opps_meta:30,  opps_real:0 },
+      { tipo:"Alianzas",  sub:"COPARMEX (Hidalgo · León · SFR)", detalle:"Talleres + difusión + leads",             tiempo:"Permanente",   inversion:0,     opps_meta:25,  opps_real:0 },
+      { tipo:"Alianzas",  sub:"Red Raziel Soni",         detalle:"Medios y referentes automotrices · ex ML",         tiempo:"Permanente",   inversion:0,     opps_meta:15,  opps_real:0 },
+      { tipo:"Alianzas",  sub:"Red Karen del Águila",    detalle:"Calzado · cuero · sombrero · industria musical",   tiempo:"Permanente",   inversion:0,     opps_meta:15,  opps_real:0 },
+      { tipo:"Ventas",    sub:"Pipeline Grupo A",        detalle:"Canelo · MLD · Esentials · Líder Can · Dorman · Gardent", tiempo:"Q1–Q2", inversion:0,    opps_meta:6,   opps_real:0 },
+      { tipo:"Ventas",    sub:"Pipeline Grupo B",        detalle:"13 merchants activos: Mikels · CMLL · Schaeffler · VW · Hyundai + más", tiempo:"Q2–Q4", inversion:0, opps_meta:13, opps_real:0 },
+      { tipo:"Ventas",    sub:"Equipo Comercial",        detalle:"Raziel Soni + Karen del Águila + Amalia Orozco",   tiempo:"Abr–Sep 2026", inversion:200000,opps_meta:0,  opps_real:0 },
+    ]
+  },
+  { id:"ag3", nombre:"Agencia 3", pin:"0003", ciudad:"—", verticales:"—", gmv:{q1:{meta:0,real:0,opps_meta:0,opps_real:0},q2:{meta:0,real:0,opps_meta:0,opps_real:0},q3:{meta:0,real:0,opps_meta:0,opps_real:0},q4:{meta:0,real:0,opps_meta:0,opps_real:0}}, activaciones:[] },
+  { id:"ag4", nombre:"Agencia 4", pin:"0004", ciudad:"—", verticales:"—", gmv:{q1:{meta:0,real:0,opps_meta:0,opps_real:0},q2:{meta:0,real:0,opps_meta:0,opps_real:0},q3:{meta:0,real:0,opps_meta:0,opps_real:0},q4:{meta:0,real:0,opps_meta:0,opps_real:0}}, activaciones:[] },
+  { id:"ag5", nombre:"Agencia 5", pin:"0005", ciudad:"—", verticales:"—", gmv:{q1:{meta:0,real:0,opps_meta:0,opps_real:0},q2:{meta:0,real:0,opps_meta:0,opps_real:0},q3:{meta:0,real:0,opps_meta:0,opps_real:0},q4:{meta:0,real:0,opps_meta:0,opps_real:0}}, activaciones:[] },
+  { id:"ag6", nombre:"Agencia 6", pin:"0006", ciudad:"—", verticales:"—", gmv:{q1:{meta:0,real:0,opps_meta:0,opps_real:0},q2:{meta:0,real:0,opps_meta:0,opps_real:0},q3:{meta:0,real:0,opps_meta:0,opps_real:0},q4:{meta:0,real:0,opps_meta:0,opps_real:0}}, activaciones:[] },
+  { id:"ag7", nombre:"Agencia 7", pin:"0007", ciudad:"—", verticales:"—", gmv:{q1:{meta:0,real:0,opps_meta:0,opps_real:0},q2:{meta:0,real:0,opps_meta:0,opps_real:0},q3:{meta:0,real:0,opps_meta:0,opps_real:0},q4:{meta:0,real:0,opps_meta:0,opps_real:0}}, activaciones:[] },
+];
+// ── FIN ZONA DE DATOS ─────────────────────────────────────────────
+
+// ── HELPERS ──────────────────────────────────────────────────────
+const QS=[{k:'q1',l:'Q1',p:'Jul–Sep 2026'},{k:'q2',l:'Q2',p:'Oct–Dic 2026'},{k:'q3',l:'Q3',p:'Ene–Mar 2027'},{k:'q4',l:'Q4',p:'Abr–Jun 2027'}];
+const fmt=n=>n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1000?'$'+(n/1000).toFixed(0)+'K':n===0?'—':'$'+n;
+const pct=(r,m)=>m>0?Math.min(Math.round(r/m*100),999):0;
+const bc=p=>p===0?'rgba(255,255,255,.12)':p>=100?'#4ADE80':p>=70?'#FACC15':'#FF5B5B';
+const pc=p=>p===0?'ppend':p>=100?'pok':p>=70?'pwarn':'prisk';
+const totGMV=a=>QS.reduce((s,q)=>s+a.gmv[q.k].meta,0);
+const totReal=a=>QS.reduce((s,q)=>s+a.gmv[q.k].real,0);
+const totOppsM=a=>QS.reduce((s,q)=>s+a.gmv[q.k].opps_meta,0);
+const totOppsR=a=>QS.reduce((s,q)=>s+a.gmv[q.k].opps_real,0);
+const totInv=a=>a.activaciones.reduce((s,x)=>s+x.inversion,0);
+function st(p){
+  if(!p)    return{t:'Pendiente',  c:'b-pend'};
+  if(p>=100)return{t:'✓ En meta',  c:'b-ok'};
+  if(p>=70) return{t:'⚠ En riesgo',c:'b-warn'};
+  return         {t:'✗ Bajo meta', c:'b-risk'};
+}
+const tipoBadge={
+  'Campañas':'t-camp','Eventos':'t-event','Tech':'t-tech',
+  'Alianzas':'t-alia','Ventas':'t-venta','Contenido':'t-cont'
+};
+
+// ── ESTADO ───────────────────────────────────────────────────────
+let currentAgencia=null;
+let pinBuffer='';
+let pendingAgencia=null;
+
+// ── SELECTOR ─────────────────────────────────────────────────────
+function buildSelector(){
+  const g=document.getElementById('sel-grid');
+  // Agencias
+  const cards=AGENCIAS.map(a=>`
+    <div class="sel-card" onclick="requestPin('${a.id}')">
+      <div class="sel-card-icon">🏢</div>
+      <div class="sel-card-name">${a.nombre}</div>
+      <div class="sel-card-sub">${a.ciudad}</div>
+    </div>`).join('');
+  // Admin
+  const admin=`<div class="sel-card sel-admin" onclick="requestPin('admin')">
+    <div class="sel-card-icon">⚙️</div>
+    <div class="sel-card-name">Vista Admin</div>
+    <div class="sel-card-sub">Tiendanube · Todas las agencias</div>
+  </div>`;
+  g.innerHTML=cards+admin;
+}
+
+function requestPin(id){
+  pendingAgencia=id;
+  pinBuffer='';
+  updatePinDots();
+  const a=id==='admin'?null:AGENCIAS.find(x=>x.id===id);
+  document.getElementById('pin-title').textContent=id==='admin'?'Vista Admin':(a?a.nombre:'');
+  document.getElementById('pin-sub').textContent='Ingresa tu PIN de acceso';
+  document.getElementById('pin-error').textContent='';
+  document.getElementById('selector-screen').classList.add('hidden');
+  document.getElementById('pin-screen').classList.remove('hidden');
+}
+
+function goSelector(){
+  document.getElementById('pin-screen').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('selector-screen').classList.remove('hidden');
+  currentAgencia=null; pinBuffer=''; pendingAgencia=null;
+}
+
+// ── PIN ───────────────────────────────────────────────────────────
+function pinPress(v){
+  if(pinBuffer.length>=4)return;
+  pinBuffer+=v;
+  updatePinDots();
+  if(pinBuffer.length===4) setTimeout(checkPin,150);
+}
+function pinDel(){pinBuffer=pinBuffer.slice(0,-1);updatePinDots();}
+function updatePinDots(){
+  document.querySelectorAll('.pin-dot').forEach((d,i)=>{
+    d.classList.toggle('filled',i<pinBuffer.length);
+  });
+}
+function checkPin(){
+  const correct=pendingAgencia==='admin'
+    ?pinBuffer===PIN_ADMIN
+    :AGENCIAS.find(x=>x.id===pendingAgencia)?.pin===pinBuffer;
+  if(correct){
+    currentAgencia=pendingAgencia==='admin'?'admin':AGENCIAS.find(x=>x.id===pendingAgencia);
+    document.getElementById('pin-screen').classList.add('hidden');
+    buildDashboard();
+    document.getElementById('dashboard').classList.add('visible');
+  } else {
+    document.getElementById('pin-error').textContent='PIN incorrecto. Intenta de nuevo.';
+    pinBuffer=''; updatePinDots();
+  }
+}
+
+// ── DASHBOARD ────────────────────────────────────────────────────
+function buildDashboard(){
+  document.getElementById('sem-txt').textContent=SEMANA;
+
+  if(currentAgencia==='admin'){
+    buildAdmin();
+  } else {
+    buildAgencia(currentAgencia);
+  }
+}
+
+// ── VISTA AGENCIA ─────────────────────────────────────────────────
+function buildAgencia(a){
+  document.getElementById('dash-agency-name').textContent=a.nombre;
+  document.getElementById('dash-agency-sub').textContent=a.ciudad+' · '+a.verticales;
+
+  // Global stats
+  const gm=totGMV(a),gr=totReal(a),om=totOppsM(a),or_=totOppsR(a),inv=totInv(a);
+  const p=pct(gr,gm);
+  document.getElementById('gs1').textContent=fmt(gm);
+  document.getElementById('gs2').textContent=fmt(gr);
+  document.getElementById('gs3').textContent=or_+'/'+om;
+  document.getElementById('gs4').textContent=fmt(inv);
+
+  // Q cards
+  document.getElementById('qgrid').innerHTML=QS.map(q=>{
+    const d=a.gmv[q.k],pp=pct(d.real,d.meta),bw=Math.min(pp,100);
+    return`<div class="qc">
+      <div class="qc-q">${q.l}</div><div class="qc-p">${q.p}</div>
+      <div class="qc-meta-lbl">GMV meta</div>
+      <div class="qc-meta">${fmt(d.meta)}</div>
+      <div class="bar-w"><div class="bar-f" style="width:${bw}%;background:${bc(pp)}"></div></div>
+      <div class="qc-real" style="color:${bc(pp)}">${fmt(d.real)}</div>
+      <div class="qc-pct ${pc(pp)}">${pp}% cumplido</div>
+      <div class="qc-opps">Opps: <strong style="color:#fff">${d.opps_real}</strong> / ${d.opps_meta} meta</div>
+    </div>`;
+  }).join('');
+
+  // Tabla activaciones
+  renderTablaActivaciones(a, 'all');
+
+  // Filtros
+  document.querySelectorAll('.afbtn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.afbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      renderTablaActivaciones(a, b.dataset.t);
+    });
+  });
+
+  // Totales por tipo
+  const tipos=['Campañas','Eventos','Tech','Contenido','Alianzas','Ventas'];
+  document.getElementById('totales-tipo').innerHTML=tipos.map(t=>{
+    const acts=a.activaciones.filter(x=>x.tipo===t);
+    const inv_t=acts.reduce((s,x)=>s+x.inversion,0);
+    const opps_t=acts.reduce((s,x)=>s+x.opps_meta,0);
+    return`<div class="tot-card">
+      <div class="tot-tipo"><span class="tipo-badge ${tipoBadge[t]||'t-cont'}">${t}</span></div>
+      <div class="tot-inv">${fmt(inv_t)}</div>
+      <div class="tot-lbl">inversión · ${opps_t} opps meta</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('view-agencia').style.display='';
+  document.getElementById('view-admin').style.display='none';
+}
+
+function renderTablaActivaciones(a, filtro){
+  const acts=filtro==='all'?a.activaciones:a.activaciones.filter(x=>x.tipo===filtro);
+  if(!acts.length){
+    document.getElementById('act-tbody').innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--w35);padding:28px">Sin activaciones en esta categoría</td></tr>`;
+    return;
+  }
+  document.getElementById('act-tbody').innerHTML=acts.map(x=>{
+    const pp=pct(x.opps_real,x.opps_meta),bw=Math.min(pp,100);
+    const oppsCell=x.opps_meta>0
+      ?`<div style="font-size:13px;font-weight:600;color:${bc(pp)}">${x.opps_real}/${x.opps_meta}</div>
+        <div class="mini-bar-w"><div class="mini-bar-f" style="width:${bw}%;background:${bc(pp)}"></div></div>`
+      :`<span style="color:var(--w35)">—</span>`;
+    const invCell=x.inversion>0?`<span class="num">${fmt(x.inversion)}</span>`:`<span style="color:var(--w35)">—</span>`;
+    return`<tr>
+      <td><span class="tipo-badge ${tipoBadge[x.tipo]||'t-cont'}">${x.tipo}</span></td>
+      <td class="tipo">${x.sub}</td>
+      <td style="color:var(--w60);font-size:12px">${x.detalle}</td>
+      <td><span class="q-tag">${x.tiempo}</span></td>
+      <td>${invCell}</td>
+      <td class="progress-cell">${oppsCell}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── VISTA ADMIN ───────────────────────────────────────────────────
+function buildAdmin(){
+  document.getElementById('view-agencia').style.display='none';
+  document.getElementById('view-admin').style.display='';
+
+  // Global totales
+  const gm=AGENCIAS.reduce((s,a)=>s+totGMV(a),0);
+  const gr=AGENCIAS.reduce((s,a)=>s+totReal(a),0);
+  const om=AGENCIAS.reduce((s,a)=>s+totOppsM(a),0);
+  const or_=AGENCIAS.reduce((s,a)=>s+totOppsR(a),0);
+  const inv=AGENCIAS.reduce((s,a)=>s+totInv(a),0);
+  document.getElementById('gs1').textContent=fmt(gm);
+  document.getElementById('gs2').textContent=fmt(gr);
+  document.getElementById('gs3').textContent=or_+'/'+om;
+  document.getElementById('gs4').textContent=fmt(inv);
+  document.getElementById('dash-agency-name').textContent='Vista Admin · Todas las Agencias';
+  document.getElementById('dash-agency-sub').textContent='Tiendanube MX · Cohort 1';
+
+  // Q totales
+  document.getElementById('qgrid').innerHTML=QS.map(q=>{
+    const m=AGENCIAS.reduce((s,a)=>s+a.gmv[q.k].meta,0);
+    const r=AGENCIAS.reduce((s,a)=>s+a.gmv[q.k].real,0);
+    const pp=pct(r,m),bw=Math.min(pp,100);
+    const act=AGENCIAS.filter(a=>a.gmv[q.k].meta>0).length;
+    return`<div class="qc">
+      <div class="qc-q">${q.l}</div><div class="qc-p">${q.p}</div>
+      <div class="qc-meta-lbl">GMV meta total</div>
+      <div class="qc-meta">${fmt(m)}</div>
+      <div class="bar-w"><div class="bar-f" style="width:${bw}%;background:${bc(pp)}"></div></div>
+      <div class="qc-real" style="color:${bc(pp)}">${fmt(r)}</div>
+      <div class="qc-pct ${pc(pp)}">${pp}% cumplido</div>
+      <div class="qc-opps">${act} agencias activas</div>
+    </div>`;
+  }).join('');
+
+  // Cards de agencias
+  document.getElementById('admin-grid').innerHTML=AGENCIAS.map(a=>{
+    const m=totGMV(a),r=totReal(a),om=totOppsM(a),or_=totOppsR(a),inv=totInv(a);
+    const p=pct(r,m), s=st(p);
+    if(!m) return`<div class="admin-card blank-card">
+      <div class="admin-card-hdr"><div><div class="admin-card-name">${a.nombre}</div><div class="admin-card-sub">BP pendiente</div></div><span class="badge b-pend">Pendiente</span></div>
+      <div class="blank-body">Por incorporar</div></div>`;
+    const qs=QS.map(q=>{const d=a.gmv[q.k],pp=pct(d.real,d.meta),bw=Math.min(pp,100);return`
+      <div class="admin-qb">
+        <div class="admin-qb-l">${q.l}</div>
+        <div class="admin-qb-m">${fmt(d.meta)}</div>
+        <div class="admin-qb-bw"><div class="admin-qb-bf" style="width:${bw}%;background:${bc(pp)}"></div></div>
+        <div class="admin-qb-r">${fmt(d.real)}</div>
+      </div>`;}).join('');
+    return`<div class="admin-card" onclick="drillAgencia('${a.id}')">
+      <div class="admin-card-hdr">
+        <div><div class="admin-card-name">${a.nombre}</div><div class="admin-card-sub">${a.ciudad}</div></div>
+        <span class="badge ${s.c}">${s.t}</span>
+      </div>
+      <div class="admin-card-body">
+        <div class="admin-qrow">${qs}</div>
+        <div class="admin-mrow">
+          <div class="admin-mb"><div class="admin-mb-l">GMV real</div><div class="admin-mb-v">${fmt(r)}</div><div class="admin-mb-p ${pc(p)}">${p}%</div></div>
+          <div class="admin-mb"><div class="admin-mb-l">Opps</div><div class="admin-mb-v">${or_}/${om}</div><div class="admin-mb-p ${pc(pct(or_,om))}">${pct(or_,om)}%</div></div>
+          <div class="admin-mb"><div class="admin-mb-l">Inversión</div><div class="admin-mb-v">${fmt(inv)}</div><div class="admin-mb-p ppend">total</div></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function drillAgencia(id){
+  const a=AGENCIAS.find(x=>x.id===id);
+  if(!a) return;
+  currentAgencia=a;
+  buildAgencia(a);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{buildSelector();});
+</script>
+
+<!-- ─── SELECTOR ─── -->
+<div id="selector-screen">
+  <div class="sel-logo">
+    <svg width="26" height="19" viewBox="0 0 40 28" fill="none"><path d="M20 0C13.4 0 8 5 8 11.2c0 4.4 2.6 8.2 6.4 10.1L20 28l5.6-6.7C29.4 19.4 32 15.6 32 11.2 32 5 26.6 0 20 0zm0 16.8c-3.1 0-5.6-2.5-5.6-5.6S16.9 5.6 20 5.6s5.6 2.5 5.6 5.6-2.5 5.6-5.6 5.6z" fill="white"/></svg>
+    <span class="sel-logo-t">tiendanube</span>
+  </div>
+  <div class="sel-pill">Programa de Aceleración · Cohort 1</div>
+  <h1 class="sel-h1">¿Quién eres?</h1>
+  <h2 class="sel-h2">selecciona tu agencia para continuar.</h2>
+  <div class="sel-grid" id="sel-grid"></div>
+  <p class="sel-note">Cada agencia accede solo a su propia información.</p>
+</div>
+
+<!-- ─── PIN ─── -->
+<div id="pin-screen" class="hidden">
+  <div class="pin-box">
+    <div class="pin-title" id="pin-title">—</div>
+    <div class="pin-sub" id="pin-sub">Ingresa tu PIN de acceso</div>
+    <div class="pin-dots">
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn" onclick="pinPress('0')" style="grid-column:2">0</button>
+      <button class="pin-btn del" onclick="pinDel()">⌫</button>
+    </div>
+    <div class="pin-back" onclick="goSelector()">← Volver</div>
+  </div>
+</div>
+
+<!-- ─── DASHBOARD ─── -->
+<div id="dashboard">
+  <div class="hdr">
+    <div class="logo">
+      <svg width="24" height="17" viewBox="0 0 40 28" fill="none"><path d="M20 0C13.4 0 8 5 8 11.2c0 4.4 2.6 8.2 6.4 10.1L20 28l5.6-6.7C29.4 19.4 32 15.6 32 11.2 32 5 26.6 0 20 0zm0 16.8c-3.1 0-5.6-2.5-5.6-5.6S16.9 5.6 20 5.6s5.6 2.5 5.6 5.6-2.5 5.6-5.6 5.6z" fill="white"/></svg>
+      <span class="logo-t">tiendanube</span>
+    </div>
+    <div class="hdr-right">
+      <div class="wpill"><span class="wdot"></span><span id="sem-txt">—</span></div>
+      <button class="switch-btn" onclick="goSelector()">← Cambiar agencia</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-agency" id="dash-agency-name">—</div>
+    <h1>Seguimiento del Programa</h1>
+    <h2 id="dash-agency-sub">—</h2>
+  </div>
+
+  <div class="gstats">
+    <div class="gs"><div class="gs-val" id="gs1">—</div><div class="gs-lbl">GMV meta<br>total</div></div>
+    <div class="gs"><div class="gs-val" id="gs2">—</div><div class="gs-lbl">GMV real<br>acumulado</div></div>
+    <div class="gs"><div class="gs-val" id="gs3">—</div><div class="gs-lbl">Oportunidades<br>won / meta</div></div>
+    <div class="gs"><div class="gs-val" id="gs4">—</div><div class="gs-lbl">Inversión<br>comprometida</div></div>
+  </div>
+
+  <div class="body">
+    <!-- GMV por Q -->
+    <div class="stitle">GMV comprometido por trimestre</div>
+    <div class="qgrid" id="qgrid"></div>
+
+    <!-- VISTA AGENCIA -->
+    <div id="view-agencia">
+      <div class="stitle">Activaciones · Desglose completo</div>
+      <div class="act-filters">
+        <span style="font-size:11px;color:var(--w35);margin-right:4px;">Filtrar:</span>
+        <button class="afbtn on" data-t="all">Todas</button>
+        <button class="afbtn" data-t="Campañas">Campañas</button>
+        <button class="afbtn" data-t="Eventos">Eventos</button>
+        <button class="afbtn" data-t="Tech">Tech</button>
+        <button class="afbtn" data-t="Contenido">Contenido</button>
+        <button class="afbtn" data-t="Alianzas">Alianzas</button>
+        <button class="afbtn" data-t="Ventas">Ventas</button>
+      </div>
+      <div class="act-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Activación</th>
+              <th>Detalle</th>
+              <th>Tiempo</th>
+              <th>Inversión</th>
+              <th>Opps won / meta</th>
+            </tr>
+          </thead>
+          <tbody id="act-tbody"></tbody>
+        </table>
+      </div>
+      <div class="stitle" style="margin-top:28px">Inversión por tipo de activación</div>
+      <div class="totales-row" id="totales-tipo"></div>
+    </div>
+
+    <!-- VISTA ADMIN -->
+    <div id="view-admin" style="display:none">
+      <div class="stitle">Todas las agencias · Vista comparativa</div>
+      <div class="admin-grid" id="admin-grid"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Tiendanube MX · Programa de Aceleración · Cohort 1</span>
+    <span>Edita <strong>ZONA DE DATOS</strong> en el HTML para actualizar semana a semana</span>
+  </div>
+</div>
+
+</body>
+</html>
