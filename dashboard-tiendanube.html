@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Tiendanube Partners 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg2: #111114;
+  --bg3: #18181d;
+  --card: #16161a;
+  --card2: #1e1e24;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --lime: #b9ff57;
+  --lime2: #d4ff8a;
+  --orange: #ff6b2b;
+  --orange2: #ff9060;
+  --blue: #4fc3f7;
+  --purple: #b57bee;
+  --pink: #ff4d8d;
+  --text: #f0f0f2;
+  --text2: #8888a0;
+  --text3: #555568;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Cabinet Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --ene: #b9ff57;
+  --cocktail: #ff6b2b;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* GRAIN OVERLAY */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1000; opacity: 0.5;
+}
+
+/* TOP NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 56px;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text2);
+}
+.nav-logo span { color: var(--lime); }
+.nav-right {
+  display: flex; gap: 0.5rem; align-items: center;
+}
+.pill {
+  font-family: var(--font-mono);
+  font-size: 11px; padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border2);
+  color: var(--text2);
+}
+.pill.ene { border-color: rgba(185,255,87,0.3); color: var(--lime); }
+.pill.cock { border-color: rgba(255,107,43,0.3); color: var(--orange); }
+
+/* HERO HEADER */
+.hero {
+  padding: 4rem 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; top: -60px; right: -80px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(185,255,87,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text3);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 800; line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.hero-title em { font-style: normal; color: var(--lime); }
+.hero-sub {
+  color: var(--text2); font-size: 15px;
+  max-width: 520px;
+}
+
+/* GMV SUMMARY BAR */
+.summary-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 2rem 0;
+}
+.summary-item {
+  background: var(--bg);
+  padding: 1.25rem 2rem;
+  animation: fadeUp 0.5s ease both;
+}
+.summary-item:nth-child(1) { animation-delay: 0.05s; }
+.summary-item:nth-child(2) { animation-delay: 0.1s; }
+.summary-item:nth-child(3) { animation-delay: 0.15s; }
+.summary-item:nth-child(4) { animation-delay: 0.2s; }
+.summary-item:nth-child(5) { animation-delay: 0.25s; }
+.s-label {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.s-val {
+  font-family: var(--font-display);
+  font-size: 1.65rem; font-weight: 700;
+  line-height: 1;
+}
+.s-val.lime { color: var(--lime); }
+.s-val.orange { color: var(--orange); }
+.s-val.blue { color: var(--blue); }
+.s-val.white { color: var(--text); }
+.s-sub {
+  font-size: 11px; color: var(--text3);
+  margin-top: 0.25rem;
+}
+
+/* SECTION */
+.section {
+  padding: 0 2.5rem 3rem;
+}
+.section-head {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 4px;
+}
+.section-tag.ene { background: rgba(185,255,87,0.12); color: var(--lime); }
+.section-tag.cock { background: rgba(255,107,43,0.12); color: var(--orange); }
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 700;
+}
+
+/* CARDS GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.card {
+  background: var(--card);
+  padding: 1.25rem 1.4rem;
+  transition: background 0.2s;
+  position: relative;
+  animation: fadeUp 0.4s ease both;
+}
+.card:hover { background: var(--card2); }
+.card-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 0.6rem;
+}
+.card-type {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.card-time {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  background: var(--bg3);
+  padding: 2px 7px; border-radius: 4px;
+}
+.card-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+.card-detail {
+  font-size: 11.5px; color: var(--text2);
+  margin-bottom: 0.9rem;
+  line-height: 1.45;
+}
+
+/* PROGRESS SECTION */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 0.75rem;
+}
+.metric-box {
+  background: var(--bg3);
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  position: relative;
+}
+.metric-box label {
+  font-family: var(--font-mono);
+  font-size: 9px; color: var(--text3);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: block; margin-bottom: 2px;
+}
+.metric-box input {
+  width: 100%; background: transparent;
+  border: none; outline: none;
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  color: var(--text);
+  caret-color: var(--lime);
+}
+.metric-box input:focus { color: var(--lime); }
+.metric-committed {
+  font-family: var(--font-mono);
+  font-size: 9px; color: var(--text3);
+  margin-top: 1px;
+}
+
+/* PROGRESS BAR */
+.prog-wrap { margin-bottom: 0.4rem; }
+.prog-label-row {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); margin-bottom: 4px;
+}
+.prog-label-row .pct {
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.prog-track {
+  height: 5px; background: var(--bg3);
+  border-radius: 999px; overflow: hidden;
+}
+.prog-fill {
+  height: 100%; border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+}
+.prog-fill::after {
+  content: '';
+  position: absolute; right: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: inherit;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* STATUS BADGE */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-mono); font-size: 10px;
+  padding: 2px 8px; border-radius: 999px;
+  margin-top: 0.5rem;
+}
+.status-badge::before {
+  content: ''; width: 5px; height: 5px;
+  border-radius: 50%; background: currentColor;
+  animation: pulse 2s infinite;
+}
+.badge-green { background: rgba(185,255,87,0.1); color: var(--lime); }
+.badge-orange { background: rgba(255,107,43,0.1); color: var(--orange); }
+.badge-gray { background: rgba(255,255,255,0.05); color: var(--text3); }
+.badge-blue { background: rgba(79,195,247,0.1); color: var(--blue); }
+
+/* TOTALS CARD */
+.totals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.total-cell {
+  background: var(--card);
+  padding: 1.5rem;
+  animation: fadeUp 0.4s ease both;
+}
+.total-cell.accent-ene { border-top: 2px solid var(--lime); }
+.total-cell.accent-cock { border-top: 2px solid var(--orange); }
+.total-cell.accent-combined { border-top: 2px solid var(--blue); }
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.t-big {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 800;
+  line-height: 1; margin-bottom: 0.4rem;
+}
+.t-prog { }
+
+/* COMBINED SECTION */
+.combined-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.combined-cell {
+  background: var(--card);
+  padding: 1.5rem;
+}
+.gauge-wrap {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-top: 1rem;
+}
+.gauge-ring {
+  position: relative; flex-shrink: 0;
+  width: 80px; height: 80px;
+}
+.gauge-ring svg { transform: rotate(-90deg); }
+.gauge-ring .g-bg { fill: none; stroke: var(--bg3); stroke-width: 7; }
+.gauge-ring .g-fill { fill: none; stroke-width: 7; stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.23,1,0.32,1); }
+.gauge-label {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.gauge-pct {
+  font-family: var(--font-display);
+  font-size: 15px; font-weight: 800; line-height: 1;
+}
+.gauge-sub { font-size: 8px; color: var(--text3); font-family: var(--font-mono); }
+.gauge-info { flex: 1; }
+.gauge-info .gi-label {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text3); margin-bottom: 3px;
+}
+.gauge-info .gi-val {
+  font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 800; line-height: 1; margin-bottom: 2px;
+}
+.gauge-info .gi-committed {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text3);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-note {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text3);
+}
+.footer-update {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text3);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* TICKER */
+.ticker-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  height: 32px; display: flex; align-items: center;
+}
+.ticker-inner {
+  display: flex; gap: 0;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+.ticker-item {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--text3);
+  padding: 0 2rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.ticker-item span { color: var(--lime); margin-right: 0.5rem; }
+
+/* LAST UPDATED */
+#lastUpdate { font-family: var(--font-mono); font-size: 10px; color: var(--text3); }
+
+/* INPUT STYLE OVERRIDE */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .hero { padding: 2rem 1rem 1rem; }
+  .section { padding: 0 1rem 2rem; }
+  nav { padding: 0 1rem; }
+  .combined-wrap, .totals-grid { grid-template-columns: 1fr; }
+  .metrics-row { grid-template-columns: repeat(3, 1fr); }
+  .summary-bar { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Tiendanube <span>·</span> Partner Dashboard 2026</div>
+  <div class="nav-right">
+    <div class="pill ene">EneConceptos</div>
+    <div class="pill cock">Cocktail Mktg</div>
+    <div class="pill" id="lastUpdate">—</div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Dashboard de avance · H1–H2 2026</div>
+  <h1 class="hero-title">Alcance vs <em>Compromiso</em></h1>
+  <p class="hero-sub">Ingresa los números reales alcanzados en cada iniciativa. El dashboard calcula el avance vs. la meta comprometida en tiempo real.</p>
+</div>
+
+<!-- SUMMARY BAR -->
+<div class="summary-bar" id="summaryBar">
+  <div class="summary-item">
+    <div class="s-label">GMV Comprometido Total</div>
+    <div class="s-val white" id="s-gmv-committed">$0</div>
+    <div class="s-sub">ambas agencias</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">GMV Alcanzado</div>
+    <div class="s-val lime" id="s-gmv-won">$0</div>
+    <div class="s-sub">actualizado en tiempo real</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">Leads Comprometidos</div>
+    <div class="s-val white" id="s-leads-committed">0</div>
+    <div class="s-sub">total programa</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">Leads Alcanzados</div>
+    <div class="s-val blue" id="s-leads-won">0</div>
+    <div class="s-sub">actualizado en tiempo real</div>
+  </div>
+  <div class="summary-item">
+    <div class="s-label">Avance General</div>
+    <div class="s-val orange" id="s-pct">0%</div>
+    <div class="s-sub">sobre GMV comprometido</div>
+  </div>
+</div>
+
+<!-- COMBINED GAUGES -->
+<div class="section">
+  <div class="combined-wrap">
+    <!-- EneConceptos gauge -->
+    <div class="combined-cell">
+      <div class="t-label">EneConceptos · GMV Total</div>
+      <div class="gauge-wrap">
+        <div class="gauge-ring">
+          <svg viewBox="0 0 80 80" width="80" height="80">
+            <circle class="g-bg" cx="40" cy="40" r="33"/>
+            <circle class="g-fill" id="g-ene" cx="40" cy="40" r="33"
+              stroke="var(--lime)"
+              stroke-dasharray="207.3"
+              stroke-dashoffset="207.3"/>
+          </svg>
+          <div class="gauge-label">
+            <div class="gauge-pct" id="gp-ene" style="color:var(--lime)">0%</div>
+            <div class="gauge-sub">logrado</div>
+          </div>
+        </div>
+        <div class="gauge-info">
+          <div class="gi-label">Alcanzado</div>
+          <div class="gi-val" style="color:var(--lime)" id="gv-ene">$0</div>
+          <div class="gi-committed" id="gc-ene">meta: $0</div>
+        </div>
+      </div>
+    </div>
+    <!-- Cocktail gauge -->
+    <div class="combined-cell">
+      <div class="t-label">Cocktail Marketing · GMV Total</div>
+      <div class="gauge-wrap">
+        <div class="gauge-ring">
+          <svg viewBox="0 0 80 80" width="80" height="80">
+            <circle class="g-bg" cx="40" cy="40" r="33"/>
+            <circle class="g-fill" id="g-cock" cx="40" cy="40" r="33"
+              stroke="var(--orange)"
+              stroke-dasharray="207.3"
+              stroke-dashoffset="207.3"/>
+          </svg>
+          <div class="gauge-label">
+            <div class="gauge-pct" id="gp-cock" style="color:var(--orange)">0%</div>
+            <div class="gauge-sub">logrado</div>
+          </div>
+        </div>
+        <div class="gauge-info">
+          <div class="gi-label">Alcanzado</div>
+          <div class="gi-val" style="color:var(--orange)" id="gv-cock">$0</div>
+          <div class="gi-committed" id="gc-cock">meta: $0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ENE CONCEPTOS SECTION -->
+<div class="section" id="sec-ene">
+  <div class="section-head">
+    <div class="section-tag ene">EneConceptos</div>
+    <div class="section-title">Iniciativas & Avance</div>
+  </div>
+  <div class="cards-grid" id="grid-ene"></div>
+</div>
+
+<!-- COCKTAIL SECTION -->
+<div class="section" id="sec-cock">
+  <div class="section-head">
+    <div class="section-tag cock">Cocktail Marketing</div>
+    <div class="section-title">Iniciativas & Avance</div>
+  </div>
+  <div class="cards-grid" id="grid-cock"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-note">Los datos se guardan automáticamente en tu navegador · localStorage</div>
+  <div class="footer-update" id="footerUpdate">—</div>
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const eneData = [
+  { id:'e1',  tipo:'Campañas · Meta',     sub:'Q1', titulo:'Meta Ads (Instagram)',             detalle:'Meta Ads Instagram · Conversión',             inv:24000,  opps_c:16, gmv_c:200000 },
+  { id:'e2',  tipo:'Campañas · Meta',     sub:'Q2', titulo:'Meta Ads (Instagram)',             detalle:'Meta Ads Instagram · Conversión',             inv:24000,  opps_c:16, gmv_c:200000 },
+  { id:'e3',  tipo:'Campañas · Meta',     sub:'Q3', titulo:'Meta Ads (Instagram)',             detalle:'Meta Ads Instagram · Conversión',             inv:24000,  opps_c:16, gmv_c:200000 },
+  { id:'e4',  tipo:'Campañas · Google',   sub:'Q1', titulo:'Google Ads',                       detalle:'Google Ads Search · Conversión',              inv:24000,  opps_c:16, gmv_c:200000 },
+  { id:'e5',  tipo:'Campañas · Google',   sub:'Q2', titulo:'Google Ads',                       detalle:'Google Ads Search · Conversión',              inv:24000,  opps_c:16, gmv_c:200000 },
+  { id:'e6',  tipo:'Campañas · Google',   sub:'Q3', titulo:'Google Ads',                       detalle:'Google Ads Search · Conversión',              inv:24000,  opps_c:16, gmv_c:200000 },
+  { id:'e7',  tipo:'Eventos · Webinar',   sub:'Trimestral', titulo:'4 Webinars',               detalle:'Marketplace→marca, Buen Fin, Optimización, Pagos', inv:12269, opps_c:30, gmv_c:200000 },
+  { id:'e8',  tipo:'Eventos · Workshop',  sub:'Trimestral', titulo:'4 Workshops',              detalle:'Buen Fin, Conversión, Innovación, Psicología',inv:39620,  opps_c:20, gmv_c:400000 },
+  { id:'e9',  tipo:'Eventos · Networking',sub:'Semestral',  titulo:'2 Networking Events',      detalle:'Buen Fin Warm Up + HotSale Evolución',         inv:54800,  opps_c:35, gmv_c:400000 },
+  { id:'e10', tipo:'Alianzas · Partner',  sub:'Q1', titulo:'Tech Partners',                    detalle:'Koin, ClearSale, Jelou, Growlat, Envia.com',   inv:0,      opps_c:0,  gmv_c:0 },
+  { id:'e11', tipo:'Alianzas · Logística',sub:'Q1', titulo:'DHL + Cubbo + NetPay + Aplazo',   detalle:'Paquete completo alianzas estratégicas',       inv:183000, opps_c:0,  gmv_c:0 },
+  { id:'e12', tipo:'Pipeline Directo',    sub:'Q1', titulo:'5 Merchants Q1',                   detalle:'JBL, julio.com, vertiche.mx, bellisima.mx, priveperfumeshn.com', inv:0, opps_c:5, gmv_c:1200000 },
+];
+
+const cockData = [
+  { id:'c1',  tipo:'Campañas · Google',   sub:'Q2-Q3', titulo:'Google Ads Search – Escenario 1', detalle:'Branding + Mantenimiento + Competidores · $8,620/mes', inv:8620,  opps_c:6,  gmv_c:200000 },
+  { id:'c2',  tipo:'Campañas · Google',   sub:'Q2-Q3', titulo:'Google Ads Search – Escenario 2', detalle:'Branding + Mantenimiento + Competidores · $17,240/mes',inv:17240, opps_c:14, gmv_c:200000 },
+  { id:'c3',  tipo:'Eventos · Webinar',   sub:'Q2',    titulo:'Webinar: Marcas de moda',          detalle:'25 leads est. · $20,500 · conversión 10–30%',         inv:20500, opps_c:25, gmv_c:200000 },
+  { id:'c4',  tipo:'Eventos · Webinar',   sub:'Q3',    titulo:'Webinar: Alimentos y bebidas',     detalle:'25 leads est. · $20,500 · conversión 10–30%',         inv:20500, opps_c:25, gmv_c:200000 },
+  { id:'c5',  tipo:'Eventos · Webinar',   sub:'Q3',    titulo:'Webinar: Tecnología',              detalle:'25 leads est. · $34,000 · conversión 10–30%',         inv:34000, opps_c:25, gmv_c:200000 },
+  { id:'c6',  tipo:'Eventos · Desayuno',  sub:'Q3',    titulo:'Desayuno: Líderes de retail',      detalle:'20 leads est. · $28,000 · presencial',                inv:28000, opps_c:20, gmv_c:200000 },
+  { id:'c7',  tipo:'Eventos · Workshop',  sub:'Q4',    titulo:'Workshop: Construye tu tienda',    detalle:'20 leads est. · $30,000 · presencial',                inv:30000, opps_c:20, gmv_c:200000 },
+  { id:'c8',  tipo:'Alianzas · Tec MX',   sub:'Q2 Jul',titulo:'Workshop Incubadora Tec MX',       detalle:'15 leads est. · $18,000 · reg. libre Edo. Méx.',      inv:18000, opps_c:15, gmv_c:200000 },
+  { id:'c9',  tipo:'Alianzas · Tec MX',   sub:'Q3 Sep',titulo:'Clínica Diagnóstico Digital',      detalle:'15 leads est. · $12,000 · sesiones 1:1',             inv:12000, opps_c:15, gmv_c:200000 },
+  { id:'c10', tipo:'Alianzas · Tec MX',   sub:'Q4 Oct',titulo:'Mesa Innovación Digital Egresados',detalle:'15 leads est. · $28,000 · por invitación',           inv:28000, opps_c:15, gmv_c:200000 },
+  { id:'c11', tipo:'Pipeline Directo',    sub:'Q1-Q2', titulo:'12 Merchants Identificados',       detalle:'Gastronómico, Moda, Electrónica · 6 proyectados cerrar', inv:0, opps_c:12, gmv_c:1950000 },
+];
+
+// ─── STATE (localStorage) ───────────────────────────────────────────────────
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('tn_dashboard_v2') || '{}'); } catch(e) { return {}; }
+}
+function saveState(state) {
+  localStorage.setItem('tn_dashboard_v2', JSON.stringify(state));
+  updateLastSaved();
+}
+let state = loadState();
+
+function getVal(id, field) {
+  return (state[id] && state[id][field] !== undefined) ? state[id][field] : '';
+}
+function setVal(id, field, value) {
+  if (!state[id]) state[id] = {};
+  state[id][field] = value;
+  saveState(state);
+}
+
+// ─── FORMAT ─────────────────────────────────────────────────────────────────
+function fmtMXN(n) {
+  if (!n && n !== 0) return '$0';
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+  return '$' + n.toLocaleString('es-MX');
+}
+function fmtNum(n) { return n ? n.toLocaleString('es-MX') : '0'; }
+function pct(a, b) { return b > 0 ? Math.min(100, Math.round(a / b * 100)) : 0; }
+
+// ─── CARD RENDER ─────────────────────────────────────────────────────────────
+function statusBadge(p) {
+  if (p === 0) return `<div class="status-badge badge-gray">Sin inicio</div>`;
+  if (p < 30)  return `<div class="status-badge badge-orange">En progreso</div>`;
+  if (p < 80)  return `<div class="status-badge badge-blue">Avanzando</div>`;
+  return `<div class="status-badge badge-green">En meta ✓</div>`;
+}
+
+function colorForPct(p) {
+  if (p >= 80) return 'var(--lime)';
+  if (p >= 40) return 'var(--blue)';
+  if (p > 0)  return 'var(--orange)';
+  return 'var(--text3)';
+}
+
+function buildCard(item, agency) {
+  const oppsWon = parseFloat(getVal(item.id, 'opps_won')) || 0;
+  const gmvWon  = parseFloat(getVal(item.id, 'gmv_won'))  || 0;
+
+  const pOpps = pct(oppsWon, item.opps_c);
+  const pGmv  = pct(gmvWon,  item.gmv_c);
+  const cOpps = colorForPct(pOpps);
+  const cGmv  = colorForPct(pGmv);
+  const agCol = agency === 'ene' ? 'var(--lime)' : 'var(--orange)';
+
+  return `
+<div class="card" id="card-${item.id}">
+  <div class="card-top">
+    <div class="card-type">${item.tipo}</div>
+    <div class="card-time">${item.sub}</div>
+  </div>
+  <div class="card-title">${item.titulo}</div>
+  <div class="card-detail">${item.detalle}</div>
+
+  <div class="metrics-row">
+    <div class="metric-box">
+      <label>Opps logradas</label>
+      <input type="number" min="0" id="inp-opps-${item.id}"
+        value="${oppsWon || ''}" placeholder="0"
+        onchange="handleInput('${item.id}','opps_won',this.value)">
+      <div class="metric-committed">meta: ${item.opps_c}</div>
+    </div>
+    <div class="metric-box">
+      <label>GMV logrado</label>
+      <input type="number" min="0" id="inp-gmv-${item.id}"
+        value="${gmvWon || ''}" placeholder="0"
+        onchange="handleInput('${item.id}','gmv_won',this.value)">
+      <div class="metric-committed">meta: ${fmtMXN(item.gmv_c)}</div>
+    </div>
+    <div class="metric-box">
+      <label>Inversión</label>
+      <input type="number" min="0" id="inp-inv-${item.id}"
+        value="${item.inv || ''}" placeholder="0"
+        onchange="handleInput('${item.id}','inv_real',this.value)">
+      <div class="metric-committed">budget: ${fmtMXN(item.inv)}</div>
+    </div>
+  </div>
+
+  ${item.opps_c > 0 ? `
+  <div class="prog-wrap">
+    <div class="prog-label-row">
+      <span>Opps</span>
+      <span class="pct" style="color:${cOpps}">${pOpps}%</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="pb-opps-${item.id}"
+        style="width:${pOpps}%; background:${cOpps};"></div>
+    </div>
+  </div>` : ''}
+
+  ${item.gmv_c > 0 ? `
+  <div class="prog-wrap">
+    <div class="prog-label-row">
+      <span>GMV ${fmtMXN(gmvWon)} / ${fmtMXN(item.gmv_c)}</span>
+      <span class="pct" style="color:${cGmv}">${pGmv}%</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="pb-gmv-${item.id}"
+        style="width:${pGmv}%; background:${cGmv};"></div>
+    </div>
+  </div>` : ''}
+
+  ${statusBadge(Math.max(pOpps, pGmv))}
+</div>`;
+}
+
+// ─── RENDER ALL ──────────────────────────────────────────────────────────────
+function renderAll() {
+  document.getElementById('grid-ene').innerHTML = eneData.map(i => buildCard(i, 'ene')).join('');
+  document.getElementById('grid-cock').innerHTML = cockData.map(i => buildCard(i, 'cock')).join('');
+  updateSummary();
+}
+
+// ─── INPUT HANDLER ───────────────────────────────────────────────────────────
+function handleInput(id, field, value) {
+  const v = parseFloat(value) || 0;
+  setVal(id, field, v);
+
+  const allData = [...eneData, ...cockData];
+  const item = allData.find(x => x.id === id);
+  if (!item) return;
+
+  // update opps bar
+  if (field === 'opps_won') {
+    const oppsWon = v;
+    const p = pct(oppsWon, item.opps_c);
+    const col = colorForPct(p);
+    const pb = document.getElementById(`pb-opps-${id}`);
+    if (pb) { pb.style.width = p+'%'; pb.style.background = col; }
+    const row = pb ? pb.closest('.prog-wrap') : null;
+    if (row) {
+      const pctEl = row.querySelector('.pct');
+      if (pctEl) { pctEl.textContent = p+'%'; pctEl.style.color = col; }
+    }
+  }
+  // update gmv bar
+  if (field === 'gmv_won') {
+    const gmvWon = v;
+    const p = pct(gmvWon, item.gmv_c);
+    const col = colorForPct(p);
+    const pb = document.getElementById(`pb-gmv-${id}`);
+    if (pb) { pb.style.width = p+'%'; pb.style.background = col; }
+    const row = pb ? pb.closest('.prog-wrap') : null;
+    if (row) {
+      const pctEl = row.querySelector('.pct');
+      const lblEl = row.querySelector('.prog-label-row span:first-child');
+      if (pctEl) { pctEl.textContent = p+'%'; pctEl.style.color = col; }
+      if (lblEl) { lblEl.textContent = `GMV ${fmtMXN(gmvWon)} / ${fmtMXN(item.gmv_c)}`; }
+    }
+  }
+
+  // update status badge
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    const oppsWon = parseFloat(getVal(id, 'opps_won')) || 0;
+    const gmvWon  = parseFloat(getVal(id, 'gmv_won'))  || 0;
+    const pO = pct(oppsWon, item.opps_c);
+    const pG = pct(gmvWon, item.gmv_c);
+    const badge = card.querySelector('.status-badge');
+    if (badge) badge.outerHTML = statusBadge(Math.max(pO, pG));
+  }
+
+  updateSummary();
+}
+
+// ─── SUMMARY UPDATER ────────────────────────────────────────────────────────
+function updateSummary() {
+  // ENE totals
+  let eneGmvC = 0, eneGmvW = 0, eneLeadsC = 0, eneLeadsW = 0;
+  eneData.forEach(item => {
+    eneGmvC   += item.gmv_c;
+    eneLeadsC += item.opps_c;
+    eneGmvW   += parseFloat(getVal(item.id, 'gmv_won'))  || 0;
+    eneLeadsW += parseFloat(getVal(item.id, 'opps_won')) || 0;
+  });
+
+  // COCK totals
+  let cockGmvC = 0, cockGmvW = 0, cockLeadsC = 0, cockLeadsW = 0;
+  cockData.forEach(item => {
+    cockGmvC   += item.gmv_c;
+    cockLeadsC += item.opps_c;
+    cockGmvW   += parseFloat(getVal(item.id, 'gmv_won'))  || 0;
+    cockLeadsW += parseFloat(getVal(item.id, 'opps_won')) || 0;
+  });
+
+  const totalGmvC   = eneGmvC + cockGmvC;
+  const totalGmvW   = eneGmvW + cockGmvW;
+  const totalLeadsC = eneLeadsC + cockLeadsC;
+  const totalLeadsW = eneLeadsW + cockLeadsW;
+  const totalPct    = pct(totalGmvW, totalGmvC);
+
+  // Summary bar
+  document.getElementById('s-gmv-committed').textContent = fmtMXN(totalGmvC);
+  document.getElementById('s-gmv-won').textContent       = fmtMXN(totalGmvW);
+  document.getElementById('s-leads-committed').textContent = fmtNum(totalLeadsC);
+  document.getElementById('s-leads-won').textContent     = fmtNum(totalLeadsW);
+  document.getElementById('s-pct').textContent           = totalPct + '%';
+
+  // Gauges
+  const CIRC = 207.3;
+  const ePct = pct(eneGmvW, eneGmvC);
+  const cPct = pct(cockGmvW, cockGmvC);
+
+  document.getElementById('g-ene').style.strokeDashoffset = CIRC - (CIRC * ePct / 100);
+  document.getElementById('gp-ene').textContent = ePct + '%';
+  document.getElementById('gv-ene').textContent = fmtMXN(eneGmvW);
+  document.getElementById('gc-ene').textContent = 'meta: ' + fmtMXN(eneGmvC);
+
+  document.getElementById('g-cock').style.strokeDashoffset = CIRC - (CIRC * cPct / 100);
+  document.getElementById('gp-cock').textContent = cPct + '%';
+  document.getElementById('gv-cock').textContent = fmtMXN(cockGmvW);
+  document.getElementById('gc-cock').textContent = 'meta: ' + fmtMXN(cockGmvC);
+
+  // Ticker update
+  buildTicker(totalGmvW, totalGmvC, ePct, cPct, totalLeadsW, totalLeadsC);
+}
+
+// ─── TICKER ──────────────────────────────────────────────────────────────────
+function buildTicker(gmvW, gmvC, ePct, cPct, leadsW, leadsC) {
+  const items = [
+    `GMV Total · ${fmtMXN(gmvW)} / ${fmtMXN(gmvC)}`,
+    `EneConceptos · ${ePct}% de su meta`,
+    `Cocktail · ${cPct}% de su meta`,
+    `Leads · ${fmtNum(leadsW)} / ${fmtNum(leadsC)}`,
+    `Avance GMV · ${pct(gmvW,gmvC)}%`,
+    `Tiendanube Partner Program · 2026`,
+  ];
+  const doubled = [...items, ...items];
+  const el = document.getElementById('ticker');
+  el.innerHTML = doubled.map(t => `<div class="ticker-item"><span>▸</span>${t}</div>`).join('');
+}
+
+// ─── LAST SAVED ──────────────────────────────────────────────────────────────
+function updateLastSaved() {
+  const now = new Date();
+  const s = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+  const d = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'});
+  const t = `guardado ${d} ${s}`;
+  document.getElementById('lastUpdate').textContent = t;
+  document.getElementById('footerUpdate').textContent = t;
+}
+
+// ─── STAGGER ANIMATION ───────────────────────────────────────────────────────
+function applyStagger() {
+  document.querySelectorAll('.card').forEach((el, i) => {
+    el.style.animationDelay = (i * 0.04) + 's';
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+renderAll();
+applyStagger();
+buildTicker(0, 1, 0, 0, 0, 1);
+updateSummary();
+if (Object.keys(state).length > 0) updateLastSaved();
+
+// Initial gauge animation on load
+setTimeout(() => {
+  document.querySelectorAll('.g-fill').forEach(el => {
+    const current = el.style.strokeDashoffset;
+    el.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.23,1,0.32,1)';
+  });
+}, 100);
+</script>
+</body>
+</html>
