@@ -17,6 +17,88 @@
   --bounce: cubic-bezier(0.34,1.56,0.64,1);
 }
 
+/* ── STICKY TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: .75rem; padding: .75rem 1.5rem;
+  background: rgba(7,16,96,.75);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.topbar-btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .72rem; font-weight: 700; letter-spacing: .03em;
+  text-decoration: none; border: none; cursor: pointer;
+  border-radius: 999px; padding: .55rem 1.15rem;
+  transition: transform .2s var(--bounce), box-shadow .2s;
+}
+.topbar-btn:hover { transform: translateY(-2px) scale(1.03); }
+.btn-prospect { background: var(--lime); color: #0D0E2B; }
+.btn-prospect:hover { box-shadow: 0 6px 22px rgba(196,240,98,.4); }
+.btn-cert { background: rgba(255,255,255,.1); color: var(--white); border: 1px solid rgba(255,255,255,.18); }
+.btn-cert:hover { background: rgba(255,255,255,.18); box-shadow: 0 6px 16px rgba(0,0,0,.3); }
+
+/* ── BATTLE CARDS ── */
+.battle-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media(min-width: 700px) { .battle-grid { grid-template-columns: 1fr 1fr; } }
+
+.bc {
+  border-radius: 22px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(255,255,255,.03);
+  transition: transform .3s var(--bounce), box-shadow .3s;
+}
+.bc:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
+
+.bc-head {
+  padding: 1.5rem 1.75rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.bc-eyebrow {
+  font-size: .54rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.28); margin-bottom: .4rem;
+}
+.bc-brand { font-size: 1.2rem; font-weight: 800; color: var(--white); line-height: 1.1; }
+.bc-tagline { font-size: .76rem; color: rgba(255,255,255,.4); font-style: italic; margin-top: .25rem; line-height: 1.45; }
+.bc-pills { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .7rem; }
+.pill {
+  font-size: .54rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .22rem .6rem; border-radius: 999px;
+}
+.pill-red  { background: rgba(255,107,90,.12); color: var(--coral); border: 1px solid rgba(255,107,90,.2); }
+.pill-lime { background: rgba(196,240,98,.12); color: var(--lime);  border: 1px solid rgba(196,240,98,.2); }
+.pill-sun  { background: rgba(255,181,71,.12); color: var(--sunset);border: 1px solid rgba(255,181,71,.2); }
+
+.bc-body { padding: 1.25rem 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.bc-sec-title {
+  font-size: .54rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+  color: rgba(255,255,255,.28); margin-bottom: .55rem;
+}
+.bc-vs { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.bc-col-lbl {
+  font-size: .54rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+  padding: .28rem .65rem; border-radius: 8px; margin-bottom: .55rem; text-align: center;
+}
+.lbl-them { background: rgba(255,107,90,.1); color: var(--coral); }
+.lbl-us   { background: rgba(196,240,98,.1); color: var(--lime); }
+.bc-item {
+  display: flex; align-items: flex-start; gap: .45rem;
+  font-size: .74rem; color: rgba(255,255,255,.58); line-height: 1.5; margin-bottom: .4rem;
+}
+.bc-item-ico { flex-shrink: 0; font-size: .72rem; margin-top: .05rem; }
+.bc-item strong { color: var(--white); font-weight: 600; }
+.bc-punch {
+  background: rgba(196,240,98,.07); border: 1px solid rgba(196,240,98,.18);
+  border-radius: 14px; padding: 1rem 1.2rem;
+  font-size: .82rem; font-weight: 600; color: var(--lime); line-height: 1.5;
+}
+.bc-punch-label {
+  display: block; font-size: .54rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(196,240,98,.45); margin-bottom: .3rem;
+}
+
 body {
   font-family: 'DM Sans', -apple-system, sans-serif;
   background: linear-gradient(160deg, #0e1f9e 0%, #071060 40%, #030820 100%) fixed;
@@ -27,7 +109,7 @@ body {
 }
 
 /* ── LAYOUT ── */
-.page { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+.page { max-width: 960px; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
 
 /* ── HERO ── */
 .hero {
@@ -275,6 +357,17 @@ input.sim-range::-moz-range-thumb {
 </style>
 </head>
 <body>
+
+<!-- ── TOPBAR ── -->
+<nav class="topbar">
+  <a href="https://tiendanubemx.cademi.com.br/auth/login" target="_blank" class="topbar-btn btn-cert">
+    🎓 Certificate
+  </a>
+  <a href="https://share.hsforms.com/16amq4gzsQ8i_VL_j_hU5tw4vc7g" target="_blank" class="topbar-btn btn-prospect">
+    ↑ Sube tu Prospecto
+  </a>
+</nav>
+
 <div class="page">
 
   <!-- ── HERO ── -->
@@ -473,6 +566,13 @@ input.sim-range::-moz-range-thumb {
     <div class="reframe-text">
       "4 de cada 10 marcas en México trabajan con agencias. Las agencias que se posicionaron primero en Tiendanube están capturando el flujo de migraciones desde Shopify — en un mercado donde TN crece <em>12× más rápido</em>. El momento de entrar no es cuando todos ya están, es ahora."
     </div>
+  </div>
+
+  <!-- ── BATTLE CARDS ── -->
+  <div class="section-label r">Battle Cards · Argumentos de venta</div>
+
+  <div class="battle-grid">
+    <!-- Battle cards coming soon -->
   </div>
 
   <!-- ── FOOTER ── -->
