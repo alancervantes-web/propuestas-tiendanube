@@ -421,9 +421,9 @@
     </div>
 
     <div class="slider-row">
-      <span class="slider-label">Comisión Tiendanube (%)</span>
-      <input type="range" id="tn-fee" min="0" max="5" step="0.01" value="3.04">
-      <span class="slider-val" id="tn-fee-val">3.04%</span>
+      <span class="slider-label">Comisión Tiendanube</span>
+      <span class="slider-val" style="min-width:auto;flex:1;text-align:left;padding-left:4px;opacity:0.6;font-size:13px;">fija</span>
+      <span class="slider-val">3.04%</span>
     </div>
   </div>
 
@@ -491,12 +491,7 @@
     const v   = +document.getElementById('venta').value;
     const shF = +document.getElementById('sh-fee').value / 100;
     const shC = +document.getElementById('sh-cpt').value / 100;
-    const tnF = +document.getElementById('tn-fee').value / 100;
-
-    document.getElementById('venta-val').textContent  = fmt(v);
-    document.getElementById('sh-fee-val').textContent = fmtPct(shF * 100);
-    document.getElementById('sh-cpt-val').textContent = fmtPct(shC * 100);
-    document.getElementById('tn-fee-val').textContent = fmtPct(tnF * 100);
+    const tnF = 0.0304;
 
     const sFee   = v * shF;
     const sCpt   = v * shC;
@@ -511,7 +506,9 @@
     const savA   = savM * 12;
     const savPct = sMes > 0 ? Math.round((savM / sMes) * 100) : 0;
 
-    document.getElementById('s-fee-lbl').textContent = 'Comisión ' + fmtPct(shF * 100);
+    document.getElementById('venta-val').textContent  = fmt(v);
+    document.getElementById('sh-fee-val').textContent = fmtPct(shF * 100);
+    document.getElementById('sh-cpt-val').textContent = fmtPct(shC * 100);
     document.getElementById('s-cpt-lbl').textContent = 'CPT ' + fmtPct(shC * 100);
     document.getElementById('t-fee-lbl').textContent = 'Comisión ' + fmtPct(tnF * 100);
 
@@ -533,7 +530,7 @@
     document.getElementById('sb-pct').textContent     = savPct + '%';
   }
 
-  ['venta','sh-fee','sh-cpt','tn-fee'].forEach(id => {
+  ['venta','sh-fee','sh-cpt'].forEach(id => {
     document.getElementById(id).addEventListener('input', update);
   });
 
