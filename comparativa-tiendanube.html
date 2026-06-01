@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Tiendanube</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2d4de0;
+    --blue-dark: #1e36c0;
+    --blue-light: #e8edff;
+    --lime: #b8f43e;
+    --lime-dark: #94cc1e;
+    --white: #ffffff;
+    --gray-100: #f4f5f7;
+    --gray-200: #e8eaed;
+    --gray-400: #9aa0ab;
+    --gray-600: #555b66;
+    --gray-900: #111318;
+    --card-bg: rgba(255,255,255,0.08);
+    --card-border: rgba(255,255,255,0.14);
+    --danger: #ff5c5c;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--blue);
+    font-family: 'Nunito', sans-serif;
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 48px 24px 40px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 28px;
+  }
+
+  .brand svg { width: 28px; height: 28px; }
+
+  .pill {
+    display: inline-block;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
+    padding: 6px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 6px;
+    color: white;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 900;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .hero .subtitle {
+    font-size: clamp(15px, 2vw, 18px);
+    color: rgba(255,255,255,0.75);
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  .hero .subtitle strong { color: white; font-weight: 800; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .stat-card .val {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 900;
+    color: var(--lime);
+    display: block;
+  }
+
+  .stat-card .lbl {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+    display: block;
+    line-height: 1.4;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+  }
+
+  /* ── SLIDERS ── */
+  .sliders-section {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .sliders-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .slider-row:last-child { margin-bottom: 0; }
+
+  .slider-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    min-width: 170px;
+  }
+
+  .slider-row input[type=range] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 99px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .slider-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--lime);
+    border: 3px solid var(--blue-dark);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .slider-row input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+  .slider-row input[type=range]::-moz-range-thumb {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--lime);
+    border: 3px solid var(--blue-dark);
+    cursor: pointer;
+  }
+
+  .slider-val {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--lime);
+    min-width: 88px;
+    text-align: right;
+  }
+
+  /* ── COMPARISON CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .comp-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .comp-card.winner {
+    border: 2px solid var(--lime);
+    background: rgba(184,244,62,0.07);
+  }
+
+  .comp-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .comp-card-name {
+    font-size: 18px;
+    font-weight: 900;
+    color: white;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  .badge-gray { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
+  .badge-lime { background: var(--lime); color: #1a3300; }
+
+  .line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+  }
+  .line:last-of-type { border-bottom: none; }
+  .line .ln { color: rgba(255,255,255,0.55); }
+  .line .lv { font-weight: 700; color: white; }
+  .line .lv.red { color: var(--danger); }
+  .line .lv.green { color: #5ceb8a; }
+
+  .card-total {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .card-total .ct-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .card-total .ct-monthly {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+
+  .card-total .ct-anual {
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+    text-align: right;
+  }
+
+  .card-total .ct-anual.lime { color: var(--lime); }
+
+  /* ── SAVING BANNER ── */
+  .saving-banner {
+    background: var(--lime);
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .saving-banner .sb-left .sb-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0,30,0,0.55);
+    margin-bottom: 4px;
+  }
+
+  .saving-banner .sb-left .sb-amount {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    color: #112200;
+    line-height: 1;
+  }
+
+  .saving-banner .sb-left .sb-monthly {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(0,30,0,0.5);
+    margin-top: 4px;
+  }
+
+  .saving-banner .sb-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .saving-banner .sb-pct {
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 900;
+    color: var(--blue);
+    line-height: 1;
+  }
+
+  .saving-banner .sb-pct-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    opacity: 0.7;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .cards-grid { grid-template-columns: 1fr; }
+    .slider-label { min-width: 130px; font-size: 12px; }
+    .saving-banner { flex-direction: column; text-align: center; }
+    .saving-banner .sb-right { text-align: center; }
+    .sliders-section { padding: 20px 16px; }
+  }
+
+  @media (max-width: 400px) {
+    .slider-row { flex-wrap: wrap; }
+    .slider-label { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="brand">
+    <svg viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 14C10 8.477 14.477 4 20 4s10 4.477 10 10-4.477 10-10 10S10 19.523 10 14Z" fill="white" fill-opacity="0.3"/>
+      <path d="M0 14C0 8.477 4.477 4 10 4s10 4.477 10 10-4.477 10-10 10S0 19.523 0 14Z" fill="white"/>
+      <path d="M20 14c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10Z" fill="white" fill-opacity="0.6"/>
+    </svg>
+    tiendanube
+  </div>
+
+  <h1>Calculadora<br><em>Tiendanube</em></h1>
+
+  <p class="subtitle">
+    Encontramos 3 fugas activas que suman entre <strong>$5,500 y $8,400 MXN/mes</strong>.<br>
+    Sin que lo estés midiendo.
+  </p>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar" style="grid-template-columns: repeat(2,1fr); max-width:500px;">
+  <div class="stat-card">
+    <span class="val">~$400K</span>
+    <span class="lbl">GMV mensual [est.]</span>
+  </div>
+  <div class="stat-card">
+    <span class="val">$4,000</span>
+    <span class="lbl">fee mensual Shopify [est.]</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SLIDERS -->
+  <div class="sliders-section">
+    <div class="sliders-title">Ajusta tus números</div>
+
+    <div class="slider-row">
+      <span class="slider-label">Venta mensual (MXN)</span>
+      <input type="range" id="venta" min="100000" max="2000000" step="10000" value="500000">
+      <span class="slider-val" id="venta-val">$500,000</span>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-label">Comisión Shopify (%)</span>
+      <input type="range" id="sh-fee" min="0" max="5" step="0.1" value="3.4">
+      <span class="slider-val" id="sh-fee-val">3.4%</span>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-label">CPT Shopify (%)</span>
+      <input type="range" id="sh-cpt" min="0" max="3" step="0.1" value="1">
+      <span class="slider-val" id="sh-cpt-val">1.0%</span>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-label">Comisión Tiendanube (%)</span>
+      <input type="range" id="tn-fee" min="0" max="5" step="0.01" value="3.04">
+      <span class="slider-val" id="tn-fee-val">3.04%</span>
+    </div>
+  </div>
+
+  <!-- COMPARISON CARDS -->
+  <div class="cards-grid">
+    <!-- SHOPIFY -->
+    <div class="comp-card" id="card-shopify">
+      <div class="comp-card-head">
+        <span class="comp-card-name">Shopify</span>
+        <span class="badge badge-gray">Actual</span>
+      </div>
+      <div class="line"><span class="ln">Venta total</span><span class="lv" id="s-venta">$500,000</span></div>
+      <div class="line"><span class="ln" id="s-fee-lbl">Comisión 3.4%</span><span class="lv red" id="s-fee">-$17,000</span></div>
+      <div class="line"><span class="ln" id="s-cpt-lbl">CPT 1.0%</span><span class="lv red" id="s-cpt">-$5,000</span></div>
+      <div class="line"><span class="ln">Cargos / mes</span><span class="lv red" id="s-mes">-$22,000</span></div>
+      <div class="card-total">
+        <div>
+          <div class="ct-label">Total anual</div>
+          <div class="ct-monthly" id="s-monthly-note">$22,000 × 12</div>
+        </div>
+        <div class="ct-anual" id="s-anual">$264,000</div>
+      </div>
+    </div>
+
+    <!-- TIENDANUBE -->
+    <div class="comp-card winner" id="card-tn">
+      <div class="comp-card-head">
+        <span class="comp-card-name">Tiendanube</span>
+        <span class="badge badge-lime">Recomendado</span>
+      </div>
+      <div class="line"><span class="ln">Venta total</span><span class="lv" id="t-venta">$500,000</span></div>
+      <div class="line"><span class="ln" id="t-fee-lbl">Comisión 3.04%</span><span class="lv red" id="t-fee">-$15,200</span></div>
+      <div class="line"><span class="ln">CPT</span><span class="lv green">$0</span></div>
+      <div class="line"><span class="ln">Cargos / mes</span><span class="lv red" id="t-mes">-$15,200</span></div>
+      <div class="card-total">
+        <div>
+          <div class="ct-label">Total anual</div>
+          <div class="ct-monthly" id="t-monthly-note">$15,200 × 12</div>
+        </div>
+        <div class="ct-anual lime" id="t-anual">$182,400</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAVING BANNER -->
+  <div class="saving-banner">
+    <div class="sb-left">
+      <div class="sb-label">Ahorro anual estimado</div>
+      <div class="sb-amount" id="sb-amount">$81,600</div>
+      <div class="sb-monthly" id="sb-monthly">$6,800 / mes</div>
+    </div>
+    <div class="sb-right">
+      <div class="sb-pct" id="sb-pct">31%</div>
+      <div class="sb-pct-label">menos en cargos</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+  const fmtPct = n => n.toFixed(n % 1 === 0 ? 0 : (n < 1 ? 2 : 1)) + '%';
+
+  function update() {
+    const v   = +document.getElementById('venta').value;
+    const shF = +document.getElementById('sh-fee').value / 100;
+    const shC = +document.getElementById('sh-cpt').value / 100;
+    const tnF = +document.getElementById('tn-fee').value / 100;
+
+    document.getElementById('venta-val').textContent  = fmt(v);
+    document.getElementById('sh-fee-val').textContent = fmtPct(shF * 100);
+    document.getElementById('sh-cpt-val').textContent = fmtPct(shC * 100);
+    document.getElementById('tn-fee-val').textContent = fmtPct(tnF * 100);
+
+    const sFee   = v * shF;
+    const sCpt   = v * shC;
+    const sMes   = sFee + sCpt;
+    const sAnual = sMes * 12;
+
+    const tFee   = v * tnF;
+    const tMes   = tFee;
+    const tAnual = tMes * 12;
+
+    const savM   = sMes - tMes;
+    const savA   = savM * 12;
+    const savPct = sMes > 0 ? Math.round((savM / sMes) * 100) : 0;
+
+    document.getElementById('s-fee-lbl').textContent = 'Comisión ' + fmtPct(shF * 100);
+    document.getElementById('s-cpt-lbl').textContent = 'CPT ' + fmtPct(shC * 100);
+    document.getElementById('t-fee-lbl').textContent = 'Comisión ' + fmtPct(tnF * 100);
+
+    document.getElementById('s-venta').textContent    = fmt(v);
+    document.getElementById('s-fee').textContent      = '-' + fmt(sFee);
+    document.getElementById('s-cpt').textContent      = '-' + fmt(sCpt);
+    document.getElementById('s-mes').textContent      = '-' + fmt(sMes);
+    document.getElementById('s-monthly-note').textContent = fmt(sMes) + ' × 12';
+    document.getElementById('s-anual').textContent    = fmt(sAnual);
+
+    document.getElementById('t-venta').textContent    = fmt(v);
+    document.getElementById('t-fee').textContent      = '-' + fmt(tFee);
+    document.getElementById('t-mes').textContent      = '-' + fmt(tMes);
+    document.getElementById('t-monthly-note').textContent = fmt(tMes) + ' × 12';
+    document.getElementById('t-anual').textContent    = fmt(tAnual);
+
+    document.getElementById('sb-amount').textContent  = fmt(savA);
+    document.getElementById('sb-monthly').textContent = fmt(savM) + ' / mes';
+    document.getElementById('sb-pct').textContent     = savPct + '%';
+  }
+
+  ['venta','sh-fee','sh-cpt','tn-fee'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+
+  update();
+</script>
+</body>
+</html>
