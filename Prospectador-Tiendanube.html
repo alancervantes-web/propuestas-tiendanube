@@ -3,6 +3,8 @@
 <title>Tiendanube · Prospección</title>
 <style>
 :root{--navy:#4353e8;--navy2:#2e3ac0;--gold:#cbf24e;--ink:#1b1f3b;--soft:#eef0fb;--line:#dde1f7;--ok:#16a34a;--warn:#b91c1c;--lav:#a6aeeb;}
+.diag-wrap{display:block;}
+.diag-wrap svg{display:block;width:100%;height:auto;}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--soft);color:var(--ink)}
 .wrap{max-width:560px;margin:0 auto;padding:16px 14px 120px}
@@ -145,7 +147,12 @@ function promptGancho(l,datosVistos){var nom=l.nombre.replace('PRÁCTICA · ',''
 '',
 'REGLA #2 — MUY IMPORTANTE: el diagnóstico NO está listo ni adjunto. Es autoservicio: el link lleva a un formulario donde ELLOS pegan el link de SU tienda y ahí se genera su reporte completo (score, capturas, plan de acción). Lo que yo vi a mano es solo un adelanto para armar el gancho — nunca digas "te armé tu diagnóstico" ni "aquí está tu reporte". Di algo simple como "pega la URL de tu tienda y tienes tu diagnóstico gratis". NUNCA menciones minutos ni tiempo de espera (nada de "en 5 minutos", "toma poco tiempo", etc.) — la promesa es simplicidad, no velocidad.',
 '',
-'PASO DE AHORRO — antes de escribir, calcula si se puede: con la plataforma y métodos de pago que te haya pasado, ¿conoces la tarifa pública real de esa plataforma (ej. costo del plan de Shopify en México) y/o la comisión estándar conocida de esa pasarela (ej. comisión típica de Mercado Pago, PayPal, Kueski)? Si SÍ estás seguro de esas cifras públicas, calcula un costo mensual aproximado (plan + comisión, aunque sea un rango) y menciónalo en UNA oración corta, simple, como dato — no como amenaza. Si NO estás seguro de esas tarifas o la plataforma no quedó clara, OMITE el ahorro por completo y sigue directo con el gancho normal (plataforma/velocidad/pagos), sin mencionar costos.',
+'PASO DE AHORRO — esto va CASI SIEMPRE, no es opcional si detectaste la plataforma. Usa esta referencia de tarifas públicas conocidas en México (redondea, di "aproximado"):',
+'· Shopify: plan básico ~$25 USD/mes (~$700 MXN), plan Shopify ~$65 USD/mes (~$1,800 MXN) — más comisión de pago ~3.6% + $3 MXN por venta con Shopify Payments.',
+'· WooCommerce: sin costo de plataforma, pero hosting + plugins típico ~$400-900 MXN/mes — más comisión de pasarela (Stripe/PayPal) ~3.6% por venta.',
+'· VTEX: plan empresarial, sin precio de lista público — si la detectaste, omite el monto exacto pero puedes decir que suele ser de las más caras de operar.',
+'· Mercado Pago: comisión típica ~4.99% por venta. · PayPal: comisión típica ~5.4% + fijo por venta. · Kueski Pay: comisión típica más alta, ~6-8% por venta (es crédito, no tarjeta).',
+'Con esto: si detectaste Shopify o WooCommerce (los casos más comunes), SIEMPRE calcula y menciona un costo mensual aproximado (plan si aplica + la comisión del método de pago más caro que viste, redondeado). Solo omítelo si la plataforma quedó como "otra/no identificada".',
 '',
 'Prospecto: '+nom+' · '+l.cargo+' · '+l.empresa,
 'Sitio web: [URL]',
@@ -169,9 +176,9 @@ function promptGancho(l,datosVistos){var nom=l.nombre.replace('PRÁCTICA · ',''
 '2) LA IMAGEN — Aquí no me des solo una ficha técnica: GENERA la imagen ya, ahora, como artifact (SVG), lista para descargar como PNG. Contenido a grandes rasgos (NO satures de datos técnicos, máximo 3-4 tarjetas, los más fuertes de lo que viste — plataforma, velocidad, pagos y, si aplica el PASO DE AHORRO, una tarjeta más de costo mensual aproximado):',
 '- Formato cuadrado 1080x1080. SIN logo ni la palabra "Tiendanube" en ningún lado de la imagen — solo el look & feel (colores, tipografía, forma), nada de marca.',
 '- Título con bucle abierto, mismo criterio que el mensaje: algo tipo "Casi todo va bien." + remate en cursiva tipo "Hay un número que no." (ajusta ambos al hallazgo real, sin inventar cifras ni cerrar la duda del todo).',
-'- 3 o 4 tarjetas chicas con los datos más fuertes que viste — solo lo que puedas comprobar, más la de costo mensual aproximado si aplica el PASO DE AHORRO.',
+'- 3 o 4 tarjetas chicas con los datos más fuertes que viste — solo lo que puedas comprobar, más la de costo mensual aproximado si aplica el PASO DE AHORRO (esa tarjeta va con el monto en grande, ej. "$2,100 MXN/mes aprox.", y debajo la etiqueta "plataforma + comisión de pago").',
 '- Debajo de las tarjetas, una línea simple: "Solo pegas la URL de tu tienda y tienes tu diagnóstico gratis." (sin minutos, sin tiempos de espera).',
-'- Al final, un CTA con forma de botón/píldora (rectángulo con esquinas muy redondeadas, relleno verde lima #cbf24e, texto navy bold adentro), no un renglón de texto plano: algo como "¿QUIERES PROFUNDIZAR? DIAGNÓSTICO GRATIS →".',
+'- CTA final con forma de botón/píldora (rectángulo con esquinas muy redondeadas, relleno verde lima #cbf24e, texto navy bold adentro), no un renglón de texto plano. Si aplicó el PASO DE AHORRO, el CTA debe retomar el monto: algo como "¿QUIERES SABER CÓMO? GENERA TU DIAGNÓSTICO COMPLETO →". Si NO aplicó el ahorro, usa "¿QUIERES PROFUNDIZAR? DIAGNÓSTICO GRATIS →".',
 'ESTILO DE LA IMAGEN (NO cambies el contenido, solo el estilo): fondo azul índigo #4353e8 sólido. Arriba, una píldora con borde delgado blanco translúcido y el texto "DIAGNÓSTICO · [dominio de la tienda]" en mayúsculas chicas. Título grande en blanco bold y debajo, en cursiva y en azul lavanda claro #a6aeeb, el remate. Subtítulo centrado en blanco/lavanda claro. Las tarjetas van con fondo azul índigo más oscuro #2e3ac0, esquinas redondeadas, número grande en verde lima #cbf24e y etiqueta chica debajo en gris lavanda. Tipografía sans serif bold, redondeada, limpia, con aire.',
 '',
 'Español de México, frases cortas. Corto, concreto y 100% real.'].join('\n');}
@@ -227,7 +234,7 @@ function generarConIA(promptTexto,targetId){
     if(msg) html+='<div class="copybox"><div class="lbl">Mensaje de LinkedIn</div>'+esc(msg)+'</div>'+
       '<button class="btn gold sm" onclick="copy('+J(msg)+',this)">📋 Copiar mensaje</button>';
     if(svg && svg.indexOf('<svg')>=0){
-      html+='<div style="margin-top:12px;border-radius:12px;overflow:hidden;max-width:280px;border:1px solid var(--line)">'+svg+'</div>'+
+      html+='<div class="diag-wrap" style="margin-top:12px;border-radius:12px;overflow:hidden;max-width:320px;border:1px solid var(--line)">'+svg+'</div>'+
         '<button class="btn navy sm" style="margin-top:6px" onclick="descargarSvgComoPng('+J(svg)+')">⬇️ Descargar imagen (PNG)</button>';
     }
     if(!msg && !svg) html='<div class="warn">No pude interpretar la respuesta. Aquí está tal cual, revísala a mano:</div><div class="bitlog">'+esc(texto)+'</div>';
