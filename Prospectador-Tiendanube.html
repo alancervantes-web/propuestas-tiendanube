@@ -47,7 +47,7 @@ a.link{color:#2563eb;font-weight:700;text-decoration:none}.logo{font-size:34px}
 
 <!-- ============================================================= -->
 <!--  👉👉👉  PEGA AQUÍ TU LINK QUE TERMINA EN /exec  👈👈👈        -->
-<script> const API = "https://script.google.com/macros/s/AKfycbwWrMldLiTPyuLalWTcv62ElL1w8uHrwGfD0Zi0Dy1iA5jP7yz1k0zYKoD0A8Ue5Vg/exec"; </script>
+<script> const API = "https://script.google.com/macros/s/AKfycbxQhCQKJ2IMhlrfdiTJAcZM6t_3AS-9yFA4ydo6oEFmqtAdDocHH4fKRcNp3Z5Rjuvm/exec"; </script>
 <!-- ============================================================= -->
 
 <div class="wrap">
@@ -69,7 +69,7 @@ function run(fn,args){
     .then(function(r){return r.json();}).then(function(j){if(!j.ok)throw new Error(j.error||'error');return j.data;});
 }
 function BETA(fn,args){var t=new Date().toISOString().slice(0,10);
-  if(fn=='estadoInicial')return {sdr:S.sdr,fecha:t,kpi:{total:4,leads:4,conectados:1,mensajes:1,diagnosticos:0,reuniones:0,invitesHoy:0},pend:{aceptar:2,ganchos:1,seguimientos:1,nuevos:4}};
+  if(fn=='estadoInicial')return {sdr:S.sdr,fecha:t,kpi:{total:4,leads:4,conectados:1,mensajes:1,conversaciones:0,reuniones:0,invitesHoy:0},pend:{aceptar:2,ganchos:1,seguimientos:1,nuevos:4}};
   if(fn=='listaAceptar')return [{fila:1001,nombre:'PRÁCTICA · Juan Pérez',empresa:'Empresa Demo',cargo:'Director de Marketing',finv:'2026-06-20',url:''},{fila:1002,nombre:'PRÁCTICA · Ana López',empresa:'Tienda Ejemplo',cargo:'Gerente Comercial',finv:'2026-06-20',url:''}];
   if(fn=='listaGanchos')return [{fila:1003,nombre:'PRÁCTICA · Carlos Ruiz',cargo:'CEO',empresa:'Negocio Test',face:'2026-06-23',url:''}];
   if(fn=='listaSeguimientos')return [{fila:1004,nombre:'PRÁCTICA · María Gómez',cargo:'Head of Growth',empresa:'Marca Demo',status:'Mensaje enviado',finv:'2026-06-18',face:'2026-06-21',fgan:'2026-06-23',prox:'2026-06-26',dias:3,vence:true,bit:'2026-06-21 aceptó conexión\n2026-06-23 gancho enviado'}];
@@ -104,7 +104,7 @@ function armarComentario(){var l=S.nuevos[S.idx];var s=(document.getElementById(
 function kpi(l,v){return '<div class="kpi">'+l+'<b>'+v+'</b></div>';}
 function err(e){set('<div class="card"><h2>Algo falló</h2><p class="muted">'+esc(e&&e.message||e)+'</p><button class="btn navy" onclick="screenModo()">Volver al inicio</button></div>');}
 function banner(){document.getElementById('topsub').innerHTML='Hola '+S.sdr+' · '+S.fecha+' <span class="banner '+(S.beta?'beta':'live')+'">'+(S.beta?'🧪 PRÁCTICA (no se guarda)':'● EN VIVO')+'</span>';}
-function paintKpis(k){document.getElementById('kpis').innerHTML=kpi('Total',k.total)+kpi('Invites hoy',k.invitesHoy)+kpi('Conectados',k.conectados)+kpi('Diagnósticos',k.diagnosticos||0)+kpi('Reuniones',k.reuniones);}
+function paintKpis(k){document.getElementById('kpis').innerHTML=kpi('Total',k.total)+kpi('Invites hoy',k.invitesHoy)+kpi('Conectados',k.conectados)+kpi('Conversaciones',k.conversaciones)+kpi('Reuniones',k.reuniones);}
 
 /* ====== PROMPTS PARA LIZA ====== */
 function promptComentario(l,snippet){var nom=l.nombre.replace('PRÁCTICA · ','');return [
@@ -116,68 +116,56 @@ function promptComentario(l,snippet){var nom=l.nombre.replace('PRÁCTICA · ',''
 'Dame UN comentario muy breve (máx 15-20 palabras): de preferencia una pregunta genuina o una observación que invite a que me respondan, mostrando que sí leí su publicación.',
 'Español de México, natural. JAMÁS se debe ver hecho con IA: nada de "felicidades", "gran logro", "excelente trabajo", "totalmente de acuerdo" ni halagos vacíos.'].join('\n');}
 
-function promptGancho(l,datosVistos){var nom=l.nombre.replace('PRÁCTICA · ','');return [
-'Lo que vi entrando a su sitio (lo pego aquí cuando lo tenga): '+(datosVistos?datosVistos:'[ ]'),
+function promptGancho(l){var nom=l.nombre.replace('PRÁCTICA · ','');return [
+'Lo que vi entrando a su sitio (lo pego aquí cuando lo tenga): [ ]',
 '',
 'Eres Nube, consultora de ecommerce especializada en ayudar a marcas a vender más optimizando su plataforma, pasarela de pago y envíos. Tono cercano, humilde, de experto que ayuda, sin venta. Nunca debe verse hecho con IA. Prohibido: increíble, potente, estimado/a, emojis.',
 '',
-'TÉCNICA A USAR EN TODO — bucle abierto (efecto Zeigarnik): el cerebro no puede soltar una pregunta que se abrió pero no se cerró. Por eso "cometí un error que me hizo perder 10,000 seguidores" funciona mejor que "te enseño a crecer" — mismo tema, mejor estructura. Abre la duda, NO la resuelvas del todo en el texto: la resolución vive en el link (que ellos mismos completan con su propio sitio) o en la plática.',
-'',
 'REGLA #1: NO INVENTES NADA. Ni cifras, ni plataformas, ni comparaciones. Usa SOLO lo que yo te pegue de verdad entrando al sitio (velocidad, checkout, métodos de pago visibles, plataforma que usan). Si no lo puedes comprobar, no lo pongas. Un dato inventado quema al prospecto.',
-'',
-'REGLA #2 — MUY IMPORTANTE: el diagnóstico NO está listo ni adjunto. Es autoservicio: el link lleva a un formulario donde ELLOS pegan el link de SU tienda y ahí se genera su reporte completo (score, capturas, plan de acción) en 5 minutos. Lo que yo vi a mano es solo un adelanto para armar el gancho — nunca digas "te armé tu diagnóstico" ni "aquí está tu reporte". Di algo como "quiero que lo veas con tus propios números" o "pega el link de tu tienda y en 5 minutos lo tienes".',
 '',
 'Prospecto: '+nom+' · '+l.cargo+' · '+l.empresa,
 'Sitio web: [URL]',
-'Link del diagnóstico gratuito, trackeado a este prospecto (autoservicio — va DENTRO del mensaje, no lo cambies): '+linkTrackeado_(l),
+'Link del diagnóstico gratuito (va DENTRO del mensaje, no lo cambies): '+DIAG,
 '',
 'PASO 1 — Si arriba todavía NO te pegué lo que vi en el sitio:',
 'Pídeme en una línea que entre al sitio y te diga: a) en qué plataforma está montado (Shopify/VTEX/WooCommerce/otra — se ve en el código fuente o en el checkout), b) qué tan rápido carga el home, c) qué métodos de pago ofrece en el checkout.',
 '',
 'PASO 2 — Cuando te pegue lo anterior, dame DOS entregables:',
 '',
-'1) MENSAJE DE LINKEDIN — corto (55-75 palabras MÁXIMO), distinto cada vez (no plantilla). Su único objetivo es el CLIC al link, no solo que respondan:',
+'1) MENSAJE DE LINKEDIN — corto (55-75 palabras MÁXIMO), distinto cada vez (no plantilla). UNA sola idea con bucle abierto, que termina empujando el clic al link (ese es el objetivo del mensaje, ya no solo que respondan):',
 '- Abre con el saludo según la hora de México SEGUIDO del nombre de pila del prospecto: "Buenos días, [Nombre]" (antes de las 12), "Buenas tardes, [Nombre]" (12 a 19) o "Buenas noches, [Nombre]" (después de las 19). Usa solo el primer nombre, sin apellidos y sin "estimado".',
-'- Primeras palabras con bucle abierto (ver técnica arriba): algo inesperado o incompleto sobre lo que viste, NUNCA la explicación completa. Ej: "Casi todo en [tienda] está bien. Hay un número que no." — y ahí lo dejas, sin explicar cuál todavía.',
-'- Después, UNA línea con el hecho real que sí puedes comprobar (ej: la plataforma que usan, o la velocidad de carga, o los métodos de pago que faltan) — esto ancla la curiosidad a algo concreto, pero sin cerrar la duda completa.',
+'- UNA línea con un hecho real comprobable de lo que viste (ej: la plataforma que usan, o la velocidad de carga, o los métodos de pago que faltan).',
+'- EL BUCLE ABIERTO: justo después, abre una duda y NO la cierres del todo. Ej: "y eso probablemente les está costando ventas cada mes, pero no por la razón que uno pensaría." El misterio va en la CAUSA, nunca en el problema — pero aquí SÍ se resuelve parcialmente con el link, no en la plática.',
 '- Preséntate como persona, no como folleto: "Soy Nube, ayudo a tiendas a vender más sin gastar más en publicidad." NO digas "Tiendanube", NO "empresa/agencia".',
-'- CTA principal (autoservicio, REGLA #2): usa un marco de escasez + simplicidad — cupo limitado este mes + lo fácil que es (solo necesita pegar la URL de su tienda) + gratis. Ejemplo de tono (no lo copies literal, ajústalo a la conversación): "Este mes estamos diagnosticando a 10 sitios, solo necesitas la URL de tu tienda para un diagnóstico gratis, dale clic aquí:" + el link tal cual se lo di arriba. El link SIEMPRE va en el mensaje.',
+'- CTA principal: dile que le armaste el diagnóstico completo y gratuito de su tienda (score, capturas reales, plan de acción) y que lo puede ver aquí mismo, pega el link tal cual se lo di arriba. El link SIEMPRE va en el mensaje.',
 '- Media línea: menciona que además le dejas una imagen con lo más importante de lo que viste.',
 '- Cierra invitando suave a que si después de verlo quiere platicar, te responda: "Cualquier duda, aquí ando."',
 '- Siempre en frases cortas. Que se entienda perfecto y suene a persona real, no a script.',
 '',
-'2) LA IMAGEN — Aquí no me des solo una ficha técnica: GENERA la imagen ya, ahora, como artifact (SVG), lista para descargar como PNG. Contenido a grandes rasgos (NO satures de datos técnicos, máximo 3-4 puntos clave, los más fuertes de lo que viste — plataforma, velocidad o pagos):',
-'- Formato cuadrado 1080x1080. SIN logo ni la palabra "Tiendanube" en ningún lado de la imagen — solo el look & feel (colores, tipografía, forma), nada de marca.',
-'- Título con bucle abierto, mismo criterio que el mensaje: algo tipo "Casi todo va bien." + remate en cursiva tipo "Hay un número que no." (ajusta ambos al hallazgo real, sin inventar cifras ni cerrar la duda del todo).',
-'- 3 o 4 tarjetas chicas con los datos más fuertes que viste — solo lo que puedas comprobar.',
-'- Al final, un CTA con forma de botón/píldora (rectángulo con esquinas muy redondeadas, relleno verde lima #cbf24e, texto navy bold adentro), no un renglón de texto plano: algo como "¿QUIERES PROFUNDIZAR? DIAGNÓSTICO GRATIS →".',
-'ESTILO DE LA IMAGEN (NO cambies el contenido, solo el estilo): fondo azul índigo #4353e8 sólido. Arriba, una píldora con borde delgado blanco translúcido y el texto "DIAGNÓSTICO · [dominio de la tienda]" en mayúsculas chicas. Título grande en blanco bold y debajo, en cursiva y en azul lavanda claro #a6aeeb, el remate. Subtítulo centrado en blanco/lavanda claro. Las tarjetas van con fondo azul índigo más oscuro #2e3ac0, esquinas redondeadas, número grande en verde lima #cbf24e y etiqueta chica debajo en gris lavanda. Tipografía sans serif bold, redondeada, limpia, con aire.',
+'2) LA IMAGEN — Aquí no me des solo una ficha técnica: GENERA la imagen ya, ahora, como artifact (SVG o HTML), lista para descargar. Contenido a grandes rasgos (NO satures de datos técnicos, máximo 3-4 puntos clave, los más fuertes de lo que viste — plataforma, velocidad o pagos):',
+'- Formato cuadrado, look & feel "Diagnóstico" de Tiendanube (ver estilo abajo).',
+'- Título tipo "Tu tienda crece." + remate en cursiva tipo "Tu plataforma, no." (ajusta el remate al hallazgo real, sin inventar cifras).',
+'- 3 o 4 tarjetas chicas con los datos más fuertes que viste (ej: velocidad en celular, plataforma actual, métodos de pago) — solo lo que puedas comprobar.',
+'- Al pie de la imagen, un renglón chico con la invitación: "¿Quieres profundizar? Genera tu diagnóstico gratis" — sin link visible en la imagen (el link va en el mensaje de LinkedIn, no aquí).',
+'ESTILO DE LA IMAGEN (NO cambies el contenido, solo el estilo): fondo azul índigo #4353e8 sólido. Arriba, centrado, el logo de Tiendanube en blanco. Debajo, una píldora con borde delgado blanco translúcido y el texto "DIAGNÓSTICO · [dominio de la tienda]" en mayúsculas chicas. Título grande en blanco bold y debajo, en cursiva y en azul lavanda claro #a6aeeb, el remate. Subtítulo centrado en blanco/lavanda claro. Las tarjetas van con fondo azul índigo más oscuro #2e3ac0, esquinas redondeadas, número grande en verde lima #cbf24e y etiqueta chica debajo en gris lavanda. Tipografía sans serif bold, redondeada, limpia, con aire — cero dorado, cero navy oscuro.',
 '',
 'Español de México, frases cortas. Corto, concreto y 100% real.'].join('\n');}
 
 function promptSeg(l){var nom=l.nombre.replace('PRÁCTICA · ','');var d=(l.dias>=7?'7':'3');return [
 'Nube, dame un mensaje de seguimiento de LinkedIn (día '+d+') para '+nom+', '+l.cargo+' en '+l.empresa+'.',
 'Ya le mandé el primer gancho sobre su plataforma/checkout con el link del diagnóstico gratuito y no me ha contestado.',
-'Breve, sin presionar. Que aporte UN dato o ángulo nuevo (ej: algo de velocidad, pagos o envíos) manteniendo el bucle abierto, y vuelva a dejar el link por si no lo vio: '+linkTrackeado_(l)+'.',
+'Breve, sin presionar. Que aporte UN dato o ángulo nuevo (ej: algo de velocidad, pagos o envíos) manteniendo el bucle abierto, y vuelva a dejar el link por si no lo vio: '+DIAG+'.',
 'Español de México, máx 50 palabras, frases cortas. JAMÁS se debe ver hecho con IA.'].join('\n');}
 
 var CAL='https://calendly.com/tiendanube-info/30min';
 var DIAG='https://tu-typeform.typeform.com/to/vD5LRBR7';
-// Link trackeado por prospecto: agrega ?ref=<fila> para que cuando llenen
-// el Typeform, el webhook pueda machear ese envío con este lead exacto
-// (además del ?agencia= que ya lleva el link base) y auto-marcar
-// "llenó su diagnóstico" sin que el SDR tenga que adivinar.
-function linkTrackeado_(l){
-  var sep=DIAG.indexOf('?')>=0?'&':'?';
-  return DIAG+sep+'ref='+encodeURIComponent(l.fila);
-}
 function promptMasInfo(l){var nom=l.nombre.replace('PRÁCTICA · ','');return [
 'Nube, '+nom+' ('+l.cargo+' en '+l.empresa+') me respondió y quiere saber más.',
-'Dame 2 o 3 puntos concretos de valor de optimizar su ecommerce (pasarela de pago, envíos, checkout, automatización) — no un pitch, no lista genérica —, tono cercano, español de México, máx 60 palabras, que cierren invitándolo a verlo con sus propios números en el diagnóstico gratuito: '+linkTrackeado_(l)+'.',
+'Dame 2 o 3 puntos concretos de valor de optimizar su ecommerce (pasarela de pago, envíos, checkout, automatización) — no un pitch, no lista genérica —, tono cercano, español de México, máx 60 palabras, que cierren invitándolo a verlo con sus propios números en el diagnóstico gratuito: '+DIAG+'.',
 'JAMÁS se debe ver hecho con IA.'].join('\n');}
 function promptReporte(l){var nom=l.nombre.replace('PRÁCTICA · ','');return [
 'Nube, '+nom+' ('+l.cargo+' en '+l.empresa+') pide el análisis/reporte que ofrecimos.',
-'Dame un mensaje breve y cálido: dile que lo puede generar él mismo ahí mismo, toma 5 minutos y es gratis — pega el link: '+linkTrackeado_(l)+'. Cierra ofreciendo revisarlo juntos en una llamada corta una vez que lo tenga.',
+'Dame un mensaje breve y cálido: dile que lo puede generar él mismo ahí mismo, toma 5 minutos y es gratis — pega el link: '+DIAG+'. Cierra ofreciendo revisarlo juntos en una llamada corta una vez que lo tenga.',
 'Español de México, sin presionar, máx 50 palabras. JAMÁS se debe ver hecho con IA.'].join('\n');}
 function promptAgenda(l){var nom=l.nombre.replace('PRÁCTICA · ','');return [
 'Nube, '+nom+' quiere agendar. Dame un mensaje corto y cálido para cerrar el meet e incluye este link: '+CAL,
@@ -185,103 +173,28 @@ function promptAgenda(l){var nom=l.nombre.replace('PRÁCTICA · ','');return [
 function promptObjecion(l,obj){var nom=l.nombre.replace('PRÁCTICA · ','');return [
 'Nube, '+nom+' me puso una objeción.',
 'OBJECIÓN:',
-(obj&&obj.trim()?obj.trim():'[PEGA AQUÍ LO QUE TE DIJO]'),
+'[PEGA AQUÍ LO QUE TE DIJO]',
 '',
 'Dame una respuesta con enfoque sentir–sintió–descubrió (feel-felt-found), español de México, breve, sin presionar, que reabra el meet. JAMÁS se debe ver hecho con IA.'].join('\n');}
 
-/* Caja de prompt VISIBLE para copiar a mano (sin depender de botones) — se deja como respaldo manual */
+/* Caja de prompt VISIBLE para copiar a mano (sin depender de botones) */
 function promptBox(texto){return '<p class="muted">👇 Copia este texto (tócalo y "Seleccionar todo") y pégaselo a Nube. Completa lo que está entre [corchetes].</p>'+
   '<textarea class="pbox" onclick="this.focus();this.select();" style="min-height:180px;background:#4353e8;color:#dbe0ff;font-size:13px;line-height:1.5">'+esc(texto)+'</textarea>';}
 
-/* ====== 🤖 GENERACIÓN AUTOMÁTICA (Claude vía el backend) ====== */
-// Instrucción de formato que se agrega SOLO en la llamada automática (no en promptBox,
-// para no ensuciar el prompt cuando alguien lo usa a mano). Fuerza una respuesta
-// que el parser de abajo pueda leer sin ambigüedad.
-var FORMATO_API='\n\nMUY IMPORTANTE — formato de tu respuesta (esto lo lee un sistema automático, no una persona): entrega EXACTAMENTE así, con estos separadores literales, sin nada de texto antes o después de cada bloque:\n===MENSAJE===\n(aquí SOLO el texto final del mensaje de LinkedIn, sin explicaciones ni comillas)\n===SVG===\n(aquí el código SVG completo de la imagen, empezando en <svg y terminando en </svg>. Si no te pedí imagen en este caso, deja este bloque vacío)\n===FIN===';
-
-function generarConIA(promptTexto,targetId){
-  document.getElementById(targetId).innerHTML='<p class="muted">✨ Nube está pensando…</p>';
-  run('llamarClaude',[promptTexto+FORMATO_API]).then(function(texto){
-    if(String(texto).indexOf('ERROR')===0){ document.getElementById(targetId).innerHTML='<div class="warn">'+esc(texto)+'</div>'; return; }
-    var msg=extraerBloque_(texto,'MENSAJE');
-    var svg=extraerBloque_(texto,'SVG');
-    var html='';
-    if(msg) html+='<div class="copybox"><div class="lbl">Mensaje de LinkedIn</div>'+esc(msg)+'</div>'+
-      '<button class="btn gold sm" onclick="copy('+J(msg)+',this)">📋 Copiar mensaje</button>';
-    if(svg && svg.indexOf('<svg')>=0){
-      html+='<div style="margin-top:12px;border-radius:12px;overflow:hidden;max-width:280px;border:1px solid var(--line)">'+svg+'</div>'+
-        '<button class="btn navy sm" style="margin-top:6px" onclick="descargarSvgComoPng('+J(svg)+')">⬇️ Descargar imagen (PNG)</button>';
-    }
-    if(!msg && !svg) html='<div class="warn">No pude interpretar la respuesta. Aquí está tal cual, revísala a mano:</div><div class="bitlog">'+esc(texto)+'</div>';
-    document.getElementById(targetId).innerHTML=html;
-  }).catch(function(e){document.getElementById(targetId).innerHTML='<div class="warn">Error: '+esc(e&&e.message||e)+'</div>';});
-}
-function extraerBloque_(texto,tag){
-  var re=new RegExp('==='+tag+'===([\\s\\S]*?)(?:===|$)');
-  var m=String(texto||'').match(re);
-  return m?m[1].trim():'';
-}
-
-// Orquesta: el SDR solo pega la URL del sitio. Esto la analiza solo
-// (plataforma, velocidad, pagos) y arranca la generación. Solo si algo
-// no se pudo confirmar automático, le pide al SDR ESE dato puntual —
-// nunca el paquete completo.
-function iniciarGancho(l,boxId){
-  var input=document.getElementById('urlSitio');
-  var url=(input?input.value:'').trim();
-  if(!url){toast('Pega la URL del sitio primero');return;}
-  if(url.indexOf('http')!==0) url='https://'+url;
-  document.getElementById(boxId).innerHTML='<p class="muted">🔎 Nube está entrando al sitio (plataforma, velocidad, pagos)…</p>';
-  run('analizarSitio',[url]).then(function(info){
-    if(info.faltantes && info.faltantes.length){
-      document.getElementById(boxId).innerHTML=
-        '<div class="warn">No pude confirmar solo: <b>'+esc(info.faltantes.join(', '))+'</b>. Complétalo si lo sabes (o dale continuar y Nube trabaja con lo que sí hay):</div>'+
-        '<textarea id="datosVistos" placeholder="Ej: Shopify, checkout con 5 métodos de pago…">'+esc(info.resumen)+'</textarea>'+
-        '<button class="btn navy" onclick="generarConIA(promptGancho('+J(l)+',document.getElementById(\'datosVistos\').value),'+J(boxId)+')">✨ Continuar y generar</button>';
-    } else {
-      generarConIA(promptGancho(l,info.resumen),boxId);
-    }
-  }).catch(function(){
-    document.getElementById(boxId).innerHTML=
-      '<div class="warn">No pude analizar el sitio automático (puede que bloquee visitas externas). Pega lo que veas a mano:</div>'+
-      '<textarea id="datosVistos" placeholder="Ej: Shopify, checkout con 5 métodos de pago…"></textarea>'+
-      '<button class="btn navy" onclick="generarConIA(promptGancho('+J(l)+',document.getElementById(\'datosVistos\').value),'+J(boxId)+')">✨ Generar</button>';
-  });
-}
-function descargarSvgComoPng(svg){
-  var img=new Image();
-  var svg64=btoa(unescape(encodeURIComponent(svg)));
-  img.onload=function(){
-    var canvas=document.createElement('canvas');
-    canvas.width=1080;canvas.height=1080;
-    var ctx=canvas.getContext('2d');
-    ctx.drawImage(img,0,0,1080,1080);
-    canvas.toBlob(function(blob){
-      var a=document.createElement('a');
-      a.href=URL.createObjectURL(blob);
-      a.download='diagnostico.png';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      toast('Imagen descargada ✓');
-    });
-  };
-  img.onerror=function(){toast('No se pudo convertir — usa el SVG de arriba tal cual');};
-  img.src='data:image/svg+xml;base64,'+svg64;
-}
-
 /* ====== GUÍA ====== */
 function screenGuia(){set('<div class="card"><h2>📖 Guía rápida</h2>'+
-'<div class="info"><b>El objetivo:</b> que peguen su link y llenen su diagnóstico gratis. Eso es la señal fuerte — de ahí sale la reunión. Tómalo con calma y hazlo bien: esto es lo que nos lleva a la meta.</div>'+
+'<div class="info"><b>El objetivo:</b> agendar muchas reuniones. Cada reunión es una intención de compra — más reuniones = más ventas. Tómalo con calma y hazlo bien: esto es lo que nos lleva a la meta.</div>'+
 '<p><b>Tu día, paso a paso:</b></p>'+
 '<p>1. <b>Investiga</b> al prospecto (no llegues en frío).<br>'+
 '2. <b>Deja intención:</b> like a sus 2 últimas publicaciones. Si publica ideas, comenta con valor (si dudas, pídele el comentario a Nube).<br>'+
 '3. <b>Manda la invitación</b> a conectar.<br>'+
 '4. <b>Al día siguiente</b> marca quién te aceptó.<br>'+
-'5. A los que aceptaron, mándales el <b>gancho con el link de su diagnóstico gratuito</b> (Nube te lo arma): un hallazgo real + el link para que ellos mismos vean su score con su propio sitio.<br>'+
-'6. <b>Da seguimiento</b> (día 3 y día 7): ¿ya llenó su diagnóstico? Esa es la pregunta clave, más que si contestó el mensaje.<br>'+
-'7. <b>Si llenó su diagnóstico o te responden:</b> el sistema te guía para el siguiente paso — agendar es lo que sigue.</p>'+
+'5. A los que aceptaron, mándales el <b>gancho</b> (Nube te lo arma): una observación real + asesoría sin costo este mes + reporte de mejoras.<br>'+
+'6. <b>Da seguimiento</b> (día 3 y día 7) y registra qué pasó.<br>'+
+'7. <b>Si te responden:</b> el sistema te guía para contestar (más info, agendar, o el reporte se presenta en el meet).</p>'+
 '<div class="warn">⚠️ Regla de oro: el copy JAMÁS debe verse hecho con IA. Revísalo siempre.</div>'+
 '<div class="info">🆘 Si algo te falta, no sabes qué responder o te trabas: <b>toca base con Alan</b> (botón verde de abajo). Para eso está, sin pena.</div>'+
-'<p class="muted">Meta diaria: <b>20 nuevos</b>. Lo que de verdad cuenta: <b>diagnósticos llenados y reuniones agendadas</b>.</p>'+
+'<p class="muted">Meta diaria: <b>20 nuevos</b>. Lo que de verdad cuenta: <b>reuniones agendadas</b>.</p>'+
 '<button class="btn navy" onclick="S.estado?screenResumen():screenModo()">Entendido, a trabajar 💪</button></div>');}
 
 /* ====== 0 · MODO ====== */
@@ -338,10 +251,10 @@ function screenResumen(){var p=S.estado.pend;
   set('<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Plan de hoy</h2>'+
   '<button class="btn ghost" style="width:auto;margin:0;padding:8px 12px" onclick="screenGuia()">📖 Guía</button></div>'+
   '<p class="muted">Orden recomendado: primero seguimiento, luego los 20 nuevos.</p></div>'+
-  '<div class="card" style="border:2px solid #cbf24e"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:16px">⚡ Me agregó hoy</h2><span class="pill">mismo día</span></div><p class="muted">Si alguien te aceptó hoy mismo, no esperes al día siguiente: márcalo y mándale ya el link de su diagnóstico gratuito.</p><button class="btn gold sm" onclick="scAgregoHoy()">Entrar</button></div>'+
+  '<div class="card" style="border:2px solid #cbf24e"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:16px">⚡ Me agregó hoy</h2><span class="pill">mismo día</span></div><p class="muted">Si alguien te aceptó hoy mismo, no esperes al día siguiente: márcalo y mándale el gancho ya para buscar la reunión.</p><button class="btn gold sm" onclick="scAgregoHoy()">Entrar</button></div>'+
   blk('1 · Revisar aceptaciones',p.aceptar+' por revisar','Marca quién te aceptó.', 'scAceptar()',p.aceptar>0)+
-  blk('2 · Mandar gancho + link',p.ganchos+' conectados','Pídele el mensaje y la imagen a Nube, con el link de diagnóstico.', 'scGanchos()',p.ganchos>0)+
-  blk('3 · Seguimientos',p.seguimientos+' en proceso','¿Ya llenó su diagnóstico? Día 3 / día 7.', 'scSeguir()',p.seguimientos>0)+
+  blk('2 · Mandar gancho',p.ganchos+' conectados','Pídele el mensaje a Nube y envíalo.', 'scGanchos()',p.ganchos>0)+
+  blk('3 · Seguimientos',p.seguimientos+' en proceso','¿Qué pasó con cada quien? Día 3 / día 7.', 'scSeguir()',p.seguimientos>0)+
   blk('4 · Prospectos nuevos','Meta: '+S.meta,'Investigar, interactuar e invitar.', 'scNuevosInit()',true));
 }
 function blk(t,badge,desc,onclick,active){return '<div class="card '+(active?'':'')+'" style="'+(active?'':'opacity:.55')+'"><div style="display:flex;justify-content:space-between;align-items:center">'+
@@ -385,12 +298,10 @@ function renderGanchoHoy(l){
   set('<div class="prog">Gancho del mismo día</div>'+
   '<div class="card"><h2>'+esc(l.nombre)+'</h2><p class="muted">'+esc(l.cargo)+' · '+esc(l.empresa)+' · te aceptó hoy</p>'+
   btnLi(l)+
-  '<div class="info">Pega solo la <b>URL del sitio</b> — Nube entra sola, revisa plataforma, velocidad y pagos, y te arma el mensaje + la imagen.</div>'+
-  '<input type="text" id="urlSitio" placeholder="https://sutienda.mx">'+
-  '<button class="btn navy" onclick="iniciarGancho('+J(l)+',\'iaBox\')">✨ Generar mensaje + imagen con Nube</button>'+
-  '<div id="iaBox"></div>'+
-  '<div class="warn" style="margin-top:14px">⚠️ Cuida el copy antes de mandar: JAMÁS se debe ver hecho con IA.</div>'+
-  '<textarea id="gtx" placeholder="Pega aquí el mensaje ya mandado, para guardarlo…"></textarea>'+
+  '<div class="info">Pídele el mensaje a Nube, <b>mándalo por LinkedIn</b> y luego pégalo aquí para guardarlo. La meta es que de aquí salga una reunión.</div>'+
+  '<div class="warn">⚠️ Cuida el copy: JAMÁS se debe ver hecho con IA. Revísalo antes de mandar.</div>'+
+  promptBox(promptGancho(l))+
+  '<textarea id="gtx" placeholder="Pega aquí el mensaje que te dio Nube (el que ya mandaste)…"></textarea>'+
   '<button class="btn ok" onclick="saveGanchoHoy('+l.fila+')">Guardar y marcar enviado</button>'+
   '<button class="btn ghost sm" onclick="regresarProspectoHoy('+l.fila+')">↩︎ Aún no me acepta — regresar a verificación</button>'+
   '<button class="btn ghost sm" onclick="scAgregoHoy()">Volver a la lista</button></div>');}
@@ -403,12 +314,10 @@ function renderGancho(){var l=S.ganchos[S.gi];if(!l){toast('Ganchos listos ✓')
   set('<div class="prog">Gancho '+(S.gi+1)+' de '+S.ganchos.length+'</div>'+
   '<div class="card"><h2>'+esc(l.nombre)+'</h2><p class="muted">'+esc(l.cargo)+' · '+esc(l.empresa)+' · aceptó '+dd(l.face)+'</p>'+
   btnLi(l)+
-  '<div class="info">Pega solo la <b>URL del sitio</b> — Nube entra sola, revisa plataforma, velocidad y pagos, y te arma el mensaje + la imagen.</div>'+
-  '<input type="text" id="urlSitio" placeholder="https://sutienda.mx">'+
-  '<button class="btn navy" onclick="iniciarGancho('+J(l)+',\'iaBox\')">✨ Generar mensaje + imagen con Nube</button>'+
-  '<div id="iaBox"></div>'+
-  '<div class="warn" style="margin-top:14px">⚠️ Cuida el copy antes de mandar: JAMÁS se debe ver hecho con IA.</div>'+
-  '<textarea id="gtx" placeholder="Pega aquí el mensaje ya mandado, para guardarlo…"></textarea>'+
+  '<div class="info">Pide el mensaje a Nube, <b>mándalo por LinkedIn</b> y luego pégalo aquí para guardarlo.</div>'+
+  '<div class="warn">⚠️ Cuida el copy: JAMÁS se debe ver hecho con IA. Revísalo antes de mandar.</div>'+
+  promptBox(promptGancho(l))+
+  '<textarea id="gtx" placeholder="Pega aquí el mensaje que te dio Nube (el que ya mandaste)…"></textarea>'+
   '<button class="btn ok" onclick="saveGancho('+l.fila+')">Guardar y marcar enviado</button>'+
   '<button class="btn ghost sm" onclick="S.gi++;renderGancho()">Saltar por ahora</button>'+
   '<button class="btn ghost sm" onclick="regresarProspecto('+l.fila+')">↩︎ Aún no me acepta — regresar a verificación</button></div>');}
@@ -424,65 +333,52 @@ function scSeguir(){run('listaSeguimientos').then(function(list){if(!list.length
 function renderSeg(){var l=S.seg[S.si];if(!l){toast('Seguimientos al día ✓');return refreshThen(screenResumen);}
   set('<div class="prog">Seguimiento '+(S.si+1)+' de '+S.seg.length+'</div>'+
   '<div class="card"><h2>'+esc(l.nombre)+'</h2><p class="muted">'+esc(l.cargo)+' · '+esc(l.empresa)+'</p>'+
-  '<div class="info">Ya te conectó y le mandaste el gancho con el link de su diagnóstico gratuito. Decide el siguiente paso.</div>'+
-  '<div class="dates"><b>Invitado:</b> '+dd(l.finv)+'<br><b>Aceptó:</b> '+dd(l.face)+'<br><b>Le mandaste el link:</b> '+dd(l.fgan)+' ('+l.dias+' días)<br><b>Toca seguimiento:</b> '+dd(l.prox)+(l.vence?' &nbsp;<span class="tag due">Toca hoy</span>':'')+'</div>'+
+  '<div class="info">Ya te conectó y ya le escribiste. No ha contestado. Decide el siguiente paso.</div>'+
+  '<div class="dates"><b>Invitado:</b> '+dd(l.finv)+'<br><b>Aceptó:</b> '+dd(l.face)+'<br><b>Le escribiste:</b> '+dd(l.fgan)+' ('+l.dias+' días)<br><b>Toca seguimiento:</b> '+dd(l.prox)+(l.vence?' &nbsp;<span class="tag due">Toca hoy</span>':'')+'</div>'+
   (l.bit?'<div class="bitlog">'+esc(l.bit)+'</div>':'')+
   btnLi(l)+
   '<h2 style="margin-top:14px;font-size:17px">¿Qué pasó con '+pn(l.nombre)+'?</h2>'+
-  '<button class="btn ok" onclick="marcarLleno('+J(l)+')">📊 Ya llenó su diagnóstico</button>'+
-  '<button class="btn navy" onclick="renderResponder('+J(l)+')">💬 Me contestó por LinkedIn (sin usar el link)</button>'+
-  '<button class="btn gold" onclick="segRecord()">🔁 Sigue sin abrir el link — mandar recordatorio</button>'+
+  '<button class="btn ok" onclick="renderResponder('+J(l)+')">💬 Me contestó</button>'+
+  '<button class="btn navy" onclick="segAct('+l.fila+',\'reunion\')">🎯 Quiere reunión</button>'+
+  '<button class="btn gold" onclick="segRecord()">🔁 Sigue sin contestar — mandar recordatorio</button>'+
   '<button class="btn ghost" onclick="segAct('+l.fila+',\'descartar\')">❌ Ya no responde, descartar</button>'+
   '<div id="recz"></div>'+
   '<button class="btn ghost sm" onclick="screenResumen()">Pausar y volver al menú</button></div>');}
-function marcarLleno(l){
-  document.getElementById('recz').innerHTML='<div class="info">🔥 Esta es la señal más fuerte que hay: ya vio sus números reales y su score. Agenda ya, antes de que se enfríe.</div>'+
-  '<div class="copybox"><div class="lbl">Mándale este link</div>'+CAL+'</div>'+
-  '<button class="btn navy sm" onclick="generarConIA(promptAgenda('+J(l)+'),\'recIa\')">✨ Generar mensaje con Nube</button>'+
-  '<div id="recIa"></div>'+
-  '<button class="btn navy" style="margin-top:10px" onclick="segAct('+l.fila+',\'diagnostico_lleno_reunion\')">🎯 Marcar diagnóstico + reunión agendada</button>'+
-  '<button class="btn ok sm" onclick="segAct('+l.fila+',\'diagnostico_lleno\')">Llenó, pero aún sin agendar → siguiente</button>';
-}
 function segRecord(){var l=S.seg[S.si];
-  document.getElementById('recz').innerHTML='<div class="warn" style="margin-top:14px">⚠️ El recordatorio JAMÁS debe verse hecho con IA. Revísalo antes de mandar.</div>'+
-  '<button class="btn navy sm" onclick="generarConIA(promptSeg('+J(l)+'),\'recIa\')">✨ Generar recordatorio con Nube</button>'+
-  '<div id="recIa"></div>'+
-  '<button class="btn ok sm" style="margin-top:10px" onclick="segAct('+l.fila+',\'seguimiento\')">✅ Listo, mandé el recordatorio</button>';}
+  document.getElementById('recz').innerHTML='<div class="warn" style="margin-top:14px">⚠️ El recordatorio JAMÁS debe verse hecho con IA. Revísalo.</div>'+
+  promptBox(promptSeg(l))+
+  '<button class="btn ok sm" onclick="segAct('+l.fila+',\'seguimiento\')">✅ Listo, mandé el recordatorio</button>';}
 function segAct(fila,accion){run('accionSeguimiento',[fila,accion,'']).then(function(){
-  toast(accion.indexOf('reunion')>=0?'🎯 Reunión registrada':(accion.indexOf('diagnostico')>=0?'📊 Diagnóstico registrado':'Hecho ✓'));S.si++;renderSeg();});}
+  toast(accion=='reunion'?'🎯 Reunión registrada':'Hecho ✓');S.si++;renderSeg();});}
 
 /* 5b · ¿QUÉ TE DIJO? (manejo de respuestas) */
 function renderResponder(l){set('<div class="prog">Respuesta de '+pn(l.nombre)+'</div>'+
   '<div class="card"><h2>¿Qué te dijo '+pn(l.nombre)+'?</h2><p class="muted">Elige lo más parecido. Te armo la respuesta correcta.</p>'+
   '<button class="btn ghost" onclick="resp('+J(l)+',\'masinfo\')">🤔 Le interesa / quiere saber más</button>'+
-  '<button class="btn ghost" onclick="resp('+J(l)+',\'reporte\')">📊 Pide el link otra vez / no lo ha usado</button>'+
+  '<button class="btn ghost" onclick="resp('+J(l)+',\'reporte\')">📊 Pide el análisis/reporte que ofrecimos</button>'+
   '<button class="btn ghost" onclick="resp('+J(l)+',\'agenda\')">🎯 Quiere agendar</button>'+
   '<button class="btn ghost" onclick="resp('+J(l)+',\'objecion\')">🛑 Objeción / no sé qué responder</button>'+
   '<div id="respz"></div>'+
   '<button class="btn ghost sm" onclick="renderSeg()">Volver</button></div>');}
 function resp(l,tipo){var h='';
-  if(tipo=='masinfo')h='<div class="warn">⚠️ JAMÁS se debe ver hecho con IA. Revisa antes de mandar.</div>'+
-    '<button class="btn navy sm" onclick="generarConIA(promptMasInfo('+J(l)+'),\'iaResp\')">✨ Generar con Nube</button>'+
-    '<div id="iaResp"></div>'+
-    '<button class="btn ok" style="margin-top:10px" onclick="respDone('+J(l)+',\'respondio\')">✅ Listo, lo mandé → siguiente</button>';
+  if(tipo=='masinfo')h='<div class="warn">⚠️ JAMÁS se debe ver hecho con IA.</div>'+
+    promptBox(promptMasInfo(l))+
+    '<button class="btn ok" onclick="respDone('+J(l)+',\'respondio\')">✅ Listo, lo mandé → siguiente</button>';
   if(tipo=='reporte')h='<div class="info">🔥 Pedir el reporte es <b>alta intención</b>. Ya no hace falta reservarlo para el meet: dale el link, lo genera solo en 5 minutos, y ahí agendas.</div>'+
     '<div class="warn">⚠️ JAMÁS se debe ver hecho con IA.</div>'+
-    '<button class="btn navy sm" onclick="generarConIA(promptReporte('+J(l)+'),\'iaResp\')">✨ Generar con Nube</button>'+
-    '<div id="iaResp"></div>'+
-    '<button class="btn navy" style="margin-top:10px" onclick="respDone('+J(l)+',\'reunion\')">🎯 Ya quiere meet → marcar reunión</button>'+
+    promptBox(promptReporte(l))+
+    '<button class="btn navy" onclick="respDone('+J(l)+',\'reunion\')">🎯 Ya quiere meet → marcar reunión</button>'+
     '<button class="btn ok sm" onclick="respDone('+J(l)+',\'respondio\')">Sigo en conversación</button>';
   if(tipo=='agenda')h='<div class="copybox"><div class="lbl">Mándale este link</div>'+CAL+'</div>'+
-    '<button class="btn navy sm" onclick="generarConIA(promptAgenda('+J(l)+'),\'iaResp\')">✨ Generar con Nube</button>'+
-    '<div id="iaResp"></div>'+
-    '<button class="btn navy" style="margin-top:10px" onclick="respDone('+J(l)+',\'reunion\')">🎯 Marcar reunión agendada</button>';
+    promptBox(promptAgenda(l))+
+    '<button class="btn navy" onclick="respDone('+J(l)+',\'reunion\')">🎯 Marcar reunión agendada</button>';
   if(tipo=='objecion')h='<div class="warn">⚠️ JAMÁS se debe ver hecho con IA.</div>'+
-    '<textarea id="objTxt" placeholder="Pega aquí lo que te dijo (la objeción real)…"></textarea>'+
-    '<button class="btn navy sm" onclick="generarConIA(promptObjecion('+J(l)+',document.getElementById(\'objTxt\').value),\'iaResp\')">✨ Generar con Nube</button>'+
-    '<div id="iaResp"></div>'+
-    '<button class="btn ok sm" style="margin-top:10px" onclick="respDone('+J(l)+',\'respondio\')">✅ Lo respondí → siguiente</button>'+
+    promptBox(promptObjecion(l))+
+    '<button class="btn ok sm" onclick="respDone('+J(l)+',\'respondio\')">✅ Lo respondí → siguiente</button>'+
     '<p class="muted">¿Sigues sin saber qué decir?</p>'+
     '<button class="btn ghost sm" onclick="alan()">💬 Tocar base con Alan</button>';
   document.getElementById('respz').innerHTML=h;}
+function copyObjecion(l){var o=(document.getElementById('objTxt')||{}).value;copy(promptObjecion(l,(o||'').trim()));}
 function respDone(l,accion){run('accionSeguimiento',[l.fila,accion,'']).then(function(){
   toast(accion=='reunion'?'🎯 Reunión registrada':'Hecho ✓');S.si++;renderSeg();});}
 
