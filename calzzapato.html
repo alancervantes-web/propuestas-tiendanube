@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico · calzzapato.com · Tiendanube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #2A31E8;
+    --bg-deep: #1E23B8;
+    --card: #363DF2;
+    --card-deep: #232AC7;
+    --accent: #D8FF5C;
+    --coral: #FF6F61;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B9BEFB;
+    --text-muted: #8A90E4;
+    --border-soft: rgba(255,255,255,0.16);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background: radial-gradient(circle at 12% 0%, #3138F0 0%, var(--bg) 45%, var(--bg-deep) 100%);
+    color: var(--text-primary);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{ font-family:'Sora', sans-serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  .wrap{ max-width: 760px; margin:0 auto; padding: 0 24px; }
+
+  /* ===== HEADER ===== */
+  header{ display:flex; align-items:center; justify-content:space-between; padding: 28px 24px; flex-wrap:wrap; gap:14px; }
+  .logo{ display:flex; align-items:center; gap:9px; }
+  .logo svg{ width:26px; height:26px; }
+  .logo span{ font-family:'Sora'; font-weight:700; font-size:17px; }
+  .badge{
+    border:1px solid var(--border-soft); border-radius:999px; padding:8px 16px;
+    font-size:11.5px; font-weight:700; letter-spacing:0.06em; color: var(--text-secondary);
+    background: rgba(255,255,255,0.05); text-transform:uppercase;
+  }
+
+  /* ===== HERO ===== */
+  .hero{ text-align:center; padding: 24px 0 40px; }
+  .hero h1.display{ font-size: clamp(34px, 6.4vw, 62px); font-weight:800; line-height:1.06; margin:0; }
+  .hero h1.display.italic{ font-style:italic; font-weight:600; color: var(--text-secondary); }
+
+  .redact-wrap{ position:relative; display:inline-block; margin-top:30px; }
+  .redact-value{ font-family:'Sora'; font-weight:800; font-size: clamp(20px,3.4vw,28px); color: var(--text-primary); white-space:nowrap; }
+  .redact-bar{
+    position:absolute; inset:-8px -14px;
+    background: var(--card-deep);
+    border: 1.5px dashed var(--accent);
+    border-radius: 10px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transform-origin: center;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .redact-bar span{ font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.08em; color: var(--accent); white-space:nowrap; }
+  .redact-wrap.revealed .redact-bar{ opacity:0; transform: scale(0.9); pointer-events:none; }
+
+  .hero .lede{ max-width:600px; margin:22px auto 0; font-size:16.5px; line-height:1.7; color: var(--text-secondary); }
+  .hero .after-reveal{ max-height:0; opacity:0; overflow:hidden; transition: max-height 0.5s ease, opacity 0.6s ease; }
+  .hero.revealed .after-reveal{ max-height:200px; opacity:1; margin-top:18px; }
+  .hero .lede b{ color: var(--text-primary); }
+
+  .scroll-cue{ margin-top:36px; font-size:12.5px; color: var(--text-muted); }
+
+  /* ===== STATS ===== */
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:36px; }
+  .stat-card{ background: var(--card-deep); border:1px solid var(--border-soft); border-radius:14px; padding:18px 12px; text-align:center; }
+  .stat-card .num{ font-family:'Sora'; font-weight:800; font-size:22px; color: var(--accent); }
+  .stat-card .num.coral{ color: var(--coral); }
+  .stat-card .lab{ font-size:11.5px; color: var(--text-secondary); margin-top:6px; line-height:1.4; }
+  @media (max-width:640px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ===== NOTES ===== */
+  section.note{ padding:52px 0; border-top:1px solid var(--border-soft); }
+  .note-label{ font-size:11.5px; letter-spacing:0.1em; color: var(--accent); margin-bottom:14px; font-weight:700; text-transform:uppercase; }
+  .note h2.display{ font-size: clamp(22px,3.6vw,30px); font-weight:800; margin:0 0 16px; line-height:1.3; }
+  .note p{ font-size:15.5px; line-height:1.8; color: var(--text-secondary); margin:0 0 14px; }
+  .note p b{ color: var(--text-primary); font-weight:700; }
+  .hover-redact{
+    background: rgba(0,0,0,0.28); color: transparent; border-radius:5px; padding:0 6px;
+    cursor:help; transition: color 0.25s ease, background 0.25s ease; font-family:'IBM Plex Mono'; font-size:0.92em;
+    border:1px dashed rgba(216,255,92,0.5);
+  }
+  .hover-redact:hover, .hover-redact:focus{ color: var(--accent); background: rgba(216,255,92,0.1); }
+  .margin-note{ margin-top:18px; padding:14px 16px; border-left:3px solid var(--accent); background: rgba(216,255,92,0.06); border-radius:0 10px 10px 0; font-size:13.5px; color: var(--text-secondary); line-height:1.6; }
+
+  /* ===== TRANSITION ===== */
+  .transition{ padding:50px 0; border-top:1px solid var(--border-soft); }
+  .transition p.display{ font-size:20px; font-weight:700; margin:0 0 10px; }
+  .transition p.dim{ color: var(--text-secondary); font-size:15.5px; line-height:1.75; margin:0; }
+
+  /* ===== CALCULATOR ===== */
+  .calc{ padding:50px 0 70px; border-top:1px solid var(--border-soft); }
+  .calc-shell{ background: var(--card-deep); border:1px solid var(--border-soft); border-radius:26px; padding:30px; }
+  .calc-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:26px; }
+  .calc-head .lab{ font-size:11px; letter-spacing:0.08em; color: var(--text-secondary); text-transform:uppercase; }
+  .calc-head .amt{ font-family:'Sora'; font-weight:800; font-size:34px; color: var(--accent); }
+
+  .slider-block{ margin-bottom:22px; }
+  .slider-head{ display:flex; justify-content:space-between; font-size:13.5px; color: var(--text-secondary); margin-bottom:10px; }
+  .slider-head b{ font-family:'IBM Plex Mono'; color: var(--text-primary); font-size:14.5px; }
+  input[type=range]{ width:100%; -webkit-appearance:none; height:6px; border-radius:5px; background: rgba(255,255,255,0.15); outline:none; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background: var(--accent); border:3px solid var(--card-deep); cursor:pointer; box-shadow:0 0 0 2px rgba(216,255,92,0.35); }
+  input[type=range]::-moz-range-thumb{ width:20px; height:20px; border-radius:50%; background: var(--accent); border:3px solid var(--card-deep); cursor:pointer; }
+
+  .compare{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .compare-card{ background: var(--card); border:1px solid var(--border-soft); border-radius:14px; padding:18px; }
+  .compare-card.tn{ border-color: rgba(216,255,92,0.55); background: linear-gradient(160deg, rgba(216,255,92,0.12), var(--card)); }
+  .compare-card .name{ font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color: var(--text-muted); font-weight:700; margin-bottom:8px; }
+  .compare-card .val{ font-family:'Sora'; font-weight:800; font-size:25px; }
+  .compare-card .val small{ font-size:12px; color: var(--text-secondary); font-weight:500; font-family:'Inter'; }
+  .compare-card .track{ height:7px; background: rgba(255,255,255,0.1); border-radius:5px; margin-top:12px; overflow:hidden; }
+  .compare-card .fill{ height:100%; border-radius:5px; transition: width 0.35s ease; }
+  .compare-card.shop .fill{ background: var(--coral); }
+  .compare-card.tn .fill{ background: var(--accent); }
+  .compare-card ul{ list-style:none; margin:14px 0 0; padding:0; font-size:12px; color: var(--text-secondary); display:flex; flex-direction:column; gap:5px; }
+  .compare-card ul li{ display:flex; justify-content:space-between; }
+  .compare-card ul li b{ color: var(--text-primary); font-family:'IBM Plex Mono'; font-weight:500; }
+  @media (max-width:640px){ .compare{ grid-template-columns:1fr; } }
+
+  .annual{ margin-top:20px; padding:14px 16px; border:1px dashed rgba(216,255,92,0.4); border-radius:12px; font-size:13.5px; color: var(--text-secondary); background: rgba(216,255,92,0.05); }
+  .annual b{ color: var(--accent); font-family:'IBM Plex Mono'; }
+
+  .adv-toggle{ margin-top:20px; font-size:12.5px; color: var(--text-secondary); cursor:pointer; display:flex; gap:6px; align-items:center; width:fit-content; }
+  .adv-toggle svg{ width:12px; height:12px; transition:transform .2s ease; }
+  .adv-toggle.open svg{ transform:rotate(90deg); }
+  .adv-panel{ display:none; margin-top:14px; padding:16px; background: rgba(0,0,0,0.2); border-radius:12px; border:1px solid var(--border-soft); }
+  .adv-panel.show{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media (max-width:640px){ .adv-panel.show{ grid-template-columns:1fr 1fr; } }
+  .adv-field label{ display:block; font-size:10.5px; color: var(--text-muted); margin-bottom:5px; }
+  .adv-field input{ width:100%; background: rgba(255,255,255,0.07); border:1px solid var(--border-soft); border-radius:8px; padding:7px 9px; color: var(--text-primary); font-family:'IBM Plex Mono'; font-size:12.5px; }
+
+  .calc-disclaimer{ margin-top:22px; font-size:12.5px; color: var(--text-muted); line-height:1.65; border-top:1px solid var(--border-soft); padding-top:16px; }
+
+  /* ===== CLOSE ===== */
+  .close{ padding:56px 0 40px; border-top:1px solid var(--border-soft); }
+  .close p{ font-size:15.5px; line-height:1.8; color: var(--text-secondary); }
+  .close p b{ color: var(--text-primary); }
+  .cta-row{ margin-top:24px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .cta-btn{ display:inline-block; background: var(--accent); color: var(--bg-deep); font-family:'Sora'; font-weight:700; font-size:14.5px; padding:14px 26px; border-radius:999px; text-decoration:none; transition: transform 0.15s ease; }
+  .cta-btn:hover{ transform: translateY(-2px); }
+  .cta-note{ font-size:12.5px; color: var(--text-muted); }
+
+  footer{ padding:30px 24px; text-align:center; font-size:11.5px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="15" cy="20" r="10" stroke="white" stroke-width="3"/>
+        <circle cx="25" cy="20" r="10" stroke="white" stroke-width="3"/>
+      </svg>
+      <span>tiendanube</span>
+    </div>
+    <div class="badge">Diagnóstico · Calzzapato.com</div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <h1 class="display">Tu tienda crece.</h1>
+      <h1 class="display italic">Tu plataforma, no.</h1>
+
+      <div class="redact-wrap" id="redactHero">
+        <span class="redact-value">El mes pasado perdiste ~38,300 visitas</span>
+        <span class="redact-bar" id="redactBar"><span>TOCA PARA REVELAR</span></span>
+      </div>
+
+      <p class="lede">
+        <span class="after-reveal">Nadie lo marcó como alerta. Y si lo vieran en un reporte normal, probablemente ustedes tampoco lo harían — porque el tráfico, solo, no cuenta toda la historia.</span>
+        Con datos públicos de tráfico y del stack tecnológico de calzzapato.com encontramos <b>otros dos números que no cuadran</b>, sin que se estén midiendo hoy.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="num">111,338</div><div class="lab">Visitas / mes</div></div>
+        <div class="stat-card"><div class="num coral">-25.6%</div><div class="lab">Vs. mes anterior</div></div>
+        <div class="stat-card"><div class="num">77.3%</div><div class="lab">Tráfico mobile</div></div>
+        <div class="stat-card"><div class="num coral">0</div><div class="lab">MSI nativos</div></div>
+      </div>
+
+      <div class="scroll-cue">↓ hallazgo 01 de 3</div>
+    </section>
+
+    <!-- ============ NOTA 01 ============ -->
+    <section class="note">
+      <div class="note-label">Hallazgo 01 · de dónde viene el tráfico</div>
+      <h2 class="display">La explicación fácil, y la que no lo es.</h2>
+      <p>La explicación fácil es que así es el e-commerce: sube, baja, hay temporadas. Y en parte es cierto.</p>
+      <p>Pero cuando revisamos de dónde llegan las visitas por referidos, encontramos algo que no cuadra tan fácil: <b>9 de cada 10</b> vienen de un solo sitio, uno de cupones — <span class="hover-redact" tabindex="0">promodescuentos.com</span> — y ese canal creció mientras el resto de la tienda caía.</p>
+      <p>No es que calzzapato.com esté perdiendo visibilidad. Es que, en parte, la está rentando.</p>
+      <div class="margin-note">No es un juicio — rentar tráfico de descuento funciona, hasta que se vuelve el canal principal y empieza a comerse el margen que debería quedarse en la marca.</div>
+    </section>
+
+    <!-- ============ NOTA 02 ============ -->
+    <section class="note">
+      <div class="note-label">Hallazgo 02 · el número que no debería ser cero</div>
+      <h2 class="display">Cero meses sin intereses. En calzado, eso pesa.</h2>
+      <p>Hay otro número que llama la atención: <b>cero</b>. Cero métodos de pago a meses sin intereses detectados de forma nativa. Solo aparecen <span class="hover-redact" tabindex="0">PayPal y Apple Pay</span>.</p>
+      <p>En calzado, donde un buen par de botas o tenis de temporada puede duplicar el ticket promedio en un clic, no tener MSI no es un detalle técnico. Es un descuento que el carrito se aplica solo, cada vez que alguien lo abandona en el checkout porque no puede diferir el pago.</p>
+    </section>
+
+    <!-- ============ NOTA 03 ============ -->
+    <section class="note">
+      <div class="note-label">Hallazgo 03 · el costo que no aparece en las ventas</div>
+      <h2 class="display">Repartido en cuatro recibos distintos.</h2>
+      <p>El tercer número no vive en ningún dashboard de ventas. Vive repartido en al menos cuatro recibos: una app de notificaciones (<span class="hover-redact" tabindex="0">icomm + PushOwl</span>), un CRM externo (<span class="hover-redact" tabindex="0">HubSpot</span>), y la comisión extra que Shopify cobra cuando el checkout no pasa por su propio procesador de pago.</p>
+      <p>Cada uno, por separado, fue una decisión razonable el día que se tomó. Juntos, son un impuesto mensual silencioso por operar sobre una plataforma que no los trae integrados.</p>
+    </section>
+
+    <!-- ============ TRANSICIÓN ============ -->
+    <section class="transition">
+      <p class="display">Nada de esto es un error de alguien.</p>
+      <p class="dim">Son decisiones que tenían sentido el día que se tomaron. El negocio evolucionó — la plataforma se quedó donde estaba. Vamos a cerrar el ciclo que abrimos arriba: <b style="color:var(--text-primary)">¿cuánto es esto, en pesos, cada mes?</b></p>
+    </section>
+
+    <!-- ============ CALCULADORA ============ -->
+    <section class="calc">
+      <div class="note-label">Cierre del diagnóstico · calculadora</div>
+      <h2 class="display" style="font-size:26px; margin-bottom:8px;">Muevan el slider a su GMV real.</h2>
+      <p style="color:var(--text-secondary); font-size:15px; margin-bottom:24px;">El resto de los supuestos también se puede editar — están abiertos abajo, no escondidos.</p>
+
+      <div class="calc-shell">
+        <div class="calc-head">
+          <div class="lab">Ahorro mensual estimado</div>
+          <div class="amt mono" id="monthlySavings">$--</div>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-head"><span>GMV mensual estimado</span><b id="gmvLabel">$--</b></div>
+          <input type="range" id="gmvSlider" min="300000" max="8000000" step="10000" value="1320000">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:6px;">
+            <span>$300K</span><span>$8M MXN/mes</span>
+          </div>
+        </div>
+
+        <div class="compare">
+          <div class="compare-card shop">
+            <div class="name">Shopify · hoy</div>
+            <div class="val"><span id="shopifyCost">$--</span> <small>/mes</small></div>
+            <div class="track"><div class="fill" id="shopifyBar" style="width:0%"></div></div>
+            <ul>
+              <li>Plan <b id="shopifyPlanOut">$--</b></li>
+              <li>Fee gateway externo <b id="shopifyTxOut">$--</b></li>
+              <li>Apps (icomm+PushOwl+HubSpot) <b id="shopifyAppsOut">$--</b></li>
+            </ul>
+          </div>
+          <div class="compare-card tn">
+            <div class="name">Tiendanube Evolución</div>
+            <div class="val"><span id="tnCost">$--</span> <small>/mes</small></div>
+            <div class="track"><div class="fill" id="tnBar" style="width:0%"></div></div>
+            <ul>
+              <li>Plan (por invitación) <b id="tnPlanOut">$--</b></li>
+              <li>Fee extra <b id="tnTxOut">$--</b></li>
+              <li>Apps adicionales <b id="tnAppsOut">$--</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="annual">Proyectado a 12 meses: <b id="annualSavings">$--</b> MXN al año.</div>
+
+        <div class="adv-toggle" id="advToggle">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ajustar supuestos (plan, fee, apps)
+        </div>
+        <div class="adv-panel" id="advPanel">
+          <div class="adv-field"><label>Plan Shopify MXN/mes</label><input type="number" id="shopifyPlan" value="2842"></div>
+          <div class="adv-field"><label>Fee gateway externo %</label><input type="number" id="shopifyTx" value="1" step="0.1"></div>
+          <div class="adv-field"><label>Apps Shopify MXN/mes</label><input type="number" id="shopifyApps" value="2500"></div>
+          <div class="adv-field"><label>Plan Evolución MXN/mes</label><input type="number" id="tnPlan" value="6999"></div>
+          <div class="adv-field"><label>Fee extra Tiendanube %</label><input type="number" id="tnTx" value="0" step="0.1"></div>
+          <div class="adv-field"><label>Apps adicionales MXN/mes</label><input type="number" id="tnApps" value="0"></div>
+        </div>
+
+        <div class="calc-disclaimer">
+          ⚠️ Esto es una estimación, no una cotización. El GMV está inferido del tráfico público de calzzapato.com; el fee de gateway externo (1%) refleja la política real de Shopify cuando el checkout no usa Shopify Payments — no es el costo total de procesar pagos. Plan, apps y comisiones son valores de referencia, editables arriba. Los números reales de Calzzapato pueden mover este resultado en cualquier dirección.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CIERRE ============ -->
+    <section class="close">
+      <div class="note-label">Siguiente paso</div>
+      <p>Este diagnóstico se armó solo con información pública — tráfico y stack tecnológico. Es un punto de partida, <b>no una sentencia</b>.</p>
+      <p>Si quieren verlo con los números reales de Calzzapato — ventas, comisión real, plan exacto — <b>Fideliza</b> puede abrir el diagnóstico completo. Sin presión, solo para decidir con información.</p>
+      <div class="cta-row">
+        <a class="cta-btn" href="mailto:fideliza@tiendanube.com?subject=Diagn%C3%B3stico%20completo%20-%20Calzzapato&body=Nos%20gustar%C3%ADa%20abrir%20el%20diagn%C3%B3stico%20completo%20con%20el%20equipo%20de%20Fideliza." target="_blank">Pedir el diagnóstico completo →</a>
+        <span class="cta-note">Fideliza · partner Tiendanube</span>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>Diagnóstico generado con datos públicos · calzzapato.com · Tiendanube × Fideliza</footer>
+
+<script>
+  function fmt(n){ n = Math.round(n); return '$' + n.toLocaleString('es-MX'); }
+
+  const redactHero = document.getElementById('redactHero');
+  const redactBar = document.getElementById('redactBar');
+  const hero = document.getElementById('hero');
+  redactBar.addEventListener('click', () => {
+    redactHero.classList.add('revealed');
+    hero.classList.add('revealed');
+  });
+
+  const gmvSlider = document.getElementById('gmvSlider');
+  const gmvLabel = document.getElementById('gmvLabel');
+  const shopifyPlanInput = document.getElementById('shopifyPlan');
+  const shopifyTxInput = document.getElementById('shopifyTx');
+  const shopifyAppsInput = document.getElementById('shopifyApps');
+  const tnPlanInput = document.getElementById('tnPlan');
+  const tnTxInput = document.getElementById('tnTx');
+  const tnAppsInput = document.getElementById('tnApps');
+
+  function calculate(){
+    const gmv = parseFloat(gmvSlider.value);
+    gmvLabel.textContent = fmt(gmv);
+
+    const sPlan = parseFloat(shopifyPlanInput.value) || 0;
+    const sTx = parseFloat(shopifyTxInput.value) || 0;
+    const sApps = parseFloat(shopifyAppsInput.value) || 0;
+    const tPlan = parseFloat(tnPlanInput.value) || 0;
+    const tTx = parseFloat(tnTxInput.value) || 0;
+    const tApps = parseFloat(tnAppsInput.value) || 0;
+
+    const shopifyTotal = sPlan + (gmv * sTx / 100) + sApps;
+    const tnTotal = tPlan + (gmv * tTx / 100) + tApps;
+    const savings = shopifyTotal - tnTotal;
+    const maxCost = Math.max(shopifyTotal, tnTotal, 1);
+
+    document.getElementById('shopifyCost').textContent = fmt(shopifyTotal);
+    document.getElementById('tnCost').textContent = fmt(tnTotal);
+    document.getElementById('shopifyPlanOut').textContent = fmt(sPlan);
+    document.getElementById('shopifyTxOut').textContent = fmt(gmv * sTx / 100);
+    document.getElementById('shopifyAppsOut').textContent = fmt(sApps);
+    document.getElementById('tnPlanOut').textContent = fmt(tPlan);
+    document.getElementById('tnTxOut').textContent = fmt(gmv * tTx / 100);
+    document.getElementById('tnAppsOut').textContent = fmt(tApps);
+
+    document.getElementById('shopifyBar').style.width = (shopifyTotal / maxCost * 100) + '%';
+    document.getElementById('tnBar').style.width = (tnTotal / maxCost * 100) + '%';
+
+    document.getElementById('monthlySavings').textContent = fmt(Math.max(savings,0));
+    document.getElementById('annualSavings').textContent = fmt(Math.max(savings,0) * 12);
+  }
+
+  [gmvSlider, shopifyPlanInput, shopifyTxInput, shopifyAppsInput, tnPlanInput, tnTxInput, tnAppsInput]
+    .forEach(el => el.addEventListener('input', calculate));
+
+  const advToggle = document.getElementById('advToggle');
+  const advPanel = document.getElementById('advPanel');
+  advToggle.addEventListener('click', () => {
+    advPanel.classList.toggle('show');
+    advToggle.classList.toggle('open');
+  });
+
+  calculate();
+</script>
+</body>
+</html>
