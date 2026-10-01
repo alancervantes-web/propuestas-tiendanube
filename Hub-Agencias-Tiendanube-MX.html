@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="es-MX" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-VMaf5RLT6FY4WngjkqfW6is46qrsqId5yxAJ3M0KlvE='; style-src 'sha256-jGBIB7+/fIWUQOQa2ZppdhDLSnQeikLiAOQ4HzLd9aY=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; worker-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#010B23">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Hub de Agencias Tiendanube México: presentación, casos de éxito, battle cards, capacidades técnicas, Ipanema, B2B, Lumi y Admin MCP en un solo lugar.">
+<title>Hub de Agencias · Tiendanube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap">
+<style>:root{
+  --galaxy:#010B23; --nimbus:#0050C3; --sky:#00B4E6; --clear:#99D3FF; --white:#FFFFFF;
+  --n2:#00298F; --n3:#080558;
+  --ink:rgba(255,255,255,.92); --muted:rgba(255,255,255,.66); --faint:rgba(255,255,255,.42);
+  --line:rgba(153,211,255,.16); --line2:rgba(153,211,255,.32);
+  --glass:linear-gradient(180deg,rgba(0,80,195,.14) 0%,rgba(0,80,195,.28) 100%);
+  --night:radial-gradient(130% 120% at 0% 0%,#0050C3 0%,#00298F 30%,#080558 66%,#010B23 100%);
+  --night-l:linear-gradient(160deg,#0050C3 0%,#00298F 30%,#080558 66%,#010B23 100%);
+  --sans:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --serif:'Instrument Serif','IvyPresto Display',Georgia,serif;
+  --r:20px; --ease:cubic-bezier(.19,1,.22,1);
+  --gut:24px; --navh:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--galaxy);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+em,.serif{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.05em;letter-spacing:-.005em}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:rgba(153,211,255,.12);color:var(--clear);padding:2px 6px;border-radius:6px;word-break:break-all}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--gut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--white);color:var(--galaxy);padding:10px 16px;border-radius:100px;font-weight:600;z-index:2000}
+.skip:focus{left:12px}
+
+
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--sky),var(--clear));z-index:1100}
+
+
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--white);font-weight:600;font-size:21px;letter-spacing:-.03em;line-height:1}
+.logo svg{width:34px;height:auto;flex:none}
+.logo small{font-weight:500;font-size:12px;letter-spacing:.02em;color:var(--clear);border-left:1px solid var(--line2);padding-left:10px;margin-left:2px}
+
+
+nav.top{position:sticky;top:0;z-index:1020;background:rgba(1,11,35,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.navlinks{display:flex;gap:2px}
+.navlinks a{font-weight:500;font-size:14px;padding:9px 15px;border-radius:100px;color:var(--muted);transition:color .2s,background .2s}
+.navlinks a:hover,.navlinks a.on{color:var(--white);background:rgba(153,211,255,.12)}
+.kbd{font-size:12px;color:var(--faint);border:1px solid var(--line2);border-radius:6px;padding:2px 7px;margin-left:8px}
+@media(max-width:860px){.navlinks,.kbd{display:none}}
+
+
+.tabbar{display:none}
+@media(max-width:860px){
+  .tabbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));height:var(--navh);z-index:1030;background:rgba(1,11,35,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line2);border-radius:22px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6)}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;color:var(--faint);transition:color .2s}
+  .tabbar a svg{width:22px;height:22px;transition:transform .3s var(--ease)}
+  .tabbar a.on{color:var(--white)}
+  .tabbar a.on svg{transform:translateY(-2px);color:var(--sky)}
+  body{padding-bottom:calc(var(--navh) + 28px + env(safe-area-inset-bottom))}
+}
+
+
+.hero{position:relative;background:var(--night);overflow:hidden;padding:clamp(56px,10vw,120px) 0 clamp(64px,9vw,110px);isolation:isolate}
+.rings{position:absolute;left:-120px;top:-120px;width:min(900px,140vw);aspect-ratio:1;z-index:-1;pointer-events:none}
+.rings circle{fill:none;stroke:var(--clear);stroke-width:1;transform-origin:50% 50%;transform-box:fill-box;opacity:0;animation:ripple 9s linear infinite}
+.rings circle:nth-child(2){animation-delay:-1.5s}.rings circle:nth-child(3){animation-delay:-3s}.rings circle:nth-child(4){animation-delay:-4.5s}.rings circle:nth-child(5){animation-delay:-6s}.rings circle:nth-child(6){animation-delay:-7.5s}
+@keyframes ripple{0%{transform:scale(.15);opacity:.55}80%{opacity:.08}100%{transform:scale(1);opacity:0}}
+.ghost{position:absolute;right:-10%;bottom:-26%;width:min(760px,95vw);z-index:-1;opacity:.28;pointer-events:none}
+.ghost path,.ghost line{fill:none;stroke:var(--clear);stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 3.2s var(--ease) .3s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--clear);border:1px solid var(--line2);padding:7px 14px;border-radius:100px;background:rgba(1,11,35,.25)}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--sky);box-shadow:0 0 0 0 rgba(0,180,230,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(0,180,230,0)}100%{box-shadow:0 0 0 0 rgba(0,180,230,0)}}
+.hero h1{font-size:clamp(40px,7.4vw,96px);line-height:1.02;font-weight:600;letter-spacing:-.035em;margin:26px 0 22px;max-width:1000px}
+.hero h1 em{display:inline-block;color:var(--clear);font-size:1.06em}
+.rot{display:inline-block;transition:opacity .45s var(--ease),transform .45s var(--ease),filter .45s}
+.rot.out{opacity:0;transform:translateY(.35em) rotate(-2deg);filter:blur(6px)}
+.hero .lead{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:640px}
+.hero .lead b{color:var(--white);font-weight:600}
+
+.search{margin-top:36px;max-width:640px;position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:18px 110px 18px 54px;border-radius:100px;border:1px solid var(--line2);background:rgba(1,11,35,.35);color:var(--white);outline:none;transition:all .35s var(--ease);-webkit-appearance:none;appearance:none}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{background:var(--white);color:var(--galaxy);border-color:var(--white);box-shadow:0 0 0 6px rgba(0,180,230,.25)}
+.search input:focus::placeholder{color:#8A8D90}
+.search>svg{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--clear);pointer-events:none}
+.search .count{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:var(--nimbus);opacity:0;transition:opacity .2s}
+.search.has .count{opacity:1}
+.noresults{display:none;margin-top:14px;color:var(--clear);font-size:15px}
+.noresults.show{display:block}
+
+
+
+.marquee{background:var(--nimbus);color:var(--white);overflow:hidden;white-space:nowrap;border-block:1px solid rgba(255,255,255,.15)}
+.marquee .track{display:inline-flex;gap:40px;padding:16px 0;animation:mq 38s linear infinite;font-size:clamp(18px,2.4vw,26px);font-weight:600;letter-spacing:-.02em}
+.marquee .track span{display:inline-flex;align-items:center;white-space:pre}
+.marquee .track span::after{content:"";margin-left:40px;width:10px;height:10px;border-radius:50%;border:2px solid var(--clear)}
+.marquee em{color:var(--clear)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+
+.router{padding:clamp(64px,8vw,100px) 0 20px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
+h2.sec{font-size:clamp(32px,4.6vw,58px);line-height:1.05;font-weight:600;letter-spacing:-.03em;margin:10px 0 14px;max-width:920px}
+h2.sec em{color:var(--clear)}
+.sub{color:var(--muted);font-size:17px;max-width:720px}
+.qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px}
+.q{position:relative;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:var(--glass);font-weight:600;transition:border-color .3s,transform .4s var(--ease),background .3s;overflow:hidden}
+.q small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:3px}
+.q .arr{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--clear);transition:all .4s var(--ease)}
+.q:hover{border-color:var(--sky);transform:translateY(-2px)}
+.q:hover .arr{background:var(--sky);color:var(--galaxy);border-color:var(--sky);transform:rotate(-45deg)}
+@media(max-width:960px){.qgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.qgrid{grid-template-columns:1fr}}
+
+
+section.block{position:relative;padding:clamp(72px,9vw,120px) 0;overflow:hidden}
+section.block.night{background:var(--night-l)}
+.bignum{position:absolute;right:var(--gut);top:clamp(30px,5vw,60px);font-size:clamp(120px,22vw,300px);font-weight:700;line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(153,211,255,.22);pointer-events:none;user-select:none}
+.key{margin-top:24px;display:flex;gap:14px;align-items:flex-start;border-left:3px solid var(--sky);background:rgba(1,11,35,.35);border-radius:0 16px 16px 0;padding:18px 22px;max-width:860px}
+.key .tag{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.14em;color:var(--galaxy);background:var(--sky);padding:4px 9px;border-radius:100px;margin-top:3px}
+.key p{font-size:17px;line-height:1.5}
+.sublabel{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px 14px;margin:56px 0 18px}
+.sublabel .num{font-size:12px;font-weight:700;color:var(--galaxy);background:var(--clear);border-radius:100px;padding:3px 10px}
+.sublabel h3{font-size:clamp(22px,2.6vw,28px);font-weight:600;letter-spacing:-.02em}
+.sublabel .why{color:var(--muted);font-size:15px}
+.subnote{color:var(--muted);font-size:15px;margin:-6px 0 16px}
+.minihead{margin:36px 0 14px;font-size:16px;font-weight:600}
+.minihead span{font-weight:400;color:var(--muted)}
+
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.g4,.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+
+@media(max-width:640px){
+  .swipe{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--gut) * -1);padding:4px var(--gut) 14px;scrollbar-width:none}
+  .swipe::-webkit-scrollbar{display:none}
+  .swipe>*{flex:0 0 82%;scroll-snap-align:start}
+  .swipehint{display:block!important}
+}
+.swipehint{display:none;font-size:12.5px;color:var(--faint);margin-top:2px}
+
+
+.card{position:relative;display:flex;flex-direction:column;background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:border-color .3s,transform .5s var(--ease);overflow:hidden;isolation:isolate}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(0,180,230,.22),transparent 45%)}
+a.card:hover{border-color:var(--line2);transform:translateY(-4px)}
+a.card:hover::before{opacity:1}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:16px}
+.badge{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:100px;background:rgba(153,211,255,.12);color:var(--clear);border:1px solid var(--line);white-space:nowrap}
+.badge.sky{background:rgba(0,180,230,.16);color:#7fe0ff;border-color:rgba(0,180,230,.35)}
+.badge.new{background:var(--sky);color:var(--galaxy);border-color:var(--sky)}
+.card h4{font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.015em;margin-bottom:8px}
+.card p{font-size:14.5px;color:var(--muted)}
+.card .use{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line2);font-size:13.5px;color:var(--muted)}
+.card .use b{color:var(--white);font-weight:600}
+.card .go{margin-top:auto;padding-top:18px;font-weight:600;font-size:14px;color:var(--clear);display:inline-flex;align-items:center;gap:8px}
+.card .go::after{content:"→";transition:transform .4s var(--ease)}
+a.card:hover .go::after{transform:translateX(5px)}
+.card.feature{background:linear-gradient(145deg,#0050C3 0%,#00298F 55%,#080558 100%);border-color:rgba(153,211,255,.28);min-height:260px}
+.card.feature h4{font-size:clamp(24px,2.6vw,30px);letter-spacing:-.025em}
+.card.feature p{color:rgba(255,255,255,.78);font-size:16px}
+.card.feature .go{color:var(--white)}
+.card.feature .badge{background:rgba(255,255,255,.14);color:var(--white);border-color:rgba(255,255,255,.2)}
+.card.feature .mark{position:absolute;right:-40px;bottom:-50px;width:220px;color:rgba(153,211,255,.14);z-index:-1;transition:transform 1s var(--ease)}
+a.card.feature:hover .mark{transform:rotate(-12deg) scale(1.05)}
+.store{flex-direction:row;align-items:center;gap:14px;padding:16px 18px}
+.store .ini{flex:none;width:44px;height:44px;border-radius:14px;background:rgba(0,180,230,.14);border:1px solid rgba(0,180,230,.3);color:var(--clear);display:grid;place-items:center;font-weight:700;font-size:14px}
+.store h4{font-size:15.5px;margin:0}
+.store p{font-size:12.5px}
+.store .ext{margin-left:auto;color:var(--faint);transition:transform .4s var(--ease),color .2s}
+a.store:hover .ext{color:var(--sky);transform:translate(3px,-3px)}
+
+.checks{list-style:none;display:grid;gap:11px}
+.checks li{display:flex;gap:11px;font-size:15px;line-height:1.5;color:var(--ink)}
+.checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:rgba(0,180,230,.18);border:1px solid rgba(0,180,230,.5);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%2300B4E6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:18px;background-position:center;background-repeat:no-repeat}
+.checks.warn li::before{background-color:rgba(153,211,255,.08);border-color:var(--line2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 6v5M10 14h.01' fill='none' stroke='%2399D3FF' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")}
+.card .checks{margin-top:6px}
+.card .checks li{font-size:14.5px;color:var(--muted)}
+
+
+.doc{position:relative;background:rgba(1,11,35,.45);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.4vw,40px)}
+.doc .cols{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,48px)}
+@media(max-width:920px){.doc .cols{grid-template-columns:1fr}}
+.doc h5{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin:0 0 14px}
+.doc h5:not(:first-child){margin-top:32px}
+.oneline{font-size:clamp(18px,2vw,22px);font-weight:600;line-height:1.35;letter-spacing:-.015em}
+.oneline em{color:var(--clear)}
+.qual{background:rgba(0,80,195,.22);border:1px solid var(--line2);border-radius:16px;padding:20px 22px}
+.qual p{font-size:14.5px;margin-bottom:12px;font-weight:600}
+.qual ol{padding-left:20px;display:grid;gap:9px;font-size:14.5px;color:var(--muted)}
+.links{display:grid;gap:8px}
+.links a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;font-size:14.5px;font-weight:500;transition:all .25s}
+.links a span{font-weight:500;color:var(--faint);font-size:11.5px;white-space:nowrap;border:1px solid var(--line);border-radius:100px;padding:2px 8px}
+.links a:hover{border-color:var(--sky);background:rgba(0,180,230,.08);padding-left:20px}
+pre.cli{background:#000814;border:1px solid var(--line);color:#cdd6fc;border-radius:14px;padding:18px 20px;font-size:13px;line-height:1.8;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;-webkit-overflow-scrolling:touch}
+pre.cli .c{color:#5f6b8f}
+pre.cli .k{color:var(--sky)}
+.feat-title{font-size:clamp(30px,3.6vw,42px);font-weight:600;letter-spacing:-.03em;margin:16px 0 10px;line-height:1.05}
+.feat-title em{color:var(--clear)}
+
+
+.support{position:relative;background:var(--nimbus);padding:clamp(72px,9vw,110px) 0;overflow:hidden;isolation:isolate}
+.support .ghost2{position:absolute;right:-120px;top:-80px;width:520px;color:rgba(255,255,255,.08);z-index:-1}
+.support .kicker{color:var(--clear)}
+.support .sub{color:rgba(255,255,255,.8)}
+.support .card{background:rgba(1,11,35,.22);border-color:rgba(255,255,255,.2)}
+.support .card p{color:rgba(255,255,255,.75)}
+.support .card .go{color:var(--white)}
+
+footer{background:var(--galaxy);color:var(--faint);font-size:13.5px;padding:44px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .tagline{font-size:clamp(22px,3vw,30px);color:var(--white);font-weight:600;letter-spacing:-.025em}
+footer .tagline em{color:var(--clear)}
+
+.hidden{display:none!important}
+
+
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.grid>.rv:nth-child(2),.qgrid>.rv:nth-child(2){transition-delay:.08s}
+.grid>.rv:nth-child(3),.qgrid>.rv:nth-child(3){transition-delay:.16s}
+.grid>.rv:nth-child(4),.qgrid>.rv:nth-child(4){transition-delay:.24s}
+.qgrid>.rv:nth-child(5){transition-delay:.32s}.qgrid>.rv:nth-child(6){transition-delay:.4s}
+.no-js .rv{opacity:1;transform:none}
+
+@media(max-width:600px){
+  :root{--gut:16px}
+  .key{padding:16px 18px}.key p{font-size:16px}
+  .card{padding:20px}
+  .search input{padding-right:20px}.search .count{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .ghost path,.ghost line{stroke-dashoffset:0}
+  .rings circle{opacity:.12}
+}
+.card p b{color:var(--white);font-weight:600}
+
+#lumi-mcp{margin-top:32px}
+</style>
+</head>
+<body>
+<a class="skip" href="#ruta">Saltar al contenido</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<svg class="sr" aria-hidden="true" focusable="false">
+  <symbol id="iso" viewBox="-60 -60 1560 1160">
+    <g fill="none" stroke="currentColor" stroke-width="114">
+      <path d="M748 520 A343 343 0 1 0 576 817"/>
+      <path d="M463 518 A457 457 0 1 0 576 221"/>
+    </g>
+  </symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-sell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 19h16M6 15l4-4 3 3 5-6M15 8h3v3"/></symbol>
+  <symbol id="i-build" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m8 8-5 4 5 4M16 8l5 4-5 4M13.5 5l-3 14"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/></symbol>
+</svg>
+
+<nav class="top" aria-label="Principal">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Tiendanube · Hub de Agencias"><svg aria-hidden="true"><use href="#iso"/></svg>tiendanube<small>Hub de Agencias</small></a>
+    <div class="navlinks">
+      <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#vender" data-nav="vender">01 Vender</a>
+      <a href="#construir" data-nav="construir">02 Construir</a>
+      <a href="#novedades" data-nav="novedades">03 Novedades</a>
+      <a href="#soporte">Soporte</a>
+    </div>
+  </div>
+</nav>
+
+<nav class="tabbar" aria-label="Navegación móvil">
+  <a href="#inicio" data-nav="inicio"><svg aria-hidden="true"><use href="#i-home"/></svg>Inicio</a>
+  <a href="#vender" data-nav="vender"><svg aria-hidden="true"><use href="#i-sell"/></svg>Vender</a>
+  <a href="#construir" data-nav="construir"><svg aria-hidden="true"><use href="#i-build"/></svg>Construir</a>
+  <a href="#novedades" data-nav="novedades"><svg aria-hidden="true"><use href="#i-new"/></svg>Novedades</a>
+</nav>
+
+<header class="hero" id="inicio">
+  <svg class="rings" viewBox="0 0 900 900" aria-hidden="true">
+    <circle cx="450" cy="450" r="449"/><circle cx="450" cy="450" r="449"/><circle cx="450" cy="450" r="449"/>
+    <circle cx="450" cy="450" r="449"/><circle cx="450" cy="450" r="449"/><circle cx="450" cy="450" r="449"/>
+  </svg>
+  <svg class="ghost" viewBox="-20 -20 1480 1080" aria-hidden="true">
+    <path pathLength="1" d="M805 520 A400 400 0 1 0 605 866"/>
+    <path pathLength="1" d="M691 520 A286 286 0 1 0 548 768"/>
+    <line pathLength="1" x1="691" y1="520" x2="805" y2="520"/>
+    <path pathLength="1" d="M406 518 A514 514 0 1 0 531 182"/>
+    <path pathLength="1" d="M520 518 A400 400 0 1 0 617 257"/>
+    <line pathLength="1" x1="406" y1="518" x2="520" y2="518"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow"><i></i>Programa de Agencias · Tiendanube México</span>
+    <h1>Todo lo que tu agencia necesita para <em><span class="rot" id="rot">vender.</span></em></h1>
+    <p class="lead">Todo el material oficial en un solo lugar. <b>Tres rutas</b> y en dos clics llegas a lo que necesitas.</p>
+
+    <div class="search" id="searchbox" role="search">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <label class="sr" for="q">Buscar en el hub</label>
+      <input id="q" type="search" maxlength="60" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="Busca: mayoristas, Ipanema, API, Lumi…">
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+    <p class="noresults" id="noresults" role="status">Sin resultados. Prueba con otra palabra o escríbele a tu Partner Manager.</p>
+
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>E-commerce para <em>marcas mexas</em></span><span>Vender</span><span>Construir</span><span>Escalar</span><span>Lumi</span><span>Admin MCP</span><span>Ipanema</span><span>Mayoristas B2B</span>
+    <span>E-commerce para <em>marcas mexas</em></span><span>Vender</span><span>Construir</span><span>Escalar</span><span>Lumi</span><span>Admin MCP</span><span>Ipanema</span><span>Mayoristas B2B</span>
+  </div>
+</div>
+
+<main>
+<section class="router" id="ruta">
+  <div class="wrap">
+    <div class="kicker rv">Empieza aquí</div>
+    <h2 class="sec rv">¿Qué necesitas <em>resolver hoy?</em></h2>
+    <p class="sub rv">Cada pregunta te lleva directo a la respuesta. No necesitas leer todo el hub.</p>
+    <div class="qgrid">
+      <a class="q rv s" href="#argumento" data-k="pitch presentación por qué tiendanube"><div>Mi cliente pregunta por qué Tiendanube<small>Presentación de agencias</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#prueba" data-k="casos éxito ejemplo"><div>Necesito un caso parecido a mi cliente<small>Casos de éxito y tiendas en vivo</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#objecion" data-k="competencia shopify vtex objeción battle"><div>Me están comparando con otra plataforma<small>Battle cards</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#capacidades" data-k="técnico se puede integración"><div>¿Esto se puede hacer técnicamente?<small>Capacidades técnicas y API</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#b2b" data-k="mayoristas b2b distribuidores"><div>Mi cliente también vende al mayoreo<small>Ventas mayoristas (B2B)</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#ipanema" data-k="diseño tema theme ipanema"><div>Voy a construir el diseño de la tienda<small>Ipanema + CLI</small></div><span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="vender">
+  <span class="bignum" aria-hidden="true">01</span>
+  <div class="wrap">
+    <div class="kicker rv">Ruta 01 · Vender</div>
+    <h2 class="sec rv">Llega a la reunión con el argumento, la prueba y <em>la respuesta a la objeción.</em></h2>
+    <div class="key rv"><span class="tag">En corto</span><p>Un cliente decide por tres cosas: por qué Tiendanube, quién como él ya lo logró y por qué no la competencia. Aquí tienes una pieza oficial para cada una.</p></div>
+
+    <div class="sublabel" id="argumento"><span class="num">1.1</span><h3>El argumento</h3><span class="why">— por qué Tiendanube</span></div>
+    <div class="grid g2">
+      <a class="card feature rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1NAtrl-SfzYpxgw5_vWCAJxbj7QHLQDtENFaAa5Enc_A/edit?slide=id.g3aec1df9a21_0_3916#slide=id.g3aec1df9a21_0_3916" data-k="presentación pitch deck agencias">
+        <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
+        <div class="top"><span class="badge">Presentación oficial</span></div>
+        <h4>Presentación de Tiendanube para agencias</h4>
+        <p>El deck base para presentarle Tiendanube a tu cliente. Úsalo completo o toma las láminas que necesites.</p>
+        <span class="go">Abrir presentación</span>
+      </a>
+      <div class="card rv s" data-k="cómo usar orden reunión">
+        <div class="top"><span class="badge sky">Cómo usarlo</span></div>
+        <h4>El orden que funciona en una primera reunión</h4>
+        <ul class="checks">
+          <li>Abre con el resultado que busca el cliente, no con la plataforma.</li>
+          <li>Muestra un caso de su misma industria (1.2).</li>
+          <li>Ten lista la battle card del competidor que está evaluando (1.3).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sublabel" id="prueba"><span class="num">1.2</span><h3>La prueba</h3><span class="why">— quién como tu cliente ya lo logró</span></div>
+    <p class="subnote">Ordenados por lo que quieres demostrar. Elige el que más se parezca a tu cliente.</p>
+    <div class="grid g4 swipe">
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/ejemplos/chicco/" data-k="caso éxito chicco comercial marca">
+        <div class="top"><span class="badge">Caso comercial</span></div>
+        <h4>Chicco</h4>
+        <p>Marca global que migró desde Mercado Shops en 30 días con una agencia partner. Ticket promedio <b>+256%</b> y facturación <b>+96%</b>.</p>
+        <div class="use"><b>Úsalo cuando:</b> tu cliente es una marca establecida que duda si Tiendanube escala.</div>
+        <span class="go">Leer caso</span>
+      </a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/ejemplos/el-rey-ferretero/" data-k="caso éxito rey ferretero comercial ferretería">
+        <div class="top"><span class="badge">Caso comercial</span></div>
+        <h4>El Rey Ferretero</h4>
+        <p>Más de 12,000 SKUs, ERP propio integrado desde el día uno y mayoreo con Tablas de Precios. Ticket promedio <b>+150%</b> vs. marketplaces.</p>
+        <div class="use"><b>Úsalo cuando:</b> tu cliente tiene catálogo grande, ERP propio o también vende al mayoreo.</div>
+        <span class="go">Leer caso</span>
+      </a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://rhino-performance.com/" data-k="rhino performance diseño desarrollo custom técnico">
+        <div class="top"><span class="badge sky">Diseño y desarrollo</span></div>
+        <h4>Rhino Performance</h4>
+        <p>Tienda con diseño y desarrollo a la medida, hecha por una agencia partner.</p>
+        <div class="use"><b>Úsalo cuando:</b> te dicen “Tiendanube se ve igual que todas”.</div>
+        <span class="go">Ver tienda</span>
+      </a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://scatola.com.mx/" data-k="scatola aplicaciones apps integraciones ecosistema">
+        <div class="top"><span class="badge sky">Ecosistema de apps</span></div>
+        <h4>Scatola</h4>
+        <p>Tienda que combina varias aplicaciones del ecosistema, hecha por una agencia partner.</p>
+        <div class="use"><b>Úsalo cuando:</b> preguntan si se integra con lo que ya usan.</div>
+        <span class="go">Ver tienda</span>
+      </a>
+    </div>
+    <p class="swipehint">Desliza para ver más →</p>
+
+    <p class="minihead">Tiendas grandes en vivo <span>— para mostrar en pantalla durante la reunión</span></p>
+    <div class="grid g3">
+      <a class="card store rv s" target="_blank" rel="noopener noreferrer" href="https://www.tienda.chicco.com.mx/" data-k="chicco tienda grande"><span class="ini">CH</span><div><h4>Chicco México</h4><p>tienda.chicco.com.mx</p></div><svg class="ext" width="18" height="18" aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="card store rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendaluzsavinon.com/" data-k="luz saviñón tienda grande"><span class="ini">LS</span><div><h4>Montepío Luz Saviñón</h4><p>tiendaluzsavinon.com</p></div><svg class="ext" width="18" height="18" aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="card store rv s" target="_blank" rel="noopener noreferrer" href="https://www.rizosmexicanos.com/" data-k="rizos mexicanos tienda grande"><span class="ini">RM</span><div><h4>Rizos Mexicanos</h4><p>rizosmexicanos.com</p></div><svg class="ext" width="18" height="18" aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="card store rv s" target="_blank" rel="noopener noreferrer" href="https://www.telmov.mx/" data-k="telmov tienda grande"><span class="ini">TM</span><div><h4>Telmov</h4><p>telmov.mx</p></div><svg class="ext" width="18" height="18" aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="card store rv s" target="_blank" rel="noopener noreferrer" href="https://www.ayguey.com/" data-k="ay güey tienda grande"><span class="ini">AG</span><div><h4>Ay Güey</h4><p>ayguey.com</p></div><svg class="ext" width="18" height="18" aria-hidden="true"><use href="#i-ext"/></svg></a>
+    </div>
+
+    <div class="sublabel" id="objecion"><span class="num">1.3</span><h3>La respuesta a la objeción</h3><span class="why">— por qué no la competencia</span></div>
+    <div class="grid g2">
+      <a class="card feature rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1iM0IBfGTNULcXBVzusAkIeSt_GjF_zOC9E91z4cHorg/edit?slide=id.g3f9eac4479e_44_1517#slide=id.g3f9eac4479e_44_1517" data-k="battle cards competencia shopify vtex woocommerce objeción">
+        <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
+        <div class="top"><span class="badge">Battle cards</span></div>
+        <h4>Battle cards vs. competencia</h4>
+        <p>Comparativos directos y respuestas a las objeciones más comunes cuando tu cliente evalúa otra plataforma.</p>
+        <span class="go">Abrir battle cards</span>
+      </a>
+      <div class="card rv s" data-k="objeción cómo responder">
+        <div class="top"><span class="badge sky">Cómo usarlo</span></div>
+        <h4>Regla para manejar una objeción</h4>
+        <ul class="checks">
+          <li>Pregunta qué plataforma está evaluando antes de comparar.</li>
+          <li>Responde con la tarjeta de ese competidor, no con todas.</li>
+          <li>Cierra con un caso real (1.2), no con una lista de funciones.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block night" id="construir">
+  <span class="bignum" aria-hidden="true">02</span>
+  <div class="wrap">
+    <div class="kicker rv">Ruta 02 · Construir</div>
+    <h2 class="sec rv">Antes de cotizar, confirma qué se puede hacer y <em>con qué herramienta.</em></h2>
+    <div class="key rv"><span class="tag">En corto</span><p>Casi todo lo que tu cliente pide se resuelve con una de cuatro piezas: las capacidades de la plataforma, la API, el tema Ipanema o la función de mayoristas.</p></div>
+
+    <div class="sublabel" id="capacidades"><span class="num">2.1</span><h3>Capacidades técnicas y API</h3><span class="why">— qué se puede hacer</span></div>
+    <div class="grid g2">
+      <a class="card feature rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1Vd7VlKleZGQhVCZkmgcR2_Bw3pHK0Gd9bO-JA2fEFMY/edit?slide=id.p1#slide=id.p1" data-k="capacidades técnicas integraciones arquitectura">
+        <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
+        <div class="top"><span class="badge">Presentación técnica</span></div>
+        <h4>Capacidades técnicas de Tiendanube</h4>
+        <p>El mapa de lo que la plataforma resuelve de forma nativa, con apps o con desarrollo.</p>
+        <span class="go">Abrir presentación</span>
+      </a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="api desarrolladores rest integración getting started">
+        <div class="top"><span class="badge sky">API</span></div>
+        <h4>API de Tiendanube · Getting started</h4>
+        <p>Documentación oficial para integrar ERP, CRM o inventarios, o para construir apps sobre la tienda.</p>
+        <div class="use"><b>Úsalo cuando:</b> el cliente necesita conectar un sistema propio o sincronizar datos.</div>
+        <span class="go">Ir a la documentación</span>
+      </a>
+    </div>
+
+    <div class="sublabel" id="ipanema"><span class="num">2.2</span><h3>Ipanema</h3><span class="why">— el tema base para construir tiendas a la medida</span></div>
+    <div class="doc rv s" data-k="ipanema diseño tema theme secciones bloques cli fork">
+      <div class="cols">
+        <div>
+          <h5>En una línea</h5>
+          <p class="oneline">El primer tema de Tiendanube 100% hecho de secciones y bloques editables, y <em>el único</em> que permite desarrollo completo de código con el flujo Fork del CLI.</p>
+          <h5>Qué resuelve</h5>
+          <ul class="checks">
+            <li>Agregar, quitar y reordenar secciones en cualquier página, sin una estructura fija.</li>
+            <li>Más de 15 secciones listas: banners, video, testimonios, preguntas frecuentes, newsletter, listados de productos y categorías destacadas.</li>
+            <li>Vista previa en tiempo real, drag &amp; drop y ajustes globales de tipografía, colores y botones.</li>
+            <li>CSS global y CSS por sección, animaciones en carrusel y hero, y plantillas para landing pages.</li>
+            <li>Pensado para catálogos grandes con muchas categorías.</li>
+          </ul>
+          <h5>Lo que debes saber antes de cotizar</h5>
+          <ul class="checks warn">
+                        <li>Sin fork solo puedes subir <code>custom/</code>, <code>templates/</code> y <code>config/settings_data.json</code>. Para tocar layouts, secciones o bloques, primero haz <b>fork</b>.</li>
+          </ul>
+          <h5>Flujo de desarrollo con el CLI</h5>
+<pre class="cli"><span class="c"># 1. Crea una instalación basada en Ipanema</span>
+<span class="k">tiendanube</span> theme create --base-theme ipanema --title "Mi tema"
+<span class="c"># 2. Descarga los archivos y liga la carpeta</span>
+<span class="k">tiendanube</span> theme pull --theme-id ID
+<span class="c"># 3. Haz fork para editar el código del tema</span>
+<span class="k">tiendanube</span> theme fork
+<span class="c"># 4. Sincroniza en vivo mientras editas</span>
+<span class="k">tiendanube</span> theme watch
+<span class="c"># 5. Previsualiza y publica</span>
+<span class="k">tiendanube</span> theme preview
+<span class="k">tiendanube</span> theme publish</pre>
+        </div>
+        <div>
+          <h5>Para el equipo de diseño</h5>
+          <div class="links">
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/diseno-ipanema">Diseño Ipanema · Centro de ayuda <span>Ayuda MX</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/diseno-ipanema/como-personalizar-mi-diseno-ipanema">Cómo personalizar Ipanema <span>Ayuda MX</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/co/tienda-disenos-nube/ipanema">Ficha del tema Ipanema <span>Demo</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/123225-edicion-avanzada-de-css">Edición avanzada de CSS <span>Ayuda MX</span></a>
+          </div>
+          <h5>Para el equipo de desarrollo</h5>
+          <div class="links">
+            <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/overview">CLI de Tiendanube · Overview <span>Dev docs</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/getting-started">CLI · Getting started <span>Dev docs</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/theme-development">Theme development <span>Dev docs</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/theme-installations">Theme installations <span>Dev docs</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sublabel" id="b2b"><span class="num">2.3</span><h3>Ventas mayoristas (B2B)</h3><span class="why">— menudeo y mayoreo en una sola tienda</span></div>
+    <div class="doc rv s" data-k="b2b mayoristas mayoreo distribuidores tabla de precios autorregistro wholesale">
+      <div class="cols">
+        <div>
+          <h5>En una línea</h5>
+          <p class="oneline">Tu cliente vende al menudeo y al mayoreo desde la misma tienda: el mayorista inicia sesión y ve <em>sus precios, sus mínimos y sus cupones</em>; el minorista ve la tienda normal.</p>
+          <h5>Qué incluye</h5>
+          <ul class="checks">
+            <li><b>Tablas de precios</b> con descuentos para todo el catálogo o para productos seleccionados (Productos › Tabla de precios).</li>
+            <li><b>Pedido mínimo</b> por monto o por cantidad de productos en el carrito (la regla por cantidad depende del diseño de la tienda).</li>
+            <li><b>Medios de pago y envío específicos</b> para cada tabla de precios.</li>
+            <li><b>Autorregistro de mayoristas</b> con acceso automático a su tabla: <code>tudominio/account/register/wholesale</code></li>
+            <li><b>Gestión unificada</b> de pedidos, inventario y precios; la lista de ventas filtra mayoristas y minoristas.</li>
+            <li><b>Cupones exclusivos</b> para clientes ligados a una tabla (preventa, VIP).</li>
+            <li>Las promociones de menudeo <b>no afectan</b> los precios de mayoreo.</li>
+          </ul>
+          <h5>Tablas de precios por plan</h5>
+          <ul class="checks warn">
+            <li><b>Gratis y Básico:</b> no disponible.</li>
+            <li><b>Tiendanube:</b> 1 tabla · <b>Avanzado:</b> hasta 3 · <b>Evolución:</b> ilimitadas.</li>
+          </ul>
+          <h5>Lo que debes saber antes de cotizar</h5>
+          <ul class="checks warn">
+            <li>Las estadísticas todavía no separan ventas mayoristas de minoristas.</li>
+            <li>Las promociones y el envío gratis del administrador aplican solo al menudeo.</li>
+            <li>La tabla de precios se puede editar o desactivar, pero no eliminar.</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Cómo detectar la oportunidad</h5>
+          <div class="qual">
+            <p>Si tu cliente responde “sí” a una de estas, tiene caso B2B:</p>
+            <ol>
+              <li>¿Le vende a distribuidores, revendedores o tiendas además del consumidor final?</li>
+              <li>¿Hoy toma pedidos de mayoreo por WhatsApp, Excel o correo?</li>
+              <li>¿Maneja una lista de precios distinta para clientes frecuentes o por volumen?</li>
+              <li>¿Le exige un pedido mínimo a cierto tipo de cliente?</li>
+            </ol>
+          </div>
+          <h5>Documentación oficial</h5>
+          <div class="links">
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/ventas-mayoristas/que-es-y-como-configurar-la-funcion-de-ventas-mayoristas-y-minoristas-de-tiendanube">Qué es y cómo configurarla <span>Ayuda MX</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/ventas-mayoristas/como-crear-y-activar-la-tabla-de-precios-para-mayoristas-en-tiendanube">Crear y activar la tabla de precios <span>Ayuda MX</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/ventas-mayoristas/como-administrar-el-acceso-a-la-tabla-de-precios-para-mayoristas">Administrar el acceso de mayoristas <span>Ayuda</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/ventas-mayoristas/como-configurar-medios-de-pago-y-envio-especificos-para-tus-tablas-de-precios-mayoristas">Pagos y envíos para mayoristas <span>Ayuda</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/ventas-mayoristas/preguntas-frecuentes-sobre-ventas-mayoristas-y-minoristas-por-tiendanube">Preguntas frecuentes <span>Ayuda</span></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/soluciones/ventas-mayoristas">Página de la solución <span>Comercial</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="novedades">
+  <span class="bignum" aria-hidden="true">03</span>
+  <div class="wrap">
+    <div class="kicker rv">Ruta 03 · Novedades</div>
+    <h2 class="sec rv">Dos lanzamientos de IA que <em>ya puedes vender</em> a tus clientes.</h2>
+    <div class="key rv"><span class="tag">En corto</span><p>Lumi trabaja <b>dentro</b> del administrador; el conector MCP lleva la tienda <b>fuera</b>, a Claude, ChatGPT o Gemini. Juntos significan menos horas operativas para tu cliente y para tu agencia.</p></div>
+
+    <div class="grid g2" id="lumi-mcp">
+      <div class="doc rv s" id="lumi" data-k="lumi ia inteligencia artificial agente asistente">
+        <span class="badge new">Nuevo · México</span>
+        <h3 class="feat-title"><em>Lumi</em></h3>
+        <p class="oneline">La IA nativa de Tiendanube: conversa con el comerciante, analiza su tienda y ejecuta acciones para vender más.</p>
+        <h5>Qué hace</h5>
+        <ul class="checks">
+          <li><b>Lumi Asistente:</b> análisis y diagnóstico del negocio, con hipótesis y propuestas.</li>
+          <li><b>Lumi Acciones:</b> descripciones SEO, cálculo de envío a partir de una imagen, recomendaciones de producto e imágenes con Lumi Studio.</li>
+          <li>Se le habla por texto, voz o imagen, y edita hasta 20 productos al mismo tiempo.</li>
+          <li>Lumi Asistente está en todos los planes pagos; Lumi Acciones funciona con créditos de IA según el plan.</li>
+        </ul>
+        <h5>Cómo lo usa tu agencia</h5>
+        <ul class="checks">
+          <li>Acelera la carga de catálogo y el SEO en las implementaciones.</li>
+          <li>Enséñale al cliente a usarlo en la entrega: es valor percibido sin horas extra para ti.</li>
+        </ul>
+        <h5>Documentación</h5>
+        <div class="links">
+          <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/conoce-a-lumi/que-es-lumi-y-como-te-ayuda-en-la-gestion-de-tu-tienda-en-tiendanube">Qué es Lumi <span>Ayuda MX</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/lumi">Agente Lumi: funcionamiento y consejos <span>Ayuda MX</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/lumi/">Lumi en el blog <span>Blog</span></a>
+        </div>
+      </div>
+
+      <div class="doc rv s" id="mcp" data-k="mcp conector ia claude chatgpt gemini cursor admin">
+        <span class="badge new">Nuevo · Conector oficial</span>
+        <h3 class="feat-title">Admin <em>MCP</em></h3>
+        <p class="oneline">El conector oficial para gestionar una tienda Tiendanube desde Claude, ChatGPT, Gemini o editores como Cursor y VS Code, sin entrar al administrador.</p>
+        <h5>Qué hace</h5>
+        <ul class="checks">
+          <li>18 herramientas: leer y editar productos, gestionar órdenes, consultar clientes y categorías, y crear cupones.</li>
+          <li>Ejemplos: “resume los pedidos pendientes de envío”, “sube 10% los precios de esta colección”.</li>
+          <li>Tiendanube es la primera plataforma de e-commerce de LATAM en el directorio oficial de Claude.</li>
+        </ul>
+        <h5>Cómo lo usa tu agencia</h5>
+        <ul class="checks">
+          <li>Opera varias tiendas de clientes desde una sola conversación.</li>
+          <li>Haz cambios masivos de catálogo y reportes rápidos sin escribir scripts.</li>
+        </ul>
+        <h5>Documentación</h5>
+        <div class="links">
+          <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/conectores-de-ia">Conectores de IA · todas las guías <span>Ayuda MX</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/conectores-de-ia/como-conectar-mi-tiendanube-a-claude">Conectar con Claude <span>Ayuda</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/conectores-de-ia/como-conectar-mi-tiendanube-a-chatgpt">Conectar con ChatGPT <span>Ayuda</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/conectores-de-ia/como-conectar-mi-tiendanube-con-herramientas-de-ia-compatibles-con-mcp">Conectar con Cursor, VS Code o Windsurf <span>Ayuda</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="support" id="soporte">
+  <svg class="ghost2" aria-hidden="true"><use href="#iso"/></svg>
+  <div class="wrap">
+    <div class="kicker rv">Soporte</div>
+    <h2 class="sec rv">¿No está aquí? Está en <em>una de estas cuatro.</em></h2>
+    <p class="sub rv">Orden sugerido: primero el Centro de ayuda, luego la documentación técnica y, si sigue sin resolverse, tu Partner Manager.</p>
+    <div class="grid g4 sup">
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX" data-k="centro de ayuda soporte"><h4>Centro de ayuda</h4><p>Guías paso a paso de cada función.</p><span class="go">ayuda.tiendanube.com</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="api dev"><h4>Documentación técnica</h4><p>API, apps y CLI para desarrolladores.</p><span class="go">tiendanube.dev</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/134111-asociate-con-tiendanube" data-k="partners socios cuenta"><h4>Ayuda para Partners</h4><p>Tu cuenta de socio y el programa.</p><span class="go">Ver guías</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://lanzamientos.tiendanube.com/" data-k="lanzamientos novedades producto"><h4>Lanzamientos</h4><p>Todo lo nuevo de producto, al día.</p><span class="go">Ver lanzamientos</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#inicio" aria-label="Volver al inicio"><svg aria-hidden="true"><use href="#iso"/></svg>tiendanube</a>
+      <p class="tagline">E-commerce para <em>marcas mexas.</em></p>
+    </div>
+    <div>
+      <p>Hub de Agencias · Responsable: Alan Cervantes, Partner Manager Agencias MX</p>
+      <p>Última actualización: 1 de octubre de 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>(function () {
+  'use strict';
+  var d = document, root = d.documentElement;
+  root.classList.remove('no-js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var bar = d.getElementById('progress'), ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    window.requestAnimationFrame(function () {
+      var h = root.scrollHeight - root.clientHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(root.scrollTop / h, 1) : 0) + ')';
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  var WORDS = ['vender.', 'construir.', 'escalar.'];
+  var rot = d.getElementById('rot'), wi = 0;
+  if (rot && !reduce) {
+    window.setInterval(function () {
+      rot.classList.add('out');
+      window.setTimeout(function () {
+        wi = (wi + 1) % WORDS.length;
+        rot.textContent = WORDS[wi];
+        rot.classList.remove('out');
+      }, 450);
+    }, 2600);
+  }
+
+  var rv = [].slice.call(d.querySelectorAll('.rv'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    rv.forEach(function (el) { io.observe(el); });
+  } else { rv.forEach(function (el) { el.classList.add('in'); }); }
+
+  var navs = [].slice.call(d.querySelectorAll('[data-nav]'));
+  var secs = ['inicio', 'vender', 'construir', 'novedades'].map(function (id) { return d.getElementById(id); }).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var id = e.target.id;
+        navs.forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-nav') === id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(function (s) { so.observe(s); });
+  }
+
+  if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) {
+    d.addEventListener('pointermove', function (ev) {
+      var c = ev.target && ev.target.closest ? ev.target.closest('.card') : null;
+      if (!c) return;
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+
+  var input = d.getElementById('q'), none = d.getElementById('noresults'),
+      box = d.getElementById('searchbox'), count = d.getElementById('count');
+  var items = [].slice.call(d.querySelectorAll('.s'));
+  var labels = [].slice.call(d.querySelectorAll('.sublabel, .minihead, .subnote, .swipehint'));
+  var MAX = 60;
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  var index = items.map(function (el) { return norm(el.textContent + ' ' + (el.getAttribute('data-k') || '')); });
+  function run() {
+    var raw = input.value;
+    if (raw.length > MAX) { raw = raw.slice(0, MAX); input.value = raw; }
+    var v = norm(raw.trim()), hits = 0;
+    items.forEach(function (el, i) {
+      var show = !v || index[i].indexOf(v) > -1;
+      el.classList.toggle('hidden', !show);
+      if (show && v) { hits++; el.classList.add('in'); }
+    });
+    labels.forEach(function (l) { l.classList.toggle('hidden', !!v); });
+    box.classList.toggle('has', !!v);
+    count.textContent = v ? (hits + (hits === 1 ? ' resultado' : ' resultados')) : '';
+    none.classList.toggle('show', !!v && !hits);
+  }
+  input.addEventListener('input', run);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      var first = items.filter(function (el) { return !el.classList.contains('hidden') && el.offsetParent; })[0];
+      if (first && input.value.trim()) first.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    }
+    if (e.key === 'Escape') { input.value = ''; run(); input.blur(); }
+  });
+  d.addEventListener('keydown', function (e) {
+    if (e.key === '/' && d.activeElement !== input) { e.preventDefault(); input.focus(); }
+  });
+})();
+</script>
+</body>
+</html>
