@@ -2,12 +2,12 @@
 <html lang="es-MX" class="no-js">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-uzs03uyxBYisbZPfyOR+oz+2iYVBdvrQHp3piskO1dQ='; style-src 'sha256-u1zrHCfiS1STrSED0HQv5iZuHGWOFzRrYAdmdC/UkeM=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; worker-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-GQu34EvsHLbr4/1p/5+yM1S08zkClXuzZc86vc93s7Y='; style-src 'sha256-FoZSeiM3d8E+ANkcYYJjpsRNcQ9dCBON23Mx3lxlwLQ=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; worker-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#010B23">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Hub de Agencias Tiendanube México: presentación, casos de éxito, battle cards, capacidades técnicas, Ipanema, B2B, Lumi y Admin MCP en un solo lugar.">
+<meta name="description" content="Hub de Agencias Tiendanube México. Presentación, casos de éxito, battle cards, qué se puede hacer en la plataforma, Editor de plantillas, mayoreo B2B, Lumi y Admin MCP.">
 <title>Hub de Agencias · Tiendanube</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;bac
 nav.top{position:sticky;top:0;z-index:1020;background:rgba(1,11,35,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .navlinks{display:flex;gap:2px}
-.navlinks a{font-weight:500;font-size:14px;padding:9px 15px;border-radius:100px;color:var(--muted);transition:color .2s,background .2s}
+.navlinks a{font-weight:500;font-size:14px;padding:9px 13px;border-radius:100px;color:var(--muted);transition:color .2s,background .2s}
 .navlinks a:hover,.navlinks a.on{color:var(--white);background:rgba(153,211,255,.12)}
 .kbd{font-size:12px;color:var(--faint);border:1px solid var(--line2);border-radius:6px;padding:2px 7px;margin-left:8px}
 @media(max-width:860px){.navlinks,.kbd{display:none}}
@@ -57,7 +57,7 @@ nav.top .wrap{display:flex;align-items:center;justify-content:space-between;heig
 
 .tabbar{display:none}
 @media(max-width:860px){
-  .tabbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));height:var(--navh);z-index:1030;background:rgba(1,11,35,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line2);border-radius:22px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6)}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));height:var(--navh);z-index:1030;background:rgba(1,11,35,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line2);border-radius:22px;box-shadow:0 20px 40px -12px rgba(0,0,0,.6)}
   .tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;color:var(--faint);transition:color .2s}
   .tabbar a svg{width:22px;height:22px;transition:transform .3s var(--ease)}
   .tabbar a.on{color:var(--white)}
@@ -95,6 +95,11 @@ nav.top .wrap{display:flex;align-items:center;justify-content:space-between;heig
 .noresults{display:none;margin-top:14px;color:var(--clear);font-size:15px}
 .noresults.show{display:block}
 
+.newpill{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:7px 16px 7px 7px;border:1px solid var(--line2);border-radius:100px;background:rgba(1,11,35,.35);font-size:14.5px;font-weight:500;color:var(--ink);transition:border-color .25s,background .25s}
+.newpill:hover{border-color:var(--sky);background:rgba(0,180,230,.1)}
+.newpill::after{content:"→";color:var(--clear);transition:transform .4s var(--ease)}
+.newpill:hover::after{transform:translateX(4px)}
+
 
 
 .marquee{background:var(--nimbus);color:var(--white);overflow:hidden;white-space:nowrap;border-block:1px solid rgba(255,255,255,.15)}
@@ -110,12 +115,14 @@ nav.top .wrap{display:flex;align-items:center;justify-content:space-between;heig
 h2.sec{font-size:clamp(32px,4.6vw,58px);line-height:1.05;font-weight:600;letter-spacing:-.03em;margin:10px 0 14px;max-width:920px}
 h2.sec em{color:var(--clear)}
 .sub{color:var(--muted);font-size:17px;max-width:720px}
-.qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px}
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px}
 .q{position:relative;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:var(--glass);font-weight:600;transition:border-color .3s,transform .4s var(--ease),background .3s;overflow:hidden}
 .q small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:3px}
 .q .arr{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--clear);transition:all .4s var(--ease)}
 .q:hover{border-color:var(--sky);transform:translateY(-2px)}
 .q:hover .arr{background:var(--sky);color:var(--galaxy);border-color:var(--sky);transform:rotate(-45deg)}
+.q.hot{border-color:rgba(0,180,230,.45)}
+.q .badge{margin-right:6px;vertical-align:2px}
 @media(max-width:960px){.qgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.qgrid{grid-template-columns:1fr}}
 
@@ -229,6 +236,7 @@ footer .tagline em{color:var(--clear)}
 .grid>.rv:nth-child(3),.qgrid>.rv:nth-child(3){transition-delay:.16s}
 .grid>.rv:nth-child(4),.qgrid>.rv:nth-child(4){transition-delay:.24s}
 .qgrid>.rv:nth-child(5){transition-delay:.32s}.qgrid>.rv:nth-child(6){transition-delay:.4s}
+.qgrid>.rv:nth-child(7){transition-delay:.48s}.qgrid>.rv:nth-child(8){transition-delay:.56s}.qgrid>.rv:nth-child(9){transition-delay:.64s}
 .no-js .rv{opacity:1;transform:none}
 
 @media(max-width:600px){
@@ -280,6 +288,27 @@ details.more>*:not(summary){margin:0 16px 16px}
 .panel .feat-title{margin:12px 0 8px}
 #lumi-mcp .panel{max-width:none}
 
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.faq{display:grid;gap:8px;max-width:1000px}
+.fq{display:grid;grid-template-columns:minmax(0,1fr) 104px minmax(0,1.3fr) 18px;align-items:center;gap:8px 18px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:rgba(1,11,35,.35);transition:border-color .25s,background .25s}
+.fq:hover{border-color:var(--sky);background:rgba(0,180,230,.08)}
+.fq::after{content:"→";color:var(--clear);justify-self:end;transition:transform .4s var(--ease)}
+.fq:hover::after{transform:translateX(4px)}
+.fq .qq{font-weight:600;font-size:15px;line-height:1.35}
+.fq .aa{font-size:14px;color:var(--muted);line-height:1.45}
+.lvl{display:inline-block;justify-self:start;font-size:11px;font-weight:700;letter-spacing:.02em;padding:4px 10px;border-radius:100px;white-space:nowrap;border:1px solid transparent}
+.lvl.nat{background:var(--sky);color:var(--galaxy);border-color:var(--sky)}
+.lvl.app{background:rgba(153,211,255,.14);color:var(--clear);border-color:var(--line2)}
+.lvl.dev{color:#7fe0ff;border-color:rgba(0,180,230,.5)}
+.lvl.tbd{color:var(--faint);border:1px dashed var(--line2)}
+.confirm{color:#FFD27A;font-weight:600}
+@media(max-width:760px){
+  .fq{grid-template-columns:minmax(0,1fr) auto;padding:14px 16px}
+  .fq .aa{grid-column:1/-1}
+  .fq::after{display:none}
+}
+
 @media(max-width:640px){
   h2.sec{font-size:30px;margin-bottom:10px}
   .hero h1{font-size:38px}
@@ -301,6 +330,7 @@ details.more>*:not(summary){margin:0 16px 16px}
   .links a span{display:none}
   .q{padding:16px 18px}
   .chip{font-size:14px;padding:9px 14px}
+  .newpill{font-size:13.5px}
   .support .grid{grid-template-columns:1fr 1fr}
   .support .card{padding:16px}
   .support .card .go{font-size:13px}
@@ -310,6 +340,11 @@ details.more>*:not(summary){margin:0 16px 16px}
 .links a span+*{margin-left:0}
 
 #lumi-mcp{margin-top:32px}
+.card.case h4{font-size:18px;line-height:1.35;margin-bottom:0}
+.card.case .who{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line2);font-size:14px}
+.card.case .top{margin-bottom:14px}
+.card.case .go{margin-top:0;padding-top:14px}
+.sec+.sub{margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -327,6 +362,7 @@ details.more>*:not(summary){margin:0 16px 16px}
   <symbol id="i-sell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 19h16M6 15l4-4 3 3 5-6M15 8h3v3"/></symbol>
   <symbol id="i-build" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m8 8-5 4 5 4M16 8l5 4-5 4M13.5 5l-3 14"/></symbol>
   <symbol id="i-new" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="i-b2b" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 8h18v12H3zM3 8l2-4h14l2 4M9 12h6M8 20v-4h8v4"/></symbol>
   <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/></symbol>
 </svg>
 
@@ -335,9 +371,10 @@ details.more>*:not(summary){margin:0 16px 16px}
     <a class="logo" href="#inicio" aria-label="Tiendanube · Hub de Agencias"><svg aria-hidden="true"><use href="#iso"/></svg>tiendanube<small>Hub de Agencias</small></a>
     <div class="navlinks">
       <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#novedades" data-nav="novedades">Lo nuevo</a>
       <a href="#vender" data-nav="vender">01 Vender</a>
       <a href="#construir" data-nav="construir">02 Construir</a>
-      <a href="#novedades" data-nav="novedades">03 Novedades</a>
+      <a href="#b2b">Mayoreo B2B</a>
       <a href="#soporte">Soporte</a>
     </div>
   </div>
@@ -345,9 +382,10 @@ details.more>*:not(summary){margin:0 16px 16px}
 
 <nav class="tabbar" aria-label="Navegación móvil">
   <a href="#inicio" data-nav="inicio"><svg aria-hidden="true"><use href="#i-home"/></svg>Inicio</a>
+  <a href="#novedades" data-nav="novedades"><svg aria-hidden="true"><use href="#i-new"/></svg>Nuevo</a>
   <a href="#vender" data-nav="vender"><svg aria-hidden="true"><use href="#i-sell"/></svg>Vender</a>
   <a href="#construir" data-nav="construir"><svg aria-hidden="true"><use href="#i-build"/></svg>Construir</a>
-  <a href="#novedades" data-nav="novedades"><svg aria-hidden="true"><use href="#i-new"/></svg>Novedades</a>
+  <a href="#b2b"><svg aria-hidden="true"><use href="#i-b2b"/></svg>B2B</a>
 </nav>
 
 <header class="hero" id="inicio">
@@ -365,24 +403,25 @@ details.more>*:not(summary){margin:0 16px 16px}
   </svg>
   <div class="wrap">
     <span class="eyebrow"><i></i>Programa de Agencias · Tiendanube México</span>
-    <h1>Todo lo que tu agencia necesita para <em><span class="rot" id="rot">vender.</span></em></h1>
-    <p class="lead">Todo el material oficial en un solo lugar. <b>Tres rutas</b> y en dos clics llegas a lo que necesitas.</p>
+    <h1>Tu material para <em><span class="rot" id="rot">vender.</span></em></h1>
+    <p class="lead">Busca o elige tu pregunta abajo. En dos clics tienes el link.</p>
 
     <div class="search" id="searchbox" role="search">
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <label class="sr" for="q">Buscar en el hub</label>
-      <input id="q" type="search" maxlength="60" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="Busca: mayoristas, Ipanema, API, Lumi…">
+      <input id="q" type="search" maxlength="60" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="Busca: mayoreo, ERP, plantillas, Lumi…">
       <span class="count" id="count" aria-live="polite"></span>
     </div>
-    <p class="noresults" id="noresults" role="status">Sin resultados. Prueba con otra palabra o escríbele a tu Partner Manager.</p>
+    <p class="noresults" id="noresults" role="status">No encontré nada con esa palabra. Prueba otra o escríbele a tu Partner Manager.</p>
 
+    <a class="newpill" href="#novedades"><span class="badge new">Nuevo</span>Lumi y Admin MCP ya se pueden ofrecer</a>
   </div>
 </header>
 
 <div class="marquee" aria-hidden="true">
   <div class="track">
-    <span>E-commerce para <em>marcas mexas</em></span><span>Vender</span><span>Construir</span><span>Escalar</span><span>Lumi</span><span>Admin MCP</span><span>Ipanema</span><span>Mayoristas B2B</span>
-    <span>E-commerce para <em>marcas mexas</em></span><span>Vender</span><span>Construir</span><span>Escalar</span><span>Lumi</span><span>Admin MCP</span><span>Ipanema</span><span>Mayoristas B2B</span>
+    <span>E-commerce para <em>marcas mexas</em></span><span>Lumi</span><span>Admin MCP</span><span>Mayoreo B2B</span><span>Editor de plantillas</span><span>Casos de éxito</span><span>Battle cards</span>
+    <span>E-commerce para <em>marcas mexas</em></span><span>Lumi</span><span>Admin MCP</span><span>Mayoreo B2B</span><span>Editor de plantillas</span><span>Casos de éxito</span><span>Battle cards</span>
   </div>
 </div>
 
@@ -390,201 +429,50 @@ details.more>*:not(summary){margin:0 16px 16px}
 <section class="router" id="ruta">
   <div class="wrap">
     <div class="kicker rv">Empieza aquí</div>
-    <h2 class="sec rv">¿Qué necesitas <em>resolver hoy?</em></h2>
-    <p class="sub rv">Cada pregunta te lleva directo a la respuesta. No necesitas leer todo el hub.</p>
+    <h2 class="sec rv">¿Qué te preguntó tu cliente?</h2>
     <div class="qgrid">
-      <a class="q rv s" href="#argumento" data-k="pitch presentación por qué tiendanube"><div>Mi cliente pregunta por qué Tiendanube<small>Presentación de agencias</small></div><span class="arr" aria-hidden="true">→</span></a>
-      <a class="q rv s" href="#prueba" data-k="casos éxito ejemplo"><div>Necesito un caso parecido a mi cliente<small>Casos de éxito y tiendas en vivo</small></div><span class="arr" aria-hidden="true">→</span></a>
-      <a class="q rv s" href="#objecion" data-k="competencia shopify vtex objeción battle"><div>Me están comparando con otra plataforma<small>Battle cards</small></div><span class="arr" aria-hidden="true">→</span></a>
-      <a class="q rv s" href="#capacidades" data-k="técnico se puede integración"><div>¿Esto se puede hacer técnicamente?<small>Capacidades técnicas y API</small></div><span class="arr" aria-hidden="true">→</span></a>
-      <a class="q rv s" href="#b2b" data-k="mayoristas b2b distribuidores"><div>Mi cliente también vende al mayoreo<small>Ventas mayoristas (B2B)</small></div><span class="arr" aria-hidden="true">→</span></a>
-      <a class="q rv s" href="#ipanema" data-k="diseño tema theme ipanema"><div>Voy a construir el diseño de la tienda<small>Ipanema + CLI</small></div><span class="arr" aria-hidden="true">→</span></a>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="vender">
-  <span class="bignum" aria-hidden="true">01</span>
-  <div class="wrap">
-    <div class="kicker rv">Ruta 01 · Vender</div>
-    <h2 class="sec rv">Todo para <em>cerrar al cliente.</em></h2>
-    <div class="key rv"><span class="tag">En corto</span><p>Tres piezas: por qué Tiendanube, quién ya lo logró y por qué no la competencia.</p></div>
-
-    <div class="sublabel" id="argumento"><span class="num">1.1</span><h3>El argumento</h3></div>
-    <a class="card feature wide rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1NAtrl-SfzYpxgw5_vWCAJxbj7QHLQDtENFaAa5Enc_A/edit?slide=id.g3aec1df9a21_0_3916#slide=id.g3aec1df9a21_0_3916" data-k="presentación pitch deck agencias por qué tiendanube">
-      <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
-      <div class="top"><span class="badge">Presentación oficial</span></div>
-      <h4>Presentación de Tiendanube para agencias</h4>
-      <p>El deck base para tu primera reunión con el cliente.</p>
-      <p class="tip"><b>Tip:</b> abre con el resultado que busca tu cliente, no con la plataforma.</p>
-      <span class="go">Abrir presentación</span>
-    </a>
-
-    <div class="sublabel" id="prueba"><span class="num">1.2</span><h3>La prueba</h3></div>
-    <div class="grid g4 swipe">
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/ejemplos/chicco/" data-k="caso éxito chicco comercial marca migración">
-        <div class="top"><span class="badge">Caso comercial</span></div>
-        <h4>Chicco</h4>
-        <p class="metric">+256%</p>
-        <p>ticket promedio tras migrar en 30 días.</p>
-        <p class="use"><b>Para:</b> marcas grandes que dudan si escalamos.</p>
-        <span class="go">Leer caso</span>
-      </a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/ejemplos/el-rey-ferretero/" data-k="caso éxito rey ferretero erp mayoreo catálogo">
-        <div class="top"><span class="badge">Caso comercial</span></div>
-        <h4>El Rey Ferretero</h4>
-        <p class="metric">+150%</p>
-        <p>ticket promedio vs. marketplaces.</p>
-        <p class="use"><b>Para:</b> catálogos grandes, ERP o mayoreo.</p>
-        <span class="go">Leer caso</span>
-      </a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://rhino-performance.com/" data-k="rhino performance diseño desarrollo custom">
-        <div class="top"><span class="badge sky">Diseño a la medida</span></div>
-        <h4>Rhino Performance</h4>
-        <p>Diseño y desarrollo 100% personalizado.</p>
-        <p class="use"><b>Para:</b> “todas las tiendas se ven igual”.</p>
-        <span class="go">Ver tienda</span>
-      </a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://scatola.com.mx/" data-k="scatola aplicaciones apps integraciones">
-        <div class="top"><span class="badge sky">Apps integradas</span></div>
-        <h4>Scatola</h4>
-        <p>Varias apps del ecosistema trabajando juntas.</p>
-        <p class="use"><b>Para:</b> “¿se integra con lo que ya uso?”.</p>
-        <span class="go">Ver tienda</span>
-      </a>
-    </div>
-    <p class="swipehint">Desliza para ver más →</p>
-
-    <p class="minihead">Tiendas grandes en vivo</p>
-    <div class="chips">
-      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.tienda.chicco.com.mx/" data-k="chicco tienda grande">Chicco México<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
-      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.tiendaluzsavinon.com/" data-k="montepío luz saviñón tienda grande">Montepío Luz Saviñón<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
-      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.rizosmexicanos.com/" data-k="rizos mexicanos tienda grande">Rizos Mexicanos<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
-      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.telmov.mx/" data-k="telmov tienda grande">Telmov<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
-      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.ayguey.com/" data-k="ay güey tienda grande">Ay Güey<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
-    </div>
-
-    <div class="sublabel" id="objecion"><span class="num">1.3</span><h3>La respuesta a la objeción</h3></div>
-    <a class="card feature wide rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1iM0IBfGTNULcXBVzusAkIeSt_GjF_zOC9E91z4cHorg/edit?slide=id.g3f9eac4479e_44_1517#slide=id.g3f9eac4479e_44_1517" data-k="battle cards competencia shopify vtex woocommerce objeción">
-      <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
-      <div class="top"><span class="badge">Battle cards</span></div>
-      <h4>Battle cards vs. competencia</h4>
-      <p>Comparativos y respuestas a las objeciones más comunes.</p>
-      <p class="tip"><b>Tip:</b> pregunta qué plataforma evalúa y usa solo esa tarjeta.</p>
-      <span class="go">Abrir battle cards</span>
-    </a>
-  </div>
-</section>
-
-<section class="block night" id="construir">
-  <span class="bignum" aria-hidden="true">02</span>
-  <div class="wrap">
-    <div class="kicker rv">Ruta 02 · Construir</div>
-    <h2 class="sec rv">Todo para <em>construir la tienda.</em></h2>
-    <div class="key rv"><span class="tag">En corto</span><p>Antes de cotizar, confirma aquí qué es nativo y con qué herramienta se hace.</p></div>
-
-    <div class="sublabel" id="capacidades"><span class="num">2.1</span><h3>Capacidades y API</h3></div>
-    <div class="grid g2">
-      <a class="card feature rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1Vd7VlKleZGQhVCZkmgcR2_Bw3pHK0Gd9bO-JA2fEFMY/edit?slide=id.p1#slide=id.p1" data-k="capacidades técnicas integraciones arquitectura">
-        <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
-        <div class="top"><span class="badge">Presentación técnica</span></div>
-        <h4>Capacidades técnicas</h4>
-        <p>Qué resuelve la plataforma nativo, con apps o con desarrollo.</p>
-        <span class="go">Abrir presentación</span>
-      </a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="api desarrolladores rest integración erp crm">
-        <div class="top"><span class="badge sky">API</span></div>
-        <h4>API de Tiendanube</h4>
-        <p>Para conectar ERP, CRM, inventarios o crear apps.</p>
-        <span class="go">Ir a la documentación</span>
-      </a>
-    </div>
-
-    <div class="sublabel" id="ipanema"><span class="num">2.2</span><h3>Ipanema</h3></div>
-    <div class="panel rv s" data-k="ipanema diseño tema theme secciones bloques cli fork css">
-      <p class="lead2">El tema base para tiendas a la medida: todo es editable por secciones y es <em>el único</em> con desarrollo completo de código.</p>
-      <ul class="checks">
-        <li>Más de 15 secciones y bloques, sin código.</li>
-        <li>Colores, tipografía y CSS por sección, con vista previa.</li>
-        <li>Desarrollo con el CLI desde tu editor.</li>
-      </ul>
-      <p class="warn1"><b>Antes de cotizar:</b> para editar layouts, secciones o bloques, haz fork del tema.</p>
-      <details class="more">
-        <summary>Ver flujo de desarrollo con el CLI</summary>
-<pre class="cli"><span class="k">tiendanube</span> theme create --base-theme ipanema
-<span class="k">tiendanube</span> theme pull --theme-id ID
-<span class="k">tiendanube</span> theme fork
-<span class="k">tiendanube</span> theme watch
-<span class="k">tiendanube</span> theme publish</pre>
-      </details>
-      <div class="links">
-        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/diseno-ipanema">Guías de Ipanema <span>Diseño</span></a>
-        <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/overview">CLI de Tiendanube <span>Desarrollo</span></a>
-        <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/theme-development">Theme development <span>Desarrollo</span></a>
-      </div>
-    </div>
-
-    <div class="sublabel" id="b2b"><span class="num">2.3</span><h3>Ventas mayoristas (B2B)</h3></div>
-    <div class="panel rv s" data-k="b2b mayoristas mayoreo distribuidores tabla de precios autorregistro wholesale">
-      <p class="lead2">Menudeo y mayoreo en una sola tienda: el mayorista inicia sesión y ve <em>sus propios precios.</em></p>
-      <ul class="checks">
-        <li>Tablas de precios por catálogo, categoría o producto.</li>
-        <li>Pedido mínimo, pagos y envíos exclusivos.</li>
-        <li>Autorregistro: el mayorista se da de alta solo.</li>
-      </ul>
-      <p class="warn1"><b>Antes de cotizar:</b> disponible desde el plan Tiendanube; no aplica en Gratis ni Básico.</p>
-      <details class="more">
-        <summary>¿Tu cliente tiene caso B2B?</summary>
-        <ol class="qlist">
-          <li>¿Le vende a distribuidores o revendedores?</li>
-          <li>¿Toma pedidos de mayoreo por WhatsApp o Excel?</li>
-          <li>¿Maneja precios distintos por volumen?</li>
-        </ol>
-        <p class="qnote">Un “sí” basta para proponerlo.</p>
-      </details>
-      <div class="links">
-        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/ventas-mayoristas/que-es-y-como-configurar-la-funcion-de-ventas-mayoristas-y-minoristas-de-tiendanube">Cómo configurarla <span>Guía</span></a>
-        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/ventas-mayoristas/como-crear-y-activar-la-tabla-de-precios-para-mayoristas-en-tiendanube">Crear la tabla de precios <span>Guía</span></a>
-        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/ventas-mayoristas/preguntas-frecuentes-sobre-ventas-mayoristas-y-minoristas-por-tiendanube">Preguntas frecuentes <span>Guía</span></a>
-      </div>
+      <a class="q rv s" href="#argumento" data-k="pitch presentación por qué tiendanube deck"><div>¿Por qué Tiendanube?<small>Presentación para agencias</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#prueba" data-k="casos éxito ejemplo tiendas en vivo"><div>¿Quién ya vende con Tiendanube?<small>Casos de éxito y tiendas en vivo</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#objecion" data-k="competencia shopify vtex woocommerce objeción battle comparativo"><div>Me están comparando con otra plataforma<small>Battle cards</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#capacidades" data-k="técnico se puede integración erp inventarios pasarelas envíos"><div>¿Esto se puede hacer?<small>Respuesta rápida por tema</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q hot rv s" href="#b2b" data-k="mayoristas b2b mayoreo distribuidores revendedores"><div>También vende al mayoreo<small>Ventas mayoristas B2B</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#editor-plantillas" data-k="diseño tema theme ipanema editor de plantillas cli a la medida"><div>Quiero un diseño a la medida<small>Editor de plantillas y CLI</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q hot rv s" href="#novedades" data-k="lumi mcp admin ia inteligencia artificial catálogo descripciones claude chatgpt gemini conector"><div><span class="badge new">Nuevo</span>¿La tienda tiene IA?<small>Lumi y Admin MCP</small></div><span class="arr" aria-hidden="true">→</span></a>
+      <a class="q rv s" href="#soporte" data-k="soporte ayuda no encuentro partner manager"><div>No encuentro lo que busco<small>Soporte</small></div><span class="arr" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
 
 <section class="block" id="novedades">
-  <span class="bignum" aria-hidden="true">03</span>
   <div class="wrap">
-    <div class="kicker rv">Ruta 03 · Novedades</div>
-    <h2 class="sec rv">Lo nuevo que <em>ya puedes vender.</em></h2>
-    <div class="key rv"><span class="tag">En corto</span><p>Lumi trabaja dentro del administrador; Admin MCP lleva la tienda a tu IA.</p></div>
+    <div class="kicker rv">Lo nuevo</div>
+    <h2 class="sec rv">Ya puedes ofrecer Lumi y Admin MCP</h2>
 
     <div class="grid g2" id="lumi-mcp">
-      <div class="panel rv s" id="lumi" data-k="lumi ia inteligencia artificial agente asistente">
+      <div class="panel rv s" id="lumi" data-k="lumi ia inteligencia artificial agente asistente seo catálogo imágenes créditos">
         <span class="badge new">Nuevo</span>
-        <h3 class="feat-title"><em>Lumi</em></h3>
-        <p class="lead2">La IA del administrador: analiza la tienda y ejecuta tareas por el comerciante.</p>
+        <h3 class="feat-title">Lumi</h3>
+        <p class="lead2">La IA que viene dentro del administrador. En una implementación te ahorra horas de carga de catálogo.</p>
         <ul class="checks">
-          <li>Diagnóstico del negocio por texto, voz o imagen.</li>
-          <li>Descripciones SEO, imágenes y carga de catálogo.</li>
-          <li>Incluido en planes pagos; las acciones usan créditos.</li>
+          <li>Le pides un diagnóstico del negocio por texto, voz o imagen.</li>
+          <li>Escribe descripciones con SEO, crea imágenes y sube productos.</li>
         </ul>
-        <p class="warn1"><b>Para tu agencia:</b> acelera implementaciones y suma valor en la entrega.</p>
+        <p class="warn1"><b>Antes de ofrecerlo</b>, revisa que el cliente esté en un plan pago. Cada acción gasta créditos.</p>
         <div class="links">
           <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/lumi">Guías de Lumi <span>Ayuda</span></a>
           <a target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/lumi/">Qué es Lumi <span>Blog</span></a>
         </div>
       </div>
 
-      <div class="panel rv s" id="mcp" data-k="mcp conector ia claude chatgpt gemini cursor admin">
+      <div class="panel rv s" id="mcp" data-k="mcp conector ia claude chatgpt gemini cursor vs code admin reportes cambios masivos">
         <span class="badge new">Nuevo</span>
-        <h3 class="feat-title">Admin <em>MCP</em></h3>
-        <p class="lead2">Gestiona la tienda desde Claude, ChatGPT o Gemini, sin entrar al administrador.</p>
+        <h3 class="feat-title">Admin MCP</h3>
+        <p class="lead2">El conector oficial para manejar la tienda desde Claude, ChatGPT o Gemini. También funciona en Cursor y VS Code.</p>
         <ul class="checks">
-          <li>Productos, órdenes, clientes y cupones por chat.</li>
-          <li>Cambios masivos y reportes en segundos.</li>
-          <li>Conector oficial; también funciona con Cursor y VS Code.</li>
+          <li>Consulta y edita productos, órdenes, clientes y cupones desde el chat.</li>
+          <li>Haz cambios masivos o pide un reporte en segundos.</li>
         </ul>
-        <p class="warn1"><b>Para tu agencia:</b> opera varias tiendas desde una sola conversación.</p>
+        <p class="warn1"><b>Si llevas varias tiendas</b>, puedes operarlas desde una sola conversación.</p>
         <div class="links">
           <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/conectores-de-ia">Cómo conectarlo <span>Ayuda</span></a>
           <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/conectores-de-ia/como-conectar-mi-tiendanube-a-claude">Conectar con Claude <span>Ayuda</span></a>
@@ -594,17 +482,204 @@ details.more>*:not(summary){margin:0 16px 16px}
   </div>
 </section>
 
+<section class="block night" id="vender">
+  <span class="bignum" aria-hidden="true">01</span>
+  <div class="wrap">
+    <div class="kicker rv">Ruta 01 · Vender</div>
+    <h2 class="sec rv">Para cerrar la venta</h2>
+    <p class="sub rv">Primero la presentación, luego un caso parecido a tu cliente y, si te comparan, la battle card.</p>
+
+    <div class="sublabel" id="argumento"><span class="num">1.1</span><h3>¿Por qué Tiendanube?</h3></div>
+    <a class="card feature wide rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1NAtrl-SfzYpxgw5_vWCAJxbj7QHLQDtENFaAa5Enc_A/edit?slide=id.g3aec1df9a21_0_3916#slide=id.g3aec1df9a21_0_3916" data-k="presentación pitch deck agencias por qué tiendanube">
+      <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
+      <div class="top"><span class="badge">Presentación oficial</span></div>
+      <h4>Presentación para agencias</h4>
+      <p>Para la primera reunión. Empieza por lo que tu cliente quiere lograr y deja la plataforma para después.</p>
+      <span class="go">Abrir presentación</span>
+    </a>
+
+    <div class="sublabel" id="prueba"><span class="num">1.2</span><h3>Casos de éxito</h3></div>
+    <p class="subnote">Elige el caso según lo que te dice el cliente.</p>
+    <div class="grid g4 swipe">
+      <a class="card case rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/ejemplos/chicco/" data-k="caso éxito chicco comercial marca grande migración escala">
+        <div class="top"><span class="badge">Marca grande que migra</span></div>
+        <h4>“No sé si Tiendanube aguanta una marca grande.”</h4>
+        <p class="who"><b>Chicco.</b> +256% en ticket promedio. Migró en 30 días.</p>
+        <span class="go">Leer caso</span>
+      </a>
+      <a class="card case rv s" target="_blank" rel="noopener noreferrer" href="https://www.tiendanube.com/blog/ejemplos/el-rey-ferretero/" data-k="caso éxito rey ferretero erp mayoreo catálogo grande marketplaces">
+        <div class="top"><span class="badge">Catálogo grande con ERP</span></div>
+        <h4>“Ya vendo en marketplaces, ¿para qué quiero tienda propia?”</h4>
+        <p class="who"><b>El Rey Ferretero.</b> +150% en ticket promedio contra marketplaces.</p>
+        <span class="go">Leer caso</span>
+      </a>
+      <a class="card case rv s" target="_blank" rel="noopener noreferrer" href="https://rhino-performance.com/" data-k="rhino performance diseño desarrollo custom a la medida">
+        <div class="top"><span class="badge">Diseño a la medida</span></div>
+        <h4>“Todas las tiendas de Tiendanube se ven igual.”</h4>
+        <p class="who"><b>Rhino Performance.</b> Diseño y desarrollo desde cero para la marca.</p>
+        <span class="go">Ver tienda</span>
+      </a>
+      <a class="card case rv s" target="_blank" rel="noopener noreferrer" href="https://scatola.com.mx/" data-k="scatola aplicaciones apps integraciones">
+        <div class="top"><span class="badge">Varias apps conectadas</span></div>
+        <h4>“¿Se conecta con lo que ya uso?”</h4>
+        <p class="who"><b>Scatola.</b> Varias apps instaladas que trabajan juntas.</p>
+        <span class="go">Ver tienda</span>
+      </a>
+    </div>
+    <p class="swipehint">Desliza para ver más →</p>
+
+    <p class="minihead">Más tiendas grandes para enseñar</p>
+    <div class="chips">
+      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.tienda.chicco.com.mx/" data-k="chicco tienda grande">Chicco México<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.tiendaluzsavinon.com/" data-k="montepío luz saviñón tienda grande">Montepío Luz Saviñón<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.rizosmexicanos.com/" data-k="rizos mexicanos tienda grande">Rizos Mexicanos<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.telmov.mx/" data-k="telmov tienda grande">Telmov<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+      <a class="chip s" target="_blank" rel="noopener noreferrer" href="https://www.ayguey.com/" data-k="ay güey tienda grande">Ay Güey<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+    </div>
+
+    <div class="sublabel" id="objecion"><span class="num">1.3</span><h3>Battle cards</h3></div>
+    <a class="card feature wide rv s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1iM0IBfGTNULcXBVzusAkIeSt_GjF_zOC9E91z4cHorg/edit?slide=id.g3f9eac4479e_44_1517#slide=id.g3f9eac4479e_44_1517" data-k="battle cards competencia shopify vtex woocommerce objeción comparativo">
+      <svg class="mark" aria-hidden="true"><use href="#iso"/></svg>
+      <div class="top"><span class="badge">Battle cards</span></div>
+      <h4>Battle cards contra la competencia</h4>
+      <p>Comparativos por plataforma y respuestas a las objeciones que más salen. Pregunta con cuál los comparan y abre solo esa tarjeta.</p>
+      <span class="go">Abrir battle cards</span>
+    </a>
+  </div>
+</section>
+
+<section class="block" id="construir">
+  <span class="bignum" aria-hidden="true">02</span>
+  <div class="wrap">
+    <div class="kicker rv">Ruta 02 · Construir</div>
+    <h2 class="sec rv">Para armar la tienda</h2>
+    <p class="sub rv">Antes de cotizar, revisa si lo que pide el cliente ya viene, va con app o hay que desarrollarlo.</p>
+
+    <div class="sublabel" id="capacidades"><span class="num">2.1</span><h3>¿Esto se puede hacer?</h3></div>
+    <div class="legend rv">
+      <span><span class="lvl nat">Nativo</span>ya viene en la plataforma</span>
+      <span><span class="lvl app">Con app</span>se instala una app</span>
+      <span><span class="lvl dev">Desarrollo</span>lo programa tu equipo</span>
+    </div>
+    <div class="faq">
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="erp integración sap odoo sistema api">
+        <span class="qq">¿Se conecta con su ERP?</span><span class="lvl dev">App o desarrollo</span>
+        <span class="aa">Sí, por API. Antes de cotizar, revisa si ya hay app para su ERP. <span class="confirm">[CONFIRMAR: apps de ERP disponibles en MX]</span></span>
+      </a>
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="inventarios stock sincronizar existencias api">
+        <span class="qq">¿Sincroniza inventarios con otro sistema?</span><span class="lvl dev">Desarrollo</span>
+        <span class="aa">Sí, por API. El stock por producto y variante ya viene en el administrador.</span>
+      </a>
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="crm clientes integración api">
+        <span class="qq">¿Se conecta con su CRM?</span><span class="lvl dev">Desarrollo</span>
+        <span class="aa">Sí, por API.</span>
+      </a>
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX" data-k="pasarelas pagos medios de pago tarjeta meses">
+        <span class="qq">¿Qué pasarelas de pago acepta?</span><span class="lvl tbd">Por confirmar</span>
+        <span class="aa"><span class="confirm">[CONFIRMAR: pasarelas disponibles en México, cuáles son nativas y cuáles van con app]</span></span>
+      </a>
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX" data-k="envíos paqueterías logística guías">
+        <span class="qq">¿Cómo resuelve los envíos?</span><span class="lvl tbd">Por confirmar</span>
+        <span class="aa"><span class="confirm">[CONFIRMAR: opciones de envío nativas y paqueterías integradas en México]</span></span>
+      </a>
+      <a class="fq s" href="#editor-plantillas" data-k="diseño a la medida custom tema ipanema editor de plantillas cli fork">
+        <span class="qq">¿Puedo hacer un diseño 100% a la medida?</span><span class="lvl dev">Desarrollo</span>
+        <span class="aa">Sí, con el Editor de plantillas y el CLI. Para tocar layouts o bloques, haz fork del tema.</span>
+      </a>
+      <a class="fq s" href="#b2b" data-k="mayoreo mayoristas b2b menudeo precios">
+        <span class="qq">¿Puede vender al mayoreo y al menudeo en la misma tienda?</span><span class="lvl nat">Nativo</span>
+        <span class="aa">Sí, desde el plan Tiendanube. No aplica en Gratis ni Básico.</span>
+      </a>
+      <a class="fq s" href="#prueba" data-k="apps integraciones herramientas tienda de aplicaciones scatola">
+        <span class="qq">¿Funciona con las herramientas que ya usa?</span><span class="lvl app">Con app</span>
+        <span class="aa">Depende de la herramienta. Scatola es un buen ejemplo de tienda con varias apps. <span class="confirm">[CONFIRMAR: link a la Tienda de Aplicaciones]</span></span>
+      </a>
+      <a class="fq s" href="#lumi" data-k="ia lumi catálogo descripciones seo imágenes">
+        <span class="qq">¿Puede cargar catálogo y descripciones con IA?</span><span class="lvl nat">Nativo</span>
+        <span class="aa">Sí, con Lumi en planes pagos. Cada acción gasta créditos.</span>
+      </a>
+      <a class="fq s" href="#mcp" data-k="mcp chatgpt claude gemini reportes cambios masivos">
+        <span class="qq">¿Puedo editar productos o sacar reportes desde ChatGPT o Claude?</span><span class="lvl nat">Nativo</span>
+        <span class="aa">Sí, con Admin MCP.</span>
+      </a>
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="app propia desarrollo api crear app">
+        <span class="qq">¿Puedo crear una app propia para mi cliente?</span><span class="lvl dev">Desarrollo</span>
+        <span class="aa">Sí, con la API. La documentación tiene el paso a paso.</span>
+      </a>
+      <a class="fq s" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1Vd7VlKleZGQhVCZkmgcR2_Bw3pHK0Gd9bO-JA2fEFMY/edit?slide=id.p1#slide=id.p1" data-k="checkout personalizar pago">
+        <span class="qq">¿Puedo personalizar el checkout?</span><span class="lvl tbd">Por confirmar</span>
+        <span class="aa"><span class="confirm">[CONFIRMAR: qué se puede cambiar del checkout y con qué herramienta]</span></span>
+      </a>
+    </div>
+
+    <p class="minihead">¿Necesitas más detalle?</p>
+    <div class="links rv s" data-k="capacidades técnicas presentación api desarrolladores rest integración erp crm inventarios apps arquitectura">
+      <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/presentation/d/1Vd7VlKleZGQhVCZkmgcR2_Bw3pHK0Gd9bO-JA2fEFMY/edit?slide=id.p1#slide=id.p1">Presentación de capacidades técnicas, por si llega su equipo de sistemas <span>Presentación</span></a>
+      <a target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started">API de Tiendanube, para conectar ERP, CRM o inventarios, o crear apps <span>Documentación</span></a>
+    </div>
+
+    <div class="sublabel" id="editor-plantillas"><span class="num">2.2</span><h3>Editor de plantillas</h3></div>
+    <div class="panel rv s" data-k="ipanema editor de plantillas diseño tema theme secciones bloques cli fork css">
+      <p class="lead2">El tema base para tiendas a la medida. Se edita por secciones y es el único con desarrollo completo de código.</p>
+      <ul class="checks">
+        <li>Armas la tienda con más de 15 secciones y bloques, sin código.</li>
+        <li>Cambias colores, tipografía y CSS por sección y ves el resultado antes de publicar.</li>
+      </ul>
+      <p class="warn1"><b>Antes de cotizar</b>, para editar layouts, secciones o bloques tienes que hacer fork del tema.</p>
+      <details class="more">
+        <summary>Para desarrollo, usa el CLI</summary>
+        <p class="qnote">Trabajas el tema desde tu editor de código. Este es el flujo:</p>
+<pre class="cli"><span class="k">tiendanube</span> theme create --base-theme ipanema
+<span class="k">tiendanube</span> theme pull --theme-id ID
+<span class="k">tiendanube</span> theme fork
+<span class="k">tiendanube</span> theme watch
+<span class="k">tiendanube</span> theme publish</pre>
+      </details>
+      <div class="links">
+        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/diseno-ipanema">Guías del Editor de plantillas <span>Diseño</span></a>
+        <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/overview">CLI de Tiendanube <span>Desarrollo</span></a>
+        <a target="_blank" rel="noopener noreferrer" href="https://dev.tiendanube.com/en/docs/developer-tools/cli/theme-development">Desarrollo de temas con el CLI <span>Desarrollo</span></a>
+      </div>
+    </div>
+
+    <div class="sublabel" id="b2b"><span class="num">2.3</span><h3>Mayoreo (B2B)</h3></div>
+    <div class="panel rv s" data-k="b2b mayoristas mayoreo distribuidores tabla de precios autorregistro wholesale">
+      <p class="lead2">Menudeo y mayoreo en la misma tienda. El mayorista inicia sesión y ve sus propios precios.</p>
+      <ul class="checks">
+        <li>Tablas de precios por catálogo, categoría o producto.</li>
+        <li>Pedido mínimo, pagos y envíos solo para mayoristas.</li>
+        <li>El mayorista se registra solo.</li>
+      </ul>
+      <p class="warn1"><b>Antes de cotizar</b>, revisa el plan. Funciona desde el plan Tiendanube, no en Gratis ni Básico.</p>
+      <details class="more">
+        <summary>¿Tu cliente tiene caso B2B?</summary>
+        <ol class="qlist">
+          <li>¿Le vende a distribuidores o revendedores?</li>
+          <li>¿Toma pedidos de mayoreo por WhatsApp o Excel?</li>
+          <li>¿Maneja precios distintos por volumen?</li>
+        </ol>
+        <p class="qnote">Si contesta que sí a cualquiera, propónselo.</p>
+      </details>
+      <div class="links">
+        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/ventas-mayoristas/que-es-y-como-configurar-la-funcion-de-ventas-mayoristas-y-minoristas-de-tiendanube">Cómo configurarlo <span>Guía</span></a>
+        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/ventas-mayoristas/como-crear-y-activar-la-tabla-de-precios-para-mayoristas-en-tiendanube">Crear la tabla de precios <span>Guía</span></a>
+        <a target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/ventas-mayoristas/preguntas-frecuentes-sobre-ventas-mayoristas-y-minoristas-por-tiendanube">Preguntas frecuentes <span>Guía</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="support" id="soporte">
   <svg class="ghost2" aria-hidden="true"><use href="#iso"/></svg>
   <div class="wrap">
     <div class="kicker rv">Soporte</div>
-    <h2 class="sec rv">¿No está aquí? Está en <em>una de estas cuatro.</em></h2>
-    <p class="sub rv">Orden sugerido: primero el Centro de ayuda, luego la documentación técnica y, si sigue sin resolverse, tu Partner Manager.</p>
+    <h2 class="sec rv">¿No lo encontraste?</h2>
+    <p class="sub rv">Busca primero en el Centro de ayuda. Si es algo técnico, ve a la documentación. Si sigue sin salir, escríbele a tu Partner Manager.</p>
     <div class="grid g4 sup">
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX" data-k="centro de ayuda soporte"><h4>Centro de ayuda</h4><p>Guías paso a paso de cada función.</p><span class="go">ayuda.tiendanube.com</span></a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="api dev"><h4>Documentación técnica</h4><p>API, apps y CLI para desarrolladores.</p><span class="go">tiendanube.dev</span></a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/134111-asociate-con-tiendanube" data-k="partners socios cuenta"><h4>Ayuda para Partners</h4><p>Tu cuenta de socio y el programa.</p><span class="go">Ver guías</span></a>
-      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://lanzamientos.tiendanube.com/" data-k="lanzamientos novedades producto"><h4>Lanzamientos</h4><p>Todo lo nuevo de producto, al día.</p><span class="go">Ver lanzamientos</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX" data-k="centro de ayuda soporte guías"><h4>Centro de ayuda</h4><p>Guías paso a paso de cada función.</p><span class="go">ayuda.tiendanube.com</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://tiendanube.dev/api/getting-started" data-k="api dev documentación técnica"><h4>Documentación técnica</h4><p>API, apps y CLI.</p><span class="go">tiendanube.dev</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://ayuda.tiendanube.com/es_MX/134111-asociate-con-tiendanube" data-k="partners socios cuenta programa"><h4>Ayuda para Partners</h4><p>Tu cuenta de socio y el programa.</p><span class="go">Ver guías</span></a>
+      <a class="card rv s" target="_blank" rel="noopener noreferrer" href="https://lanzamientos.tiendanube.com/" data-k="lanzamientos novedades producto"><h4>Lanzamientos</h4><p>Lo que va saliendo de producto.</p><span class="go">Ver lanzamientos</span></a>
     </div>
   </div>
 </section>
@@ -618,7 +693,7 @@ details.more>*:not(summary){margin:0 16px 16px}
     </div>
     <div>
       <p>Hub de Agencias · Responsable: Alan Cervantes, Partner Manager Agencias MX</p>
-      <p>Última actualización: 1 de octubre de 2026</p>
+      <p>Última actualización: 6 de octubre de 2026</p>
     </div>
   </div>
 </footer>
@@ -657,7 +732,7 @@ details.more>*:not(summary){margin:0 16px 16px}
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  var WORDS = ['vender.', 'construir.', 'escalar.'];
+  var WORDS = ['vender.', 'cotizar.', 'construir.'];
   var rot = d.getElementById('rot'), wi = 0;
   if (rot && !reduce) {
     window.setInterval(function () {
@@ -679,7 +754,7 @@ details.more>*:not(summary){margin:0 16px 16px}
   } else { rv.forEach(function (el) { el.classList.add('in'); }); }
 
   var navs = [].slice.call(d.querySelectorAll('[data-nav]'));
-  var secs = ['inicio', 'vender', 'construir', 'novedades'].map(function (id) { return d.getElementById(id); }).filter(Boolean);
+  var secs = ['inicio', 'novedades', 'vender', 'construir'].map(function (id) { return d.getElementById(id); }).filter(Boolean);
   if ('IntersectionObserver' in window) {
     var so = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
@@ -704,7 +779,7 @@ details.more>*:not(summary){margin:0 16px 16px}
   var input = d.getElementById('q'), none = d.getElementById('noresults'),
       box = d.getElementById('searchbox'), count = d.getElementById('count');
   var items = [].slice.call(d.querySelectorAll('.s'));
-  var labels = [].slice.call(d.querySelectorAll('.sublabel, .minihead, .subnote, .swipehint'));
+  var labels = [].slice.call(d.querySelectorAll('.sublabel, .minihead, .subnote, .swipehint, .legend'));
   var MAX = 60;
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   var index = items.map(function (el) { return norm(el.textContent + ' ' + (el.getAttribute('data-k') || '')); });
